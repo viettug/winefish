@@ -1,0 +1,12 @@
+[General]
+DebuggerCmdStr=
+FileVersion=1
+ProgramArgs=-l 20 document.c
+TTYLevel=7
+WorkingDirectory=/home/users/kyanh/winefish/src
+
+[Memory]
+ColumnWidths=80,0
+Expression1=sadf
+Format1=19
+NumExprs=1
