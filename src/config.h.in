@@ -1,0 +1,110 @@
+/* $Id: config.h.in,v 1.2 2005/07/06 02:31:21 kyanh Exp $ */
+
+/* Winefish LaTeX Editor
+ * config.h.in - autoconf template
+ *
+ * Copyright (C) 2002-2004 Olivier Sessink
+ * Modified for Winefish (C) 2005 2006 kyanh <kyanh@o2.pl> 
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+/* header files */
+#ifndef HAVE_STDLIB_H /* supress warning when jconfig.h is included */
+#undef HAVE_STDLIB_H 
+#endif /* HAVE_STDLIB_H */
+
+#undef HAVE_UNISTD_H 
+#undef HAVE_STRING_H 
+#undef HAVE_STRINGS_H 
+#undef HAVE_ERRNO_H 
+#undef HAVE_STDIO_H 
+#undef HAVE_SYS_STAT_H 
+#undef HAVE_CTYPE_H 
+#undef HAVE_GETOPT_H 
+#undef HAVE_MATH_H 
+#undef HAVE_TIME_H 
+#undef HAVE_SYS_TYPES_H 
+#undef HAVE_FCNTL_H 
+#undef HAVE_NETDB_H 
+#undef HAVE_NETINET_IN_H 
+#undef HAVE_SYS_SOCKET_H 
+#undef HAVE_ARPA_INET_H 
+#undef HAVE_DIRENT_H
+#undef HAVE_SYS_SELECT_H
+
+#undef HAVE_MALLOC_H
+#undef HAVE_NL_TYPES_H
+#undef HAVE_ALLOCA_H
+#undef HAVE_SYS_IPC_H
+#undef HAVE_SYS_MSG_H
+
+/* libaspell */
+#undef HAVE_LIBASPELL
+
+/* gnome-vfs-2.0 */
+#undef HAVE_GNOME_VFS
+
+/* Define if you have the ANSI C header files.  */
+#undef STDC_HEADERS
+
+/* Define if you have alloca, as a function or macro.  */
+#undef HAVE_ALLOCA
+
+/* Define if using alloca.c.  */
+#undef C_ALLOCA
+
+#undef PACKAGE
+#undef VERSION
+#undef CURRENT_VERSION_NAME
+
+#undef CONFIGURE_OPTIONS
+
+/* debugging output */
+#undef DEBUG
+#undef DEVELOPMENT
+
+/* find and grep for open advanced */
+#undef EXTERNAL_FIND
+#undef EXTERNAL_GREP
+
+/* i18n */
+#undef ENABLE_NLS
+
+/* highlighting pattern profiling */
+#undef HL_PROFILING
+
+#undef HAVE_ATLEAST_GTK_2_2
+#undef HAVE_ATLEAST_GTK_2_4
+#undef HAVE_ATLEAST_GNOMEUI_2_6
+#undef PLATFORM_DARWIN
+
+/*********************** winefish ***********************/
+
+#undef HAVE_UNIKEY_GTK
+#undef HAVE_VNTEX
+#undef HAVE_CONTEXT
+
+/* maximum length of latex command. for command collector */
+#define COMMAND_MAX_LENGTH 20
+/* maximum length of autotext command /foobar */
+#define AUTOTEXT_MAX_LENGTH 20
+/* delimiters for recognization of latex commands */
+#define DELIMITERS " `1234567890-=~!@#$%^&*()_+[]{};':\",./<>?\\|"
+
+/* with splash screen */
+#undef NOSPLASH
+
+/*********************** winefish ***********************/
