@@ -23,6 +23,8 @@
 
 #include "outputbox_cfg.h"
 
+/*#define DEBUG*/
+
 #ifdef __BF_BACKEND__
 
 #include <gtk/gtk.h>
@@ -84,8 +86,9 @@ static void externalp_unref(Texternalp *ep) {
 			g_free(ep->securedir);
 		}
 		g_free(ep);
+		finish_execute(ep->ob);
 	}
-	finish_execute(ep->ob);
+	/*finish_execute(ep->ob);*/ /* BUG#70 */
 }
 
 static gboolean start_command_write_lcb(GIOChannel *channel,GIOCondition condition,gpointer data) {
@@ -100,7 +103,9 @@ static gboolean start_command_write_lcb(GIOChannel *channel,GIOCondition conditi
 	ep->buffer_out_position += bytes_written;
 	if (strlen(ep->buffer_out) <= (ep->buffer_out_position - ep->buffer_out)) {
 		DEBUG_MSG("start_command_write_lcb, finished, shutting down channel\n");
+		g_io_channel_flush(channel,NULL);
 		g_io_channel_shutdown(channel,TRUE,&error);
+		/* TODO: g_io_channel_unref( ob->handle->channel_out ); */
 		if (ep->tmp_in) {
 			start_command_backend(ep);
 		} else {
@@ -255,7 +260,7 @@ static gboolean outputbox_io_watch_lcb(GIOChannel *channel,GIOCondition conditio
 			return FALSE;
 			break;
 		default:
-			DEBUG_MSG("outputbox_io_watch_lcb: stoppped flag. Return...\n");
+			DEBUG_MSG("outputbox_io_watch_lcb: stoppped flag. return. fetching=%d\n", ob->OB_FETCHING);
 			return FALSE;
 			break;
 	}
@@ -311,20 +316,8 @@ static gboolean outputbox_io_watch_lcb(GIOChannel *channel,GIOCondition conditio
 }
 
 void run_command(Toutputbox *ob) {
-	DEBUG_MSG("==================================\n");
-	file_save_cb( NULL, ob->bfwin );
-	{
-		gchar *format_str;
-		if ( ob->bfwin->project && ( ob->bfwin->project->view_bars & PROJECT_MODE ) ) {
-			format_str = g_strdup_printf(_("%s # project mode: ON"), ob->def->command );
-		} else {
-			format_str = g_strdup_printf(_("%s # project mode: OFF"), ob->def->command );
-		}
-		outputbox_message( ob, format_str, "i" );
-		g_free( format_str );
-		flush_queue();
-	}
-	if ( ob->bfwin->current_document->filename ) {
+	DEBUG_MSG("run_command, ==================================\n");
+	/*if ( ob->bfwin->current_document->filename ) {*/
 		{
 			gchar * tmpstring;
 			if ( ob->bfwin->project && ( ob->bfwin->project->view_bars & PROJECT_MODE ) && ob->bfwin->project->basedir )
@@ -332,7 +325,11 @@ void run_command(Toutputbox *ob) {
 				tmpstring = g_strdup( ob->bfwin->project->basedir );
 			} else
 			{
-				tmpstring = g_path_get_dirname( ob->bfwin->current_document->filename );
+				if (ob->bfwin->current_document->filename) {
+					tmpstring = g_path_get_dirname( ob->bfwin->current_document->filename );
+				}else{
+					tmpstring = g_strdup(".");
+				}
 			}
 			/* outputbox_message(ob, g_strconcat("> working dir: ", tmpstring, NULL)); */
 			chdir( tmpstring );
@@ -340,7 +337,8 @@ void run_command(Toutputbox *ob) {
 		}
 		
 		Texternalp *ep;
-		menuitem_set_sensitive(ob->bfwin->menubar, N_("/External/Stop..."), TRUE);
+		/* menuitem_set_sensitive(ob->bfwin->menubar, N_("/External/Stop..."), TRUE); */
+		outputbox_set_status(ob, TRUE, FALSE);
 
 		ep = g_new0(Texternalp,1);
 		/* ep->formatstring = formatstring; */
@@ -365,10 +363,12 @@ void run_command(Toutputbox *ob) {
 		ep->ob = ob;
 
 		start_command(ep);
+		/*	
 	} else {
 		ob->OB_FETCHING = OB_IS_READY;
 		outputbox_message( ob, _("tool canceled."), "b" );
 	}
+		*/
 }
 
 static gboolean finish_execute_called = FALSE;
@@ -383,6 +383,7 @@ void finish_execute( Toutputbox *ob ) {
 	}
 	if (!(ob->OB_FETCHING == OB_IS_STOPPED)) {
 		ob->OB_FETCHING = OB_IS_STOPPED;
+		g_io_channel_flush(ob->handle->channel_out,NULL);
 		g_io_channel_shutdown(ob->handle->channel_out,TRUE/*flush*/,NULL);
 		g_io_channel_unref( ob->handle->channel_out );
 		if ( child_pid_exit_code > -1 ) {
@@ -394,12 +395,15 @@ void finish_execute( Toutputbox *ob ) {
 		}
 	}
 	/**/
+	ob->basepath_cached_color = FALSE;
+	g_free( ob->basepath_cached );
 	g_free( ob->def->pattern );
 	regfree( &ob->def->preg );
 	g_free( ob->def->command );
 	g_free( ob->def );
 	/**/
-	menuitem_set_sensitive(ob->bfwin->menubar, N_("/External/Stop..."), FALSE);
+	/* menuitem_set_sensitive(ob->bfwin->menubar, N_("/External/Stop..."), FALSE); */
+	outputbox_set_status(ob, FALSE, FALSE);
 	ob->handle->child_pid = 0;
 	ob->OB_FETCHING = OB_IS_READY;
 	finish_execute_called = FALSE;
