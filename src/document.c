@@ -1,4 +1,4 @@
-/* $Id: document.c 93 2005-08-12 03:30:45Z kyanh $ */
+/* $Id$ */
 
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
 * document.c - the document
@@ -757,25 +757,25 @@ static void doc_set_tooltip( Tdocument *doc )
 		ctime_r( &doc->statbuf.st_mtime, mtimestr );
 		sizestr = g_strdup_printf( "%ld", doc->statbuf.st_size );
 	}
-	tmp = text = g_strconcat( _( "Name: " ), gtk_label_get_text( GTK_LABEL( doc->tab_menu ) )
-					, _( "\nType: " ), doc->hl->type
-					, _( "\nEncoding: " ), ( doc->encoding != NULL ) ? doc->encoding : main_v->props.newfile_default_encoding
+	tmp = text = g_strconcat( _( "name: " ), gtk_label_get_text( GTK_LABEL( doc->tab_menu ) )
+					, _( "\ntype: " ), doc->hl->type
+					, _( "\nencoding: " ), ( doc->encoding != NULL ) ? doc->encoding : main_v->props.newfile_default_encoding
 					, NULL );
 	if ( sizestr ) {
-		text = g_strconcat( text, _( "\nSize (on disk): " ), sizestr, _( " bytes" ), NULL );
+		text = g_strconcat( text, _( "\nsize (on disk): " ), sizestr, _( " bytes" ), NULL );
 		g_free( tmp );
 		g_free( sizestr );
 		tmp = text;
 	}
 	if ( modestr ) {
-		text = g_strconcat( text, _( "\nPermissions: " ), modestr, NULL );
+		text = g_strconcat( text, _( "\npermissions: " ), modestr, NULL );
 		g_free( tmp );
 		g_free( modestr );
 		tmp = text;
 	}
 	if ( mtimestr[ 0 ] != '\0' ) {
 		trunc_on_char( mtimestr, '\n' );
-		text = g_strconcat( text, _( "\nLast modified: " ), mtimestr, NULL );
+		text = g_strconcat( text, _( "\nlast modified: " ), mtimestr, NULL );
 		g_free( tmp );
 		tmp = text;
 	}
@@ -1112,7 +1112,7 @@ static void doc_set_statusbar_lncol( Tdocument *doc )
 		gtk_text_iter_forward_char( &start );
 	}
 
-	msg = g_strdup_printf( _( " Ln %d, Col %d" ), line + 1, col + 1 );
+	msg = g_strdup_printf( "%d,%d", line + 1, col + 1 );
 
 	gtk_statusbar_pop( GTK_STATUSBAR( BFWIN( doc->bfwin ) ->statusbar_lncol ), 0 );
 	gtk_statusbar_push( GTK_STATUSBAR( BFWIN( doc->bfwin ) ->statusbar_lncol ), 0, msg );
@@ -1131,7 +1131,7 @@ static void doc_set_statusbar_lncol( Tdocument *doc )
 void doc_set_statusbar_insovr( Tdocument *doc )
 {
 	gtk_statusbar_pop( GTK_STATUSBAR( BFWIN( doc->bfwin ) ->statusbar_insovr ), 0 );
-	gtk_statusbar_push( GTK_STATUSBAR( BFWIN( doc->bfwin ) ->statusbar_insovr ), 0, ( doc->overwrite_mode ? " OVR" : " INS" ) );
+	gtk_statusbar_push( GTK_STATUSBAR( BFWIN( doc->bfwin ) ->statusbar_insovr ), 0, ( doc->overwrite_mode ? "OVR" : "INS" ) );
 }
 /**
 * doc_set_statusbar_editmode_encoding:
@@ -1146,9 +1146,9 @@ void doc_set_statusbar_editmode_encoding( Tdocument *doc )
 {
 	gchar * msg;
 	if ( doc->hl == NULL )
-		msg = g_strdup_printf( _( "  %s, %s" ), "unknown", doc->encoding );
+		msg = g_strdup_printf( _( "%s, %s" ), "text", doc->encoding );
 	else
-		msg = g_strdup_printf( _( "  %s, %s" ), doc->hl->type, doc->encoding );
+		msg = g_strdup_printf( _( "%s, %s" ), doc->hl->type, doc->encoding );
 	gtk_statusbar_pop( GTK_STATUSBAR( BFWIN( doc->bfwin ) ->statusbar_editmode ), 0 );
 	gtk_statusbar_push( GTK_STATUSBAR( BFWIN( doc->bfwin ) ->statusbar_editmode ), 0, msg );
 	g_free( msg );
