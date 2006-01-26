@@ -1,3 +1,7 @@
+$Id$
+
+* implement message box (not statusbar_message);
+* windows/close all others
 * add option: save file before run tool (outputbox)
 * gtk2.4: gtk_combo_* => gtk_combo_box_*
 	/done/kyanh/200507/19/* add '~', '\~'
