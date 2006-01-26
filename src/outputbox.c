@@ -341,6 +341,13 @@ void outputbox(Tbfwin *bfwin, gpointer *ob, const gchar *title, gchar *pattern, 
 	gtk_widget_show_all( bfwin->ob_hbox );
 	gtk_notebook_set_current_page(GTK_NOTEBOOK(bfwin->ob_notebook), OUTPUTBOX(*ob)->page_number);
 
+	if ( OUTPUTBOX(*ob)->OB_FETCHING < OB_IS_READY ) { /* stop older output box */
+		DEBUG_MSG("outputbox: current OB_FETCHING=%d < %d\n", OUTPUTBOX(*ob)->OB_FETCHING,OB_IS_READY);
+		outputbox_message( *ob, _("tool is running. press Escape to stop it first."), "b" );
+		flush_queue();
+		return;
+	}
+
 	gtk_list_store_clear( GTK_LIST_STORE( OUTPUTBOX(*ob)->lstore ) );
 	flush_queue();
 
@@ -367,13 +374,6 @@ void outputbox(Tbfwin *bfwin, gpointer *ob, const gchar *title, gchar *pattern, 
 			flush_queue();
 			return;
 		}
-	}
-
-	if ( OUTPUTBOX(*ob)->OB_FETCHING < OB_IS_READY ) { /* stop older output box */
-		DEBUG_MSG("outputbox: current OB_FETCHING=%d < %d\n", OUTPUTBOX(*ob)->OB_FETCHING,OB_IS_READY);
-		outputbox_message( *ob, _("tool is running. press Escape to stop it first."), "b" );
-		flush_queue();
-		return;
 	}
 
 	OUTPUTBOX(*ob)->basepath_cached = NULL;
