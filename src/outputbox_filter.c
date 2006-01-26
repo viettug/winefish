@@ -79,21 +79,27 @@ void outputbox_filter_line( Toutputbox *ob, const gchar *source )
 			/* create_full_path uses the current directory if no basedir is set */
 			/* TODO: better hanlder with full path :) */
 			gchar *basepath = g_path_get_basename(filename);
-			fullpath = create_full_path( filename, NULL );
-			gtk_list_store_set( GTK_LIST_STORE( ob->lstore ), &iter, 3, fullpath, -1 );
+			
 			gchar *tmpstr;
-			tmpstr = g_markup_escape_text(basepath,-1);
+	
+			/* dealing with cached */
 			if (!ob->basepath_cached || (strcmp(ob->basepath_cached, basepath) !=0 )) {
 				ob->basepath_cached = g_strdup(basepath);
 				ob->basepath_cached_color = !ob->basepath_cached_color;
 			}
+	
+			/* display the basename */
+			tmpstr = g_markup_escape_text(basepath,-1);
 			if (!ob->basepath_cached_color ) {
-				tmpstr = g_strdup_printf("   <i>%s</i>", tmpstr);
-			}else{
-				tmpstr = g_strdup_printf("%s", tmpstr);
+				tmpstr = g_strdup_printf("<span foreground=\"blue\"><i>%s</i></span>", tmpstr);
 			}
 			gtk_list_store_set( GTK_LIST_STORE( ob->lstore ), &iter, 0, tmpstr, -1 );
+			
+			/* fullpath */
+			fullpath = create_full_path( filename, NULL );
 			DEBUG_MSG("outputbox_filter: fullpath %s\n", fullpath);
+			gtk_list_store_set( GTK_LIST_STORE( ob->lstore ), &iter, 3, fullpath, -1 );
+
 			g_free( filename );
 			g_free( fullpath );
 			g_free( basepath );
@@ -107,6 +113,9 @@ void outputbox_filter_line( Toutputbox *ob, const gchar *source )
 		}
 		if ( output ) {
 			tmp_src = g_markup_escape_text(output,-1);
+			if (!ob->basepath_cached_color ) {
+				tmp_src = g_strdup_printf("<span foreground=\"blue\"><i>%s</i></span>", tmp_src);
+			}
 			gtk_list_store_set( GTK_LIST_STORE( ob->lstore ), &iter, 2, tmp_src, -1 );
 			g_free( output );
 			g_free(tmp_src);
