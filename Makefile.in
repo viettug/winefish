@@ -1,0 +1,102 @@
+# Winefish LaTeX Editor
+#
+# Makefile.in - the Makefile template
+# Copyright (C) 2002 Olivier Sessink
+# Modified for Winefish (C) 2005 2006 kyanh <kyanh@o2.pl>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+
+SHELL = /bin/sh
+VPATH = @srcdir@
+
+PACKAGE = @PACKAGE@
+VERSION = @VERSION@
+
+srcdir = src
+
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+bindir=@bindir@
+datadir=@datadir@
+pkgdatadir=$(datadir)/$(PACKAGE)
+pixmapsdir=@prefix@/share/pixmaps
+
+INSTALLMAIN=@INSTALLMAIN@
+MAKEMAIN=@MAKEMAIN@
+
+iconpath=@ICONPATH@
+
+INSTALL = @INSTALL@
+INSTALL_DIR = $(INSTALL) -d -m 755 
+INSTALL_DATA = $(INSTALL) -m 644
+
+#make -C is a GNU extension, BSD make doesn't have it
+#use cd dir ; make all instead
+#and [ "bla" == "bla" ] does not work on netBSD
+#use [ "bla" = "bla" ] instead
+
+winefish:all
+all: ${MAKEMAIN}
+	@cd data/ && $(MAKE) all
+	@cd src/ && $(MAKE) all
+
+make-nls:
+	cd po/ && $(MAKE) all;
+
+clean:
+	rm -f core *~
+	@cd src/ && $(MAKE) clean
+	@cd po/ && $(MAKE) clean
+	@cd data/ && $(MAKE) clean
+
+patchclean: clean
+	rm -f *.orig *.rej
+	@cd src/ && $(MAKE) patchclean
+
+distclean:
+	@cd src/ && $(MAKE) distclean
+	@cd po/ && $(MAKE) distclean
+	@cd data/ && $(MAKE) distclean
+	rm -f Makefile src/Makefile icons/Makefile config.status config.cache config.log
+	rm -rf autom4te.cache/
+	rm -f *.orig *.rej
+
+install-icon:
+	$(INSTALL_DIR) $(DESTDIR)$(iconpath)
+	$(INSTALL_DATA) inline_images/winefish_icon1.png $(DESTDIR)$(iconpath)/winefish-icon.png
+
+install-nls:
+	cd po/ && $(MAKE) install
+
+install: src/winefish ${INSTALLMAIN}
+	pkgdatadir=@pkgdatadir@
+	$(INSTALL_DIR) $(DESTDIR)$(pkgdatadir)
+	$(INSTALL_DATA) images/winefish_splash.png $(DESTDIR)$(pkgdatadir)
+	@cd icons/ && $(MAKE) install
+	@cd src/ && $(MAKE) install
+	@cd data/ && $(MAKE) install
+
+uninstall:
+	@cd icons/ && $(MAKE) uninstall
+	@cd src/ && $(MAKE) uninstall
+	@cd po/ && $(MAKE) uninstall
+	@cd data/ && $(MAKE) uninstall
+	rm -f $(pkgdatadir)/winefish_splash.png
+	rm -f $(iconpath)/winefish-icon.png
+	/bin/rmdir $(DESTDIR)$(pkgdatadir)
+
+strip:
+	@cd src/ && strip winefish

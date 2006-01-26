@@ -1,0 +1,30 @@
+Winefish LaTeX Editor (based on Bluefish)
+
+Some features:
+
+  Autotext support
+  Autocompletion support
+  Command collector
+  Multiple encodings support
+  A custom menu, specify your own tags or sets of code, and define your own dialogs
+
+  Customizable syntax highlighting based on Perl Compatible regular expressions,
+  User customizable integration of many programs, including latex, pdflatex,...
+  Custom search and replace pattern support for the Custom menu
+  Wizards for startup, tables, list and others
+
+Starting Winefish:
+  run from the command line: winefish
+  run winefish -h for more startup options
+
+Documentation:
+  see ./doc/winefish.{html,txt}
+
+Homepage:
+  http://winefish.berlios.de/
+  http://winefish.viettug.org/
+  http://winefish.sourceforge.net/
+
+Mailinglists:
+  (devel) winefish-devel@lists.berlios.de
+  (user) winefish-users@lists.berlios.de
