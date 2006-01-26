@@ -1,4 +1,4 @@
-/* $Id: rcfile.c,v 1.3 2005/07/25 02:52:41 kyanh Exp $ */
+/* $Id$ */
 
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * rcfile.c - loading and parsing of the configfiles
@@ -40,6 +40,7 @@
 #include "stringlist.h"
 #include "highlight.h" /* hl_reset_to_default()*/
 #include "document.h" /* DOCUMENT_BACKUP_ABORT_ASK */
+#include "outputbox.h" /* OB_NEED_SAVE_FILE, OB_SHOW_ALL_OUTPUT */
 
 typedef struct {
 	void *pointer; /* where should the value be stored ?*/
@@ -349,7 +350,7 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.left_panel_width, "left_panel_width:", 150, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.left_panel_left, "left_panel_left:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.max_recent_files, "max_recent_files:", 15, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.max_dir_history, "max_dir_history:", 10, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.max_dir_history, "max_dir_history:", 15, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.backup_file,"backup_file:",1, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.backup_filestring,"backup_filestring:","~");
 	init_prop_integer   (&config_rc, &main_v->props.backup_abort_action,"backup_abort_action:",DOCUMENT_BACKUP_ABORT_ASK, TRUE);
@@ -455,7 +456,7 @@ void rcfile_parse_main(void)
 	/*Make the config_rc list ready for filling with data and set default values */
 	main_configlist = props_init_main(NULL);
 
-	filename = g_strconcat(g_get_home_dir(), "/.winefish/rcfile_v2", NULL);
+	filename = g_strconcat(g_get_home_dir(), "/.winefish/rcfile", NULL);
 	if (!parse_config_file(main_configlist, filename)) {
 		/* TODO: should we initialize some things ?? */
 	}
@@ -493,18 +494,29 @@ void rcfile_parse_main(void)
 	}
 	if (main_v->props.outputbox==NULL) {
 		/* if the user does not have outputbox settings --> set them to defaults values */
-		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("LaTeX"),"([^:]+):([0-9]+):(.*)","1","2","3","latex -file-line-error-style -src-specials '%B'","0",NULL));
-		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("PDFLaTeX"),"([^:]+):([0-9]+):(.*)","1","2","3","pdflatex -file-line-error-style '%B'","0",NULL));
-		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("DVIPS"),".*","-1","-1","0","dvips -o '%B.ps' '%B.dvi'","1",NULL));
-		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("DVIPDFM"),".*","-1","-1","0","dvipdfm -o '%B.pdf' '%B.dvi'","1",NULL));
-		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("View log file"),".*","-1","-1","0","cat '%B.log'","1",NULL));
+		gchar *tmpstr;
+		
+		/* used GINT_TO_POINTER ==> failed */
+		
+		tmpstr = g_strdup_printf("%d",OB_NEED_SAVE_FILE);
+		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist("LaTeX","([^:]+):([0-9]+):(.*)","1","2","3",OB_LaTeX,tmpstr,NULL));
+		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist("PDFLaTeX","([^:]+):([0-9]+):(.*)","1","2","3",OB_PDFLaTeX,tmpstr,NULL));
+		
+		tmpstr = g_strdup_printf("%d",OB_NEED_SAVE_FILE + OB_SHOW_ALL_OUTPUT);
+		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist("DVIPS",".*","-1","-1","0",OB_DVIPS,tmpstr,NULL));
+		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist("DVIPDFM",".*","-1","-1","0",OB_DVIPDFM,tmpstr,NULL));
+		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist("View Log File",".*","-1","-1","0",OB_ViewLog,tmpstr,NULL));
+	
+		tmpstr = g_strdup_printf("%d", OB_SHOW_ALL_OUTPUT);
+		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist("Soft Clean",".*","-1","-1","0",OB_SoftClean,tmpstr,NULL));
+		g_free(tmpstr);
 	}
 	if (main_v->props.external_commands == NULL) {
 		/* if the user does not have external commands --> set them to defaults values */
 		gchar **arr;
-		arr = array_from_arglist(_("Dos2Unix filter"), "cat '%f' | dos2unix > '%o'",NULL);
+		arr = array_from_arglist("Dos2Unix filter",OB_Dos2Unix,NULL);
 		main_v->props.external_commands = g_list_append(main_v->props.external_commands,arr);
-		arr = array_from_arglist(_("Tidy cleanup filter"), "cat '%f' | tidy -utf8 -q >'%o' 2>/dev/null",NULL);
+		arr = array_from_arglist("Tidy cleanup filter", OB_Tidy,NULL);
 		main_v->props.external_commands = g_list_append(main_v->props.external_commands,arr);
 	}
 	{
@@ -573,7 +585,7 @@ void rcfile_parse_main(void)
 }
 
 static gint rcfile_save_main(void) {
-	gchar *filename = g_strconcat(g_get_home_dir(), "/.winefish/rcfile_v2", NULL);
+	gchar *filename = g_strconcat(g_get_home_dir(), "/.winefish/rcfile", NULL);
 	return save_config_file(main_configlist, filename);
 }
 /*
@@ -988,7 +1000,7 @@ gboolean rcfile_parse_global_session(void) {
 		/* versions before 0.13 did not have a separate session file, so 
 		we'll try to load these items from rcfile_v2 */
 		g_free(filename);
-		filename = g_strconcat(g_get_home_dir(), "/.winefish/rcfile_v2", NULL);
+		filename = g_strconcat(g_get_home_dir(), "/.winefish/rcfile", NULL);
 	}
 #endif
 	retval = parse_config_file(configlist, filename);
