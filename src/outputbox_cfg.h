@@ -3,7 +3,7 @@
 
 #include "config.h"
 /*
- kyanh's backend:
+ kyanh's backend: <=== unmaintained !!!
  	- good, but for *nix* only
  	- trouble with dvips
  	- require gtk2.2
