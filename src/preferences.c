@@ -1,4 +1,4 @@
-/* $Id: preferences.c,v 1.2 2005/07/21 08:23:27 kyanh Exp $ */
+/* $Id$ */
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * preferences.c the preferences code
  *
@@ -1298,9 +1298,9 @@ static void create_autotext_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_autotext_lcb), pd);
 	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
 	{
-		GtkTooltips *add_tips;
-		add_tips = gtk_tooltips_new();
-		gtk_tooltips_set_tip(GTK_TOOLTIPS(add_tips), but, _("Add new autotext definition.\nStart finding the old one by pressing CTRL+F.\nYou may click on the list first."), NULL);
+		/*GtkTooltips *add_tips;
+		add_tips = gtk_tooltips_new();*/
+		gtk_tooltips_set_tip(main_v->tooltips, but, _("Add new autotext definition.\nStart finding the old one by pressing CTRL+F."), NULL);
 	}
 	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_autotext_lcb), pd);
 	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
@@ -1350,9 +1350,9 @@ static void create_completion_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_completion_lcb), pd);
 	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
 	{
-		GtkTooltips *add_tips;
-		add_tips = gtk_tooltips_new();
-		gtk_tooltips_set_tip(GTK_TOOLTIPS(add_tips), but, _("Add new word -- should be started by '\\'.\nStart finding the old one by pressing CTRL+F.\nYou may click on the list first."), NULL);
+		/* GtkTooltips *add_tips;
+		add_tips = gtk_tooltips_new(); */
+		gtk_tooltips_set_tip(main_v->tooltips, but, _("Add new word which should be started by '\\'.\nStart finding the old one by pressing CTRL+F."), NULL);
 	}
 	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_completion_lcb), pd);
 	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
@@ -1430,7 +1430,7 @@ static void set_outputbox_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tpre
 	if (arrcount==7) {
 		gtk_list_store_set(GTK_LIST_STORE(pd->od.lstore), iter
 				,0,strarr[0],1,strarr[1],2,strarr[2],3,strarr[3]
-				,4,strarr[4],5,strarr[5],6,(strarr[6][0] != '0')
+						,4,strarr[4],5,strarr[5],6,strarr[6]/*(strarr[6][0] != '0')*/
 				,7,strarr,-1);
 	}
 }
@@ -1455,10 +1455,15 @@ static void outputbox_4_edited_lcb(GtkCellRendererText *cellrenderertext,gchar *
 static void outputbox_5_edited_lcb(GtkCellRendererText *cellrenderertext,gchar *path,gchar *newtext,Tprefdialog *pd) {
 	outputbox_apply_change(pd, 1, path, newtext, 5);
 }
+/*
 static void outputbox_6_toggled_lcb(GtkCellRendererToggle *cellrenderertoggle,gchar *path,Tprefdialog *pd) {
 	gchar *val = g_strdup(cellrenderertoggle->active ? "0" : "1");
 	outputbox_apply_change(pd, 2, path, val, 6);
 	g_free(val);
+}
+*/
+static void outputbox_6_edited_lcb(GtkCellRendererText *cellrenderertext,gchar *path,gchar *newtext,Tprefdialog *pd) {
+	outputbox_apply_change(pd, 1, path, newtext, 6);
 }
 static void add_new_outputbox_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	gchar **strarr;
@@ -1476,7 +1481,7 @@ static void delete_outputbox_lcb(GtkWidget *wid, Tprefdialog *pd) {
 static void create_outputbox_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	GtkWidget *hbox, *but, *scrolwin;
 	pd->lists[outputbox] = duplicate_arraylist(main_v->props.outputbox);
-	pd->od.lstore = gtk_list_store_new (8,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_BOOLEAN,G_TYPE_POINTER);
+	pd->od.lstore = gtk_list_store_new (8,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING/*G_TYPE_BOOLEAN*/,G_TYPE_POINTER);
 	pd->od.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->od.lstore));
 	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_0_edited_lcb), pd, _("Name"), 0, FALSE);
 	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_1_edited_lcb), pd, _("Pattern"), 1, FALSE);
@@ -1484,7 +1489,7 @@ static void create_outputbox_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_3_edited_lcb), pd, _("Line #"), 3, FALSE);
 	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_4_edited_lcb), pd, _("Output #"), 4, FALSE);
 	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_5_edited_lcb), pd, _("Command"), 5, FALSE);
-	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 2, G_CALLBACK(outputbox_6_toggled_lcb), pd, _("Show all output"), 6, FALSE);
+	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_6_edited_lcb), pd, _("Save, Show"), 6, FALSE);
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->od.lview);
@@ -1521,7 +1526,23 @@ static void create_outputbox_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 
 /* kyanh, added, 20050221 */
 static void create_outputbox_info_gui(Tprefdialog *pd, GtkWidget *vbox1) {
-	gtk_box_pack_start(GTK_BOX(vbox1),gtk_label_new(_("%D: basedir of project\n%B: basefile (without extension) of project\n%d: current directory\n%b: basename (without extension) of current file\n%f: current file (full path)\n%l: current line\n\nIf there isNOT any project opened, OR project mode is off,\nwe have\n\t%D=%d and %B=%b")), TRUE, TRUE, 2);
+	gtk_box_pack_start(GTK_BOX(vbox1),gtk_label_new(
+_(
+"%D: basedir of project\n\
+%B: basefile (without extension) of project\n\
+%d: current directory\n\
+%b: basename (without extension) of current file\n\
+%f: current file (full path)\n\
+%l: current line\n\
+\n\
+If there isn't any project, or project mode is off, we have\n\
+\t%D=%d and %B=%b\n\
+\n\
+Save/Show:\n\
+\tNeed save file: 1\n\
+\tShow all output: 2\n\
+\tBoth of them: 1+2 =3\
+")), TRUE, TRUE, 2);
 }
 
 
@@ -1648,7 +1669,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	main_v->props.external_commands = duplicate_arraylist(pd->lists[external_commands]);
 	
 	free_arraylist(main_v->props.outputbox);
-	main_v->props.outputbox	 = duplicate_arraylist(pd->lists[outputbox]);
+	main_v->props.outputbox = duplicate_arraylist(pd->lists[outputbox]);
 
 	/* autotext rebuild the list */
 	if (pd->att.refreshed) {/* we only update the list after user press REFRESH */
@@ -1941,7 +1962,7 @@ static void preferences_dialog() {
 	create_filefilter_gui(pd, vbox2);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
-	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Syntax highlighting"), 158,TRUE));
+	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Highlighting"), 158,TRUE));
 
 	frame = gtk_frame_new(_("Patterns"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
@@ -1951,7 +1972,7 @@ static void preferences_dialog() {
 	create_highlightpattern_gui(pd, vbox2);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
-	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Viewers & Filters"), 151,TRUE));
+	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Viewers, Filters"), 151,TRUE));
 
 	frame = gtk_frame_new(_("Viewers"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
@@ -1968,7 +1989,7 @@ static void preferences_dialog() {
 	create_externals_gui(pd, vbox2);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
-	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("*LaTeX*box"), 157,TRUE));
+	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("TeXbox"), 157,TRUE));
 	
 	frame = gtk_frame_new(_("*LaTeX*box"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
