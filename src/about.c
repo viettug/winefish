@@ -1,4 +1,4 @@
-/* $Id: about.c,v 1.3 2005/07/21 07:49:36 kyanh Exp $ */
+/* $Id$ */
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * about.c
  *
@@ -31,6 +31,10 @@
 #include "about.h"
 #include "gtk_easy.h"
 
+#ifndef FUNC_GREP_RECURSIVE_MAX_DEPTH
+#define FUNC_GREP_RECURSIVE_MAX_DEPTH "none"
+#endif
+
 static GtkWidget *info;
 
 static void add_page(GtkNotebook * notebook, const gchar * name, const gchar * buf,
@@ -60,17 +64,23 @@ void about_dialog_create(gpointer * data, guint * callback_action, GtkWidget * w
 * open source development project\n\
 * released under the GPL license\n\
 \n\
+* version: %s\n\
 * maximum length\n    latex command: %d\n    autotext command: %d\n\
+* recursive grep: %s\n\
 * delimiters:\n    %s\n\
-* configured:\n    $%s\n"),COMMAND_MAX_LENGTH,AUTOTEXT_MAX_LENGTH, DELIMITERS, CONFIGURE_OPTIONS);
-
-	gchar *AUTHORS = _(\
+* configured:\n    $%s\n"),
+	VERSION,
+	COMMAND_MAX_LENGTH, AUTOTEXT_MAX_LENGTH,
+	FUNC_GREP_RECURSIVE_MAX_DEPTH,
+	DELIMITERS,
+	CONFIGURE_OPTIONS);
+gchar *AUTHORS = _(\
 "developers:\n\
-* kyanh <kyanh@o2.pl>\n\
+* kyanh <kyanh@viettug.org>\n\
 \n\
 translators:\n\
 * Italian: Daniele Medri <daniele@medri.org>\n\
-* Vietnamese: kyanh <kyanh@o2.pl>\n\
+* Vietnamese: kyanh <kyanh@viettug.org>\n\
 \n\
 THANKS to all who helped making this software available.\n\
 ");
@@ -104,6 +114,7 @@ THANKS to all who helped making this software available.\n\
 
 	/* the notebook */
 	notebook = gtk_notebook_new();
+	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(notebook), GTK_POS_BOTTOM);
 
 	/* add pages */
 	/* I1 = g_strconcat(INFO, CONFIGURE_OPTIONS, NULL); */
