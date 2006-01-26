@@ -1,4 +1,4 @@
-/* $Id: outputbox.h,v 1.2 2005/07/05 01:15:35 kyanh Exp $ */
+/* $Id$ */
 
 /* void outputbox_init(Tbfwin *bfwin,GtkWidget *vbox); */
 
@@ -29,6 +29,11 @@ enum {
 	OB_IS_READY = 1 << 5/* highest value */
 };
 
+enum {
+	OB_NEED_SAVE_FILE = 1<<0, /* need save file */
+	OB_SHOW_ALL_OUTPUT = 1<<1 /* show all output */
+};
+
 typedef struct
 {
 	gchar *command;
@@ -36,7 +41,7 @@ typedef struct
 	gint file_subpat;
 	gint line_subpat;
 	gint output_subpat;
-	gboolean show_all_output;
+	gint show_all_output;
 	regmatch_t pmatch[ NUM_MATCH ];
 	regex_t preg;
 }
@@ -87,6 +92,8 @@ typedef struct
 	gint page_number;
 	Toutput_def *def;
 	Tbfwin *bfwin;
+	gchar *basepath_cached;
+	gint basepath_cached_color;
 #ifdef __KA_BACKEND__
 	/* kyanh, added, 20050220 */
 	guint pollID;
@@ -102,10 +109,16 @@ Toutputbox;
 
 #define OUTPUTBOX(var) ((Toutputbox *)(var))
 
-void outputbox( Tbfwin *bfwin, gpointer *ob, const gchar *title, gchar *pattern, gint file_subpat, gint line_subpat, gint output_subpat, gchar *command, gboolean show_all_output );
+void outputbox(
+	/*ob frontend */
+	Tbfwin *bfwin, gpointer *ob, const gchar *title,
+	/* output */
+	gchar *pattern, gint file_subpat, gint line_subpat, gint output_subpat, gchar *command, gint show_all_output );
 void outputbox_stop (Toutputbox *ob);
 void outputbox_message( Toutputbox *ob, const char *string, const char *markup );
 
 Toutputbox *outputbox_new_box( Tbfwin *bfwin, const gchar *title );
+Toutputbox *outputbox_get_box( Tbfwin *bfwin, guint page);
+void outputbox_set_status( Toutputbox *ob, gboolean status, gboolean force);
 
 #endif /* __OUTPUTBOX_H_ */
