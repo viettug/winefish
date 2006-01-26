@@ -4,6 +4,8 @@
  Copyright (c) 2006 kyanh <kyanh@o2.pl>
 */
 
+#define DEBUG
+
 #include <gtk/gtk.h>
 #include <string.h>
 
@@ -21,9 +23,11 @@ static gboolean first_time = TRUE;
 
 void outputbox_filter_line( Toutputbox *ob, const gchar *source )
 {
-	if (strlen(source) == 0) {
+	if (!source || (strlen(source) == 0) ) {
 		return;
 	}
+	/* handle non UTF8 strings */
+	/*|| !g_utf8_validate(source, -1, NULL)  */
 	if (first_time) {
 		regcomp( &on_input_line, "lines? ([0-9]+)", REG_EXTENDED );
 		first_time = FALSE;
@@ -33,7 +37,7 @@ void outputbox_filter_line( Toutputbox *ob, const gchar *source )
 	GtkTreeIter iter;
 	gchar *tmp_src = NULL;
 	gboolean scroll= FALSE;
-	if ( ob->def->show_all_output ) {
+	if ( ob->def->show_all_output & OB_SHOW_ALL_OUTPUT ) {
 		tmp_src = g_markup_escape_text(source,-1);
 		gtk_list_store_append( GTK_LIST_STORE( ob->lstore ), &iter );
 		gtk_list_store_set( GTK_LIST_STORE( ob->lstore ), &iter, 2, tmp_src, -1 );
@@ -62,11 +66,23 @@ void outputbox_filter_line( Toutputbox *ob, const gchar *source )
 			gchar *basepath = g_path_get_basename(filename);
 			fullpath = create_full_path( filename, NULL );
 			gtk_list_store_set( GTK_LIST_STORE( ob->lstore ), &iter, 3, fullpath, -1 );
-			gtk_list_store_set( GTK_LIST_STORE( ob->lstore ), &iter, 0, basepath, -1 );
+			gchar *tmpstr;
+			tmpstr = g_markup_escape_text(basepath,-1);
+			if (!ob->basepath_cached || (strcmp(ob->basepath_cached, basepath) !=0 )) {
+				ob->basepath_cached = g_strdup(basepath);
+				ob->basepath_cached_color = !ob->basepath_cached_color;
+			}
+			if (!ob->basepath_cached_color ) {
+				tmpstr = g_strdup_printf("   <i>%s</i>", tmpstr);
+			}else{
+				tmpstr = g_strdup_printf("%s", tmpstr);
+			}
+			gtk_list_store_set( GTK_LIST_STORE( ob->lstore ), &iter, 0, tmpstr, -1 );
 			DEBUG_MSG("outputbox_filter: fullpath %s\n", fullpath);
 			g_free( filename );
 			g_free( fullpath );
 			g_free( basepath );
+			g_free( tmpstr );
 			scroll=TRUE;
 		}
 		if ( line ) {
