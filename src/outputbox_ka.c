@@ -46,6 +46,8 @@ static void free_ob( Toutputbox *ob, gboolean have_retfile )
 		remove_secure_dir_and_filename( ob->retfile );
 		/* g_free( ob->retfile ); */
 	}
+	g_free( ob->basepath_cached );
+	ob->basepath_cached = NULL;
 	g_free( ob->def->pattern );
 	regfree( &ob->def->preg );
 	g_free( ob->def->command );
@@ -61,7 +63,8 @@ void finish_execute( Toutputbox *ob )
 	if (!(ob->OB_FETCHING == OB_IS_STOPPED)) {
 		ob->OB_FETCHING = OB_IS_STOPPED;
 		DEBUG_MSG("finish_execute: starting...\n");
-		menuitem_set_sensitive(ob->bfwin->menubar, N_("/External/Stop..."), FALSE);
+		/* menuitem_set_sensitive(ob->bfwin->menubar, N_("/External/Stop..."), FALSE); */
+		outputbox_set_status(ob, FALSE, FALSE);
 	
 		g_io_channel_shutdown( ob->io_channel, FALSE, NULL);
 		g_io_channel_unref( ob->io_channel );
@@ -229,20 +232,7 @@ static gint xsystem( const gchar *command, const gchar *outfile )
 void run_command( Toutputbox *ob )
 {
 	DEBUG_MSG("run_command: starting...\n");
-	file_save_cb( NULL, ob->bfwin );
-	{
-		gchar *format_str;
-		if ( ob->bfwin->project && ( ob->bfwin->project->view_bars & PROJECT_MODE ) ) {
-			format_str = g_strdup_printf(_("%s # project mode: ON # backend 1"), ob->def->command );
-		} else {
-			format_str = g_strdup_printf(_("%s # project mode: OFF # backend 1"), ob->def->command );
-		}
-		outputbox_message( ob, format_str, "i" );
-		g_free( format_str );
-		flush_queue();
-	}
-
-	if ( ob->bfwin->current_document->filename ) {
+	/* if ( ob->bfwin->current_document->filename ) { */
 		/* if the user clicked cancel at file_save -> return */
 		{
 			gchar * tmpstring;
@@ -251,7 +241,11 @@ void run_command( Toutputbox *ob )
 				tmpstring = g_strdup( ob->bfwin->project->basedir );
 			} else
 			{
-				tmpstring = g_path_get_dirname( ob->bfwin->current_document->filename );
+				if (ob->bfwin->current_document->filename) {
+					tmpstring = g_path_get_dirname( ob->bfwin->current_document->filename );
+				}else{
+					tmpstring = g_strdup(".");
+				}
 			}
 			/* outputbox_message(ob, g_strconcat("> working dir: ", tmpstring, NULL)); */
 			chdir( tmpstring );
@@ -268,7 +262,8 @@ void run_command( Toutputbox *ob )
 			DEBUG_MSG("run_command: retfile = %s\n", ob->retfile);
 			fd = mkfifo( ob->retfile, S_IRUSR | S_IWUSR );
 			if ( fd == 0 ) {
-				menuitem_set_sensitive(ob->bfwin->menubar, N_("/External/Stop..."), TRUE);
+				/* menuitem_set_sensitive(ob->bfwin->menubar, N_("/External/Stop..."), TRUE); */
+				outputbox_set_status(ob, TRUE, FALSE);
 				ob->pid = xsystem( command, ob->retfile );
 				GError *error = NULL;
 				ob->io_channel = g_io_channel_new_file( ob->retfile, "r", &error );
@@ -303,11 +298,13 @@ void run_command( Toutputbox *ob )
 			free_ob( ob, 0 );
 		}
 		g_free( command );
+		/*
 	} else {
 		ob->OB_FETCHING = OB_ERROR;
 		outputbox_message( ob, _("tool canceled."), "b" );
 		free_ob( ob, 0 );
 	}
+		*/
 	DEBUG_MSG("run_command: finished.\n");
 }
 
