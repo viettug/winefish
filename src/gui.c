@@ -417,6 +417,7 @@ static gboolean gui_main_window_configure_event_lcb(GtkWidget *widget,GdkEvent *
 		}
 	}
 	/* resize the outputbox */
+#ifdef AUTO_RESIZE_OUTPUTBOX
 	{
 		gint h = (gint) (bfwin->vpane->allocation.height * 0.7);
 		/*
@@ -429,6 +430,7 @@ static gboolean gui_main_window_configure_event_lcb(GtkWidget *widget,GdkEvent *
 			gtk_paned_set_position( GTK_PANED( bfwin->vpane ), h);
 		}
 	}
+#endif
 	if (main_v->props.restore_dimensions) {
 		if (revent->type == GDK_CONFIGURE) {
 			GdkEventConfigure *event = (GdkEventConfigure *)revent;
