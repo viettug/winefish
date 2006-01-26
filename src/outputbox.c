@@ -57,24 +57,44 @@ Move from <wait.h> to <sys/wait.h>
 #include "outputbox_bf.h"
 #endif /* __BF_BACKEND__ */
 
+static void ob_lview_current_cursor_open_file(GtkTreePath *path, Toutputbox *ob)
+{
+	GtkTreePath *treepath;
+	gint tobefree = FALSE;
+	if (path) {
+		treepath = path;
+	}else{
+		tobefree = TRUE;
+		gtk_tree_view_get_cursor(GTK_TREE_VIEW(ob->lview), &treepath, NULL);
+	}
+	if (treepath) {
+		gchar *filepath, *line;
+		gint lineval;
+		GtkTreeIter iter;
+
+		gtk_tree_model_get_iter(GTK_TREE_MODEL( ob->lstore ), &iter, treepath);
+
+		gtk_tree_model_get( GTK_TREE_MODEL( ob->lstore ), &iter, 3, &filepath, 1, &line, -1 );
+		gtk_tree_model_get( GTK_TREE_MODEL( ob->lstore ), &iter, 3, &filepath, -1 );
+	
+		DEBUG_MSG( "ob_lview_row_activated_lcb, file=%s, line=%s\n", filepath, line );
+		if ( filepath && strlen( filepath ) ) {
+			doc_new_with_file( ob->bfwin, filepath, FALSE, FALSE );
+		}
+		if ( line && strlen( filepath ) ) {
+			lineval = atoi( line );
+			flush_queue();
+			doc_select_line( ob->bfwin->current_document, lineval, TRUE );
+		}
+		g_free( line );
+		g_free(filepath);
+		if (tobefree) gtk_tree_path_free(treepath);
+	}
+}
+
 static void ob_lview_row_activated_lcb( GtkTreeView *tree, GtkTreePath *path, GtkTreeViewColumn *column, Toutputbox *ob )
 {
-	GtkTreeIter iter;
-	gchar *file, *line;
-	gint lineval;
-	gtk_tree_model_get_iter( GTK_TREE_MODEL( ob->lstore ), &iter, path );
-	gtk_tree_model_get( GTK_TREE_MODEL( ob->lstore ), &iter, 3, &file, 1, &line, -1 );
-	DEBUG_MSG( "ob_lview_row_activated_lcb, file=%s, line=%s\n", file, line );
-	if ( file && strlen( file ) ) {
-		doc_new_with_file( ob->bfwin, file, FALSE, FALSE );
-	}
-	if ( line && strlen( line ) ) {
-		lineval = atoi( line );
-		flush_queue();
-		doc_select_line( ob->bfwin->current_document, lineval, TRUE );
-	}
-	g_free( line );
-	g_free( file );
+	ob_lview_current_cursor_open_file(path,ob);
 }
 
 /* TODO: hide only this page */
@@ -100,6 +120,10 @@ static void ob_lview_copy_line_lcb (GtkWidget *widget, Toutputbox *ob ) {
 	}
 }
 
+static void ob_lview_current_cursor_open_file_lcb (GtkWidget *widget, Toutputbox *ob ) {
+	ob_lview_current_cursor_open_file(NULL,ob);
+}
+
 /* kyanh */
 static GtkWidget *ob_lview_create_popup_menu (Toutputbox *ob)
 {
@@ -112,39 +136,52 @@ static GtkWidget *ob_lview_create_popup_menu (Toutputbox *ob)
 	GtkWidget *menu;
 	GtkWidget *menu_item;
 	menu = gtk_menu_new ();
+
+	menu_item = gtk_menu_item_new_with_label(_("hide this box"));
+	g_signal_connect( menu_item, "activate", G_CALLBACK( outputbox_close_lcb ), ob );
+	gtk_menu_shell_prepend (GTK_MENU_SHELL (menu), menu_item);
+
+	gtk_menu_shell_prepend( GTK_MENU_SHELL( menu ), GTK_WIDGET( gtk_menu_item_new() ) );
+
 	menu_item = gtk_menu_item_new_with_label(_("copy this line"));
 	g_signal_connect( menu_item, "activate", G_CALLBACK( ob_lview_copy_line_lcb ), ob );
+	gtk_menu_shell_prepend (GTK_MENU_SHELL (menu), menu_item);
+
+	GtkTreePath *treepath;
+	gtk_tree_view_get_cursor(GTK_TREE_VIEW(ob->lview), &treepath, NULL);
+	if (treepath) {
+		GtkTreeIter iter;
+		gtk_tree_model_get_iter(GTK_TREE_MODEL( ob->lstore ), &iter, treepath);
+		gchar *filepath;
+		gtk_tree_model_get( GTK_TREE_MODEL( ob->lstore ), &iter, 3, &filepath, -1 );
+		if (filepath && strlen(filepath)) {
+			menu_item = gtk_menu_item_new_with_label(filepath);
+			gtk_menu_shell_prepend (GTK_MENU_SHELL (menu), menu_item);
+			g_signal_connect( menu_item, "activate", G_CALLBACK( ob_lview_current_cursor_open_file_lcb ), ob );
+			DEBUG_MSG("ob_lview_create_popup_menu: dynamic menu item = %s\n", filepath);
+		}
+		g_free(filepath);
+		gtk_tree_path_free(treepath);
+	}
+
+	gtk_menu_shell_prepend( GTK_MENU_SHELL( menu ), GTK_WIDGET( gtk_menu_item_new() ) );
+
+	menu_item = gtk_menu_item_new_with_label(_("noop"));
 	gtk_widget_show (menu_item);
 	gtk_menu_shell_prepend (GTK_MENU_SHELL (menu), menu_item);
 	
-	menu_item = gtk_menu_item_new_with_label(_("hide box"));
-	g_signal_connect( menu_item, "activate", G_CALLBACK( outputbox_close_lcb ), ob );
-	gtk_widget_show (menu_item);
-	gtk_menu_shell_prepend (GTK_MENU_SHELL (menu), menu_item);
+	gtk_widget_show_all(menu);
 	return menu;
 }
 
-static gboolean ob_lview_button_press_lcb( GtkWidget *widget, GdkEventButton *bevent, Toutputbox *ob ) {
+static gboolean ob_lview_button_release_lcb( GtkWidget *widget, GdkEventButton *bevent, Toutputbox *ob ) {
 	DEBUG_MSG("ob_view_button_release_lcb: event = %d\n", bevent->button);
 	if (bevent->button == 3) {
 		GtkWidget * menu = ob_lview_create_popup_menu(ob);
 		if (menu) {
 			gtk_menu_popup (GTK_MENU (menu), NULL, NULL, NULL, NULL, bevent->button, bevent->time);
 		}
-	} else if(bevent->button == 1) {
-		/*
-		GtkTreePath *treepath;
-		gtk_tree_view_get_cursor(GTK_TREE_VIEW(ob->lview), &treepath, NULL);
-		if (treepath) {
-			GtkTreeIter iter;
-			gtk_tree_model_get_iter(GTK_TREE_MODEL( ob->lstore ), &iter, treepath);
-			gchar *filepath;
-			gtk_tree_model_get( GTK_TREE_MODEL( ob->lstore ), &iter, 3, &filepath, -1 );
-			if(filepath) {
-				statusbar_message(ob->bfwin, filepath, 1000);
-			}
-			gtk_tree_path_free(treepath);
-		}*/
+		/* could we need to free menu ? */
 	}
 	return FALSE;
 }
@@ -293,7 +330,7 @@ Toutputbox *outputbox_new_box( Tbfwin *bfwin, const gchar *title )
 	gtk_tree_view_append_column ( GTK_TREE_VIEW( ob->lview ), column );
 
 	g_signal_connect( G_OBJECT( ob->lview ), "row-activated", G_CALLBACK( ob_lview_row_activated_lcb ), ob );
-	g_signal_connect( G_OBJECT( ob->lview ), "button-press-event", G_CALLBACK( ob_lview_button_press_lcb ), ob );
+	g_signal_connect( G_OBJECT( ob->lview ), "button-release-event", G_CALLBACK( ob_lview_button_release_lcb ), ob );
 	/* g_signal_connect( G_OBJECT( ob->lview ), "move-cursor", G_CALLBACK( ob_lview_move_cursor_lcb ), ob ); */
 /* end LVIEW settings */
 
