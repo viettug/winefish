@@ -1,4 +1,4 @@
-/* $Id: bf_lib.c,v 1.3 2005/07/25 02:49:54 kyanh Exp $ */
+/* $Id$ */
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * bf_lib.c - non-GUI general functions
  *
@@ -560,7 +560,14 @@ void free_convert_table(Tconvert_table *tct) {
 gchar *convert_command(Tbfwin *bfwin, const gchar *command) {
 	gchar *result;
 	if (bfwin->current_document->filename) {
-		gboolean need_D=FALSE, need_B=FALSE, need_d=FALSE, need_b=FALSE, need_f=FALSE, need_l=FALSE;
+		gboolean
+				/*need_e=FALSE,*/
+			need_D=FALSE,
+			need_B=FALSE,
+			need_d=FALSE,
+			need_b=FALSE,
+			need_f=FALSE,
+			need_l=FALSE;
 
 		need_D = (strstr(command, "%D") != NULL);
 		need_B = (strstr(command, "%B") != NULL);
@@ -568,6 +575,7 @@ gchar *convert_command(Tbfwin *bfwin, const gchar *command) {
 		need_b = (strstr(command, "%b") != NULL);
 		need_f = (strstr(command, "%f") != NULL);
 		need_l = (strstr(command, "%l") != NULL);
+		/*need_e = (strstr(command, "%e") != NULL);*/
 
 		if (need_D || need_d || need_B || need_b || need_f || need_l) {
 			Tconvert_table *table, *tmpt;
