@@ -1,4 +1,4 @@
-/* $Id: filebrowser.c,v 1.1.1.1 2005/06/29 11:03:22 kyanh Exp $ */
+/* $Id$ */
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * filebrowser.c the filebrowser
  *
@@ -78,6 +78,8 @@ no subdirectories (and not the other way around like it is right now)
 #include "menu.h" 		/* translation */
 #include "project.h" 	/* project_open_from_file() */
 #include "stringlist.h" /* count_array() */
+
+#include "func_grep.h" /* open_advanced_from_filebrowser */
 
 /*#define DEBUG_SORTING
 #define DEBUG_FILTER
