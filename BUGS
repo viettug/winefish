@@ -1,5 +1,14 @@
+$Id$
 
 ============================================================== [200601]
+
+#73/
+* outputbox: when starting a tool, winefish doesnot know that file was changed
+by another proccess ;) this may not a bug bug a feature ;(
+
+#72/fixed/kyanh/20060126/
+* if a tool is running and we try to run another one, the outputbox's messages
+are completly cleared/
 
 #71/fixed/kyanh/20060125/
 * cannot stop grepbox ;(
