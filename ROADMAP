@@ -1,0 +1,32 @@
+
+==============================================> +\infty <===
+
+* 3.0.x
+	- code folding
+
+* 2.0.x
+	- plugins support [ new branch ]
+
+* 1.5.4
+	- book marks by group
+	- improve outputbox [ gui ]
+
+* 1.4.3
+	- improve outputbox [ reimplement ] /done/
+	- support multiple main files for project
+	- context support [ fully ]
+
+==============================================> current <===
+
+* 1.3.2
+	- command collector /done/
+	- brace recognizer
+	- KISS
+
+* 1.2.x
+	- autocompletion [ since 1.1.1 (beta 1) ]
+
+* 1.x.x
+	- Blue2Wine
+
+==============================================> -\infty <===

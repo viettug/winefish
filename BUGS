@@ -1,0 +1,494 @@
+
+============================================================== [200601]
+
+#71/fixed/kyanh/20060125/
+* cannot stop grepbox ;(
+
+#70/fixed/kyanh/20060125/
+* outputbox_bf.c: exit too fast. cannot capture the output sometimes
+
+#69/fixed/kyanh/20060124/
+* notebook_changed: shoule hide the popup menu (autocompletion)
+
+#68
+* wrong hilight for URLs in comments
+
+#67/fixed/kyanh/20060123/
+* Open advanced, dir=/home/users/kyanh/tex, type=tex,
+pattern=amsldoc (normal), configuration = completely new
+* Close files after opening... --> crash!
+FIXED:
+* wrong Menu caption (File/Open Recent was changed to File/Recent)
+
+============================================================== [200508]
+
+#66/fixed/kyanh/20050824/
+* Report: Stew Heckenberg <whazaaaaahp at hotmail.com>
+* Data: winefish.desktop.in: Execute 'winefish -n' without parameter
+
+#65/fixed/kyanh/unknown/
+* Hilight: \itemsep: only \item is higlighted
+
+============================================================== [200507]
+
+#64/fixed/kyanh/20050723/
+* Advance Openning failed.
+FIXED:
+document.c::files_advanced_win_ok_clicked()
+After finishing, we donot free the 'temp_file',
+as we did it in remove_secure_dir_and_filename();
+
+#63/not-a-bug/
+* Open a project, close it, open again, close again,...
+* Open 'faqbody.tex' (12 651 lines, 553kb), close, open, close,...
+The amount of memory used by Winefish increase and increase!!!
+[ The same: kile, gedit, emacs, vim ]
+	From: Olivier Sessink <olivier@bluefish.openoffice.nl>
+	To: bluefish-dev@lists.ems.ru
+	Date: 2005-07-29 14:41
+	kyanh wrote:
+	> I then open the document, close it, open again,... repeat this many times for 
+	> quite large document [ ~ 500 kb ], the memories used by Editor increases and 
+	> increases.
+	>
+	> Could you give me any idea ?
+	that is not a gtk issue, but a Linux issue. On Linux, if you
+	malloc(1000000000) and then free() that same block, your program still
+	uses those 1000000000 bytes, they are not returned to the operating
+	system (but they will be swapped out if you don't use them)
+
+#62/fixed/kyanh/20050719/
+* Open Winefish, open a project, close the project,
+then open then close again ==> there is a untitled document
+with empty scroll [ empty textview area ]
+FIXED:
+gui.c::notebook_changed()
+	bfwin->current_document = doc_new(bfwin,delay_activate = FALSE);
+
+document.c::doc_new()
+	if ( !delay_activate )
+		gtk_widget_show( newdoc->view );
+	/*
+	@delay_activate: Delay _show() if neccessary
+	Whether to perform GUI-calls and flush_queue().
+	Set to TRUE when loading several documents at once.
+	*/
+
+#61
+* Closing a project [within new Winefish window] should close
+also the Winefish window
+
+#60
+* Cannot open project's files at specific linenumber
+
+#59/fixed/kyanh/20050719/
+* See project with files A, B, C (A is the first one)
+The BUG may be generated like this:
+	- open in Winefish the file A
+	- open the project
+(a)
+/fixed/kyanh/20050719/05:58 GMT +7
+	We may see that the files A, B, C are opened...
+	But there is also an Untitled document :((
+	
+	If we open the file B first, nothing special occurs.
+(b)
+/fixed/kyanh/20050719/
+	There is also a Gtk-Critical **: \
+		gtk_text_layout_get_iter_location: \
+		assertion `GTK_IS_TEXT_LAYOUT (layout)' failed
+
+#58/fixed/kyanh/20050718/
+* Open project, then close it...? What's wrong? The value of view_bars
+(global session) is*NOT* restored. This mean that: the setting of 'View/*'
+will be kept after exiting a project.
+FIXED:
+see 'project.c'
+
+#57[major]/fixed/kyanh/20050718/
+* Major BUG: Preferences / AutoX: the memories are*NOT* freed
+==> each time Preferences are called, the memory used by Winefish
+increase. Thanks to 'top -u kyanh -d 00.10' :)
+FIXED:
+use (g_list_find), not (g_list_find_custom) in
+updating list of items of 'main_v->completion'
+
+#56/fixed/kyanh/20050717/
+* command collector cannot add the command \eval.
+Why? because in the 'main_v->props.completion' there are times
+which are prefixed by '\eval'...
+FIXED:
+in previous coding, i checked for existing of '\eval'
+using 'g_completion_complete'. This means that: if an item can be
+completed by 'main_v->completion', the item will*NOT* be added to
+the session list.
+
+#55/fixed/kyanh/20050716/
+* After updating the autocompletion list [ using Preferences Page ],
+the completion_list is*NOT* sorted ==> bad completion behavior.
+FIXED:
+use the function (g_list_insert_sorted) while updating the list.
+See 'src/preferences.c' for details.
+
+#54[major]/fixed/kyanh/20050719/04:04 GMT +7
+* Open a file [ that belongs to a project ]
+Open the project contains that file ==> wrong:
+	- the file will be removed from first window
+	- and opened in the second window
+	- but with the empty file name. So strange :((
+	- the 'close' icon for new doc disappears
+
+#53[wf-1.3.2-5]/fixed/kyanh/20050714/
+* \label{} for image wizard doesnot work
+This is wrong *only* for wf 1.3.2-5 ... after i made some changes
+
+#52
+* (doc_insert_two_string) sometimes inserts extra spaces to (after_str).
+
+#51
+* Copy and Paste: \n\r will produce two lines
+The hilight is incorrect if there's some \r.
+
+#50[major]/fixed/kyanh/20050716/
+* External Tool: "cat" is too slow :(
+Why? Because of scrolling the output.
+
+#49/fixed/kyanh/20050714/
+* autocompletion: if the result contains 1 command, it should disappear
+
+#48/fixed/kyanh/20050713/
+* tex hilight: \right. doesnot work
+
+============================================================== [200506]
+
+#47/fixed/kyanh/20050704/
+* Outputbox: too slow. May be decrease the value of interval.
+I used the value of 20000 :D
+
+#46/fixed/kyanh/200507xx/
+* Error occurs... if we close winefish before any tools finished :)
+So you have to cleanup the outputbox ... before exit:D 
+See CVS history for details. I fixed this but forgot to put comment here.
+[Today is 20050712]
+
+#45[major]/fixed/kyanh/20050706/
+/fixed/kyanh/20050704/
+* Running Outputbox (after the tool exists): the systesm resources will
+be*NOT* freed ==> more and more resources are needed.
+
+#44/fixed/kyanh/20050703/
+* The Main GUI is*NOT* activated ... when called from xdvi.
+
+#43/fixed/kyanh/20050627/
+* Outputbox: zoombie tools arenot cleaned up
+
+#42/fixed/kyanh/20050627/
+* Cannnot build on FreeBSD (kill is explicit declaration; SIGKILL is undeclared)
+
+#41/partial/fixed/kyanh/20050307/
+* Open Winefish (winefish document.c -l20). When the main/doc gui appear,
+close Winefish immediately => crashes
+
+#40/fixed/kyanh/20050619/
+* make uninstall will
+	rm -f /usr/share/pixmaps/bluefish-icon.png
+Sorry Bluefish team :((
+Fixed: Edit the Makefile.in
+
+#39
+* Image Wizard: image too large ==> wrong scaling
+
+#38/fixed/kyanh/20050619/
+* if there is image/newdoc/ dialog opened while wf exits ==> crash
+
+#37/fixed/kyanh/20050619/
+* "Insert/Image/Browser" generates the following message:
+
+(a) backend = gnome-vfs
+	(winefish:850): libgnomevfs-CRITICAL **: \
+	file gnome-vfs-utils.c: line 749 \
+	(gnome_vfs_get_uri_from_local_path): \
+	assertion `local_full_path[0] == '/'' failed
+
+(b) backend = localonly
+	(winefish:339): Gtk-CRITICAL **: \
+	gtk_file_system_unix_get_parent: \
+	assertion `g_path_is_absolute (filename)' failed
+
+fixed:
+	gtk_easy.c :: file_but_clicked_lcb ()
+	if ( g_path_is_absolute(setfile) ) {/* valid setfile, BUGS#37 */
+		gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(dialog),setfile);
+	}
+
+#36/fixed/20050718/
+* Open a file. The Open a project. The the "View/*" sub menu will accept
+the value from parents (view=1), but the wigdets arenot showed (by settings
+from Project properties).... How to repeat this error?
+FIXED:
+See 'project.c'
+
+#35/do-not-implement/
+* Using "\r" in "autotext" will not start autoindent :)
+
+#34/fixed/kyanh/20050619/
+* project template: doesnot work :(
+
+#33/fixed/kyanh/20050618/
+* "Auto Close LaTeX tags" ==> "Auto close environment"
+
+#32/fixed/kyanh/20050618/
+* Autotext is*NOT* indented automatically.
+
+#31/fixed/kyanh/20050618/
+* "Environment Autoclosing" is*NOT* indented automatically.
+
+#30/fixed/kyanh/200506xx/
+* "New Document" Wizard:
+If we use this wizard to generate a new latex document,
+in tetex 3.0, the result of typesetting this document will be a PDF file
+(no matter we try *latex* or *pdflatex*)
+The reason is: we used \pdfoutput=1. Just remove this line from template.
+...
+must use:
+ \ifx\pdfoutput\undefined\relax\else\ifnum\pdfoutput=1\relax\pdftrue\fi\fi
+
+#29
+* New document doesnot update hilight :(( -- Must do it by hand.
+
+============================================================== [200504]
+
+#28/ingored/
+* Winefish cannot escaped from infinite loop [suspend]
+I am sorry that i cannot repeat this bug on the system.
+
+#27/fixed/kyanh/2005xxxx/
+* \label must be followed \caption :D
+
+#26/invalid/unikey-gtk/
+* Autocompletion if failed should remove the last space.
+This bug relates only to UniKeyGTK input method for Vietnamese.
+I contacted UnikeyGTK's Author but he was being busy.
+
+============================================================== [200503]
+
+#25/fixed/kyanh/20050322/
+* When the outputbox is hidden, Menu View/ViewOutputbox mustbe untoggled.
+
+#24/fixed/kyanh/20050321/
+* The outputbox should be shown the tool called.
+
+#23/fixed/kyanh/20050320/
+* LeftPanel/FileBrowsers: after being hiding, the document focus losts
+Fix:
+	gui.c::left_panel_show_hide_toggle()
+		...
+		if (!first_time) {
+			...
+			gtk_widget_grab_focus(bfwin->current_document->view);
+		}
+
+#22/fixed/kyanh/20050317/
+* Outputbox: if user closes it by clicking on the 'X' image,
+the the toggle menu 'View/View Outputbox' isnot set to 'FALSE'
+Fix:
+	Modified outputbox.c::outputbox_close_clicked_lcb()
+
+#21/fixed/kyanh/20050316/
+* Autotext: wrong backwards. If we have /kyanh => Ky` Anh:La'u Ta'u (utf8)
+the result of autotext replacement is "Ky`A:nhLau'Ta'u" (: is the cursor)
+Fix:
+	use g_utf8_strlen(foo,-1), not strlen(foo)
+
+#20/fixed/kyanh/20050316/
+* External Tools: LaTeX: return 250 for the file
+	~/tex/vntex/doc/generic/vntex/README.tex
+Once it halted.
+Fix:
+	In outputbox.c, we should use
+		g_io_channel_set_encoding(ob->io_channel,NULL,NULL);
+	Capture the io_error, we got:
+		Invalid byte sequence in conversion input
+	After use NULL as encoding, we are safe in dealing with binary data.
+
+#19/fixed/kyanh/20050316/
+* Clean Tool: if we add the clean-tool like this
+	rm -fv '%b.{log,aux,...}'
+Winefish will crash. NOTE: the bash expandsion ({}) cannot be placed
+in the couple of ' or ". I donot know why.... Hmm, if "rm -fv " fails,
+Winefish will crash too. Trying "xterm -e rm -fv ..." failed too.
+Fix:
+	Not really a fix.
+	Running cleanning tool causes often the message
+		"interrupted system call"
+	=> should try the call again.
+
+#18
+* Undo: will move cursor to the first iterator. Should be the last...
+
+#17/not-a-bug/
+* Running "External Tool" on "Untitled Document" will make Winefish crashed.
+	Because of some reason, I <kyanh@o2.pl> cannot use GTK_file_chooser
+	on my system. This is very very strange. As the thing is normal when
+	i login as root account. [GTK 2.4.3 (distribute by Slackware 10.0)]
+
+#16/fixed/kyanh/20050313/
+* GTK_CRITICAL: using quickstart dialogs will emmit
+Fix:
+	"assertion GTK_IS_TEXT_BUFFER failed."
+	
+	We used
+		wizards::quickstart::doc_insert_two_string(doc, pointer, "foo").
+	It should be
+		wizards::quickstart::doc_insert_two_string(doc, pointer, g_strdup("foo")).
+	This is hard to imagine.
+	Because the function ::doc_insert_two_string() has the prototype
+		doc_insert_two_strings(...,const gchar *before_str, const gchar *after_str)
+	Using this function in html.c::*, we don't encounter any problem.
+	May the length of *after_string be too long?
+	
+#15
+* Bad "document.c::doc_insert_two_strings()"
+	Previous version of winefish based on "bluefish 013" works very well.
+	I tried but failed on fixing this problem. May I check the CVS version
+	of Bluefish. I am sorry :)
+
+#15/fixed/kyanh/20050313/
+* Tools:
+	Tools require the pipe files created in working directory.
+	So if current working is*NOT* writable, TOOLs will stop with message:
+		"> Error: cannot create PIPE"
+Fix:
+	We should create the temporary files in /tmp/
+	The function bf_lib.c::create_secure_dir_return_filename() was re-written.
+
+#14
+* FileBrowsers: click on a pipe will make Winefish suspend.
+	Hope that you will never have a chance of clicking on a PIPE :)
+
+#13/done/kyanh/20050301/
+* DVIPDFM:: Outputbox cannot scroll to the end of message
+Fix:
+	Do *NO* thing -- completely.
+	I don't know why outputbox for DVIPDFM cannot scroll this morning.
+	Now it works very well [20050301-23:05]
+
+#12/fixed/kyanh/20050301/[M. Garoche, 20050301]
+* For Mac OS: <wait.h> should be replaced by <sys/wait.h>
+
+/done/kyanh/20050301/
+* <signal.h> should be followed <sys/types.h>
+	<signal.h> should be removed from otuputbox.c. We don't use kill() anymore
+	See $man signal
+	
+* "malloc.h" is*NOT* recognized
+
+#11/fixed/kyanh/20050301/[Larry Nguyen, M. Garoche, 20050301]
+* ./configure should have the permission 755
+
+#10/fixed/kyanh/20050301/
+* <latex> '~/scilab.hist' will halt Winefish.
+	bf_lib.c
+		gchar *ext = g_strrstr(tmpstring,".");
+		...
+		g_free(ext);
+	Shouldnot use g_free(ext);
+
+
+============================================================== [200502]
+
+
+#10/fixed/kyanh/20060124/
+* For 'outputbox.c': Doubleclick to open file => may open
+	two vesion of a same file (for e.g:
+		foo/foo.tex
+		./foo/foo.tex
+	Winefish treats that two files as two different files.
+	)
+* Repeat:
+	~/tmp/vidu1/vidu0.tex (which includes ~/tmp/testinput.tex)
+	document.c::documentlist_return_document_from_filename
+FIXED:
+	use `stat' to check for `inodes'. previous version use `strcmp'
+	to compare filename (stupid). latest bluefish uses gnome_vfs_uri_equal'
+
+#9/found/kyanh/20050306/
+* File_Chooser Suspend if Winefish is compiled without GNOMEUI but GTK+
+	Using Slackware, i don't package depencies anymore.
+	Is it true that GTK requires GNOMEUI?
+	Answer:
+		GTK requires GNOME-VFS??? NO!
+Fix:
+	chmod 755 /home/
+	File_chooser will be tedious if perm(/home) = 711
+
+#8/fixed/kyanh/20050228/0:03
+* If a tex files was opened and we click on an image file (FileBrowsers),
+	winefish will be terminated unexpected.
+	Traceback:
+		image->clicked
+		filebrowsers::handle_activate_on_file(...)
+	(1)	create_relative_link_to(...)
+		image_insert_from_filename(filebrowser->bfwin,relfilename);
+		image_insert_dialog_backend(filename != NULL,...)
+		...
+		g_signal_emit_by_name(...)
+		image_filename_changed(...)
+	(2)	create_relative_link_to(...)
+		[Segmentation fault]
+	Problem:
+		first calling of create_relative_link_to() [See (1)]
+		passes the `relfilename' to 'image_insert_from_filename'.
+		I don't know exactly.
+		I think it... should be 'filename', not 'relfilename'...
+		Change 'relfilename' to 'filename' and it works.
+
+#7/fixed/kyanh/20050226/
+* Wizard may make Winefish TEDIOUS
+	using document.c::doc_destroy()::g_object_unref(doc->view->parent)
+	is invalid as doc->view->parent is GtkTextView (GtkObject).
+	[Reported this BUG to Bluefish Team]
+	Traceback:
+		QuitSignal
+		window_main_destroy(...)
+		doc_destroy(...)
+		g_object_ref(doc->view->parent)
+		g_object_unref(doc->view->parent)
+		[Segmentation fault]
+	Problem:
+		cannot use g_object_unref() on GtkObject.
+
+#6/fixed/kyanh/2005027/
+* If the Running LaTeX returns 1, then latex is <defunct>
+	(use $ps aux we can see this).
+	This means: the process <latex> wasnot killed completely.
+	Fix: See outputbox.c::continue_execute() for details. (waitpid())
+
+#5/not-a-bug/
+* External commands (Filters) may make Winefish TEDIOUS
+	Because we donot provide any special treatement for Filters
+	as we did for *LaTeX* relative tools. We hope that you willnot
+	make Winefish buggy, as filters is the user-defined tools :)
+	Anyway, we may DOIT in next version.
+
+#4/fixed/kyanh/20050316/
+* Continously call a tool (Menu External/LaTeX, for e.g.)
+	in a short time make Winefish tediuos.
+Fix:
+	take idea from Bluefish (cvs-20050314): stop the previous tool
+	if it is still alive.
+
+#3/not-a-bug/kyanh/20060123/
+* Using FileChooser (gnome 2.6) sometimes causes suspend.
+	[While Winefish is running under... XXGDB]
+
+#2/unikey/
+* Using "\n" as UpdateChar + Vietnames Input Method ("UniKey")
+	may make Winefish TEDIOUS (sometimes).
+	I <kyanh@o2.pl> cannot repeat this error on my system.
+
+#1
+* RelativePath for [Image Wizard] failed sometimes [for 'doc/wfbookmark.png']
+	* [20050302] OK now ~> cannot repeat the error.
+
+============================================================== [EOF]
