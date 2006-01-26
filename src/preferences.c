@@ -1489,7 +1489,7 @@ static void create_outputbox_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_3_edited_lcb), pd, _("Line #"), 3, FALSE);
 	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_4_edited_lcb), pd, _("Output #"), 4, FALSE);
 	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_5_edited_lcb), pd, _("Command"), 5, FALSE);
-	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_6_edited_lcb), pd, _("Save, Show"), 6, FALSE);
+	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_6_edited_lcb), pd, _("Save,Show"), 6, FALSE);
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->od.lview);
@@ -1538,10 +1538,10 @@ _(
 If there isn't any project, or project mode is off, we have\n\
 \t%D=%d and %B=%b\n\
 \n\
-Save/Show:\n\
-\tNeed save file: 1\n\
-\tShow all output: 2\n\
-\tBoth of them: 1+2 =3\
+Save,Show:\n\
+\tneed save file: 1\n\
+\tshow all output: 2\n\
+\tboth of them: 1+2 =3\
 ")), TRUE, TRUE, 2);
 }
 
@@ -2002,7 +2002,7 @@ static void preferences_dialog() {
 	frame = gtk_frame_new(_("Information"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
-	gtk_container_add(GTK_CONTAINER(frame), vbox2);	
+	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 
 	create_outputbox_info_gui(pd, vbox2);
 
