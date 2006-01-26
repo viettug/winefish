@@ -1,4 +1,4 @@
-/* $Id: menu.c,v 1.4 2005/07/25 02:49:54 kyanh Exp $ */
+/* $Id$ */
 
 /* Copyright (C) 1998-2000 Olivier Sessink, Chris Mazuc and Roland Steinbach
  * Copyright (C) 2000-2002 Olivier Sessink and Roland Steinbach
@@ -224,7 +224,16 @@ static void toggle_doc_property(Tbfwin *bfwin,guint callback_action, GtkWidget *
 		}
 		break;
 	case 6:
-		outputbox_stop(bfwin->outputbox);
+		/* BUG#71 */
+		{
+			if (bfwin->ob_hbox) {
+				gint cur_page;
+				cur_page = gtk_notebook_get_current_page(GTK_NOTEBOOK(bfwin->ob_notebook));
+				Toutputbox *ob;
+				ob = outputbox_get_box(bfwin,cur_page);
+				outputbox_stop(ob);
+			}
+		}
 		break;
 	}
 }
@@ -312,7 +321,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	/* INSERT MENU */
 	{N_("/Insert/T_ools"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Insert/Tools/Tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Insert/Tools/Document"), NULL, menu_html_dialogs_lcb, 3, "<Item>"},
+	{N_("/Insert/Tools/Simple document (code)"), NULL, menu_html_dialogs_lcb, 3, "<Item>"},
 	{N_("/Insert/Tools/Figure"), "<control>I", menu_html_dialogs_lcb, 1, "<Item>"},
 	{N_("/Insert/Tools/Time, Date"), NULL, menu_html_dialogs_lcb, 4, "<Item>"},
 	{N_("/Insert/Tools/Source Separator"), NULL, general_html_menu_cb, 105, "<Item>"},
@@ -396,13 +405,13 @@ static GtkItemFactoryEntry menu_items[] = {
 	/* FONT STYLES */
  	/* {N_("/Insert/Font/Styles"), NULL, NULL, 0, "<Branch>"}, */
 	{N_("/Insert/Font style/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Insert/Font style/\\\\emph - Emphasized"), "<control><alt>e", general_html_menu_cb, 17, "<Item>"},
-	{N_("/Insert/Font style/\\\\underline - Underlined"), "<control><alt>u", general_html_menu_cb, 3, "<Item>"},
-	{N_("/Insert/Font style/\\\\textit - Italic"), "<control><alt>I", general_html_menu_cb, 2, "<Item>"},
-	{N_("/Insert/Font style/\\\\textsl - Slanted"), "<control><alt>S", general_html_menu_cb, 108, "<Item>"},
-	{N_("/Insert/Font style/\\\\textbf - Boldface"), "<control><alt>B", general_html_menu_cb, 1, "<Item>",},
-	{N_("/Insert/Font style/\\\\texttt - Typewriter"), "<control><alt>T", general_html_menu_cb, 110, "<Item>"},
-	{N_("/Insert/Font style/\\\\textsc - Smallcaps"), "<control><alt>C", general_html_menu_cb, 111, "<Item>"},
+	{N_("/Insert/Font style/\\\\emph - _emphasized"), "<control><alt>e", general_html_menu_cb, 17, "<Item>"},
+	{N_("/Insert/Font style/\\\\underline - _underlined"), "<control><alt>u", general_html_menu_cb, 3, "<Item>"},
+	{N_("/Insert/Font style/\\\\textit - _italic"), "<control><alt>i", general_html_menu_cb, 2, "<Item>"},
+	{N_("/Insert/Font style/\\\\textsl - _slanted"), "<control><alt>s", general_html_menu_cb, 108, "<Item>"},
+	{N_("/Insert/Font style/\\\\textbf - _boldface"), "<control><alt>b", general_html_menu_cb, 1, "<Item>",},
+	{N_("/Insert/Font style/\\\\texttt - _typewriter"), "<control><alt>t", general_html_menu_cb, 110, "<Item>"},
+	{N_("/Insert/Font style/\\\\textsc - small_caps"), "<control><alt>c", general_html_menu_cb, 111, "<Item>"},
 	/* Math Font Style*/
 #ifdef HAVE_FULL_MENU
 	{N_("/Insert/Font/Maths"), NULL, NULL, 0, "<Branch>"},
@@ -742,7 +751,13 @@ static GtkWidget *dynamic_menu_append_spacing(Tbfwin *bfwin, gchar *basepath) {
 
 static void menu_outputbox_lcb(GtkMenuItem *menuitem,Tbfw_dynmenu *bdm) {
 	gchar **arr = (gchar **)bdm->data;
-	outputbox(bdm->bfwin,&bdm->bfwin->outputbox, _("output"),arr[1], atoi(arr[2]), atoi(arr[3]), atoi(arr[4]), arr[5], (arr[6][0]=='1'));
+	/*
+	gint save_show;
+	SET_BIT(save_show, OB_NEED_SAVE_FILE, TRUE);
+	SET_BIT(save_show, OB_SHOW_ALL_OUTPUT, (arr[6][0]=='1'));
+	g_print("menu_outputbox_lcb: save/show = %d\n", save_show);
+	*/
+	outputbox(bdm->bfwin,&bdm->bfwin->outputbox, _("output"), arr[1], atoi(arr[2]), atoi(arr[3]), atoi(arr[4]), arr[5],atoi(arr[6]));
 }
 
 /*******************************************************************/
@@ -837,34 +852,6 @@ GList *recent_menu_from_list(Tbfwin *bfwin, GList *startat, gboolean is_project)
 	}
 	return retlist;
 }
-
-/* void recent_menu_from_file(Tbfwin *bfwin, gchar *file_name, gboolean is_project) {
-	gchar *filename;
-	GList *inputlist, *recentfiles=NULL, *tmplist, **worklist;
-	gint num;
-	worklist = (is_project) ? &bfwin->menu_recent_projects : &bfwin->menu_recent_files;
-	/ * empty any existing menu * /
-	tmplist = g_list_first(*worklist);
-	while (tmplist) {
-		gtk_widget_destroy(tmplist->data);
-		tmplist = g_list_next(tmplist);
-	}
-	
-	filename = g_strconcat(g_get_home_dir(), file_name, NULL);
-	inputlist = get_stringlist(filename, NULL);
-	/ * the last entry in inputlist is the most recent file * /
-	tmplist = g_list_first(inputlist);
-	while (tmplist) {
-		recentfiles = add_to_history_stringlist(recentfiles, (gchar *)tmplist->data, TRUE);
-		tmplist = g_list_next(tmplist);
-	}
-	free_stringlist(inputlist);
-	num = g_list_length(recentfiles) - main_v->props.max_recent_files;
-	*worklist = recent_menu_from_list(bfwin, g_list_nth(recentfiles, (num > 0)?num:0), is_project);
-	put_stringlist_limited(filename, recentfiles, main_v->props.max_recent_files);
-	free_stringlist(recentfiles);
-	g_free(filename);
-}*/
 
 /* recent_menu_init()
  * Gets the list of documents from .winefish/recentlist and inserts
