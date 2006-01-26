@@ -1,4 +1,4 @@
-/* $Id: gui.c 94 2005-08-12 03:33:04Z kyanh $ */
+/* $Id$ */
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * gui.c - the main GUI
  *
@@ -545,6 +545,8 @@ void main_window_destroy_lcb(GtkWidget *widget,Tbfwin *bfwin) {
 	}
 	/* TODO: stop all other boxes! */
 	outputbox_stop(bfwin->outputbox);
+	outputbox_stop(bfwin->grepbox);
+
 	DEBUG_MSG("main_window_destroy_lcb, started\n");
 	DEBUG_MSG("main_window_destroy_lcb, will hide the window now\n");
 	gtk_widget_hide(bfwin->main_window);
@@ -686,6 +688,8 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames, gint linenumber) {
 
 	/* output_boxes */
 	bfwin->ob_hbox = NULL;
+	bfwin->outputbox = NULL;
+	bfwin->grepbox = NULL;
 
 	left_panel_show_hide_toggle(bfwin,TRUE, (bfwin->project && (bfwin->project->view_bars & VIEW_LEFT_PANEL)) || (!bfwin->project && (main_v->session->view_bars & VIEW_LEFT_PANEL) ), FALSE);
 
@@ -703,14 +707,14 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames, gint linenumber) {
 		gtk_box_pack_start(GTK_BOX(hbox), bfwin->statusbar_lncol, FALSE, FALSE, 0);
 		/* I hope the 'w' is an average width character */
 		onecharwidth = widget_get_string_size(bfwin->statusbar_lncol, "w");
-		gtk_widget_set_size_request(GTK_WIDGET(bfwin->statusbar_lncol), 17*onecharwidth, -1);
+		gtk_widget_set_size_request(GTK_WIDGET(bfwin->statusbar_lncol), 12*onecharwidth, -1);
 		bfwin->statusbar_insovr = gtk_statusbar_new();
 		gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(bfwin->statusbar_insovr), FALSE);
 		gtk_box_pack_start(GTK_BOX(hbox), bfwin->statusbar_insovr, FALSE, FALSE, 0);
-		gtk_widget_set_size_request(GTK_WIDGET(bfwin->statusbar_insovr), onecharwidth * 4, -1);
+		gtk_widget_set_size_request(GTK_WIDGET(bfwin->statusbar_insovr), onecharwidth * 3, -1);
 		bfwin->statusbar_editmode = gtk_statusbar_new();
 		gtk_box_pack_start(GTK_BOX(hbox), bfwin->statusbar_editmode, FALSE, FALSE, 0);
-		gtk_widget_set_size_request(GTK_WIDGET(bfwin->statusbar_editmode), onecharwidth * 25, -1);
+		gtk_widget_set_size_request(GTK_WIDGET(bfwin->statusbar_editmode), onecharwidth * 16, -1);
 		gtk_widget_show_all(hbox);
 	}
 	/* We have to know when the notebook changes */
