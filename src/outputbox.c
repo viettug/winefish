@@ -1,4 +1,4 @@
-/* $Id: outputbox.c,v 1.12 2005/07/25 02:49:54 kyanh Exp $ */
+/* $Id$ */
 
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * outputbox.c the output box
@@ -26,6 +26,7 @@
 #include "outputbox_cfg.h"
 
 #include <gtk/gtk.h>
+#include <string.h> /* strlen() */
 
 #include "bluefish.h"
 #include "bf_lib.h"
@@ -35,10 +36,9 @@
 #include "pixmap.h"
 
 #include "outputbox.h" /* myself */
+#include "gui.h" /* statusbar_message */
 
 #ifdef __KA_BACKEND__
-
-#include "outputbox_ka.h" /* backend by ka */
 #include <sys/types.h>
 #include <signal.h> /* kill() */
 #include <sys/stat.h> /* open() */
@@ -50,16 +50,12 @@ Move from <wait.h> to <sys/wait.h>
 #include <sys/wait.h> /* wait(), waitid() */
 #include <regex.h>
 #include <stdlib.h>
-
+#include "outputbox_ka.h" /* backend by ka */
 #endif /* __KA_BACKEND__ */
 
 #ifdef __BF_BACKEND__
-
 #include "outputbox_bf.h"
-
 #endif /* __BF_BACKEND__ */
-
-#include <string.h> /* strlen() */
 
 static void ob_lview_row_activated_lcb( GtkTreeView *tree, GtkTreePath *path, GtkTreeViewColumn *column, Toutputbox *ob )
 {
@@ -109,7 +105,7 @@ static GtkWidget *ob_lview_create_popup_menu (Toutputbox *ob)
 {
 	DEBUG_MSG("ob_lview_create_popup_menu: fetching value = %d\n", ob->OB_FETCHING);
 	if (ob->OB_FETCHING != OB_IS_READY) {
-		g_print("ob_lview_create_popup_menu: return without creating any menu\n");
+		DEBUG_MSG("ob_lview_create_popup_menu: return without creating any menu\n");
 		return NULL;
 	}
 
@@ -135,6 +131,20 @@ static gboolean ob_lview_button_press_lcb( GtkWidget *widget, GdkEventButton *be
 		if (menu) {
 			gtk_menu_popup (GTK_MENU (menu), NULL, NULL, NULL, NULL, bevent->button, bevent->time);
 		}
+	} else if(bevent->button == 1) {
+		/*
+		GtkTreePath *treepath;
+		gtk_tree_view_get_cursor(GTK_TREE_VIEW(ob->lview), &treepath, NULL);
+		if (treepath) {
+			GtkTreeIter iter;
+			gtk_tree_model_get_iter(GTK_TREE_MODEL( ob->lstore ), &iter, treepath);
+			gchar *filepath;
+			gtk_tree_model_get( GTK_TREE_MODEL( ob->lstore ), &iter, 3, &filepath, -1 );
+			if(filepath) {
+				statusbar_message(ob->bfwin, filepath, 1000);
+			}
+			gtk_tree_path_free(treepath);
+		}*/
 	}
 	return FALSE;
 }
@@ -150,7 +160,7 @@ void outputbox_message( Toutputbox *ob, const char *string, const char *markup )
 	DEBUG_MSG("outputbox_message: %s\n", string);
 	GtkTreeIter iter;
 	gchar *tmpstr = g_markup_escape_text(string,-1);
-	if (markup) {
+	if (markup && strlen(markup)) {
 		tmpstr = g_strdup_printf("&gt; <%s>%s</%s>", markup, string, markup);
 	}else{
 		tmpstr = g_strdup_printf("&gt; %s", string);
@@ -185,6 +195,24 @@ static void clean_up_child_process (gint signal_number)
 }
 #endif /* __KA_BACKEND__ */
 
+static void ob_notebook_switch_page_lcb(GtkNotebook *notebook, GtkNotebookPage *page, gint page_num, Tbfwin *bfwin)
+{
+	Toutputbox *ob;
+	ob = outputbox_get_box(bfwin, page_num);
+	DEBUG_MSG("ob_notebook_switch_page_lcb: select page %d, %p\n", page_num, ob);
+	if (ob && (ob->OB_FETCHING < OB_IS_READY)) {
+		DEBUG_MSG("ob_notebook_switch_page_lcb: Stop TRUE, ob_fetching = %d\n", ob->OB_FETCHING);
+		outputbox_set_status(ob, TRUE, TRUE);
+	}else{
+#ifdef DEBUG
+		if(ob) {
+			DEBUG_MSG("ob_notebook_switch_page_lcb: Strop FALSE, ob_fetching = %d\n", ob->OB_FETCHING);
+		}
+#endif
+		outputbox_set_status(ob, FALSE, TRUE);
+	}
+}
+
 /* prepare frontent for outputbox */
 static void outputbox_init_frontend(Tbfwin *bfwin) {
 #ifdef __KA_BACKEND__
@@ -210,8 +238,20 @@ static void outputbox_init_frontend(Tbfwin *bfwin) {
 	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(bfwin->ob_notebook),GTK_POS_LEFT);
 
 	gtk_box_pack_start(GTK_BOX(bfwin->ob_hbox), bfwin->ob_notebook, TRUE, TRUE, 0);
+	DEBUG_MSG("outputbox_init_frontend: added notebook %p\n", bfwin->ob_notebook);
+
+	g_signal_connect(G_OBJECT(bfwin->ob_notebook),"switch-page",G_CALLBACK(ob_notebook_switch_page_lcb), bfwin);
+
 	setup_toggle_item_from_widget( bfwin->menubar, N_( "/View/View Outputbox" ), TRUE );
 }
+
+/*
+gboolean ob_lview_move_cursor_lcb(GtkTreeView *treeview,GtkMovementStep arg1,gint arg2,gpointer user_data)
+{
+	DEBUG_MSG("ob_lview_move_cursor_lcb: hello.......................................................\n");
+	return TRUE;
+}
+*/
 
 Toutputbox *outputbox_new_box( Tbfwin *bfwin, const gchar *title )
 {
@@ -245,7 +285,7 @@ Toutputbox *outputbox_new_box( Tbfwin *bfwin, const gchar *title )
 	/* the view widget now holds the only reference,
 	if the view is destroyed, the model will be destroyed */
 	renderer = gtk_cell_renderer_text_new ();
-	column = gtk_tree_view_column_new_with_attributes ( NULL, renderer, "text", 0, NULL );
+	column = gtk_tree_view_column_new_with_attributes ( NULL, renderer, "markup", 0, NULL );
 	gtk_tree_view_append_column ( GTK_TREE_VIEW( ob->lview ), column );
 	column = gtk_tree_view_column_new_with_attributes ( NULL, renderer, "text", 1, NULL );
 	gtk_tree_view_append_column ( GTK_TREE_VIEW( ob->lview ), column );
@@ -254,6 +294,7 @@ Toutputbox *outputbox_new_box( Tbfwin *bfwin, const gchar *title )
 
 	g_signal_connect( G_OBJECT( ob->lview ), "row-activated", G_CALLBACK( ob_lview_row_activated_lcb ), ob );
 	g_signal_connect( G_OBJECT( ob->lview ), "button-press-event", G_CALLBACK( ob_lview_button_press_lcb ), ob );
+	/* g_signal_connect( G_OBJECT( ob->lview ), "move-cursor", G_CALLBACK( ob_lview_move_cursor_lcb ), ob ); */
 /* end LVIEW settings */
 
 #ifdef OB_WITH_IMAGE
@@ -280,37 +321,64 @@ Toutputbox *outputbox_new_box( Tbfwin *bfwin, const gchar *title )
 	GtkWidget *label = gtk_label_new(title);
 	ob->page_number = gtk_notebook_append_page(GTK_NOTEBOOK(ob->bfwin->ob_notebook), scrolwin, label);
 
+	/* need eventboxgtk_tooltips_set_tip( main_v->tooltips, label, "asdfasdfasfsaf", NULL ); */
+
+	DEBUG_MSG("outputbox_new_box: added page %p\n", scrolwin);
 	return ob;
 }
 
-void outputbox(Tbfwin *bfwin, gpointer *ob, const gchar *title, gchar *pattern, gint file_subpat, gint line_subpat, gint output_subpat, gchar *command, gboolean show_all_output )
+void outputbox(Tbfwin *bfwin, gpointer *ob, const gchar *title, gchar *pattern, gint file_subpat, gint line_subpat, gint output_subpat, gchar *command, gint show_all_output )
 {
 	DEBUG_MSG("outputbox: starting...\n");
 	if ( *ob ) {
 		setup_toggle_item_from_widget(bfwin->menubar, N_("/View/View Outputbox"), TRUE); /* fix BUG[200503]#25 */
+		/* GtkWidget *label = gtk_label_new(title);
+		gtk_notebook_set_tab_label(label); */
 	} else {
 		*ob = outputbox_new_box(bfwin,title);
 	}
+
 	gtk_widget_show_all( bfwin->ob_hbox );
 	gtk_notebook_set_current_page(GTK_NOTEBOOK(bfwin->ob_notebook), OUTPUTBOX(*ob)->page_number);
 
+	gtk_list_store_clear( GTK_LIST_STORE( OUTPUTBOX(*ob)->lstore ) );
+	flush_queue();
+
 	if (!command) {
 		/* TODO: check for valid command */
+		outputbox_message(*ob, _("empty command"), "b");
 		return;
+	}
+	{
+		gchar *format_str;
+		if ( bfwin->project && ( bfwin->project->view_bars & PROJECT_MODE ) ) {
+			format_str = g_strdup_printf(_("%s # project mode: ON"), command );
+		} else {
+			format_str = g_strdup_printf(_("%s # project mode: OFF"), command);
+		}
+		outputbox_message( *ob, format_str, "i" );
+		g_free( format_str );
+		flush_queue();
+	}
+	if (show_all_output & OB_NEED_SAVE_FILE) {
+		file_save_cb( NULL, bfwin );
+		if ( !bfwin->current_document->filename ) {
+			outputbox_message(*ob, _("files wasnot saved. tool canceled"), "b");
+			flush_queue();
+			return;
+		}
 	}
 
 	if ( OUTPUTBOX(*ob)->OB_FETCHING < OB_IS_READY ) { /* stop older output box */
 		DEBUG_MSG("outputbox: current OB_FETCHING=%d < %d\n", OUTPUTBOX(*ob)->OB_FETCHING,OB_IS_READY);
 		outputbox_message( *ob, _("tool is running. press Escape to stop it first."), "b" );
+		flush_queue();
 		return;
 	}
 
+	OUTPUTBOX(*ob)->basepath_cached = NULL;
+	OUTPUTBOX(*ob)->basepath_cached_color = FALSE;
 	OUTPUTBOX(*ob)->OB_FETCHING = OB_GO_FETCHING;
-
-	gtk_list_store_clear( GTK_LIST_STORE( OUTPUTBOX(*ob)->lstore ) );
-
-	flush_queue();
-
 	OUTPUTBOX(*ob)->def = g_new0( Toutput_def, 1 );
 	OUTPUTBOX(*ob)->def->pattern = g_strdup( pattern );
 	OUTPUTBOX(*ob)->def->file_subpat = file_subpat;
@@ -318,6 +386,7 @@ void outputbox(Tbfwin *bfwin, gpointer *ob, const gchar *title, gchar *pattern, 
 	OUTPUTBOX(*ob)->def->output_subpat = output_subpat;
 	OUTPUTBOX(*ob)->def->show_all_output = show_all_output;
 	regcomp( &OUTPUTBOX(*ob)->def->preg, OUTPUTBOX(*ob)->def->pattern, REG_EXTENDED );
+	/* TODO  : check for valid preg */
 	OUTPUTBOX(*ob)->def->command = g_strdup( command );
 	DEBUG_MSG("outputbox: starting command: %s\n", command);
 #ifdef __KA_BACKEND__
@@ -343,7 +412,7 @@ void outputbox_stop(Toutputbox *ob) {
 		return;
 	}
 	DEBUG_MSG("outputbox_stop: starting...\n");
-	menuitem_set_sensitive(ob->bfwin->menubar, N_("/External/Stop..."), FALSE);
+	/* menuitem_set_sensitive(ob->bfwin->menubar, N_("/External/Stop..."), FALSE); */
 	/* flush_queue(); */
 	if (ob->OB_FETCHING == OB_GO_FETCHING || ob->OB_FETCHING == OB_IS_FETCHING) {
 #ifdef __KA_BACKEND__
@@ -360,4 +429,53 @@ void outputbox_stop(Toutputbox *ob) {
 		}
 	}
 	DEBUG_MSG("outputbox_stop: fisnised.\n");
+}
+
+Toutputbox *outputbox_get_box (Tbfwin *bfwin, guint page)
+{
+	Toutputbox *ob;
+	ob = OUTPUTBOX(bfwin->outputbox);
+	if (ob && (ob->page_number == page)) {
+		return ob;
+	}else {
+		ob = OUTPUTBOX(bfwin->grepbox);
+		if (ob && (ob->page_number == page)) {
+			return ob;
+		}
+	}
+	return NULL;
+}
+
+void outputbox_set_status(Toutputbox *ob, gboolean status, gboolean force)
+{
+	if (!ob) { return ;}
+
+	gint cur_page;
+	cur_page = gtk_notebook_get_current_page(GTK_NOTEBOOK(ob->bfwin->ob_notebook));
+
+	if (force) {
+		menuitem_set_sensitive(ob->bfwin->menubar, N_("/External/Stop..."), status);
+	}else{/* force FALSE ==> call by outputbox backend, for e.g., outputbox_bf.c::finish_excute() */
+		if (ob->page_number == cur_page) {
+			menuitem_set_sensitive(ob->bfwin->menubar, N_("/External/Stop..."), status);
+		}
+		GtkWidget *tab_label, *child_widget;
+		child_widget = gtk_notebook_get_nth_page(GTK_NOTEBOOK(ob->bfwin->ob_notebook), ob->page_number);
+		tab_label = gtk_notebook_get_tab_label(GTK_NOTEBOOK(ob->bfwin->ob_notebook), child_widget);
+
+		GdkColor colorred = {0,0,0,65535};
+		GdkColor colorblack = {0,0,0,0};
+
+		if ( status ) {
+			DEBUG_MSG("outputbox_set_status: red color\n");
+			gtk_widget_modify_fg( tab_label, GTK_STATE_NORMAL, &colorred );
+			gtk_widget_modify_fg( tab_label, GTK_STATE_PRELIGHT, &colorred );
+			gtk_widget_modify_fg( tab_label, GTK_STATE_ACTIVE, &colorred );
+		} else {
+			DEBUG_MSG("outputbox_set_status: normal status\n");
+			gtk_widget_modify_fg( tab_label, GTK_STATE_NORMAL, &colorblack );
+			gtk_widget_modify_fg( tab_label, GTK_STATE_PRELIGHT, &colorblack );
+			gtk_widget_modify_fg( tab_label, GTK_STATE_ACTIVE, &colorblack );
+		}
+	}
 }
