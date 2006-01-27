@@ -7,12 +7,12 @@ please following instructions:
 * Configure winefish from source directory:
 $ autoconf # if needed
 $ ./configure # or something like this
+$ cd po # change to `po' directory
 
 * In this 'po' directory, try:
 $ rm -fv winefish.po && make winefish.po
 
 * If there's already LANG.po files, please trye
-$ cd ./po
 $ make update-po
 
 * If not, copying winefish.po to LANG.po
