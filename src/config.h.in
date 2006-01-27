@@ -128,8 +128,8 @@
  *
  *********************** winefish ***********************/
 
-/* a trailing space */
-#define FUNC_GREP_RECURSIVE_MAX_DEPTH "-maxdepth 50 "
+/* maximum depth for `find' function */
+#define FUNC_GREP_RECURSIVE_MAX_DEPTH "-maxdepth 50"
 
 /* maximum length of latex command (\foobar) */
 #define COMMAND_MAX_LENGTH 20
