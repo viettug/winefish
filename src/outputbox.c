@@ -441,7 +441,7 @@ void outputbox(Tbfwin *bfwin, gpointer *ob, const gchar *title, gchar *pattern, 
 	if (show_all_output & OB_NEED_SAVE_FILE) {
 		file_save_cb( NULL, bfwin );
 		if ( !bfwin->current_document->filename ) {
-			outputbox_message(*ob, _("files wasnot saved. tool canceled"), "b");
+			outputbox_message(*ob, _("file wasnot saved. tool canceled"), "b");
 			flush_queue();
 			return;
 		}
