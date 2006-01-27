@@ -1146,9 +1146,9 @@ void doc_set_statusbar_editmode_encoding( Tdocument *doc )
 {
 	gchar * msg;
 	if ( doc->hl == NULL )
-		msg = g_strdup_printf( _( "%s, %s" ), "text", doc->encoding );
+		msg = g_strdup_printf( "%s, %s", "text", doc->encoding );
 	else
-		msg = g_strdup_printf( _( "%s, %s" ), doc->hl->type, doc->encoding );
+		msg = g_strdup_printf( "%s, %s", doc->hl->type, doc->encoding );
 	gtk_statusbar_pop( GTK_STATUSBAR( BFWIN( doc->bfwin ) ->statusbar_editmode ), 0 );
 	gtk_statusbar_push( GTK_STATUSBAR( BFWIN( doc->bfwin ) ->statusbar_editmode ), 0, msg );
 	g_free( msg );
