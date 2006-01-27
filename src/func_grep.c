@@ -84,6 +84,7 @@ static void files_advanced_win_ok_clicked( GtkWidget * widget, Tfiles_advanced *
 	/* create list here */
 	gchar * command, *temp_file=NULL;
 	gchar *c_basedir, *c_find_pattern, *c_recursive, *c_grep_pattern, *c_is_regex;
+	gchar *c_grep_pattern_escaped=NULL;
 	gint type = 0;
 	
 	c_basedir = gtk_editable_get_chars( GTK_EDITABLE( GTK_COMBO(tfs->basedir)->entry ), 0, -1 );
@@ -179,10 +180,13 @@ static void files_advanced_win_ok_clicked( GtkWidget * widget, Tfiles_advanced *
 #endif /* EXTERNAL_SED */
 #endif /* EXTERNAL_XARGS */
 #ifdef SED_XARGS
+		c_grep_pattern_escaped = g_strescape(c_grep_pattern,"\"");
+		/* TODO: escape \" */
+
 		DEBUG_MSG("func_grep: use xargs and sed\n");
-		command = g_strconcat(EXTERNAL_FIND, " '",c_basedir, "' -type f", c_find_pattern, c_recursive, "| ", EXTERNAL_SED, " -e 's/ /\\\\\\ /g' | ", EXTERNAL_XARGS, " ", EXTERNAL_GREP, c_is_regex, " '", c_grep_pattern,"'", NULL);
+		command = g_strconcat(EXTERNAL_FIND, " '",c_basedir, "' -type f", c_find_pattern, c_recursive, "| ", EXTERNAL_SED, " -e 's/ /\\\\\\ /g' | ", EXTERNAL_XARGS, " ", EXTERNAL_GREP, c_is_regex, " '", c_grep_pattern_escaped,"'", NULL);
 #else
-		command = g_strconcat( EXTERNAL_GREP, c_is_regex, " '", c_grep_pattern, "' `", EXTERNAL_FIND, " '", c_basedir, "' -type f", c_find_pattern, c_recursive, "`", NULL );
+		command = g_strconcat( EXTERNAL_GREP, c_is_regex, " '", c_grep_pattern_escaped, "' `", EXTERNAL_FIND, " '", c_basedir, "' -type f", c_find_pattern, c_recursive, "`", NULL );
 #endif /* SED_XARGS */
 	}
 	DEBUG_MSG( "files_advanced_win_ok_clicked, command=%s\n", command );
@@ -215,6 +219,7 @@ static void files_advanced_win_ok_clicked( GtkWidget * widget, Tfiles_advanced *
 	g_free( c_basedir );
 	g_free( c_find_pattern );
 	g_free( c_grep_pattern );
+	g_free( c_grep_pattern_escaped );
 	g_free( command );
 	files_advanced_win_destroy( widget, tfs );
 }
