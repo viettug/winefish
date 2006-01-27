@@ -233,6 +233,7 @@ static void files_advanced_win_ok_clicked( GtkWidget * widget, Tfiles_advanced *
 	g_free( c_find_pattern );
 	g_free( c_grep_pattern );
 	g_free( c_grep_pattern_escaped );
+	g_free( c_skipdir);
 	g_free( command );
 	files_advanced_win_destroy( widget, tfs );
 }
