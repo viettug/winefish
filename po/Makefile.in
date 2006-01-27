@@ -1,0 +1,79 @@
+# Makefile for gettext support
+# Copyright (C) 2002 Olivier Sessink <olivier@bluefish.openoffice.nl>
+# Copyright (C) 2005 Ky Anh <kyanh@o2.pl>
+
+PACKAGE = @PACKAGE@
+VERSION = @VERSION@
+
+SHELL = /bin/sh
+
+top_srcdir = @top_srcdir@
+top_builddir = @top_srcdir@
+srcdir = @srcdir@
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+bindir = @bindir@
+pkgdatadir = @pkgdatadir@
+datadir = @datadir@
+localedir = $(datadir)/locale
+ALL_LINGUAS = @ALL_LINGUAS@
+
+INSTALL = @INSTALL@
+INSTALL_DIR = $(INSTALL) -d -m 755
+INSTALL_DATA = ${INSTALL} -m 644
+
+MSGFMT = @MSGFMT@
+XGETTEXT = @XGETTEXT@
+MSGMERGE = @MSGMERGE@
+
+SRCS = vi.po it.po
+
+.SUFFIXES: .po .gmo
+OBJS = $(SRCS:.po=.gmo)
+
+all: all-yes
+
+all-yes: $(SRCS) $(OBJS)
+
+all-no:
+
+.po.gmo: $(SRCS)
+	$(MSGFMT) $< -o $@
+
+# we only install the languages named in ALL_LINGUAS
+# because there is no reason to install 50% translated languages
+
+install:
+	$(INSTALL_DIR) $(DESTDIR)$(localedir)
+	for lang in $(ALL_LINGUAS) ; do \
+		if test -f $${lang}.po; then \
+			$(INSTALL_DIR) $(DESTDIR)$(localedir)/$${lang}/ ;\
+			$(INSTALL_DIR) $(DESTDIR)$(localedir)/$${lang}/LC_MESSAGES/ ;\
+			$(INSTALL_DATA) $${lang}.gmo $(DESTDIR)$(localedir)/$${lang}/LC_MESSAGES/${PACKAGE}.mo;\
+			echo "installing $${lang}" ;\
+		fi ;\
+	done
+
+uninstall:
+	@for file in $(SRCS) ; do \
+		lang=`echo $${file} | sed -e 's/\.po$$//'`;\
+		rm -f $(DESTDIR)$(localedir)/$${lang}/LC_MESSAGES/${PACKAGE}.mo;\
+	done
+
+clean:
+	rm -f *.gmo
+
+distclean: clean
+	rm -f Makefile tmp.po ${PACKAGE}.po *.rej *.orig *~
+
+${PACKAGE}.po:
+	$(XGETTEXT) --from-code=UTF-8 --default-domain=${PACKAGE} --keyword=_ --keyword=N_ ../src/*.c
+
+update-po: ${PACKAGE}.po
+	@for file in $(SRCS) ; do \
+		lang=`echo $${file} | sed -e 's/\.po$$//'`;\
+		echo -n "updating $${lang}.po...";\
+		$(MSGMERGE) -q --output-file=tmp.po $${lang}.po ${PACKAGE}.po && mv tmp.po $${lang}.po;\
+		$(MSGFMT) --statistics $${lang}.po -o $${lang}.gmo ;\
+	done
+

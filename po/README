@@ -1,0 +1,36 @@
+Hi,
+
+If you would like to translate Winefish into your language,
+please following instructions:
+
+
+* Configure winefish from source directory:
+$ autoconf # if needed
+$ ./configure # or something like this
+
+* In this 'po' directory, try:
+$ rm -fv winefish.po && make winefish.po
+
+* If there's already LANG.po files, please trye
+$ cd ./po
+$ make update-po
+
+* If not, copying winefish.po to LANG.po
+$ cp winefish.po LANG.po
+
+* Using KBabel,gTranslator,... to open the LANG.po file
+and start/continue the translation.
+
+* Please mailto your work (LANG.po) to kyanh@o2.pl.
+Your contribution will be part of next minor Winefish release.
+
+Thank you in advance for your contribution.
+
+You make Winefish live!
+
+Regards,
+
+kyanh <kyanh@o2.pl>
+
+PS:
+20060123: i wonder if anyone read this file ;)
