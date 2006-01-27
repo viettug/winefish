@@ -505,10 +505,13 @@ void rcfile_parse_main(void)
 		tmpstr = g_strdup_printf("%d",OB_NEED_SAVE_FILE + OB_SHOW_ALL_OUTPUT);
 		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist("DVIPS",".*","-1","-1","0",OB_DVIPS,tmpstr,NULL));
 		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist("DVIPDFM",".*","-1","-1","0",OB_DVIPDFM,tmpstr,NULL));
-		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist("View Log File",".*","-1","-1","0",OB_ViewLog,tmpstr,NULL));
-	
+
 		tmpstr = g_strdup_printf("%d", OB_SHOW_ALL_OUTPUT);
-		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist("Soft Clean",".*","-1","-1","0",OB_SoftClean,tmpstr,NULL));
+		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist("View Log File",".*","-1","-1","0",OB_ViewLog,tmpstr,NULL));
+
+		/* tmpstr = g_strdup_printf("%d", OB_SHOW_ALL_OUTPUT); */
+		/* dont save file, show output lines by lines */
+		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist("Soft Clean",".*","-1","-1","0",OB_SoftClean,"0", NULL));
 		g_free(tmpstr);
 	}
 	if (main_v->props.external_commands == NULL) {
