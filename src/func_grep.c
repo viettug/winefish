@@ -58,6 +58,7 @@ typedef struct
 	GList *filenames_to_return;
 	GtkWidget *win;
 	GtkWidget *basedir;
+	GtkWidget *skipdir;
 	GtkWidget *find_pattern;
 	GtkWidget *recursive;
 	GtkWidget *open_files;
@@ -83,7 +84,7 @@ static void files_advanced_win_ok_clicked( GtkWidget * widget, Tfiles_advanced *
 {
 	/* create list here */
 	gchar * command, *temp_file=NULL;
-	gchar *c_basedir, *c_find_pattern, *c_recursive, *c_grep_pattern, *c_is_regex;
+	gchar *c_basedir, *c_find_pattern, *c_recursive, *c_grep_pattern, *c_is_regex, *c_skipdir;
 	gchar *c_grep_pattern_escaped=NULL;
 	gint type = 0;
 	
@@ -93,6 +94,7 @@ static void files_advanced_win_ok_clicked( GtkWidget * widget, Tfiles_advanced *
 		tfs->filenames_to_return =  NULL;
 		g_free(c_basedir);
 		files_advanced_win_destroy( widget, tfs );
+		statusbar_message(tfs->bfwin, _("no directory specified"), 2000);
 		return;
 	}
 	
@@ -137,42 +139,50 @@ static void files_advanced_win_ok_clicked( GtkWidget * widget, Tfiles_advanced *
 		c_find_pattern = g_realloc(c_find_pattern, newsize);
 		c_find_pattern[newsize-1] = '\0';
 		DEBUG_MSG("func_grep: truncated finalstring = %s\n", c_find_pattern);
-		c_find_pattern = g_strconcat(" \\( ",c_find_pattern, " \\) ", NULL);
+		c_find_pattern = g_strconcat("\\( ",c_find_pattern, " \\)", NULL);
 		g_strfreev(tmparray);
 	}
 	
 	if ( gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( tfs->recursive ) ) ) {
 		c_recursive = FUNC_GREP_RECURSIVE_MAX_DEPTH;
 	} else {
-		c_recursive = "-maxdepth 1 ";
+		c_recursive = "-maxdepth 1";
 	}
 
 	c_grep_pattern =/* gtk_editable_get_chars( GTK_EDITABLE( tfs->grep_pattern ), 0, -1 ); */
 			gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(tfs->grep_pattern)->entry),0,-1);
 	type = (!c_grep_pattern || strlen(c_grep_pattern)==0);
 	if ( open_files-100) {
-		c_is_regex = " -l ";
+		c_is_regex = "l";
 	}else{
 		if (type) {
-			c_is_regex = " -l ";
+			c_is_regex = "l";
 		}else{
-			c_is_regex = " -nH ";
+			c_is_regex = "nH";
 		}
 	}
 	
 	if ( gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( tfs->is_regex ) ) ) {
-		c_is_regex = g_strconcat(" -E", c_is_regex, NULL);
+		c_is_regex = g_strconcat("E ", c_is_regex, NULL);
 	}
 	if ( !gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( tfs->case_sensitive ) ) ) {
-		c_is_regex = g_strconcat(" -i", c_is_regex, NULL);
+		c_is_regex = g_strconcat("i", c_is_regex, NULL);
 	}
-	
+	c_is_regex = g_strconcat("-", c_is_regex, NULL);
+
+	if ( gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( tfs->skipdir ) ) ) {
+		c_skipdir = g_strdup("| grep -v SCCS/ | grep -v CVS | grep -v .svn/");
+	}else{
+		c_skipdir = g_strdup("");
+	}
+
 	/*
 	command = `find c_basedir -name c_find_pattern c_recursive`
 	command = `grep -E 'c_grep_pattern' `find c_basedir -name c_find_pattern c_recursive``
 	*/
 	if ( type ) {
-		command = g_strconcat( EXTERNAL_FIND, " '", c_basedir, "' -type f",c_find_pattern, c_recursive, NULL );
+		command = /* g_strconcat( EXTERNAL_FIND, " '", c_basedir, "' -type f",c_find_pattern, c_recursive, NULL ); */
+				g_strdup_printf("%s '%s' -type f %s %s %s", EXTERNAL_FIND, c_basedir, c_find_pattern, c_recursive, c_skipdir);
 	} else {
 #ifdef EXTERNAL_XARGS
 #ifdef EXTERNAL_SED
@@ -184,9 +194,12 @@ static void files_advanced_win_ok_clicked( GtkWidget * widget, Tfiles_advanced *
 		/* TODO: escape \" */
 
 		DEBUG_MSG("func_grep: use xargs and sed\n");
-		command = g_strconcat(EXTERNAL_FIND, " '",c_basedir, "' -type f", c_find_pattern, c_recursive, "| ", EXTERNAL_SED, " -e 's/ /\\\\\\ /g' | ", EXTERNAL_XARGS, " ", EXTERNAL_GREP, c_is_regex, " '", c_grep_pattern_escaped,"'", NULL);
+		command = /* g_strconcat(EXTERNAL_FIND, " '",c_basedir, "' -type f", c_find_pattern, c_recursive, "| ", EXTERNAL_SED, " -e 's/ /\\\\\\ /g' | ", EXTERNAL_XARGS, " ", EXTERNAL_GREP, c_is_regex, " '", c_grep_pattern_escaped,"'", NULL); */
+				g_strdup_printf("%s '%s' -type f %s %s %s | %s -e 's/ /\\\\\\ /g' | %s %s %s '%s'", EXTERNAL_FIND, c_basedir, c_find_pattern, c_recursive, c_skipdir, EXTERNAL_SED, EXTERNAL_XARGS, EXTERNAL_GREP, c_is_regex, c_grep_pattern_escaped);
 #else
-		command = g_strconcat( EXTERNAL_GREP, c_is_regex, " '", c_grep_pattern_escaped, "' `", EXTERNAL_FIND, " '", c_basedir, "' -type f", c_find_pattern, c_recursive, "`", NULL );
+		/* TODO: have find, have grep, but donot have sed/xargs. why???? */
+		command = /* g_strconcat( EXTERNAL_GREP, c_is_regex, " '", c_grep_pattern_escaped, "' `", EXTERNAL_FIND, " '", c_basedir, "' -type f", c_find_pattern, c_recursive, "`", NULL ); */
+			g_strdup_printf("%s %s '%s' `%s '%s' -type f %s %s %s`",EXTERNAL_GREP, c_is_regex, c_grep_pattern_escaped, EXTERNAL_FIND, c_basedir, c_find_pattern, c_recursive, c_skipdir);
 #endif /* SED_XARGS */
 	}
 	DEBUG_MSG( "files_advanced_win_ok_clicked, command=%s\n", command );
@@ -296,7 +309,7 @@ static void files_advanced_win( Tfiles_advanced *tfs)
 
 #define MAX_COLUMN 7
 
-	table = gtk_table_new( 11, MAX_COLUMN, FALSE );
+	table = gtk_table_new( 13, MAX_COLUMN, FALSE );
 	gtk_table_set_row_spacings( GTK_TABLE( table ), 0 );
 	gtk_table_set_col_spacings( GTK_TABLE( table ), 12 );
 	gtk_box_pack_start( GTK_BOX( vbox ), table, FALSE, FALSE, 0 );
@@ -337,7 +350,6 @@ static void files_advanced_win( Tfiles_advanced *tfs)
 
 	/* content */
 	gtk_table_set_row_spacing( GTK_TABLE( table ), 6, 10 );
-	
 	bf_label_tad_with_markup( _( "<b>Contains</b>" ), 0, 0.5, table, 0, 3, 7, 8 );
 
 	{
@@ -358,6 +370,7 @@ static void files_advanced_win( Tfiles_advanced *tfs)
 	
 	bf_mnemonic_label_tad_with_alignment( _( "Pa_ttern:" ), tfs->grep_pattern, 0, 0.5, table, 1, 2, 8, 9 );
 	gtk_table_attach_defaults( GTK_TABLE( table ), tfs->grep_pattern, 2, MAX_COLUMN-1, 8, 9 );
+	/* failed: gtk_tooltips_set_tip(main_v->tooltips, tfs->grep_pattern, _("left pattern blank == file listing..."),NULL); */
 
 	tfs->case_sensitive = checkbut_with_value( NULL, 1 );
 	bf_mnemonic_label_tad_with_alignment( _( "_Case sensitive:" ), tfs->case_sensitive, 0, 0.5, table, 1, 2, 9, 10 );
@@ -367,6 +380,13 @@ static void files_advanced_win( Tfiles_advanced *tfs)
 	bf_mnemonic_label_tad_with_alignment( _( "Is rege_x:" ), tfs->is_regex, 0, 0.5, table, 1, 2, 10, 11 );
 	gtk_table_attach_defaults( GTK_TABLE( table ), tfs->is_regex, 2, MAX_COLUMN-1, 10, 11 );
 
+	gtk_table_set_row_spacing( GTK_TABLE( table ), 10, 10 );
+	bf_label_tad_with_markup( _( "<b>Advanced</b>" ), 0, 0.5, table, 0, 3, 11, 12 );
+
+	tfs->skipdir = checkbut_with_value( NULL, 1);
+	bf_mnemonic_label_tad_with_alignment( _( "Skip VCS dirs:" ), tfs->skipdir, 0, 0.5, table, 1, 2, 12, 13 );
+	gtk_table_attach_defaults( GTK_TABLE( table ), tfs->skipdir, 2, MAX_COLUMN-1, 12, 13 );
+	
 	/* buttons */
 	hbox = gtk_hbox_new( FALSE, 0 );
 	gtk_box_pack_start( GTK_BOX( hbox ), gtk_hseparator_new(), TRUE, TRUE, 0 );
@@ -381,8 +401,6 @@ static void files_advanced_win( Tfiles_advanced *tfs)
 	gtk_window_set_default( GTK_WINDOW( tfs->win ), but );
 	gtk_box_pack_start( GTK_BOX( vbox ), hbox, FALSE, FALSE, 0 );
 	
-	/* gtk_widget_set_size_request(GTK_WIDGET( tfs->win ), 500,-1); */
-	
 	gtk_widget_show_all( GTK_WIDGET( tfs->win ) );
 
 	/*	gtk_grab_add(GTK_WIDGET(tfs->win));
@@ -393,7 +411,7 @@ static void files_advanced_win( Tfiles_advanced *tfs)
 
 static GList *return_files_advanced( Tbfwin *bfwin, gchar *tmppath)
 {
-	Tfiles_advanced tfs = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, bfwin};
+	Tfiles_advanced tfs = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, bfwin};
 	if ( tmppath ) {
 		GtkWidget * curdir = entry_with_text( tmppath, 255 );
 		tfs.basedir = curdir;
