@@ -1536,12 +1536,13 @@ _(
 %l: current line\n\
 \n\
 If there isn't any project, or project mode is off, we have\n\
-\t%D=%d and %B=%b\n\
+\t%D=%d, %B=%b\n\
 \n\
 Save,Show:\n\
 \tneed save file: 1\n\
 \tshow all output: 2\n\
-\tboth of them: 1+2 =3\
+\tboth of them: 1+2 =3\n\
+\tnone of them: 0\
 ")), TRUE, TRUE, 2);
 }
 
