@@ -2,6 +2,11 @@ $Id$
 
 ============================================================== [200601]
 
+#76
+* reload a document should go the previous line
+* winefish knows file was changed by another process only when
+the document notebook/tab changed...
+
 #75/fixed/kyanh/20060127/
 * outputbox: cannot search for \begin (<== need escaping)
 
