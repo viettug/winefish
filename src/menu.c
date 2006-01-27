@@ -197,26 +197,27 @@ static void menu_bmark_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWid
 static void toggle_doc_property(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	switch(callback_action) {
 	case 1:
-		bfwin->current_document->wrapstate = GTK_CHECK_MENU_ITEM(widget)->active;
+		bfwin->current_document->view_bars = SET_BIT( bfwin->current_document->view_bars, MODE_WRAP, GTK_CHECK_MENU_ITEM(widget)->active);
 		doc_set_wrap(bfwin->current_document);
 		break;
 	case 2:
-		DEBUG_MSG("old mask value: %d/%d\n", main_v->session->view_bars, main_v->session->view_bars & VIEW_LINE_NUMBER);
-		bfwin->current_document->linenumberstate = GTK_CHECK_MENU_ITEM(widget)->active;
-		document_set_line_numbers(bfwin->current_document, bfwin->current_document->linenumberstate);
-		main_v->session->view_bars = SET_BIT(main_v->session->view_bars, VIEW_LINE_NUMBER, bfwin->current_document->linenumberstate);
-		DEBUG_MSG("new mask value: %d/%d\n", main_v->session->view_bars, main_v->session->view_bars & VIEW_LINE_NUMBER);
+		/* save view_line_numbers for session only */
+		DEBUG_MSG("old mask value: %d/%d\n", main_v->session->view_bars, GET_BIT(main_v->session->view_bars,VIEW_LINE_NUMBER));
+		bfwin->current_document->view_bars = SET_BIT(bfwin->current_document->view_bars , VIEW_LINE_NUMBER, GTK_CHECK_MENU_ITEM(widget)->active);
+		document_set_line_numbers(bfwin->current_document, GET_BIT(bfwin->current_document->view_bars , VIEW_LINE_NUMBER));
+		main_v->session->view_bars = SET_BIT(main_v->session->view_bars, VIEW_LINE_NUMBER, GET_BIT(bfwin->current_document->view_bars,VIEW_LINE_NUMBER));
+		DEBUG_MSG("new mask value: %d/%d\n", main_v->session->view_bars, GET_BIT(main_v->session->view_bars , VIEW_LINE_NUMBER));
 		break;
 	case 3:
-		bfwin->current_document->autoclosingtag = GTK_CHECK_MENU_ITEM(widget)->active;
+		bfwin->current_document->view_bars = SET_BIT(bfwin->current_document->view_bars , MODE_AUTO_COMPLETE, GTK_CHECK_MENU_ITEM(widget)->active);
 		break;
 	case 4:
-		main_v->props.autoindent = GTK_CHECK_MENU_ITEM(widget)->active;
+		main_v->props.view_bars = SET_BIT(main_v->props.view_bars, MODE_AUTO_INDENT, GTK_CHECK_MENU_ITEM(widget)->active);
 		break;
 	case 5:
 		if (bfwin->project) {
-			bfwin->project->view_bars = SET_BIT(bfwin->project->view_bars, PROJECT_MODE, GTK_CHECK_MENU_ITEM(widget)->active);
-			if (bfwin->project->view_bars & PROJECT_MODE) {
+			bfwin->project->view_bars = SET_BIT(bfwin->project->view_bars, MODE_PROJECT, GTK_CHECK_MENU_ITEM(widget)->active);
+			if (bfwin->project->view_bars & MODE_PROJECT) {
 				statusbar_message(bfwin, _("project mode: ON"), 2000);
 			}else{
 				statusbar_message(bfwin, _("project mode: OFF"), 2000);
@@ -725,7 +726,7 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 	/* setup_toggle_item(item_factory, N_("/View/View LaTeX Toolbar"), main_v->session->view_bars & VIEW_LATEX_TOOLBAR); */
 	setup_toggle_item(item_factory, N_("/View/View Custom Menu"), main_v->session->view_bars & VIEW_CUSTOM_MENU);
 	setup_toggle_item(item_factory, N_("/View/View Sidebar"), main_v->session->view_bars & VIEW_LEFT_PANEL);
-	setup_toggle_item(item_factory, N_("/Document/Auto Indent"), main_v->props.autoindent);
+	setup_toggle_item(item_factory, N_("/Document/Auto Indent"), main_v->props.view_bars & MODE_AUTO_INDENT);
 	setup_toggle_item(item_factory, N_("/External/Project mode"), 1);
 
 	set_project_menu_widgets(bfwin, FALSE);

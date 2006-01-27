@@ -429,7 +429,7 @@ void outputbox(Tbfwin *bfwin, gpointer *ob, const gchar *title, gchar *pattern, 
 	}
 	{
 		gchar *format_str;
-		if ( bfwin->project && ( bfwin->project->view_bars & PROJECT_MODE ) ) {
+		if ( bfwin->project && ( bfwin->project->view_bars & MODE_PROJECT ) ) {
 			format_str = g_strdup_printf(_("%s # project mode: ON"), command );
 		} else {
 			format_str = g_strdup_printf(_("%s # project mode: OFF"), command);

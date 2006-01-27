@@ -320,7 +320,7 @@ void run_command(Toutputbox *ob) {
 	/*if ( ob->bfwin->current_document->filename ) {*/
 		{
 			gchar * tmpstring;
-			if ( ob->bfwin->project && ( ob->bfwin->project->view_bars & PROJECT_MODE ) && ob->bfwin->project->basedir )
+			if ( ob->bfwin->project && ( ob->bfwin->project->view_bars & MODE_PROJECT ) && ob->bfwin->project->basedir )
 			{
 				tmpstring = g_strdup( ob->bfwin->project->basedir );
 			} else

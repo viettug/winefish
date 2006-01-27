@@ -41,7 +41,7 @@
 #include <time.h> /* ctime_r() */
 #include <pcre.h>
 
-/* #define DEBUG */
+#define DEBUG
 
 #ifdef DEBUGPROFILING
 #include <sys/times.h>
@@ -302,8 +302,8 @@ void doc_update_highlighting( Tbfwin *bfwin, guint callback_action, GtkWidget *w
 {
 	if ( !bfwin->current_document )
 		return ;
-	DEBUG_MSG( "doc_update_highlighting, curdoc=%p, highlightstate=%d\n", bfwin->current_document, bfwin->current_document->highlightstate );
-	if ( bfwin->current_document->highlightstate == 0 ) {
+	DEBUG_MSG( "doc_update_highlighting, curdoc=%p, highlightstate=%d\n", bfwin->current_document, bfwin->current_document->view_bars & VIEW_COLORIZED );
+	if ( !(bfwin->current_document->view_bars & VIEW_COLORIZED) ) {
 		setup_toggle_item( gtk_item_factory_from_widget( bfwin->menubar ),
 					_( "/Document/Highlight Syntax" ), TRUE );
 		DEBUG_MSG( "doc_update_highlighting, calling doc_toggle_highlighting_cb\n" );
@@ -325,7 +325,7 @@ void doc_update_highlighting( Tbfwin *bfwin, guint callback_action, GtkWidget *w
 **/
 void doc_set_wrap( Tdocument * doc )
 {
-	if ( doc->wrapstate ) {
+	if ( doc->view_bars & MODE_WRAP ) {
 		gtk_text_view_set_wrap_mode( GTK_TEXT_VIEW( doc->view ), GTK_WRAP_WORD );
 	} else {
 		gtk_text_view_set_wrap_mode( GTK_TEXT_VIEW( doc->view ), GTK_WRAP_NONE );
@@ -348,7 +348,7 @@ gboolean doc_set_filetype( Tdocument *doc, Tfiletype *ft )
 		doc_remove_highlighting( doc );
 		doc->hl = ft;
 		doc->need_highlighting = TRUE;
-		doc->autoclosingtag = ( ft->autoclosingtag > 0 );
+		doc->view_bars  = SET_BIT( doc->view_bars, MODE_AUTO_COMPLETE, ( ft->autoclosingtag > 0 ));
 		gui_set_document_widgets( doc );
 		return TRUE;
 	}
@@ -1131,7 +1131,7 @@ static void doc_set_statusbar_lncol( Tdocument *doc )
 void doc_set_statusbar_insovr( Tdocument *doc )
 {
 	gtk_statusbar_pop( GTK_STATUSBAR( BFWIN( doc->bfwin ) ->statusbar_insovr ), 0 );
-	gtk_statusbar_push( GTK_STATUSBAR( BFWIN( doc->bfwin ) ->statusbar_insovr ), 0, ( doc->overwrite_mode ? "OVR" : "INS" ) );
+	gtk_statusbar_push( GTK_STATUSBAR( BFWIN( doc->bfwin ) ->statusbar_insovr ), 0, ( doc->view_bars & MODE_OVERWRITE ? "OVR" : "INS" ) );
 }
 /**
 * doc_set_statusbar_editmode_encoding:
@@ -1303,7 +1303,7 @@ void doc_insert_two_strings( Tdocument *doc, const gchar *before_str, const gcha
 		* \begin{}
 		* \start{}
 	*/
-	if (main_v->props.autoindent/* && g_str_has_prefix(before_str, "\\begin{") */)
+	if (main_v->props.view_bars & MODE_AUTO_INDENT/* && g_str_has_prefix(before_str, "\\begin{") */)
 	{
 		gchar *indent=NULL;
 		GtkTextMark* imark;
@@ -1637,9 +1637,9 @@ gboolean doc_file_to_textbox( Tdocument * doc, gchar * filename, gboolean enable
 			g_free( buffer );
 		}
 	}
-	if ( doc->highlightstate ) {
+	if ( doc->view_bars & VIEW_COLORIZED ) {
 		doc->need_highlighting = TRUE;
-		DEBUG_MSG( "doc_file_to_textbox, highlightstate=%d, need_highlighting=%d, delay=%d\n", doc->highlightstate, doc->need_highlighting, delay );
+		DEBUG_MSG( "doc_file_to_textbox, highlightstate=%d, need_highlighting=%d, delay=%d\n", doc->view_bars & VIEW_COLORIZED, doc->need_highlighting, delay );
 		if ( !delay ) {
 #ifdef DEBUG
 		g_print( "doc_file_to_textbox, doc->hlset=%p\n", doc->hl );
@@ -1747,7 +1747,7 @@ static void doc_buffer_insert_text_after_lcb( GtkTextBuffer *textbuffer, GtkText
 	DEBUG_MSG( "doc_buffer_insert_text_after_lcb, started for string '%s'\n", string );
 	if ( !doc->paste_operation ) {
 		/* highlighting stuff */
-		if ( doc->highlightstate && string && doc->hl ) {
+		if ( (doc->view_bars & VIEW_COLORIZED) && string && doc->hl ) {
 			gboolean do_highlighting = FALSE;
 			if ( doc->hl->update_chars[ 0 ] == '\0' ) {
 				do_highlighting = TRUE;
@@ -2294,7 +2294,7 @@ static gboolean doc_view_key_release_lcb( GtkWidget *widget, GdkEventKey *kevent
 	/* complete environment */
 	if ( ( kevent->keyval == GDK_braceright ) || ( kevent->hardware_keycode == main_v->lastkp_hardware_keycode && main_v->lastkp_keyval == GDK_braceright ) ) {
 		/* autoclose environment for LaTeX */
-		if ( doc->autoclosingtag ) {
+		if ( doc->view_bars & MODE_AUTO_COMPLETE ) {
 			GtkTextMark * imark;
 			GtkTextIter itstart, iter, maxsearch;
 
@@ -2338,7 +2338,7 @@ static gboolean doc_view_key_release_lcb( GtkWidget *widget, GdkEventKey *kevent
 						/* search cannot be freed */
 					}
 					/* count the autoindent */
-					if (main_v->props.autoindent) {
+					if (main_v->props.view_bars & MODE_AUTO_INDENT) {
 						itstart = iter;
 						gtk_text_iter_set_line_index(&itstart, 0);
 						indent = gtk_text_buffer_get_text(doc->buffer, &itstart, &iter, FALSE);
@@ -2403,7 +2403,7 @@ static gboolean doc_view_key_release_lcb( GtkWidget *widget, GdkEventKey *kevent
 		/* find the \startFOO. TODO: \bFOO */
 		gchar *tagname = NULL;
 		gchar *endtag = NULL;
-		if ( doc->autoclosingtag ) {
+		if ( doc->view_bars & MODE_AUTO_COMPLETE ) {
 			GtkTextMark * imark;
 			GtkTextIter itstart, iter, maxsearch;
 
@@ -2431,7 +2431,7 @@ static gboolean doc_view_key_release_lcb( GtkWidget *widget, GdkEventKey *kevent
 		}
 		GtkTextIter itend;
 		gchar *string = NULL; /* badname */
-		if ( main_v->props.autoindent ) {
+		if ( main_v->props.view_bars & MODE_AUTO_INDENT ) {
 			gchar *indenting;
 			GtkTextMark* imark;
 			GtkTextIter itstart;
@@ -2521,7 +2521,7 @@ static gboolean doc_view_key_release_lcb( GtkWidget *widget, GdkEventKey *kevent
 					gtk_text_buffer_delete( doc->buffer, &maxsearch, &itstart );
 					gtk_text_iter_set_line_index(&maxsearch, 0);
 					gchar *indent=NULL;
-					if (main_v->props.autoindent) {
+					if (main_v->props.view_bars & MODE_AUTO_INDENT ) {
 						indent = gtk_text_buffer_get_text( doc->buffer, &maxsearch, &itstart, FALSE);
 						if (indent) {
 							gchar *indenting = indent;
@@ -2612,7 +2612,7 @@ static void doc_buffer_delete_range_lcb( GtkTextBuffer *textbuffer, GtkTextIter 
 	DEBUG_MSG( "doc_buffer_delete_range_lcb, string='%s'\n", string );
 	if ( string ) {
 		/* highlighting stuff */
-		if ( doc->highlightstate && string && doc->hl ) {
+		if ( (doc->view_bars & VIEW_COLORIZED) && string && doc->hl ) {
 			if ( strlen( doc->hl->update_chars ) == 0 ) {
 				do_highlighting = TRUE;
 			} else {
@@ -2815,7 +2815,7 @@ static void doc_buffer_changed_lcb( GtkTextBuffer *textbuffer, Tdocument*doc )
 
 static void doc_view_toggle_overwrite_lcb( GtkTextView *view, Tdocument *doc )
 {
-	doc->overwrite_mode = ( doc->overwrite_mode ? FALSE : TRUE );
+	doc->view_bars = SET_BIT(doc->view_bars, MODE_OVERWRITE,!GET_BIT(doc->view_bars,MODE_OVERWRITE));
 	doc_set_statusbar_insovr( doc );
 }
 
@@ -3608,7 +3608,7 @@ Tdocument *doc_new( Tbfwin* bfwin, gboolean delay_activate )
 	DEBUG_MSG( "doc_new, main_v is at %p, bfwin at %p, newdoc at %p\n", main_v, bfwin, newdoc );
 	newdoc->bfwin = ( gpointer ) bfwin;
 	newdoc->hl = ( Tfiletype * ) ( ( GList * ) g_list_first( main_v->filetypelist ) ) ->data;
-	newdoc->autoclosingtag = ( newdoc->hl->autoclosingtag > 0 );
+	newdoc->view_bars = SET_BIT(newdoc->view_bars, VIEW_COLORIZED, ( newdoc->hl->autoclosingtag > 0 ));
 	newdoc->buffer = gtk_text_buffer_new( highlight_return_tagtable() );
 	newdoc->view = gtk_text_view_new_with_buffer( newdoc->buffer );
 	scroll = gtk_scrolled_window_new( NULL, NULL );
@@ -3619,8 +3619,8 @@ Tdocument *doc_new( Tbfwin* bfwin, gboolean delay_activate )
 					( scroll ), GTK_SHADOW_IN );
 	gtk_container_add( GTK_CONTAINER( scroll ), newdoc->view );
 
-	newdoc->linenumberstate = main_v->session->view_bars & VIEW_LINE_NUMBER;
-	document_set_line_numbers( newdoc, newdoc->linenumberstate );
+	newdoc->view_bars = SET_BIT(newdoc->view_bars, VIEW_LINE_NUMBER, GET_BIT(main_v->session->view_bars,VIEW_LINE_NUMBER));
+	document_set_line_numbers( newdoc, GET_BIT(newdoc->view_bars, VIEW_LINE_NUMBER ) );
 
 	newdoc->tab_label = gtk_label_new( NULL );
 	GTK_WIDGET_UNSET_FLAGS( newdoc->tab_label, GTK_CAN_FOCUS );
@@ -3633,7 +3633,7 @@ Tdocument *doc_new( Tbfwin* bfwin, gboolean delay_activate )
 
 	doc_unre_init( newdoc );
 	doc_set_font( newdoc, NULL );
-	newdoc->wrapstate = ( bfwin->project ) ? bfwin->project->word_wrap : main_v->props.word_wrap;
+	newdoc->view_bars = SET_BIT(newdoc->view_bars, MODE_WRAP, ( bfwin->project ) ? GET_BIT(bfwin->project->view_bars,MODE_WRAP) : GET_BIT(main_v->props.view_bars,MODE_WRAP) );
 	doc_set_wrap( newdoc );
 	/* newdoc->modified = 0; */
 	doc_set_title( newdoc );
@@ -3645,7 +3645,7 @@ Tdocument *doc_new( Tbfwin* bfwin, gboolean delay_activate )
 	newdoc->statbuf.st_gid = -1;
 	newdoc->is_symlink = 0;
 	newdoc->encoding = g_strdup( main_v->props.newfile_default_encoding );
-	newdoc->overwrite_mode = FALSE;
+	newdoc->view_bars = SET_BIT(newdoc->view_bars, MODE_OVERWRITE, FALSE);
 
 	doc_bind_signals( newdoc );
 
@@ -3705,8 +3705,14 @@ Tdocument *doc_new( Tbfwin* bfwin, gboolean delay_activate )
 	/* for some reason it only works after the document is appended to the notebook */
 	doc_set_tabsize( newdoc, main_v->props.editor_tab_width );
 
-	newdoc->highlightstate = main_v->props.defaulthighlight;
-	DEBUG_MSG( "doc_new, need_highlighting=%d, highlightstate=%d\n", newdoc->need_highlighting, newdoc->highlightstate );
+	newdoc->view_bars = SET_BIT(newdoc->view_bars, VIEW_COLORIZED, GET_BIT(main_v->props.view_bars,VIEW_COLORIZED));
+
+	/* BUG#74 */
+	if (newdoc->view_bars & VIEW_COLORIZED) {
+		setup_toggle_item( gtk_item_factory_from_widget( bfwin->menubar ), _( "/Document/Highlight Syntax" ), TRUE );
+	}
+
+	DEBUG_MSG( "doc_new, need_highlighting=%d, highlightstate=%d, global higlight = %d\n", newdoc->need_highlighting, GET_BIT(newdoc->view_bars,VIEW_COLORIZED), GET_BIT(main_v->props.view_bars,VIEW_COLORIZED) );
 	/*
 		these lines should not be here since notebook_changed() calls flush_queue()
 		that means that this document can be closed during notebook_changed(), and functions like open_file 
@@ -3741,7 +3747,7 @@ void doc_new_with_new_file( Tbfwin *bfwin, gchar * new_filename )
 		statusbar_message( bfwin, _( "No filename" ), 2 );
 		return ;
 	}
-	if ( !main_v->props.allow_multi_instances ) {
+	if ( !(main_v->props.view_bars & MODE_ALLOW_MULTIPLE_INSTANCE)) {
 		gboolean res;
 		res = switch_to_document_by_filename( bfwin, new_filename );
 		if ( res ) {
@@ -3796,7 +3802,7 @@ Tdocument * doc_new_with_file( Tbfwin *bfwin, gchar * filename, gboolean delay_a
 			g_free( bfwin->session->opendir );
 		bfwin->session->opendir = tmpstring;
 	}
-	if ( !main_v->props.allow_multi_instances ) {
+	if ( !main_v->props.view_bars & MODE_ALLOW_MULTIPLE_INSTANCE ) {
 		GList * alldocs = return_allwindows_documentlist();
 		Tdocument *tmpdoc = documentlist_return_document_from_filename( alldocs, fullfilename );
 		DEBUG_MSG( "doc_new_with_file, fullfilename=%s, tmpdoc=%p\n", fullfilename, tmpdoc );
@@ -4011,7 +4017,7 @@ void doc_activate( Tdocument *doc )
 	doc_set_statusbar_editmode_encoding( doc );
 
 	/* if highlighting is needed for this document do this now !! */
-	if ( doc->need_highlighting && doc->highlightstate ) {
+	if ( doc->need_highlighting && (doc->view_bars & VIEW_COLORIZED) ) {
 		doc_highlight_full( doc );
 		DEBUG_MSG( "doc_activate, doc=%p, after doc_highlight_full, need_highlighting=%d\n", doc, doc->need_highlighting );
 	}
@@ -4433,9 +4439,9 @@ void edit_select_all_cb( GtkWidget * widget, Tbfwin *bfwin )
 **/
 void doc_toggle_highlighting_cb( Tbfwin *bfwin, guint action, GtkWidget *widget )
 {
-	bfwin->current_document->highlightstate = 1 - bfwin->current_document->highlightstate;
-	DEBUG_MSG( "doc_toggle_highlighting_cb, started, highlightstate now is %d\n", bfwin->current_document->highlightstate );
-	if ( bfwin->current_document->highlightstate == 0 ) {
+	bfwin->current_document->view_bars = SET_BIT(bfwin->current_document->view_bars, VIEW_COLORIZED, !(GET_BIT(bfwin->current_document->view_bars,VIEW_COLORIZED)));
+	DEBUG_MSG( "doc_toggle_highlighting_cb, started, highlightstate now is %d\n", bfwin->current_document->view_bars &VIEW_COLORIZED );
+	if ( !(bfwin->current_document->view_bars &VIEW_COLORIZED) ) {
 		doc_remove_highlighting( bfwin->current_document );
 	} else {
 		doc_highlight_full( bfwin->current_document );
@@ -4586,7 +4592,7 @@ void doc_indent_selection( Tdocument *doc, gboolean unindent )
 				gint offsetstart = gtk_text_iter_get_offset( &itstart );
 				gchar *indentstring;
 				gint indentlen;
-				if ( main_v->props.editor_indent_wspaces ) {
+				if ( main_v->props.view_bars & MODE_INDENT_WITH_SPACES ) {
 					indentstring = bf_str_repeat( " ", main_v->props.editor_tab_width );
 					indentlen = main_v->props.editor_tab_width;
 				} else {
@@ -4633,7 +4639,7 @@ void doc_indent_selection( Tdocument *doc, gboolean unindent )
 		} else { /* indent */
 			gchar *indentstring;
 			gint indentlen;
-			if ( main_v->props.editor_indent_wspaces ) {
+			if ( main_v->props.view_bars & MODE_INDENT_WITH_SPACES ) {
 				indentstring = bf_str_repeat( " ", main_v->props.editor_tab_width );
 				indentlen = main_v->props.editor_tab_width;
 			} else {

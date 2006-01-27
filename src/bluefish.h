@@ -1,4 +1,4 @@
-/* $Id: bluefish.h,v 1.3 2005/07/25 02:54:51 kyanh Exp $ */
+/* $Id$ */
 
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * bluefish.h - global prototypes
@@ -132,11 +132,14 @@ typedef struct {
 	gint last_rbutton_event; /* index of last 3rd button click */
 	Tfiletype *hl; /* filetype & highlighting set to use for this document */
 	gint need_highlighting; /* if you open 10+ documents you don't need immediate highlighting, just set this var, and notebook_switch() will trigger the actual highlighting when needed */
+#ifdef STUFF
 	gboolean highlightstate; /* does this document use highlighting ? */
 	gboolean wrapstate; /* does this document use wrap?*/
 	gboolean linenumberstate; /* does this document use linenumbers? */
 	gboolean overwrite_mode; /* is document in overwrite mode */
 	gboolean autoclosingtag; /* does the document use autoclosing of tags */
+#endif /* STUFF */
+	guint16 view_bars;
 	gpointer floatingview; /* a 2nd textview widget that has its own window */
 	gpointer bfwin;
 	GtkTreeIter *bmark_parent; /* if NULL this document doesn't have bookmarks, if 
@@ -152,7 +155,7 @@ typedef struct {
 	gchar *filebrowser_dir_icon;
 	gchar *editor_font_string;		/* editor font */
 	gint editor_tab_width;	/* editor tabwidth */
-	gint editor_indent_wspaces; /* indent with spaces, not tabs */
+	/* gint editor_indent_wspaces; *//* indent with spaces, not tabs */
 	gchar *tab_font_string;		/* notebook tabs font */
 	GList *browsers; /* browsers array */
 	GList *external_commands;	/* external commands array */
@@ -160,7 +163,7 @@ typedef struct {
 	GList *cmenu_insert; /* custom menu inserts */
 	GList *cmenu_replace; /* custom menu replaces */
 	gint highlight_num_lines_count; /* number of lines to highlight in continous highlighting */	
-	gint defaulthighlight;		/* highlight documents by default */
+	/* gint defaulthighlight; *//* highlight documents by default */
 	GList *filetypes; /* filetypes for highlighting and filtering */
 	gint numcharsforfiletype; /* maximum number of characters in the file to use to find the filetype */
 	GList *filefilters; /* filebrowser.c filtering */
@@ -176,7 +179,7 @@ typedef struct {
 	gchar *backup_filestring;  /* the string to append to the backup file */
 	gint backup_abort_action; /* if the backup fails, continue save, abort save, or ask the user */
 	gint backup_cleanuponclose; /* remove the backupfile after close ? */
-	gint allow_multi_instances; /* allow multiple instances of the same file */
+	/* gint allow_multi_instances; *//* allow multiple instances of the same file */
 	gint modified_check_type; /* 0=no check, 1=by mtime and size, 2=by mtime, 3=by size, 4,5,...not implemented (md5sum?) */
 	gint num_undo_levels; 	/* number of undo levels per document */
 	gint clear_undo_on_save; 	/* clear all undo information on file save */
@@ -194,16 +197,17 @@ typedef struct {
 #ifdef HAVE_LIBASPELL
 	gchar *spell_default_lang;
 #endif /* HAVE_LIBASPELL */
-	gint word_wrap;				/* use wordwrap */
-	gint autoindent;			/* autoindent code */
+	/* gint word_wrap;	*/			/* use wordwrap */
+	/* gint autoindent;*/			/* autoindent code */
 	/* gint drop_at_drop_pos; 	*//* drop at drop position instead of cursor position */
 	/* gint cont_highlight_update;	*//* update the syntax highlighting continuous */
 	/* key conversion */
-	gint open_in_running_bluefish; /* open commandline documents in already running session*/
+	/* gint open_in_running_bluefish; *//* open commandline documents in already running session*/
 	GCompletion *completion;
 	GCompletion *completion_s;
 	GHashTable *autotext_hashtable; /* a hash table with (key,form) = (string,integer) */
 	GPtrArray *autotext_array; /* an array contains (start string, end string) */
+	guint16 view_bars;
 } Tproperties;
 
 /* the Tglobalsession contains all settings that can change 
@@ -239,7 +243,7 @@ typedef struct {
 	GList *recent_dirs;
 	gchar *opendir;
 	gchar *savedir;
-	gint view_bars;
+	guint16 view_bars;
 } Tsessionvars;
 
 typedef struct {
@@ -250,7 +254,7 @@ typedef struct {
 	gchar *basefile;
 	gchar *template;
 	gpointer editor;
-	gint view_bars;
+	guint16 view_bars;
 	gint word_wrap;
 	Tsessionvars *session;
 	GtkTreeStore *bookmarkstore; /* project bookmarks */
@@ -285,6 +289,7 @@ typedef struct {
 	GtkWidget *main_toolbar_hb;
 	GtkWidget *html_toolbar_hb;
 	*/
+	guint16 view_bars;
 	GtkWidget *custom_menu_hb; /* handle box for custom menu */
 	GtkWidget *output_box;
 	GtkWidget *leftpanel_notebook;
@@ -352,6 +357,7 @@ typedef struct {
 extern Tmain *main_v;
 
 #define SET_BIT(var,bit,value) (var & ~bit)|(value*bit)
+#define GET_BIT(var,bit) ((var &bit) != 0)
 
 enum {
 	VIEW_DEFAULT = 1<<0,
@@ -361,9 +367,16 @@ enum {
 	VIEW_LINE_NUMBER =1<<4,
 	VIEW_CUSTOM_MENU = 1<<5,
 	VIEW_COLORIZED = 1<<6,
-	PROJECT_MODE = 1<<7
+	MODE_WRAP = 1<<7,
+	MODE_PROJECT = 1<<8,
+	MODE_OVERWRITE=1<<9,
+	MODE_AUTO_COMPLETE=1<<10,
+	MODE_INDENT_WITH_SPACES=1<<11,
+	MODE_AUTO_INDENT=1<<12,
+	MODE_REUSE_WINDOW=1<<13,
+	MODE_ALLOW_MULTIPLE_INSTANCE=1<<14
 };
-
+	
 /* public functions from winefish.c */
 void bluefish_exit_request();
 #endif /* __BLUEFISH_H_ */

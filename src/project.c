@@ -1,4 +1,4 @@
-/* $Id: project.c,v 1.3 2005/07/25 02:49:54 kyanh Exp $ */
+/* $Id$ */
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * project.c - project functionality
  *
@@ -143,7 +143,7 @@ static Tproject *create_new_project(Tbfwin *bfwin) {
 	prj->basefile = g_strdup("");
 	prj->template = g_strdup("");
 	prj->view_bars = main_v->session->view_bars;
-	prj->word_wrap = main_v->props.word_wrap;
+	/* prj->word_wrap = main_v->props.word_wrap; */
 	if (bfwin) {
 		setup_bfwin_for_project(bfwin);
 	}
@@ -227,7 +227,7 @@ void set_project_menu_widgets(Tbfwin *bfwin, gboolean win_has_project) {
 	/* kyanh, added */
 	menuitem_set_sensitive(bfwin->menubar, N_("/External/Project mode"), win_has_project);
 	if (win_has_project) {
-		setup_toggle_item_from_widget(bfwin->menubar, N_("/External/Project mode"), bfwin->project->view_bars & PROJECT_MODE);
+		setup_toggle_item_from_widget(bfwin->menubar, N_("/External/Project mode"), bfwin->project->view_bars & MODE_PROJECT);
 	}else{
 		setup_toggle_item_from_widget(bfwin->menubar, N_("/External/Project mode"),FALSE);
 	}

@@ -1,4 +1,4 @@
-/* $Id: snr2.c 92 2005-08-12 03:21:16Z kyanh $ */
+/* $Id$ */
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * snr2.c - rewrite of search 'n replace functions
  *
@@ -1146,7 +1146,7 @@ void snr2_run(Tbfwin *bfwin, Tdocument *doc) {
 		}
 	}
 	/* if highlighting is needed for this document do this now !! */
-	if (doc->need_highlighting && doc->highlightstate) {
+	if (doc->need_highlighting && (doc->view_bars & VIEW_COLORIZED) ) {
 		doc_highlight_full(doc);
 	}
 }
