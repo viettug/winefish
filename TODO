@@ -1,5 +1,6 @@
 $Id$
 
+* Optimize usage of GET_BIT
 * implement message box (not statusbar_message);
 * windows/close all others
 * add option: save file before run tool (outputbox)
