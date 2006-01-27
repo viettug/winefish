@@ -60,11 +60,9 @@ Move from <wait.h> to <sys/wait.h>
 static void ob_lview_current_cursor_open_file(GtkTreePath *path, Toutputbox *ob)
 {
 	GtkTreePath *treepath;
-	gint tobefree = FALSE;
 	if (path) {
 		treepath = path;
 	}else{
-		tobefree = TRUE;
 		gtk_tree_view_get_cursor(GTK_TREE_VIEW(ob->lview), &treepath, NULL);
 	}
 	if (treepath) {
@@ -77,18 +75,18 @@ static void ob_lview_current_cursor_open_file(GtkTreePath *path, Toutputbox *ob)
 		gtk_tree_model_get( GTK_TREE_MODEL( ob->lstore ), &iter, 3, &filepath, 1, &line, -1 );
 		gtk_tree_model_get( GTK_TREE_MODEL( ob->lstore ), &iter, 3, &filepath, -1 );
 	
-		DEBUG_MSG( "ob_lview_row_activated_lcb, file=%s, line=%s\n", filepath, line );
+		DEBUG_MSG( "ob_lview_current_cursor_open_file, file=%s, line=%s\n", filepath, line );
 		if ( filepath && strlen( filepath ) ) {
 			doc_new_with_file( ob->bfwin, filepath, FALSE, FALSE );
 		}
-		if ( line && strlen( filepath ) ) {
+		if ( line && strlen( line /* linepath, BUG#74 */) ) {
 			lineval = atoi( line );
 			flush_queue();
 			doc_select_line( ob->bfwin->current_document, lineval, TRUE );
 		}
 		g_free( line );
 		g_free(filepath);
-		if (tobefree) gtk_tree_path_free(treepath);
+		if (!path) gtk_tree_path_free(treepath);
 	}
 }
 
@@ -150,17 +148,33 @@ static GtkWidget *ob_lview_create_popup_menu (Toutputbox *ob)
 	GtkTreePath *treepath;
 	gtk_tree_view_get_cursor(GTK_TREE_VIEW(ob->lview), &treepath, NULL);
 	if (treepath) {
+		menu_item = NULL;
 		GtkTreeIter iter;
 		gtk_tree_model_get_iter(GTK_TREE_MODEL( ob->lstore ), &iter, treepath);
-		gchar *filepath;
+		gchar *filepath=NULL, *linenumber=NULL;
+		gchar *tmpstr=NULL;
 		gtk_tree_model_get( GTK_TREE_MODEL( ob->lstore ), &iter, 3, &filepath, -1 );
+		gtk_tree_model_get( GTK_TREE_MODEL( ob->lstore ), &iter, 1, &linenumber, -1 );
 		if (filepath && strlen(filepath)) {
-			menu_item = gtk_menu_item_new_with_label(filepath);
+			if (linenumber && strlen(linenumber)) {
+				tmpstr = g_strdup_printf(_("goto line %s, file = %s"), linenumber, filepath);
+			}else{
+				tmpstr = g_strdup_printf(_("goto file = %s"), filepath);
+			}
+		}else{
+			if (linenumber && strlen(linenumber)) {
+				tmpstr = g_strdup_printf(_("goto line %s, current file"), linenumber);
+			}
+		}
+		if (tmpstr) {
+			menu_item = gtk_menu_item_new_with_label(tmpstr);
 			gtk_menu_shell_prepend (GTK_MENU_SHELL (menu), menu_item);
 			g_signal_connect( menu_item, "activate", G_CALLBACK( ob_lview_current_cursor_open_file_lcb ), ob );
-			DEBUG_MSG("ob_lview_create_popup_menu: dynamic menu item = %s\n", filepath);
+			DEBUG_MSG("ob_lview_create_popup_menu: dynamic menu item = %s\n", tmpstr);
 		}
+		g_free(tmpstr);
 		g_free(filepath);
+		g_free(linenumber);
 		gtk_tree_path_free(treepath);
 	}
 
