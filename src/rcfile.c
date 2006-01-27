@@ -85,6 +85,12 @@ static void init_prop_integer(GList ** config_list, void *pointer_to_var, gchar 
 	if (set_default) *(gint *)pointer_to_var = default_value;
 }
 
+static void xinit_prop_integer(GList ** config_list, void *pointer_to_var, gchar * name_of_var, gint default_value, gboolean set_default)
+{
+	*config_list = make_config_list_item(*config_list, pointer_to_var, 'x', name_of_var, 0);
+	if (set_default) *(guint16 *)pointer_to_var = default_value;
+}
+
 static void init_prop_string(GList ** config_list, void *pointer_to_var, gchar * name_of_var, const gchar * default_value)
 {
 	*config_list = make_config_list_item(*config_list, pointer_to_var, 's', name_of_var, 0);
@@ -144,6 +150,15 @@ static gint save_config_file(GList * config_list, gchar * filename)
 		tmpitem = tmplist->data;
 		DEBUG_MSG("save_config_file, identifier=%s datatype %c\n", tmpitem->identifier,tmpitem->type);
 		switch (tmpitem->type) {
+		case 'x':
+			DEBUG_MSG("save_config_file, converting \"%p\" to x integer\n", tmpitem);
+			DEBUG_MSG("save_config_file, converting \"%s %d\"\n", tmpitem->identifier, *(guint16 *) (void *) tmpitem->pointer);
+			tmpstring = g_strdup_printf("%s %d", tmpitem->identifier, *(guint16 *) (void *) tmpitem->pointer);
+
+			DEBUG_MSG("save_config_file, adding %s\n", tmpstring);
+
+			rclist = g_list_append(rclist, tmpstring);
+			break;
 		case 'i':
 			DEBUG_MSG("save_config_file, converting \"%p\" to integer\n", tmpitem);
 			DEBUG_MSG("save_config_file, converting \"%s %i\"\n", tmpitem->identifier, *(int *) (void *) tmpitem->pointer);
@@ -279,6 +294,8 @@ static gboolean parse_config_file(GList * config_list, gchar * filename)
 					g_strstrip(tmpstring);
 
 					switch (tmpitem->type) {
+					case 'x':
+						*(guint16 *) (void *) tmpitem->pointer = atoi(tmpstring);/* kyanh, 20060127 */
 					case 'i':
 						*(int *) (void *) tmpitem->pointer = atoi(tmpstring);
 						break;
@@ -334,12 +351,12 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_string    (&config_rc, &main_v->props.filebrowser_dir_icon, "fb_dir_icon:", PKGDATADIR"icon_dir.png");
 	init_prop_string    (&config_rc, &main_v->props.editor_font_string, "editor_font_string:", "courier 11");
 	init_prop_integer   (&config_rc, &main_v->props.editor_tab_width, "editor_tab_width:", 3, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.editor_indent_wspaces, "editor_indent_wspaces:", 0, TRUE);
+	/* init_prop_integer   (&config_rc, &main_v->props.editor_indent_wspaces, "editor_indent_wspaces:", 0, TRUE); */
 	init_prop_string    (&config_rc, &main_v->props.tab_font_string, "tab_font_string:", "");
 	init_prop_arraylist (&config_rc, &main_v->props.browsers, "browsers:", 2, TRUE);
 	init_prop_arraylist (&config_rc, &main_v->props.external_commands, "external_commands:", 2, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.highlight_num_lines_count, "highlight_num_lines_count:", 5, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.defaulthighlight, "defaulthighlight:", 1, TRUE);
+	xinit_prop_integer   (&config_rc, &main_v->props.view_bars, "view_bars:", VIEW_LINE_NUMBER +MODE_AUTO_COMPLETE + MODE_AUTO_INDENT+MODE_REUSE_WINDOW+VIEW_COLORIZED, TRUE);
 	/* old type filetypes have a different count, they are converted below */
 	init_prop_arraylist (&config_rc, &main_v->props.filetypes, "filetypes:", 0, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.numcharsforfiletype, "numcharsforfiletype:", 200, TRUE);
@@ -355,7 +372,7 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_string    (&config_rc, &main_v->props.backup_filestring,"backup_filestring:","~");
 	init_prop_integer   (&config_rc, &main_v->props.backup_abort_action,"backup_abort_action:",DOCUMENT_BACKUP_ABORT_ASK, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.backup_cleanuponclose,"backup_cleanuponclose:",0, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.allow_multi_instances,"allow_multi_instances:",0, TRUE);
+	/* init_prop_integer   (&config_rc, &main_v->props.allow_multi_instances,"allow_multi_instances:",0, TRUE); */
 	init_prop_integer   (&config_rc, &main_v->props.modified_check_type,"modified_check_type:",1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.num_undo_levels,"num_undo_levels:",100, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.clear_undo_on_save,"clear_undo_on_save:",0, TRUE);
@@ -374,11 +391,11 @@ static GList *props_init_main(GList * config_rc)
 #ifdef HAVE_LIBASPELL
 	init_prop_string(&config_rc, &main_v->props.spell_default_lang, "spell_default_lang:", "en");
 #endif /* HAVE_LIBASPELL */
-	init_prop_integer(&config_rc, &main_v->props.word_wrap, "word_wrap:", 0, TRUE);
-	init_prop_integer(&config_rc, &main_v->props.autoindent, "autoindent:", 1, TRUE);
+	/* init_prop_integer(&config_rc, &main_v->props.word_wrap, "word_wrap:", 0, TRUE); */
+	/* init_prop_integer(&config_rc, &main_v->props.autoindent, "autoindent:", 1, TRUE); */
 	/* init_prop_integer(&config_rc, &main_v->props.drop_at_drop_pos, "drop_at_drop_position:", 0, TRUE); */
 #ifdef WITH_MSG_QUEUE
-	init_prop_integer (&config_rc, &main_v->props.open_in_running_bluefish,"open_in_running_bluefish:",1, TRUE);
+	/* init_prop_integer (&config_rc, &main_v->props.open_in_running_bluefish,"open_in_running_bluefish:",1, TRUE); */
 #endif
 	return config_rc;
 }
@@ -919,10 +936,12 @@ static GList *return_globalsession_configlist(gboolean init_values) {
  */
 static GList *return_session_configlist(GList *configlist, Tsessionvars *session, gboolean context) {
 	if (!context) {
-		init_prop_integer(&configlist, &session->view_bars, "view_bars:", VIEW_LINE_NUMBER, FALSE);
+		xinit_prop_integer(&configlist, &session->view_bars, "view_bars:", VIEW_LINE_NUMBER+MODE_AUTO_COMPLETE+MODE_AUTO_INDENT+MODE_REUSE_WINDOW+VIEW_COLORIZED, FALSE);
+		/*
 		if (main_v->session->view_bars <= VIEW_DEFAULT) {
 			main_v->session->view_bars = VIEW_LINE_NUMBER;
 		}
+		*/
 	}
 	init_prop_limitedstringlist(&configlist, &session->searchlist, "searchlist:", 10, FALSE);
 	init_prop_limitedstringlist(&configlist, &session->replacelist, "replacelist:", 10, FALSE);
@@ -947,10 +966,11 @@ static GList *return_project_configlist(Tproject *project) {
 	init_prop_string(&configlist, &project->basedir,"basedir:","");
 	init_prop_string(&configlist, &project->basefile,"basefile:","");
 	init_prop_string(&configlist, &project->template,"template:","");
-	init_prop_integer (&configlist, &project->view_bars,"view_bars:", VIEW_LINE_NUMBER, FALSE);
+	xinit_prop_integer (&configlist, &project->view_bars,"view_bars:", VIEW_LINE_NUMBER+MODE_AUTO_COMPLETE+MODE_AUTO_INDENT+MODE_REUSE_WINDOW+VIEW_COLORIZED, FALSE);
+	/*
 	if (project->view_bars <= VIEW_DEFAULT) {
 		project->view_bars = VIEW_LINE_NUMBER;
-	}
+}*/
 	init_prop_integer (&configlist, &project->word_wrap,"word_wrap:",1,FALSE);
 	configlist = return_session_configlist(configlist, project->session, TRUE);
 	return configlist;

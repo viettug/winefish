@@ -1,4 +1,4 @@
-/* $Id: winefish.c,v 1.3 2005/07/21 08:11:16 kyanh Exp $ */
+/* $Id$ */
 
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  *
@@ -175,7 +175,7 @@ int main(int argc, char *argv[])
 
 	parse_commandline(argc, argv, &root_override, &filenames, &projectfiles, &open_in_new_window, &linenumber);
 #ifdef WITH_MSG_QUEUE
-	if (((filenames || projectfiles) && main_v->props.open_in_running_bluefish) || open_in_new_window) {
+	if (((filenames || projectfiles) && (main_v->props.view_bars & MODE_REUSE_WINDOW)) || open_in_new_window) {
 		msg_queue_start(filenames, projectfiles, linenumber, open_in_new_window);
 	}
 #endif /* WITH_MSG_QUEUE */
@@ -217,7 +217,7 @@ int main(int argc, char *argv[])
 	fref_init();
 	bmark_init();
 #ifdef WITH_MSG_QUEUE
-	if (!filenames && !projectfiles && main_v->props.open_in_running_bluefish) {
+	if (!filenames && !projectfiles && (main_v->props.view_bars & MODE_REUSE_WINDOW)) {
 		msg_queue_start(NULL, NULL, -1, open_in_new_window);
 	}
 #endif /* WITH_MSG_QUEUE */

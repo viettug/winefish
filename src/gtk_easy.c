@@ -209,6 +209,19 @@ void integer_apply(gint *config_var, GtkWidget * widget, gboolean is_checkbox) {
 	}
 	DEBUG_MSG("integer_apply, config_var(%p)=%i\n", config_var, *config_var);
 }
+
+/* added kyanh 20060127 */
+void bitwise_apply(guint16 *config_var, GtkWidget * widget, gboolean is_checkbox, gint16 BIT) {
+	guint16 tmp_val;
+	if (is_checkbox) {
+		tmp_val = (GTK_TOGGLE_BUTTON(widget)->active);
+	} else {
+		tmp_val = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(widget));
+	}
+	*config_var = SET_BIT(*config_var, BIT, tmp_val);
+	DEBUG_MSG("bitwise_apply, config_var(%p)=%i\n", config_var, *config_var &  BIT);
+}
+		
 /**
  * combo_with_popdown:
  * 	@setstring: #gchar* to set in textbox, if NULL it will be set ""

@@ -1601,12 +1601,28 @@ static void preferences_destroy_lcb(GtkWidget * widget, Tprefdialog *pd) {
 	window_destroy(pd->win);
 	g_free(pd);
 }
+
 static void preferences_apply(Tprefdialog *pd) {
 	string_apply(&main_v->props.editor_font_string, pd->prefs[editor_font_string]);
 	integer_apply(&main_v->props.editor_tab_width, pd->prefs[editor_tab_width], FALSE);
+
+	bitwise_apply(&main_v->props.view_bars, pd->prefs[editor_indent_wspaces], TRUE, MODE_INDENT_WITH_SPACES);
+	bitwise_apply(&main_v->props.view_bars, pd->prefs[word_wrap], TRUE, MODE_WRAP);
+	bitwise_apply(&main_v->props.view_bars, pd->prefs[defaulthighlight], TRUE, VIEW_COLORIZED);
+	bitwise_apply(&main_v->props.view_bars, pd->prefs[allow_multi_instances], TRUE, MODE_ALLOW_MULTIPLE_INSTANCE);
+#ifdef WITH_MSG_QUEUE
+	bitwise_apply(&main_v->props.view_bars, pd->prefs[open_in_running_bluefish], TRUE, MODE_REUSE_WINDOW);
+#endif
+/*			
 	integer_apply(&main_v->props.editor_indent_wspaces, pd->prefs[editor_indent_wspaces], TRUE);
 	integer_apply(&main_v->props.word_wrap, pd->prefs[word_wrap], TRUE);
 	integer_apply(&main_v->props.defaulthighlight, pd->prefs[defaulthighlight], TRUE);
+	integer_apply(&main_v->props.allow_multi_instances, pd->prefs[allow_multi_instances], TRUE);
+#ifdef WITH_MSG_QUEUE
+	integer_apply(&main_v->props.open_in_running_bluefish, pd->prefs[open_in_running_bluefish], TRUE);
+#endif
+*/
+	
 	integer_apply(&main_v->props.highlight_num_lines_count, pd->prefs[highlight_num_lines_count], FALSE);
 	integer_apply(&main_v->props.bookmarks_default_store, pd->prefs[bookmarks_default_store], TRUE);
 	main_v->props.bookmarks_filename_mode = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[bookmarks_filename_mode]));
@@ -1617,10 +1633,6 @@ static void preferences_apply(Tprefdialog *pd) {
 	integer_apply(&main_v->props.backup_cleanuponclose, pd->prefs[backup_cleanuponclose], TRUE);
 	integer_apply(&main_v->props.num_undo_levels, pd->prefs[num_undo_levels], FALSE);
 	integer_apply(&main_v->props.clear_undo_on_save, pd->prefs[clear_undo_on_save], TRUE);
-	integer_apply(&main_v->props.allow_multi_instances, pd->prefs[allow_multi_instances], TRUE);
-#ifdef WITH_MSG_QUEUE
-	integer_apply(&main_v->props.open_in_running_bluefish, pd->prefs[open_in_running_bluefish], TRUE);
-#endif
 	main_v->props.modified_check_type = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[modified_check_type]));
 	integer_apply(&main_v->props.max_recent_files, pd->prefs[max_recent_files], FALSE);
 	
@@ -1838,9 +1850,10 @@ static void preferences_dialog() {
 	
 	pd->prefs[editor_font_string] = prefs_string(_("Font"), main_v->props.editor_font_string, vbox2, pd, string_font);
 	pd->prefs[editor_tab_width] = prefs_integer(_("Tab width"), main_v->props.editor_tab_width, vbox2, pd, 1, 50);
-	pd->prefs[editor_indent_wspaces] = boxed_checkbut_with_value(_("Use spaces to indent, not tabs"), main_v->props.editor_indent_wspaces, vbox2);
-	pd->prefs[word_wrap] = boxed_checkbut_with_value(_("Word wrap default"), main_v->props.word_wrap, vbox2);
-	pd->prefs[defaulthighlight] = boxed_checkbut_with_value(_("Highlight syntax by default"), main_v->props.defaulthighlight, vbox2);
+	pd->prefs[editor_indent_wspaces] = boxed_checkbut_with_value(_("Use spaces to indent, not tabs"), GET_BIT(main_v->props.view_bars, MODE_INDENT_WITH_SPACES), vbox2);
+	pd->prefs[word_wrap] = boxed_checkbut_with_value(_("Word wrap default"), GET_BIT(main_v->props.view_bars,MODE_WRAP), vbox2);
+	DEBUG_MSG("preferences_dialog, colormode = %d\n", GET_BIT(main_v->props.view_bars,VIEW_COLORIZED));
+	pd->prefs[defaulthighlight] = boxed_checkbut_with_value(_("Highlight syntax by default"), GET_BIT(main_v->props.view_bars,VIEW_COLORIZED), vbox2);
 	pd->prefs[highlight_num_lines_count] = prefs_integer(_("Highlight # lines"), main_v->props.highlight_num_lines_count, vbox2, pd, 1, 8);
 
 	frame = gtk_frame_new(_("Undo"));
@@ -1902,9 +1915,9 @@ static void preferences_dialog() {
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 
-	pd->prefs[allow_multi_instances] = boxed_checkbut_with_value(_("Allow multi instances of a file"), main_v->props.allow_multi_instances, vbox2);
+	pd->prefs[allow_multi_instances] = boxed_checkbut_with_value(_("Allow multi instances of a file"), GET_BIT(main_v->props.view_bars, MODE_ALLOW_MULTIPLE_INSTANCE), vbox2);
 #ifdef WITH_MSG_QUEUE
-	pd->prefs[open_in_running_bluefish] = boxed_checkbut_with_value(_("Open files in already running winefish window"),main_v->props.open_in_running_bluefish, vbox2);
+	pd->prefs[open_in_running_bluefish] = boxed_checkbut_with_value(_("Open files in already running winefish window"),GET_BIT(main_v->props.view_bars,MODE_REUSE_WINDOW), vbox2);
 #endif /* WITH_MSG_QUEUE */		
 	pd->prefs[modified_check_type] = boxed_optionmenu_with_value(_("File modified on disk check "), main_v->props.modified_check_type, vbox2, modified_check_types);
 	pd->prefs[max_recent_files] = prefs_integer(_("Number of files in 'Open recent'"), main_v->props.max_recent_files, vbox2, pd, 3, 100);
