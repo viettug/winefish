@@ -269,6 +269,7 @@ static void files_advanced_win_select_basedir_lcb( GtkWidget * widget, Tfiles_ad
 		gint position =0;
 		gtk_editable_delete_text(GTK_EDITABLE( GTK_COMBO( tfs->basedir ) ->entry ),0,-1);
 		gtk_editable_insert_text( GTK_EDITABLE( GTK_COMBO( tfs->basedir ) ->entry ), newdir, strlen(newdir), &position);
+		gtk_editable_set_position (GTK_EDITABLE( GTK_COMBO( tfs->basedir ) ->entry), -1);
 		g_free( newdir );
 	}
 	g_free( olddir );
@@ -284,6 +285,8 @@ static void files_advanced_win( Tfiles_advanced *tfs)
 		tfs->basedir = combo_with_popdown(curdir, tfs->bfwin->session->recent_dirs, TRUE/*editable*/);
 		g_free ( curdir );
 	}
+	
+	gtk_widget_set_size_request(tfs->basedir, 270,-1);
 
 	tfs->win = window_full2( _( "Grep Function" ), GTK_WIN_POS_MOUSE, 12, G_CALLBACK( files_advanced_win_destroy ), tfs, TRUE, tfs->bfwin->main_window );
 	DEBUG_MSG( "files_advanced_win, tfs->win=%p\n", tfs->win );
@@ -291,22 +294,25 @@ static void files_advanced_win( Tfiles_advanced *tfs)
 	vbox = gtk_vbox_new( FALSE, 0 );
 	gtk_container_add( GTK_CONTAINER( tfs->win ), vbox );
 
-	table = gtk_table_new( 11, 7, FALSE );
-	gtk_table_set_row_spacings( GTK_TABLE( table ), 5 );
+#define MAX_COLUMN 7
+
+	table = gtk_table_new( 11, MAX_COLUMN, FALSE );
+	gtk_table_set_row_spacings( GTK_TABLE( table ), 0 );
 	gtk_table_set_col_spacings( GTK_TABLE( table ), 12 );
 	gtk_box_pack_start( GTK_BOX( vbox ), table, FALSE, FALSE, 0 );
 
 	/* gtk_table_attach_defaults( GTK_TABLE( table ), gtk_label_new( _( "grep {contains} `find {basedir} -name '{file type}'`" ) ), 0, 7, 0, 1 ); */
-	gtk_table_attach_defaults( GTK_TABLE( table ), gtk_label_new( _( "left pattern blank == file listing" ) ), 0, 7, 0, 1 );
-	gtk_table_attach_defaults( GTK_TABLE( table ), gtk_hseparator_new(), 0, 7, 1, 2 );
+	/* gtk_table_attach_defaults( GTK_TABLE( table ), gtk_label_new( _( "left pattern blank == file listing" ) ), 0, MAX_COLUMN, 0, 1 );
+	gtk_table_attach_defaults( GTK_TABLE( table ), gtk_hseparator_new(), 0, MAX_COLUMN, 1, 2 );
+	*/
 
 	/* filename part */
 	/* curdir should get a value */
 	bf_label_tad_with_markup( _( "<b>General</b>" ), 0, 0.5, table, 0, 3, 2, 3 );
 
 	bf_mnemonic_label_tad_with_alignment( _( "Base_dir:" ), tfs->basedir, 0, 0.5, table, 1, 2, 3, 4 );
-	gtk_table_attach_defaults( GTK_TABLE( table ), tfs->basedir, 2, 6, 3, 4 );
-	gtk_table_attach( GTK_TABLE( table ), bf_allbuttons_backend( _( "_Browse..." ), TRUE, 112, G_CALLBACK( files_advanced_win_select_basedir_lcb ), tfs ), 6, 7, 3, 4, GTK_SHRINK, GTK_SHRINK, 0, 0 );
+	gtk_table_attach_defaults( GTK_TABLE( table ), tfs->basedir, 2, MAX_COLUMN-1, 3, 4 );
+	gtk_table_attach( GTK_TABLE( table ), bf_allbuttons_backend( _( "_Browse..." ), TRUE, 112, G_CALLBACK( files_advanced_win_select_basedir_lcb ), tfs ), MAX_COLUMN-1, MAX_COLUMN, 3, 4, GTK_SHRINK, GTK_SHRINK, 0, 0 );
 
 	list = g_list_append( NULL, "*.tex" );
 	list = g_list_append( list, "*.cls,*.dtx,*.sty,*.ins" );
@@ -317,20 +323,21 @@ static void files_advanced_win( Tfiles_advanced *tfs)
 
 	tfs->find_pattern = combo_with_popdown( "*.tex", list, 1 );
 	bf_mnemonic_label_tad_with_alignment( _( "_File Type:" ), tfs->find_pattern, 0, 0.5, table, 1, 2, 4, 5 );
-	gtk_table_attach_defaults( GTK_TABLE( table ), tfs->find_pattern, 2, 6, 4, 5 );
+	gtk_table_attach_defaults( GTK_TABLE( table ), tfs->find_pattern, 2, MAX_COLUMN-1, 4, 5 );
 
 	g_list_free( list );
 
 	tfs->recursive = checkbut_with_value( NULL, 1 );
 	bf_mnemonic_label_tad_with_alignment( _( "_Recursive:" ), tfs->recursive, 0, 0.5, table, 1, 2, 5, 6 );
-	gtk_table_attach_defaults( GTK_TABLE( table ), tfs->recursive, 2, 6, 5, 6 );
+	gtk_table_attach_defaults( GTK_TABLE( table ), tfs->recursive, 2, MAX_COLUMN-1, 5, 6 );
 
 	tfs->open_files = checkbut_with_value( NULL , (open_files-100) );
 	bf_mnemonic_label_tad_with_alignment( _( "_Open files:" ), tfs->open_files, 0, 0.5, table, 1, 2, 6, 7);
-	gtk_table_attach_defaults( GTK_TABLE( table ), tfs->open_files, 2, 6, 6, 7 );
+	gtk_table_attach_defaults( GTK_TABLE( table ), tfs->open_files, 2, MAX_COLUMN-1, 6, 7 );
 
 	/* content */
 	gtk_table_set_row_spacing( GTK_TABLE( table ), 6, 10 );
+	
 	bf_label_tad_with_markup( _( "<b>Contains</b>" ), 0, 0.5, table, 0, 3, 7, 8 );
 
 	{
@@ -350,15 +357,15 @@ static void files_advanced_win( Tfiles_advanced *tfs)
 	}
 	
 	bf_mnemonic_label_tad_with_alignment( _( "Pa_ttern:" ), tfs->grep_pattern, 0, 0.5, table, 1, 2, 8, 9 );
-	gtk_table_attach_defaults( GTK_TABLE( table ), tfs->grep_pattern, 2, 6, 8, 9 );
+	gtk_table_attach_defaults( GTK_TABLE( table ), tfs->grep_pattern, 2, MAX_COLUMN-1, 8, 9 );
 
 	tfs->case_sensitive = checkbut_with_value( NULL, 1 );
 	bf_mnemonic_label_tad_with_alignment( _( "_Case sensitive:" ), tfs->case_sensitive, 0, 0.5, table, 1, 2, 9, 10 );
-	gtk_table_attach_defaults( GTK_TABLE( table ), tfs->case_sensitive, 2, 6, 9, 10 );
+	gtk_table_attach_defaults( GTK_TABLE( table ), tfs->case_sensitive, 2, MAX_COLUMN-1, 9, 10 );
 	
 	tfs->is_regex = checkbut_with_value( NULL, 0 );
 	bf_mnemonic_label_tad_with_alignment( _( "Is rege_x:" ), tfs->is_regex, 0, 0.5, table, 1, 2, 10, 11 );
-	gtk_table_attach_defaults( GTK_TABLE( table ), tfs->is_regex, 2, 6, 10, 11 );
+	gtk_table_attach_defaults( GTK_TABLE( table ), tfs->is_regex, 2, MAX_COLUMN-1, 10, 11 );
 
 	/* buttons */
 	hbox = gtk_hbox_new( FALSE, 0 );
@@ -373,9 +380,14 @@ static void files_advanced_win( Tfiles_advanced *tfs)
 	gtk_box_pack_start( GTK_BOX( hbox ), but , FALSE, FALSE, 0 );
 	gtk_window_set_default( GTK_WINDOW( tfs->win ), but );
 	gtk_box_pack_start( GTK_BOX( vbox ), hbox, FALSE, FALSE, 0 );
+	
+	/* gtk_widget_set_size_request(GTK_WIDGET( tfs->win ), 500,-1); */
+	
 	gtk_widget_show_all( GTK_WIDGET( tfs->win ) );
+
 	/*	gtk_grab_add(GTK_WIDGET(tfs->win));
 	gtk_widget_realize(GTK_WIDGET(tfs->win));*/
+	
 	gtk_window_set_transient_for( GTK_WINDOW( tfs->win ), GTK_WINDOW( tfs->bfwin->main_window ) );
 }
 
