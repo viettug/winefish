@@ -1,4 +1,4 @@
-/* $Id: gtk_easy.c 95 2005-08-12 03:37:44Z kyanh $ */
+/* $Id$ */
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  *
  * Copyright (C) 1999-2004 Olivier Sessink
@@ -692,13 +692,16 @@ GtkWidget *hbox_with_pix_and_text(const gchar *label, gint bf_pixmaptype, gboole
 
 GtkWidget *bf_allbuttons_backend(const gchar *label, gboolean w_mnemonic, gint bf_pixmaptype, GCallback func, gpointer func_data) {
 	GtkWidget *button;
+#ifdef USE_IMAGE_BUTTON
 	if (bf_pixmaptype == -1) {
+#endif
 		/* there is no image needed, only text */
 		if (w_mnemonic) {
 			button = gtk_button_new_with_mnemonic(label);
 		} else {
 			button = gtk_button_new_with_label(label);
 		}
+#if USE_IMAGE_BUTTON
 	} else {
 		/* there is an image needed */
 		button = gtk_button_new();
@@ -711,6 +714,7 @@ GtkWidget *bf_allbuttons_backend(const gchar *label, gboolean w_mnemonic, gint b
 			gtk_container_add(GTK_CONTAINER(button), new_pixmap(bf_pixmaptype));
 		}
 	}
+#endif
 	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
 	g_signal_connect(G_OBJECT(button), "clicked", func, func_data);
 	return button;
