@@ -87,13 +87,16 @@ static void ob_lview_current_cursor_open_file(GtkTreePath *path, Toutputbox *ob)
 		g_free( line );
 		g_free(filepath);
 		if (!path) gtk_tree_path_free(treepath);
+		gtk_widget_grab_focus( ob->bfwin->current_document->view );
 	}
 }
 
+/*
 static void ob_lview_row_activated_lcb( GtkTreeView *tree, GtkTreePath *path, GtkTreeViewColumn *column, Toutputbox *ob )
 {
 	ob_lview_current_cursor_open_file(path,ob);
 }
+*/
 
 /* TODO: hide only this page */
 static void outputbox_close_lcb( GtkWidget *widget, Toutputbox *ob )
@@ -118,9 +121,11 @@ static void ob_lview_copy_line_lcb (GtkWidget *widget, Toutputbox *ob ) {
 	}
 }
 
+#ifdef OB_POPUP_DYNAMIC_MENU_WITH_LCB
 static void ob_lview_current_cursor_open_file_lcb (GtkWidget *widget, Toutputbox *ob ) {
 	ob_lview_current_cursor_open_file(NULL,ob);
 }
+#endif /* OB_POPUP_DYNAMIC_MENU_WITH_LCB */
 
 /* kyanh */
 static GtkWidget *ob_lview_create_popup_menu (Toutputbox *ob)
@@ -151,9 +156,13 @@ static GtkWidget *ob_lview_create_popup_menu (Toutputbox *ob)
 		menu_item = NULL;
 		GtkTreeIter iter;
 		gtk_tree_model_get_iter(GTK_TREE_MODEL( ob->lstore ), &iter, treepath);
-		gchar *filepath=NULL, *linenumber=NULL;
+		gchar *filepath=NULL;
 		gchar *tmpstr=NULL;
+#ifdef OB_POPUP_DYNAMIC_MENU_WITH_LCB
+		gchar *linenumber=NULL;
+#endif /* OB_POPUP_DYNAMIC_MENU_WITH_LCB */
 		gtk_tree_model_get( GTK_TREE_MODEL( ob->lstore ), &iter, 3, &filepath, -1 );
+#ifdef OB_POPUP_DYNAMIC_MENU_WITH_LCB
 		gtk_tree_model_get( GTK_TREE_MODEL( ob->lstore ), &iter, 1, &linenumber, -1 );
 		if (filepath && strlen(filepath)) {
 			if (linenumber && strlen(linenumber)) {
@@ -166,19 +175,28 @@ static GtkWidget *ob_lview_create_popup_menu (Toutputbox *ob)
 				tmpstr = g_strdup_printf(_("goto line %s, current file"), linenumber);
 			}
 		}
+#else /* OB_POPUP_DYNAMIC_MENU_WITH_LCB */
+		if (filepath && strlen(filepath)) {
+			tmpstr = g_strdup_printf(_("file: %s"), filepath);
+		}
+#endif /* OB_POPUP_DYNAMIC_MENU_WITH_LCB */
 		if (tmpstr) {
 			menu_item = gtk_menu_item_new_with_label(tmpstr);
 			gtk_menu_shell_prepend (GTK_MENU_SHELL (menu), menu_item);
+#ifdef OB_POPUP_DYNAMIC_MENU_WITH_LCB
 			g_signal_connect( menu_item, "activate", G_CALLBACK( ob_lview_current_cursor_open_file_lcb ), ob );
+#endif /* OB_POPUP_DYNAMIC_MENU_WITH_LCB */
 			DEBUG_MSG("ob_lview_create_popup_menu: dynamic menu item = %s\n", tmpstr);
 		}
 		g_free(tmpstr);
 		g_free(filepath);
+#ifdef OB_POPUP_DYNAMIC_MENU_WITH_LCB
 		g_free(linenumber);
+#endif /* OB_POPUP_DYNAMIC_MENU_WITH_LCB */
 		gtk_tree_path_free(treepath);
 	}
 
-	gtk_menu_shell_prepend( GTK_MENU_SHELL( menu ), GTK_WIDGET( gtk_menu_item_new() ) );
+	/* gtk_menu_shell_prepend( GTK_MENU_SHELL( menu ), GTK_WIDGET( gtk_menu_item_new() ) ); */
 
 	menu_item = gtk_menu_item_new_with_label(_("noop"));
 	gtk_widget_show (menu_item);
@@ -196,6 +214,8 @@ static gboolean ob_lview_button_release_lcb( GtkWidget *widget, GdkEventButton *
 			gtk_menu_popup (GTK_MENU (menu), NULL, NULL, NULL, NULL, bevent->button, bevent->time);
 		}
 		/* could we need to free menu ? */
+	}else if(bevent->button ==1) {
+		ob_lview_current_cursor_open_file(NULL,ob);
 	}
 	return FALSE;
 }
@@ -343,7 +363,7 @@ Toutputbox *outputbox_new_box( Tbfwin *bfwin, const gchar *title )
 	column = gtk_tree_view_column_new_with_attributes ( NULL, renderer, "markup", 2, NULL );
 	gtk_tree_view_append_column ( GTK_TREE_VIEW( ob->lview ), column );
 
-	g_signal_connect( G_OBJECT( ob->lview ), "row-activated", G_CALLBACK( ob_lview_row_activated_lcb ), ob );
+	/* g_signal_connect( G_OBJECT( ob->lview ), "row-activated", G_CALLBACK( ob_lview_row_activated_lcb ), ob ); */
 	g_signal_connect( G_OBJECT( ob->lview ), "button-release-event", G_CALLBACK( ob_lview_button_release_lcb ), ob );
 	/* g_signal_connect( G_OBJECT( ob->lview ), "move-cursor", G_CALLBACK( ob_lview_move_cursor_lcb ), ob ); */
 /* end LVIEW settings */
