@@ -296,7 +296,7 @@ static gboolean parse_config_file(GList * config_list, gchar * filename)
 
 					switch (tmpitem->type) {
 					case 'x':
-						*(guint32 *) (void *) tmpitem->pointer = atoi(tmpstring);/* kyanh, 20060127 */
+						*(guint32 *) (void *) tmpitem->pointer = GPOINTER_TO_UINT(tmpstring);/* kyanh, 20060127 */
 					case 'i':
 						*(int *) (void *) tmpitem->pointer = atoi(tmpstring);
 						break;
