@@ -167,7 +167,7 @@ static void start_command_backend(Texternalp *ep) {
 	if (ep->fifo_in) {
 		if (mkfifo(ep->fifo_in, 0600) != 0) {
 			tmpstr = g_strdup_printf(_("some error happened creating fifo %s"),ep->fifo_in);
-			outputbox_message(ep->ob, tmpstr, "b");
+			outputbox_message(ep->ob, tmpstr, OB_MESSAGE_RED);
 			g_free(tmpstr);
 			return;
 		}
@@ -176,7 +176,7 @@ static void start_command_backend(Texternalp *ep) {
 	if (ep->fifo_out) {
 		if (mkfifo(ep->fifo_out, 0600) != 0) {
 			tmpstr = g_strdup_printf(_("some error happened creating fifo %s"),ep->fifo_out);
-			outputbox_message(ep->ob, tmpstr, "b");
+			outputbox_message(ep->ob, tmpstr, OB_MESSAGE_RED);
 			g_free(tmpstr);
 			return;
 		}
@@ -354,7 +354,7 @@ void run_command(Toutputbox *ob) {
 			/* BUG: is the user notified of the error ?*/
 			return;
 		}
-		outputbox_message( ob, ep->commandstring, "b");
+		outputbox_message( ob, ep->commandstring, OB_MESSAGE_BOLD);
 		ep->pipe_out = TRUE;
 		ep->include_stderr = TRUE;
 		ep->channel_out_lcb = outputbox_io_watch_lcb;
@@ -388,10 +388,10 @@ void finish_execute( Toutputbox *ob ) {
 		g_io_channel_unref( ob->handle->channel_out );
 		if ( child_pid_exit_code > -1 ) {
 			gchar *str_status = g_strdup_printf(_("exit code: %d"), child_pid_exit_code);
-			outputbox_message( ob, str_status, "b" );
+			outputbox_message( ob, str_status, OB_MESSAGE_BOLD );
 			g_free( str_status );
 		} else {
-			outputbox_message( ob, _("the child process exited abnormally"), "b");
+			outputbox_message( ob, _("the child process exited abnormally"), OB_MESSAGE_RED);
 		}
 	}
 	/**/
