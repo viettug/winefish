@@ -53,6 +53,7 @@
 
 #include "outputbox.h" /* outputbox_stop() */
 #include "func_grep.h" /* grepbox functions */
+#include "brace_finder.h"
 
 /*
 The callback for an ItemFactory entry can take two forms. If callback_action is zero, it is of the following form:
@@ -239,7 +240,12 @@ static void toggle_doc_property(Tbfwin *bfwin,guint callback_action, GtkWidget *
 	}
 }
 
-extern const guint8 edit_tag[];
+static void brace_finder_cb( Tbfwin *bfwin, guint callback_action, GtkWidget *widget )
+{
+	brace_finder(bfwin->current_document);
+}
+
+/* extern const guint8 []; */
 
 static GtkItemFactoryEntry menu_items[] = {
 	/* Files */
@@ -288,6 +294,8 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Edit/Selection/Select _All"), NULL, menu_file_operations_cb, 13, "<Item>"},
 	{N_("/Edit/Find, Replace"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Edit/Find, Replace/Tearoff1"), NULL, NULL, 0, "<Tearoff>"},
+	{N_("/Edit/Find, Replace/Brace Finder"), "<control>j", brace_finder_cb, 0, "<Item>"},
+	{N_("/Edit/Find, Replace/sep0"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Edit/Find, Replace/_Find..."), "<control>f", menu_file_operations_cb, 14, "<Item>"},
 	{N_("/Edit/Find, Replace/Find A_gain"), "<control>g", menu_file_operations_cb, 16, "<Item>"},
 	{N_("/Edit/Find, Replace/Find from selection"), NULL, menu_file_operations_cb, 27, "<Item>"},
