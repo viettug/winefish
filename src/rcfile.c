@@ -4,7 +4,7 @@
  * rcfile.c - loading and parsing of the configfiles
  *
  * Copyright (C) 2000-2004 Olivier Sessink
- * Modified for Winefish (C) 2005 Ky Anh <kyanh@o2.pl> 
+ * Modified for Winefish (C) 2005 2006 kyanh <kyanh@o2.pl>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
