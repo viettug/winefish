@@ -2,6 +2,9 @@
 # translation of vi.po to
 # translation of vi.po to
 # translation of vi.po to
+# translation of vi.po to
+# translation of vi.po to
+# translation of vi.po to
 # translation of vi.po to Vietnamese
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
@@ -11,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-28 08:54+0700\n"
-"PO-Revision-Date: 2006-01-28 09:02+0700\n"
+"POT-Creation-Date: 2006-01-28 15:43+0700\n"
+"PO-Revision-Date: 2006-01-28 15:47+0700\n"
 "Last-Translator: kyanh <kyanh@o2.pl>\n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -51,9 +54,9 @@ msgstr ""
 "    lệnh autotext: %d\n"
 "* tìm đệ quy: %s\n"
 "* dấu phân cách:\n"
-"   %s\n"
+"    %s\n"
 "* cấu hình:\n"
-"   $%s\n"
+"    $%s\n"
 
 #: ../src/about.c:77
 msgid ""
@@ -235,7 +238,7 @@ msgid "Delete all"
 msgstr "Xóa tất cả"
 
 #: ../src/bookmark.c:1275 ../src/bookmark.c:1292 ../src/bookmark.c:1330
-#: ../src/document.c:2770
+#: ../src/document.c:2771
 msgid "Add bookmark"
 msgstr "Thêm đánh dấu"
 
@@ -263,15 +266,15 @@ msgstr "Cỡ tập tin đã thay đổi\n"
 msgid "Bookmarks positions could be incorrect. Delete bookmarks?"
 msgstr "Các đánh dấu có thể bị sai. Xóa các đánh dấu?"
 
-#: ../src/document.c:308 ../src/document.c:3712
+#: ../src/document.c:308 ../src/document.c:3717
 msgid "/Document/Highlight Syntax"
-msgstr ""
+msgstr "/Tài liệu/Tô màu"
 
-#: ../src/document.c:760
+#: ../src/document.c:761
 msgid "name: "
 msgstr "tên: "
 
-#: ../src/document.c:761
+#: ../src/document.c:762
 msgid ""
 "\n"
 "type: "
@@ -279,7 +282,7 @@ msgstr ""
 "\n"
 "kiểu: "
 
-#: ../src/document.c:762
+#: ../src/document.c:763
 msgid ""
 "\n"
 "encoding: "
@@ -287,7 +290,7 @@ msgstr ""
 "\n"
 "bảng mã: "
 
-#: ../src/document.c:765
+#: ../src/document.c:766
 msgid ""
 "\n"
 "size (on disk): "
@@ -295,11 +298,11 @@ msgstr ""
 "\n"
 "cỡ (trên đĩa): "
 
-#: ../src/document.c:765
+#: ../src/document.c:766
 msgid " bytes"
 msgstr "bytes"
 
-#: ../src/document.c:771
+#: ../src/document.c:772
 msgid ""
 "\n"
 "permissions: "
@@ -307,7 +310,7 @@ msgstr ""
 "\n"
 "quyền: "
 
-#: ../src/document.c:778
+#: ../src/document.c:779
 msgid ""
 "\n"
 "last modified: "
@@ -315,68 +318,68 @@ msgstr ""
 "\n"
 "thay đổi cuối: "
 
-#: ../src/document.c:804
+#: ../src/document.c:805
 #, c-format
 msgid "Untitled %d"
 msgstr "Không tên %d"
 
-#: ../src/document.c:1462
+#: ../src/document.c:1463
 msgid "Could not read file:\n"
 msgstr "Không thể đọc tập tin:\n"
 
-#: ../src/document.c:1493
+#: ../src/document.c:1494
 msgid "Opening file "
 msgstr "Đang mở tập tin"
 
-#: ../src/document.c:1624
+#: ../src/document.c:1625
 msgid "Cannot display file, unknown characters found."
 msgstr "Không thể mở tập tin, có các ký tự lạ."
 
-#: ../src/document.c:2101
+#: ../src/document.c:2102
 #, c-format
 msgid "deleted '%s'"
 msgstr "xóa '%s'"
 
-#: ../src/document.c:2752 ../src/snr2.c:1340
+#: ../src/document.c:2753 ../src/snr2.c:1340
 msgid "Replace"
 msgstr "Thay thế"
 
-#: ../src/document.c:2757 ../src/snr2.c:1343
+#: ../src/document.c:2758 ../src/snr2.c:1343
 msgid "Find"
 msgstr "Tìm kiếm"
 
-#: ../src/document.c:2766
+#: ../src/document.c:2767
 msgid "Delete bookmark"
 msgstr "Xóa đánh dấu"
 
-#: ../src/document.c:2911
+#: ../src/document.c:2912
 msgid "saving file"
 msgstr "đang lưu tập tin"
 
-#: ../src/document.c:2935 ../src/document.c:2959
+#: ../src/document.c:2936 ../src/document.c:2960
 msgid "_Abort save"
 msgstr "Dừng việc lưu tập tin"
 
-#: ../src/document.c:2935
+#: ../src/document.c:2936
 msgid "_Continue save"
 msgstr "_Tiếp tục lưu"
 
-#: ../src/document.c:2937
+#: ../src/document.c:2938
 #, c-format
 msgid ""
 "A backupfile for %s could not be created. If you continue, this file will be "
 "overwritten."
 msgstr "Bản sao lưu %s không thể tạo ra. Nếu tiếp tục, tập tin sẽ bị ghi đè."
 
-#: ../src/document.c:2938
+#: ../src/document.c:2939
 msgid "File backup failure"
 msgstr "Sao lưu không thành công"
 
-#: ../src/document.c:2959
+#: ../src/document.c:2960
 msgid "_Continue save in UTF-8"
 msgstr "_Tiếp tục lưu ở dạng UTF-8"
 
-#: ../src/document.c:2970
+#: ../src/document.c:2971
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -388,57 +391,57 @@ msgstr ""
 "s' ở dòng %d cột %d\n"
 "Tiếp tục lưu với bảng mã UTF-8?"
 
-#: ../src/document.c:2971
+#: ../src/document.c:2972
 msgid "File encoding conversion failure"
 msgstr "Thất bại khi chuyển bảng mã"
 
-#: ../src/document.c:3124
+#: ../src/document.c:3125
 msgid "Previously: "
 msgstr "Trước: "
 
-#: ../src/document.c:3157
+#: ../src/document.c:3158
 #, c-format
 msgid "Move/rename %s to"
 msgstr "Đổi tên %s thành"
 
-#: ../src/document.c:3157
+#: ../src/document.c:3158
 #, c-format
 msgid "Save %s as"
 msgstr "Lưu %s với tên khác là"
 
-#: ../src/document.c:3195 ../src/document.c:3210 ../src/document.c:3297
-#: ../src/document.c:4252 ../src/project.c:193
+#: ../src/document.c:3196 ../src/document.c:3211 ../src/document.c:3298
+#: ../src/document.c:4265 ../src/project.c:193
 msgid "_Cancel"
 msgstr "_Bỏ qua"
 
-#: ../src/document.c:3195 ../src/document.c:3210 ../src/document.c:3297
+#: ../src/document.c:3196 ../src/document.c:3211 ../src/document.c:3298
 #: ../src/project.c:193
 msgid "_Overwrite"
 msgstr "_Ghi đè"
 
-#: ../src/document.c:3196
+#: ../src/document.c:3197
 #, c-format
 msgid "File %s exists and is opened, overwrite?"
 msgstr "Tập tin %s đã có và đang được mở. Ghi đè lên?"
 
-#: ../src/document.c:3197
+#: ../src/document.c:3198
 msgid "The file you have selected is being edited in Bluefish."
 msgstr "Tập tin bạn vừa chọn đang được mở trong Winefish."
 
-#: ../src/document.c:3211 ../src/project.c:194
+#: ../src/document.c:3212 ../src/project.c:194
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr "Tập tin với tên \"%s\" đã tồn tại."
 
-#: ../src/document.c:3213 ../src/project.c:196
+#: ../src/document.c:3214 ../src/project.c:196
 msgid "Do you want to replace the existing file?"
 msgstr "Bạn có muốn thay thế tập tin đã tồn tại không?"
 
-#: ../src/document.c:3266
+#: ../src/document.c:3267
 msgid "save as..."
 msgstr "lưu với tên khác..."
 
-#: ../src/document.c:3301
+#: ../src/document.c:3302
 #, c-format
 msgid ""
 "File: %s\n"
@@ -451,16 +454,16 @@ msgstr ""
 "Giờ thay đổi mới: %s\n"
 "Giời thay đổi cũ: %s"
 
-#: ../src/document.c:3302
+#: ../src/document.c:3303
 msgid "File has been modified by another process."
 msgstr "Tập tin vừa được thay đổi bởi tiến trình nào đó."
 
-#: ../src/document.c:3315
+#: ../src/document.c:3316
 #, c-format
 msgid "Saving %s"
 msgstr "Đang lưu %s"
 
-#: ../src/document.c:3331
+#: ../src/document.c:3332
 msgid ""
 "Could not backup file:\n"
 "\""
@@ -468,11 +471,11 @@ msgstr ""
 "Không thể sao lưu tập tin:\n"
 "\""
 
-#: ../src/document.c:3332
+#: ../src/document.c:3333
 msgid "File save aborted.\n"
 msgstr "Việc lưu tập tin bị ngắt giữa chừng.\n"
 
-#: ../src/document.c:3337
+#: ../src/document.c:3338
 msgid ""
 "Could not write file:\n"
 "\""
@@ -480,32 +483,40 @@ msgstr ""
 "Không thể ghi vào tập tin:\n"
 "\""
 
-#: ../src/document.c:3338
+#: ../src/document.c:3339
 msgid "File save error"
 msgstr "Việc lưu tập tin bị lỗi"
 
-#: ../src/document.c:3389
+#: ../src/document.c:3390
 #, c-format
 msgid "Save changes to \"%s\" before closing?."
 msgstr "Lưu tập tin vào \"%s\" trước khi thoát?."
 
-#: ../src/document.c:3396 ../src/project.c:360
+#: ../src/document.c:3397 ../src/project.c:360
 msgid "Do_n't save"
 msgstr "Không lưu"
 
-#: ../src/document.c:3398 ../src/document.c:4254 ../src/project.c:369
+#: ../src/document.c:3399 ../src/document.c:4267 ../src/project.c:369
 msgid "If you don't save your changes they will be lost."
 msgstr "Nếu bạn không lưu, những thay đổi với tập tin sẽ bị mất."
 
-#: ../src/document.c:3747
+#: ../src/document.c:3720
+msgid "/Document/Line Numbers"
+msgstr "/Tài liệu/Số chỉ dòng"
+
+#: ../src/document.c:3723
+msgid "/Document/AutoCompletion"
+msgstr "/Tài liệu/Hoàn thành lệnh"
+
+#: ../src/document.c:3759
 msgid "No filename"
 msgstr "Chưa có tên"
 
-#: ../src/document.c:3889
+#: ../src/document.c:3902
 msgid "Loading files..."
 msgstr "Đang nạp tận tin..."
 
-#: ../src/document.c:3913
+#: ../src/document.c:3926
 msgid ""
 "These files could not opened:\n"
 "\n"
@@ -513,23 +524,23 @@ msgstr ""
 "Các tập tin sau không thể mở:\n"
 "\n"
 
-#: ../src/document.c:3915 ../src/msg_queue.c:245
+#: ../src/document.c:3928 ../src/msg_queue.c:245
 msgid "Unable to open file(s)\n"
 msgstr "Không thể mở các tập tin sau\n"
 
-#: ../src/document.c:3948
+#: ../src/document.c:3961
 msgid "unable to open file"
 msgstr "không thể mở tập tin"
 
-#: ../src/document.c:3999
+#: ../src/document.c:4012
 msgid "_Reload"
 msgstr "Đọc lại nội dung tập tin trên đĩa"
 
-#: ../src/document.c:3999
+#: ../src/document.c:4012
 msgid "_Ignore"
 msgstr "_Bỏ qua"
 
-#: ../src/document.c:4003
+#: ../src/document.c:4016
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -542,44 +553,44 @@ msgstr ""
 "Giờ thay đổi mới: %s\n"
 "Giời thay đổi cũ: %s"
 
-#: ../src/document.c:4004
+#: ../src/document.c:4017
 msgid "File has been modified by another process\n"
 msgstr "Tập tin vừa được thay đổi bởi tiến trình nào đó\n"
 
-#: ../src/document.c:4138 ../src/gtk_easy.c:1629
+#: ../src/document.c:4151 ../src/gtk_easy.c:1629
 msgid "Select files"
 msgstr "Chọn tập tin"
 
-#: ../src/document.c:4156
+#: ../src/document.c:4169
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "Đang nạp %d tập tin..."
 
-#: ../src/document.c:4183 ../src/document.c:4191
+#: ../src/document.c:4196 ../src/document.c:4204
 msgid "Select file to insert"
 msgstr "Chọn tập tin để chèn"
 
-#: ../src/document.c:4195
+#: ../src/document.c:4208
 msgid "no file to insert"
 msgstr "không có tập tin nào"
 
-#: ../src/document.c:4252
+#: ../src/document.c:4265
 msgid "_Save All"
 msgstr "Lưu tất cả"
 
-#: ../src/document.c:4252
+#: ../src/document.c:4265
 msgid "Close _All"
 msgstr "Đóng tất cả"
 
-#: ../src/document.c:4252
+#: ../src/document.c:4265
 msgid "Choose per _File"
 msgstr "Hỏi từng tập tin"
 
-#: ../src/document.c:4253
+#: ../src/document.c:4266
 msgid "Multiple open files have been changed."
 msgstr "Nhiều tập tin đang mở đã thay đổi nội dung."
 
-#: ../src/document.c:4513
+#: ../src/document.c:4526
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "Thống kê: %d dòng, %d từ, %d ký tự"
@@ -826,7 +837,7 @@ msgstr "<b>Nâng cao</b>"
 
 #: ../src/func_grep.c:388
 msgid "Skip VCS dirs:"
-msgstr "Bỏ qua thư mục VCS:"
+msgstr "bỏ qua thư mục VCS:"
 
 #: ../src/func_grep.c:444
 msgid "no matching files found"
@@ -866,36 +877,36 @@ msgstr "hàm"
 msgid "marks"
 msgstr "đánh dấu"
 
-#: ../src/gui.c:611
+#: ../src/gui.c:613
 msgid "New Winefish Window"
 msgstr "Cửa sổ mới"
 
-#: ../src/gui.c:675
+#: ../src/gui.c:677
 msgid "Stand by..."
 msgstr "Đang treo..."
 
-#: ../src/gui.c:871
+#: ../src/gui.c:873
 msgid "Goto line"
 msgstr "Đi đến dòng"
 
-#: ../src/gui.c:879
+#: ../src/gui.c:881
 msgid "_Line number:"
 msgstr "Số _dòng:"
 
-#: ../src/gui.c:885
+#: ../src/gui.c:887
 msgid "From _selection"
 msgstr "Từ phần đang chọn"
 
-#: ../src/gui.c:888
+#: ../src/gui.c:890
 msgid "Keep _dialog"
 msgstr "Giữ hộp thoại này"
 
-#: ../src/gui.c:954
+#: ../src/gui.c:956
 msgid "starting winefish"
 msgstr "bắt đầu chạy Winefish"
 
-#: ../src/gui.c:1053 ../src/gui.c:1062 ../src/outputbox.c:104
-#: ../src/outputbox.c:316 ../src/outputbox.c:405
+#: ../src/gui.c:1055 ../src/gui.c:1064 ../src/outputbox.c:104
+#: ../src/outputbox.c:325 ../src/outputbox.c:414
 msgid "/View/View Outputbox"
 msgstr "/Xem/Kết quả xuất"
 
@@ -1585,8 +1596,8 @@ msgid "/Document/sep1"
 msgstr "/Tài liệu/sep1"
 
 #: ../src/menu.c:476
-msgid "/Document/Auto close environment"
-msgstr "/Tài liệu/Tự động hoàn thành lệnh"
+msgid "/Document/Auto_Completion"
+msgstr "/Tài liệu/Hoàn thành lệnh"
 
 #: ../src/menu.c:477
 msgid "/Document/_Wrap"
@@ -1652,8 +1663,8 @@ msgstr "/Côn_g cụ"
 msgid "/External/tearoff1"
 msgstr "/Công cụ/tearoff1"
 
-#: ../src/menu.c:498 ../src/menu.c:733 ../src/outputbox.c:528
-#: ../src/outputbox.c:531
+#: ../src/menu.c:498 ../src/menu.c:733 ../src/outputbox.c:537
+#: ../src/outputbox.c:540
 msgid "/External/Stop..."
 msgstr "/Công cụ/Dừng..."
 
@@ -2033,29 +2044,29 @@ msgstr "tập tin: %s"
 msgid "noop"
 msgstr ""
 
-#: ../src/outputbox.c:417
+#: ../src/outputbox.c:426
 msgid "tool is running. press Escape to stop it first."
 msgstr "đang chạy. nhấn phím Escape để dừng."
 
-#: ../src/outputbox.c:427
+#: ../src/outputbox.c:436
 msgid "empty command"
 msgstr "lệnh rỗng"
 
-#: ../src/outputbox.c:433
+#: ../src/outputbox.c:442
 #, c-format
 msgid "%s # project mode: ON"
 msgstr "%s # chế độ dự án: Mở"
 
-#: ../src/outputbox.c:435
+#: ../src/outputbox.c:444
 #, c-format
 msgid "%s # project mode: OFF"
 msgstr "%s # chế độ dự án: Tắt"
 
-#: ../src/outputbox.c:444
+#: ../src/outputbox.c:453
 msgid "file wasnot saved. tool canceled"
 msgstr "tập tin cần được lưu trước khi thi hành công cụ"
 
-#: ../src/outputbox.c:496
+#: ../src/outputbox.c:505
 msgid "stop request. stopping tool..."
 msgstr "yêu cầu ngắt. đang dừng công cụ..."
 
@@ -2138,8 +2149,8 @@ msgid "Content regex"
 msgstr "Biểu thức nhận dạng"
 
 #: ../src/preferences.c:492
-msgid "Auto close enviroment mode"
-msgstr "Tự động đóng môi trường"
+msgid "AutoCompletion"
+msgstr "Hoàn thành lệnh"
 
 #: ../src/preferences.c:575
 msgid "Inverse filter"
@@ -2352,291 +2363,291 @@ msgstr ""
 "\tcả hai: 1+2 =3\n"
 "\tkhông cả hai: 0"
 
-#: ../src/preferences.c:1828 ../src/preferences.c:1829
+#: ../src/preferences.c:1835 ../src/preferences.c:1836
 msgid "left"
 msgstr "trái"
 
-#: ../src/preferences.c:1828 ../src/preferences.c:1829
+#: ../src/preferences.c:1835 ../src/preferences.c:1836
 msgid "right"
 msgstr "phải"
 
-#: ../src/preferences.c:1828
+#: ../src/preferences.c:1835
 msgid "top"
 msgstr "trên"
 
-#: ../src/preferences.c:1828
+#: ../src/preferences.c:1835
 msgid "bottom"
 msgstr "dưới"
 
-#: ../src/preferences.c:1830
+#: ../src/preferences.c:1837
 msgid "no check"
 msgstr "không kiểm tra"
 
-#: ../src/preferences.c:1830
+#: ../src/preferences.c:1837
 msgid "check mtime and size"
 msgstr "kiểm tra thời gian và cỡ"
 
-#: ../src/preferences.c:1830
+#: ../src/preferences.c:1837
 msgid "check mtime"
 msgstr "kiểm tra thời gian"
 
-#: ../src/preferences.c:1830
+#: ../src/preferences.c:1837
 msgid "check size"
 msgstr "kiểm tra cỡ"
 
-#: ../src/preferences.c:1833
+#: ../src/preferences.c:1840
 msgid "Edit preferences"
 msgstr "Thay đổi cấu hình Winefish"
 
-#: ../src/preferences.c:1844
+#: ../src/preferences.c:1851
 msgid "Editor"
 msgstr "Soạn thảo"
 
-#: ../src/preferences.c:1846
+#: ../src/preferences.c:1853
 msgid "Editor options"
 msgstr "Tùy chọn soạn thảo"
 
-#: ../src/preferences.c:1851
+#: ../src/preferences.c:1858
 msgid "Font"
 msgstr "Phông"
 
-#: ../src/preferences.c:1852
+#: ../src/preferences.c:1859
 msgid "Tab width"
 msgstr "Cỡ tab"
 
-#: ../src/preferences.c:1853
+#: ../src/preferences.c:1860
 msgid "Use spaces to indent, not tabs"
 msgstr "Thay thế tab bởi khoảng trắng"
 
-#: ../src/preferences.c:1854
+#: ../src/preferences.c:1861
 msgid "Word wrap default"
 msgstr "Mặc định ngắt dòng"
 
-#: ../src/preferences.c:1856
+#: ../src/preferences.c:1863
 msgid "Highlight syntax by default"
 msgstr "Mặc định tô màu"
 
-#: ../src/preferences.c:1857
+#: ../src/preferences.c:1864
 msgid "Highlight # lines"
 msgstr "Tô  màu # dòng"
 
-#: ../src/preferences.c:1859
+#: ../src/preferences.c:1866
 msgid "Undo"
 msgstr ""
 
-#: ../src/preferences.c:1864
+#: ../src/preferences.c:1871
 msgid "Undo history size"
 msgstr "Cỡ bộ đệm lịch sử"
 
-#: ../src/preferences.c:1865
+#: ../src/preferences.c:1872
 msgid "Clear undo history on save"
 msgstr "Xó bỏ bộ đệm lịch sử khi lưu"
 
-#: ../src/preferences.c:1867
+#: ../src/preferences.c:1874
 msgid "Bookmark options"
 msgstr "Tùy chọn đánh dấu"
 
-#: ../src/preferences.c:1872
+#: ../src/preferences.c:1879
 msgid "Make permanent by default"
 msgstr ""
 
-#: ../src/preferences.c:1874
+#: ../src/preferences.c:1881
 msgid "full path"
 msgstr "đường dẫn đầy đủ"
 
-#: ../src/preferences.c:1874
+#: ../src/preferences.c:1881
 msgid "path from basedir"
 msgstr "đường dẫn từ thư mục chính"
 
-#: ../src/preferences.c:1874
+#: ../src/preferences.c:1881
 msgid "filename"
 msgstr "tập tin"
 
-#: ../src/preferences.c:1875
+#: ../src/preferences.c:1882
 msgid "Bookmarks filename display"
 msgstr "Hiển thị tập tin chứa đánh dấu"
 
-#: ../src/preferences.c:1879
+#: ../src/preferences.c:1886
 msgid "Files"
 msgstr "Tập tin"
 
-#: ../src/preferences.c:1881
+#: ../src/preferences.c:1888
 msgid "Encoding"
 msgstr "Bảng mã"
 
-#: ../src/preferences.c:1893
+#: ../src/preferences.c:1900
 msgid "Default character set"
 msgstr "Bảng mã mặc định"
 
-#: ../src/preferences.c:1899
+#: ../src/preferences.c:1906
 msgid "Backup"
 msgstr "Sao lưu"
 
-#: ../src/preferences.c:1903
+#: ../src/preferences.c:1910
 msgid "Create backup on save"
 msgstr "Sao lưu mỗi khi lưu tài liệu"
 
-#: ../src/preferences.c:1904
+#: ../src/preferences.c:1911
 msgid "Backup file suffix"
 msgstr "Hậu tố sao lưu"
 
-#: ../src/preferences.c:1906
+#: ../src/preferences.c:1913
 msgid "save"
 msgstr "lưu"
 
-#: ../src/preferences.c:1906
+#: ../src/preferences.c:1913
 msgid "abort"
 msgstr "thoát"
 
-#: ../src/preferences.c:1906
+#: ../src/preferences.c:1913
 msgid "ask"
 msgstr "hỏi"
 
-#: ../src/preferences.c:1907
+#: ../src/preferences.c:1914
 msgid "Action on backup failure"
 msgstr "Nếu sao lưu thất bại"
 
-#: ../src/preferences.c:1909
+#: ../src/preferences.c:1916
 msgid "Remove backupfile on close"
 msgstr "Xóa tập tin sao lưu khi thoát"
 
-#: ../src/preferences.c:1913
+#: ../src/preferences.c:1920
 msgid "Misc"
 msgstr "Linh tinh"
 
-#: ../src/preferences.c:1918
+#: ../src/preferences.c:1925
 msgid "Allow multi instances of a file"
 msgstr "Mở cùng một tài liệu ở nhiều cửa sổ"
 
-#: ../src/preferences.c:1920
+#: ../src/preferences.c:1927
 msgid "Open files in already running winefish window"
 msgstr "Mở tài liệu trong cửa sổ Winefish đã mở"
 
-#: ../src/preferences.c:1922
+#: ../src/preferences.c:1929
 msgid "File modified on disk check "
 msgstr "Kiểm tra sự thay đổi tập tin trên đĩa"
 
-#: ../src/preferences.c:1923
+#: ../src/preferences.c:1930
 msgid "Number of files in 'Open recent'"
 msgstr "Số tập tin lưu vào lịch sử Winefish"
 
-#: ../src/preferences.c:1925
+#: ../src/preferences.c:1932
 msgid "File browser"
 msgstr "Cây thư mục"
 
-#: ../src/preferences.c:1929
+#: ../src/preferences.c:1936
 msgid "Default basedir"
 msgstr "Thư mục chính mặc định"
 
-#: ../src/preferences.c:1930
+#: ../src/preferences.c:1937
 msgid "Use separate file and directory view"
 msgstr "Tách riêng tập tin và thư mục"
 
-#: ../src/preferences.c:1931
+#: ../src/preferences.c:1938
 msgid "Unknown icon"
 msgstr "Biểu tượng 'không biết'"
 
-#: ../src/preferences.c:1932
+#: ../src/preferences.c:1939
 msgid "Directory icon"
 msgstr "Biểu tượng thư mục"
 
-#: ../src/preferences.c:1935
+#: ../src/preferences.c:1942
 msgid "User interface"
 msgstr "Giao diện"
 
-#: ../src/preferences.c:1937
+#: ../src/preferences.c:1944
 msgid "Dimensions"
 msgstr "Kích thước"
 
-#: ../src/preferences.c:1941
+#: ../src/preferences.c:1948
 msgid "Restore last used dimensions"
 msgstr "Khôi phục kích thước cũ"
 
-#: ../src/preferences.c:1942
+#: ../src/preferences.c:1949
 msgid "Initial sidebar width"
 msgstr "Chiều rộng sidebar (khởi tạo)"
 
-#: ../src/preferences.c:1943
+#: ../src/preferences.c:1950
 msgid "Initial window height"
 msgstr "Chiều cao cửa sổ (khởi tạo)"
 
-#: ../src/preferences.c:1944
+#: ../src/preferences.c:1951
 msgid "Initial window width"
 msgstr "Chiều rộng cửa sổ (khởi tạo)"
 
-#: ../src/preferences.c:1948
+#: ../src/preferences.c:1955
 msgid "General"
 msgstr "Tổng quát"
 
-#: ../src/preferences.c:1953
+#: ../src/preferences.c:1960
 msgid "Make LaTeX dialogs transient"
 msgstr ""
 
-#: ../src/preferences.c:1955
+#: ../src/preferences.c:1962
 msgid "Notebook tab font (leave empty for gtk default)"
 msgstr "Phông cho notebook (để trống để dùng mặc định)"
 
-#: ../src/preferences.c:1957
+#: ../src/preferences.c:1964
 msgid "Document notebook tab position"
 msgstr "Vị trí của notebook tài liệu"
 
-#: ../src/preferences.c:1958
+#: ../src/preferences.c:1965
 msgid "Sidebar notebook tab position"
 msgstr "Vị trí của notebook sidebar"
 
-#: ../src/preferences.c:1959
+#: ../src/preferences.c:1966
 msgid "Sidebar location"
 msgstr "Ví trí của sidebar"
 
-#: ../src/preferences.c:1962 ../src/preferences.c:1964
+#: ../src/preferences.c:1969 ../src/preferences.c:1971
 msgid "Filetypes"
 msgstr "Kiểu tập tin"
 
-#: ../src/preferences.c:1971
+#: ../src/preferences.c:1978
 msgid "Filefilters"
 msgstr "Lọc tập tin"
 
-#: ../src/preferences.c:1979
+#: ../src/preferences.c:1986
 msgid "Highlighting"
 msgstr "Tô màu"
 
-#: ../src/preferences.c:1981
+#: ../src/preferences.c:1988
 msgid "Patterns"
 msgstr "Biểu thức"
 
-#: ../src/preferences.c:1989
+#: ../src/preferences.c:1996
 msgid "Viewers, Filters"
 msgstr "Trình xem, Lọc"
 
-#: ../src/preferences.c:1991
+#: ../src/preferences.c:1998
 msgid "Viewers"
 msgstr "Trình xem"
 
-#: ../src/preferences.c:1998
+#: ../src/preferences.c:2005
 msgid "Utilities and Filters"
 msgstr "Công cụ, Lọc"
 
-#: ../src/preferences.c:2006
+#: ../src/preferences.c:2013
 msgid "TeXbox"
 msgstr ""
 
-#: ../src/preferences.c:2008
+#: ../src/preferences.c:2015
 msgid "*LaTeX*box"
 msgstr "Biên dịch"
 
-#: ../src/preferences.c:2016
+#: ../src/preferences.c:2023
 msgid "Information"
 msgstr "Thông tin"
 
-#: ../src/preferences.c:2024
+#: ../src/preferences.c:2031
 msgid "AutoX"
 msgstr "Thay thế"
 
-#: ../src/preferences.c:2026
+#: ../src/preferences.c:2033
 msgid "Autotext"
 msgstr "Chuỗi thay thế"
 
-#: ../src/preferences.c:2033
+#: ../src/preferences.c:2040
 msgid "Word List (for Autocompletion)"
 msgstr "Chuỗi hoàn thành"
 
@@ -2727,31 +2738,31 @@ msgstr "Tạo dự án với các tài liệu đang mở"
 msgid "Create empty project"
 msgstr "Tạo dự án mới hoàn toàn"
 
-#: ../src/rcfile.c:486
+#: ../src/rcfile.c:487
 msgid "DVI Viewer"
 msgstr "Xem kết quả DVI"
 
-#: ../src/rcfile.c:488
+#: ../src/rcfile.c:489
 msgid "PDF Viewer"
 msgstr "Xem kết quả PDF"
 
-#: ../src/rcfile.c:490
+#: ../src/rcfile.c:491
 msgid "EPS Viewer"
 msgstr "Xem kết quả EPS"
 
-#: ../src/rcfile.c:564
+#: ../src/rcfile.c:565
 msgid "LaTeX"
 msgstr ""
 
-#: ../src/rcfile.c:566
+#: ../src/rcfile.c:567
 msgid "XML"
 msgstr ""
 
-#: ../src/rcfile.c:568
+#: ../src/rcfile.c:569
 msgid "Images"
 msgstr "Hình"
 
-#: ../src/rcfile.c:964
+#: ../src/rcfile.c:933
 msgid "Untitled Project"
 msgstr "Dự án không tên"
 
@@ -2911,8 +2922,7 @@ msgstr "-p filename  mở dự án\n"
 
 #: ../src/winefish.c:112
 msgid "-l number    set line<number>. Negative value takes no effect.\n"
-msgstr ""
-"-l number    đặt con trỏ vào dòng '<number>'. Số âm không có tác dụng.\n"
+msgstr "-l number    đặt con trỏ vào dòng '<number>'. Số âm không có tác dụng.\n"
 
 #: ../src/winefish.c:113
 msgid "-h           this help screen\n"
@@ -3067,3 +3077,4 @@ msgstr "_Hàng:"
 #: ../src/wizards.c:646
 msgid "Type (_Environment):"
 msgstr "Kiểu (_Môi trường):"
+

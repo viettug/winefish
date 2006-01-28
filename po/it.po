@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-28 08:54+0700\n"
+"POT-Creation-Date: 2006-01-28 15:43+0700\n"
 "PO-Revision-Date: 2005-08-18 23:24+0700\n"
 "Last-Translator: kyanh <kyanh@o2.pl>\n"
 "Language-Team:  <en@li.org>\n"
@@ -212,7 +212,7 @@ msgid "Delete all"
 msgstr "Elimina tutti"
 
 #: ../src/bookmark.c:1275 ../src/bookmark.c:1292 ../src/bookmark.c:1330
-#: ../src/document.c:2770
+#: ../src/document.c:2771
 msgid "Add bookmark"
 msgstr "Aggiungi segnalibro"
 
@@ -240,16 +240,16 @@ msgstr "Dimensione del fine cambiata\n"
 msgid "Bookmarks positions could be incorrect. Delete bookmarks?"
 msgstr ""
 
-#: ../src/document.c:308 ../src/document.c:3712
+#: ../src/document.c:308 ../src/document.c:3717
 msgid "/Document/Highlight Syntax"
 msgstr ""
 
-#: ../src/document.c:760
+#: ../src/document.c:761
 #, fuzzy
 msgid "name: "
 msgstr "Nome:"
 
-#: ../src/document.c:761
+#: ../src/document.c:762
 #, fuzzy
 msgid ""
 "\n"
@@ -258,7 +258,7 @@ msgstr ""
 "\n"
 "Tipo: "
 
-#: ../src/document.c:762
+#: ../src/document.c:763
 #, fuzzy
 msgid ""
 "\n"
@@ -267,7 +267,7 @@ msgstr ""
 "\n"
 "Codifica: "
 
-#: ../src/document.c:765
+#: ../src/document.c:766
 #, fuzzy
 msgid ""
 "\n"
@@ -276,11 +276,11 @@ msgstr ""
 "\n"
 "Dimensione (su disco): "
 
-#: ../src/document.c:765
+#: ../src/document.c:766
 msgid " bytes"
 msgstr " byte"
 
-#: ../src/document.c:771
+#: ../src/document.c:772
 #, fuzzy
 msgid ""
 "\n"
@@ -289,7 +289,7 @@ msgstr ""
 "\n"
 "Permessi: "
 
-#: ../src/document.c:778
+#: ../src/document.c:779
 #, fuzzy
 msgid ""
 "\n"
@@ -298,69 +298,69 @@ msgstr ""
 "\n"
 "Ultima modifica: "
 
-#: ../src/document.c:804
+#: ../src/document.c:805
 #, c-format
 msgid "Untitled %d"
 msgstr "Senza nome %d"
 
-#: ../src/document.c:1462
+#: ../src/document.c:1463
 msgid "Could not read file:\n"
 msgstr "Non è possibile leggere il file:\n"
 
-#: ../src/document.c:1493
+#: ../src/document.c:1494
 msgid "Opening file "
 msgstr "Apertura file "
 
-#: ../src/document.c:1624
+#: ../src/document.c:1625
 msgid "Cannot display file, unknown characters found."
 msgstr "Impossibile visualizzare il file, trovato carattere sconosciuto."
 
-#: ../src/document.c:2101
+#: ../src/document.c:2102
 #, c-format
 msgid "deleted '%s'"
 msgstr ""
 
-#: ../src/document.c:2752 ../src/snr2.c:1340
+#: ../src/document.c:2753 ../src/snr2.c:1340
 msgid "Replace"
 msgstr "Sostituisci"
 
-#: ../src/document.c:2757 ../src/snr2.c:1343
+#: ../src/document.c:2758 ../src/snr2.c:1343
 msgid "Find"
 msgstr "Trova"
 
-#: ../src/document.c:2766
+#: ../src/document.c:2767
 msgid "Delete bookmark"
 msgstr "Elimina segnalibro"
 
-#: ../src/document.c:2911
+#: ../src/document.c:2912
 #, fuzzy
 msgid "saving file"
 msgstr "Salvataggio file"
 
-#: ../src/document.c:2935 ../src/document.c:2959
+#: ../src/document.c:2936 ../src/document.c:2960
 msgid "_Abort save"
 msgstr ""
 
-#: ../src/document.c:2935
+#: ../src/document.c:2936
 msgid "_Continue save"
 msgstr ""
 
-#: ../src/document.c:2937
+#: ../src/document.c:2938
 #, c-format
 msgid ""
 "A backupfile for %s could not be created. If you continue, this file will be "
 "overwritten."
 msgstr ""
 
-#: ../src/document.c:2938
+#: ../src/document.c:2939
 msgid "File backup failure"
 msgstr "Backup del file non avvenuto"
 
-#: ../src/document.c:2959
+#: ../src/document.c:2960
 msgid "_Continue save in UTF-8"
 msgstr ""
 
-#: ../src/document.c:2970
+#: ../src/document.c:2971
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -369,58 +369,58 @@ msgid ""
 "Continue saving in UTF-8 encoding?"
 msgstr ""
 
-#: ../src/document.c:2971
+#: ../src/document.c:2972
 msgid "File encoding conversion failure"
 msgstr ""
 
-#: ../src/document.c:3124
+#: ../src/document.c:3125
 msgid "Previously: "
 msgstr "Precedentemente: "
 
-#: ../src/document.c:3157
+#: ../src/document.c:3158
 #, c-format
 msgid "Move/rename %s to"
 msgstr ""
 
-#: ../src/document.c:3157
+#: ../src/document.c:3158
 #, c-format
 msgid "Save %s as"
 msgstr "Salva %s come"
 
-#: ../src/document.c:3195 ../src/document.c:3210 ../src/document.c:3297
-#: ../src/document.c:4252 ../src/project.c:193
+#: ../src/document.c:3196 ../src/document.c:3211 ../src/document.c:3298
+#: ../src/document.c:4265 ../src/project.c:193
 msgid "_Cancel"
 msgstr "_Cancella"
 
-#: ../src/document.c:3195 ../src/document.c:3210 ../src/document.c:3297
+#: ../src/document.c:3196 ../src/document.c:3211 ../src/document.c:3298
 #: ../src/project.c:193
 msgid "_Overwrite"
 msgstr "S_ovrascrivi"
 
-#: ../src/document.c:3196
+#: ../src/document.c:3197
 #, c-format
 msgid "File %s exists and is opened, overwrite?"
 msgstr "Il file %s esiste ed è aperto, sovrascrivo?"
 
-#: ../src/document.c:3197
+#: ../src/document.c:3198
 msgid "The file you have selected is being edited in Bluefish."
 msgstr ""
 
-#: ../src/document.c:3211 ../src/project.c:194
+#: ../src/document.c:3212 ../src/project.c:194
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr "Un file chiamato \"%s\" esiste già."
 
-#: ../src/document.c:3213 ../src/project.c:196
+#: ../src/document.c:3214 ../src/project.c:196
 msgid "Do you want to replace the existing file?"
 msgstr "Vuoi sostituire il file esistente?"
 
-#: ../src/document.c:3266
+#: ../src/document.c:3267
 #, fuzzy
 msgid "save as..."
 msgstr "Salva come..."
 
-#: ../src/document.c:3301
+#: ../src/document.c:3302
 #, c-format
 msgid ""
 "File: %s\n"
@@ -429,57 +429,65 @@ msgid ""
 "Old modification time: %s"
 msgstr ""
 
-#: ../src/document.c:3302
+#: ../src/document.c:3303
 msgid "File has been modified by another process."
 msgstr "Il file è stato modificato da un altro processo."
 
-#: ../src/document.c:3315
+#: ../src/document.c:3316
 #, c-format
 msgid "Saving %s"
 msgstr "Salvataggio in corso di %s"
 
-#: ../src/document.c:3331
+#: ../src/document.c:3332
 msgid ""
 "Could not backup file:\n"
 "\""
 msgstr ""
 
-#: ../src/document.c:3332
+#: ../src/document.c:3333
 msgid "File save aborted.\n"
 msgstr "Salvataggio file non avvenuto.\n"
 
-#: ../src/document.c:3337
+#: ../src/document.c:3338
 msgid ""
 "Could not write file:\n"
 "\""
 msgstr ""
 
-#: ../src/document.c:3338
+#: ../src/document.c:3339
 msgid "File save error"
 msgstr "Errore durante il salvataggio"
 
-#: ../src/document.c:3389
+#: ../src/document.c:3390
 #, c-format
 msgid "Save changes to \"%s\" before closing?."
 msgstr "Salva cambiamenti in \"%s\" prima di chiudere?."
 
-#: ../src/document.c:3396 ../src/project.c:360
+#: ../src/document.c:3397 ../src/project.c:360
 msgid "Do_n't save"
 msgstr "No_n salvare"
 
-#: ../src/document.c:3398 ../src/document.c:4254 ../src/project.c:369
+#: ../src/document.c:3399 ../src/document.c:4267 ../src/project.c:369
 msgid "If you don't save your changes they will be lost."
 msgstr ""
 
-#: ../src/document.c:3747
+#: ../src/document.c:3720
+msgid "/Document/Line Numbers"
+msgstr ""
+
+#: ../src/document.c:3723
+msgid "/Document/AutoCompletion"
+msgstr ""
+
+#: ../src/document.c:3759
 msgid "No filename"
 msgstr "Nessun nome file"
 
-#: ../src/document.c:3889
+#: ../src/document.c:3902
 msgid "Loading files..."
 msgstr "Caricamento file..."
 
-#: ../src/document.c:3913
+#: ../src/document.c:3926
 msgid ""
 "These files could not opened:\n"
 "\n"
@@ -487,24 +495,24 @@ msgstr ""
 "Questi file non possono essere aperti:\n"
 "\n"
 
-#: ../src/document.c:3915 ../src/msg_queue.c:245
+#: ../src/document.c:3928 ../src/msg_queue.c:245
 msgid "Unable to open file(s)\n"
 msgstr "Non è possibile aprire il file\n"
 
-#: ../src/document.c:3948
+#: ../src/document.c:3961
 #, fuzzy
 msgid "unable to open file"
 msgstr "Non è possibile caricare il file"
 
-#: ../src/document.c:3999
+#: ../src/document.c:4012
 msgid "_Reload"
 msgstr "_Ricarica"
 
-#: ../src/document.c:3999
+#: ../src/document.c:4012
 msgid "_Ignore"
 msgstr "_Ignora"
 
-#: ../src/document.c:4003
+#: ../src/document.c:4016
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -517,45 +525,45 @@ msgstr ""
 "Orario ultima modifica: %s\n"
 "Orario precedente modifica: %s"
 
-#: ../src/document.c:4004
+#: ../src/document.c:4017
 msgid "File has been modified by another process\n"
 msgstr "Il file è stato modificato da un altro processo\n"
 
-#: ../src/document.c:4138 ../src/gtk_easy.c:1629
+#: ../src/document.c:4151 ../src/gtk_easy.c:1629
 msgid "Select files"
 msgstr "Seleziona file"
 
-#: ../src/document.c:4156
+#: ../src/document.c:4169
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "Apertura di %d file..."
 
-#: ../src/document.c:4183 ../src/document.c:4191
+#: ../src/document.c:4196 ../src/document.c:4204
 msgid "Select file to insert"
 msgstr "Scegli file da inserire"
 
-#: ../src/document.c:4195
+#: ../src/document.c:4208
 #, fuzzy
 msgid "no file to insert"
 msgstr "Nessun file da inserire"
 
-#: ../src/document.c:4252
+#: ../src/document.c:4265
 msgid "_Save All"
 msgstr "_Salva tutto"
 
-#: ../src/document.c:4252
+#: ../src/document.c:4265
 msgid "Close _All"
 msgstr "Chiudi _tutto"
 
-#: ../src/document.c:4252
+#: ../src/document.c:4265
 msgid "Choose per _File"
 msgstr ""
 
-#: ../src/document.c:4253
+#: ../src/document.c:4266
 msgid "Multiple open files have been changed."
 msgstr "Molteplici file aperti sono stati modificati."
 
-#: ../src/document.c:4513
+#: ../src/document.c:4526
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "Statistiche: %d linee, %d parole, %d caratteri"
@@ -852,36 +860,36 @@ msgstr "Definizione"
 msgid "marks"
 msgstr "Segnalibri"
 
-#: ../src/gui.c:611
+#: ../src/gui.c:613
 msgid "New Winefish Window"
 msgstr "Nuova finestra Winefish"
 
-#: ../src/gui.c:675
+#: ../src/gui.c:677
 msgid "Stand by..."
 msgstr "Attendere prego..."
 
-#: ../src/gui.c:871
+#: ../src/gui.c:873
 msgid "Goto line"
 msgstr "Vai alla linea"
 
-#: ../src/gui.c:879
+#: ../src/gui.c:881
 msgid "_Line number:"
 msgstr "Numero _linea:"
 
-#: ../src/gui.c:885
+#: ../src/gui.c:887
 msgid "From _selection"
 msgstr "Dalla _selezione"
 
-#: ../src/gui.c:888
+#: ../src/gui.c:890
 msgid "Keep _dialog"
 msgstr ""
 
-#: ../src/gui.c:954
+#: ../src/gui.c:956
 msgid "starting winefish"
 msgstr "avvio di winefish"
 
-#: ../src/gui.c:1053 ../src/gui.c:1062 ../src/outputbox.c:104
-#: ../src/outputbox.c:316 ../src/outputbox.c:405
+#: ../src/gui.c:1055 ../src/gui.c:1064 ../src/outputbox.c:104
+#: ../src/outputbox.c:325 ../src/outputbox.c:414
 msgid "/View/View Outputbox"
 msgstr "/Visualizza/Visualizza area esterna"
 
@@ -1642,7 +1650,7 @@ msgid "/Document/sep1"
 msgstr ""
 
 #: ../src/menu.c:476
-msgid "/Document/Auto close environment"
+msgid "/Document/Auto_Completion"
 msgstr ""
 
 #: ../src/menu.c:477
@@ -1709,8 +1717,8 @@ msgstr ""
 msgid "/External/tearoff1"
 msgstr ""
 
-#: ../src/menu.c:498 ../src/menu.c:733 ../src/outputbox.c:528
-#: ../src/outputbox.c:531
+#: ../src/menu.c:498 ../src/menu.c:733 ../src/outputbox.c:537
+#: ../src/outputbox.c:540
 msgid "/External/Stop..."
 msgstr "/Esterno/Interrompi..."
 
@@ -2100,30 +2108,30 @@ msgstr "File"
 msgid "noop"
 msgstr ""
 
-#: ../src/outputbox.c:417
+#: ../src/outputbox.c:426
 msgid "tool is running. press Escape to stop it first."
 msgstr ""
 
-#: ../src/outputbox.c:427
+#: ../src/outputbox.c:436
 #, fuzzy
 msgid "empty command"
 msgstr "Comando"
 
-#: ../src/outputbox.c:433
+#: ../src/outputbox.c:442
 #, fuzzy, c-format
 msgid "%s # project mode: ON"
 msgstr "Modalità progetto: ON"
 
-#: ../src/outputbox.c:435
+#: ../src/outputbox.c:444
 #, fuzzy, c-format
 msgid "%s # project mode: OFF"
 msgstr "Modalità progetto: OFF"
 
-#: ../src/outputbox.c:444
+#: ../src/outputbox.c:453
 msgid "file wasnot saved. tool canceled"
 msgstr ""
 
-#: ../src/outputbox.c:496
+#: ../src/outputbox.c:505
 msgid "stop request. stopping tool..."
 msgstr ""
 
@@ -2210,7 +2218,7 @@ msgid "Content regex"
 msgstr ""
 
 #: ../src/preferences.c:492
-msgid "Auto close enviroment mode"
+msgid "AutoCompletion"
 msgstr ""
 
 #: ../src/preferences.c:575
@@ -2395,294 +2403,294 @@ msgid ""
 "\tnone of them: 0"
 msgstr ""
 
-#: ../src/preferences.c:1828 ../src/preferences.c:1829
+#: ../src/preferences.c:1835 ../src/preferences.c:1836
 msgid "left"
 msgstr "sinistra"
 
-#: ../src/preferences.c:1828 ../src/preferences.c:1829
+#: ../src/preferences.c:1835 ../src/preferences.c:1836
 msgid "right"
 msgstr "destra"
 
-#: ../src/preferences.c:1828
+#: ../src/preferences.c:1835
 msgid "top"
 msgstr "in alto"
 
-#: ../src/preferences.c:1828
+#: ../src/preferences.c:1835
 msgid "bottom"
 msgstr "in basso"
 
-#: ../src/preferences.c:1830
+#: ../src/preferences.c:1837
 msgid "no check"
 msgstr "nessun controllo"
 
-#: ../src/preferences.c:1830
+#: ../src/preferences.c:1837
 msgid "check mtime and size"
 msgstr "controlla mtime e dimensione"
 
-#: ../src/preferences.c:1830
+#: ../src/preferences.c:1837
 msgid "check mtime"
 msgstr "controlla mtime"
 
-#: ../src/preferences.c:1830
+#: ../src/preferences.c:1837
 msgid "check size"
 msgstr "controlla dimensione"
 
-#: ../src/preferences.c:1833
+#: ../src/preferences.c:1840
 msgid "Edit preferences"
 msgstr "Modifica preferenze"
 
-#: ../src/preferences.c:1844
+#: ../src/preferences.c:1851
 msgid "Editor"
 msgstr "Editor"
 
-#: ../src/preferences.c:1846
+#: ../src/preferences.c:1853
 msgid "Editor options"
 msgstr "Opzioni editor"
 
-#: ../src/preferences.c:1851
+#: ../src/preferences.c:1858
 msgid "Font"
 msgstr "Carattere"
 
-#: ../src/preferences.c:1852
+#: ../src/preferences.c:1859
 msgid "Tab width"
 msgstr "Larghezza tabulazione"
 
-#: ../src/preferences.c:1853
+#: ../src/preferences.c:1860
 msgid "Use spaces to indent, not tabs"
 msgstr "Utilizza gli spazi per indentare, non la tabulazione"
 
-#: ../src/preferences.c:1854
+#: ../src/preferences.c:1861
 msgid "Word wrap default"
 msgstr "Rientro a capo predefinito"
 
-#: ../src/preferences.c:1856
+#: ../src/preferences.c:1863
 msgid "Highlight syntax by default"
 msgstr "Evidenzia sintassi in maniera predefinita"
 
-#: ../src/preferences.c:1857
+#: ../src/preferences.c:1864
 msgid "Highlight # lines"
 msgstr "Evidenzia # linee"
 
-#: ../src/preferences.c:1859
+#: ../src/preferences.c:1866
 msgid "Undo"
 msgstr "Annulla"
 
-#: ../src/preferences.c:1864
+#: ../src/preferences.c:1871
 msgid "Undo history size"
 msgstr "Dimensione cronologia di annulla"
 
-#: ../src/preferences.c:1865
+#: ../src/preferences.c:1872
 msgid "Clear undo history on save"
 msgstr "Pulisci cronologia azioni durante il salvataggio"
 
-#: ../src/preferences.c:1867
+#: ../src/preferences.c:1874
 msgid "Bookmark options"
 msgstr "Opzioni segnalibri"
 
-#: ../src/preferences.c:1872
+#: ../src/preferences.c:1879
 msgid "Make permanent by default"
 msgstr "Rendilo permanente in maniera predefinita"
 
-#: ../src/preferences.c:1874
+#: ../src/preferences.c:1881
 msgid "full path"
 msgstr "percorso completo"
 
-#: ../src/preferences.c:1874
+#: ../src/preferences.c:1881
 msgid "path from basedir"
 msgstr "percorso da basedir"
 
-#: ../src/preferences.c:1874
+#: ../src/preferences.c:1881
 msgid "filename"
 msgstr "nomefile"
 
-#: ../src/preferences.c:1875
+#: ../src/preferences.c:1882
 msgid "Bookmarks filename display"
 msgstr ""
 
-#: ../src/preferences.c:1879
+#: ../src/preferences.c:1886
 msgid "Files"
 msgstr "File"
 
-#: ../src/preferences.c:1881
+#: ../src/preferences.c:1888
 msgid "Encoding"
 msgstr "Codifica"
 
-#: ../src/preferences.c:1893
+#: ../src/preferences.c:1900
 msgid "Default character set"
 msgstr "Insieme di caratteri predefiniti"
 
-#: ../src/preferences.c:1899
+#: ../src/preferences.c:1906
 msgid "Backup"
 msgstr "Backup"
 
-#: ../src/preferences.c:1903
+#: ../src/preferences.c:1910
 msgid "Create backup on save"
 msgstr "Crea backup durante il salvataggio"
 
-#: ../src/preferences.c:1904
+#: ../src/preferences.c:1911
 msgid "Backup file suffix"
 msgstr "Suffisso del file di backup"
 
-#: ../src/preferences.c:1906
+#: ../src/preferences.c:1913
 msgid "save"
 msgstr "salva"
 
-#: ../src/preferences.c:1906
+#: ../src/preferences.c:1913
 msgid "abort"
 msgstr "termina"
 
-#: ../src/preferences.c:1906
+#: ../src/preferences.c:1913
 msgid "ask"
 msgstr "chiedi"
 
-#: ../src/preferences.c:1907
+#: ../src/preferences.c:1914
 msgid "Action on backup failure"
 msgstr "Azioni durante un backup non avvenuto"
 
-#: ../src/preferences.c:1909
+#: ../src/preferences.c:1916
 msgid "Remove backupfile on close"
 msgstr ""
 
-#: ../src/preferences.c:1913
+#: ../src/preferences.c:1920
 msgid "Misc"
 msgstr "Varie"
 
-#: ../src/preferences.c:1918
+#: ../src/preferences.c:1925
 msgid "Allow multi instances of a file"
 msgstr "Permetti multiple istanze di un file"
 
-#: ../src/preferences.c:1920
+#: ../src/preferences.c:1927
 msgid "Open files in already running winefish window"
 msgstr "Apri i file nelle finestre esistenti di winefish"
 
-#: ../src/preferences.c:1922
+#: ../src/preferences.c:1929
 msgid "File modified on disk check "
 msgstr "File modificati durante il controllo disco"
 
-#: ../src/preferences.c:1923
+#: ../src/preferences.c:1930
 msgid "Number of files in 'Open recent'"
 msgstr "Numero di file in 'Aperti di recente'"
 
-#: ../src/preferences.c:1925
+#: ../src/preferences.c:1932
 msgid "File browser"
 msgstr ""
 
-#: ../src/preferences.c:1929
+#: ../src/preferences.c:1936
 msgid "Default basedir"
 msgstr "Basedir predefinita"
 
-#: ../src/preferences.c:1930
+#: ../src/preferences.c:1937
 msgid "Use separate file and directory view"
 msgstr "Utilizza viste separate per file e directory"
 
-#: ../src/preferences.c:1931
+#: ../src/preferences.c:1938
 msgid "Unknown icon"
 msgstr "Icona sconosciuta"
 
-#: ../src/preferences.c:1932
+#: ../src/preferences.c:1939
 msgid "Directory icon"
 msgstr "Icona directory"
 
-#: ../src/preferences.c:1935
+#: ../src/preferences.c:1942
 msgid "User interface"
 msgstr "Interfaccia utente"
 
-#: ../src/preferences.c:1937
+#: ../src/preferences.c:1944
 msgid "Dimensions"
 msgstr "Dimensioni"
 
-#: ../src/preferences.c:1941
+#: ../src/preferences.c:1948
 msgid "Restore last used dimensions"
 msgstr "Ripristiina le ultime dimensioni"
 
-#: ../src/preferences.c:1942
+#: ../src/preferences.c:1949
 msgid "Initial sidebar width"
 msgstr "Larghezza iniziale della barra laterale"
 
-#: ../src/preferences.c:1943
+#: ../src/preferences.c:1950
 msgid "Initial window height"
 msgstr "Altezza iniziale della finestra"
 
-#: ../src/preferences.c:1944
+#: ../src/preferences.c:1951
 msgid "Initial window width"
 msgstr "Larghezza iniziale della finestra"
 
-#: ../src/preferences.c:1948
+#: ../src/preferences.c:1955
 msgid "General"
 msgstr "Generale"
 
-#: ../src/preferences.c:1953
+#: ../src/preferences.c:1960
 msgid "Make LaTeX dialogs transient"
 msgstr ""
 
-#: ../src/preferences.c:1955
+#: ../src/preferences.c:1962
 msgid "Notebook tab font (leave empty for gtk default)"
 msgstr ""
 
-#: ../src/preferences.c:1957
+#: ../src/preferences.c:1964
 msgid "Document notebook tab position"
 msgstr ""
 
-#: ../src/preferences.c:1958
+#: ../src/preferences.c:1965
 msgid "Sidebar notebook tab position"
 msgstr ""
 
-#: ../src/preferences.c:1959
+#: ../src/preferences.c:1966
 msgid "Sidebar location"
 msgstr "Posizione della barra laterale"
 
-#: ../src/preferences.c:1962 ../src/preferences.c:1964
+#: ../src/preferences.c:1969 ../src/preferences.c:1971
 msgid "Filetypes"
 msgstr "Tipi file"
 
-#: ../src/preferences.c:1971
+#: ../src/preferences.c:1978
 msgid "Filefilters"
 msgstr ""
 
-#: ../src/preferences.c:1979
+#: ../src/preferences.c:1986
 #, fuzzy
 msgid "Highlighting"
 msgstr "Evidenzia # linee"
 
-#: ../src/preferences.c:1981
+#: ../src/preferences.c:1988
 msgid "Patterns"
 msgstr "Motivi"
 
-#: ../src/preferences.c:1989
+#: ../src/preferences.c:1996
 #, fuzzy
 msgid "Viewers, Filters"
 msgstr "Visualizzatore e filtri"
 
-#: ../src/preferences.c:1991
+#: ../src/preferences.c:1998
 msgid "Viewers"
 msgstr "Visualizzatori"
 
-#: ../src/preferences.c:1998
+#: ../src/preferences.c:2005
 msgid "Utilities and Filters"
 msgstr "Utilità e filtri"
 
-#: ../src/preferences.c:2006
+#: ../src/preferences.c:2013
 #, fuzzy
 msgid "TeXbox"
 msgstr "*LaTeX*box"
 
-#: ../src/preferences.c:2008
+#: ../src/preferences.c:2015
 msgid "*LaTeX*box"
 msgstr "*LaTeX*box"
 
-#: ../src/preferences.c:2016
+#: ../src/preferences.c:2023
 msgid "Information"
 msgstr "Informazione"
 
-#: ../src/preferences.c:2024
+#: ../src/preferences.c:2031
 msgid "AutoX"
 msgstr "AutoX"
 
-#: ../src/preferences.c:2026
+#: ../src/preferences.c:2033
 msgid "Autotext"
 msgstr "Autotext"
 
-#: ../src/preferences.c:2033
+#: ../src/preferences.c:2040
 msgid "Word List (for Autocompletion)"
 msgstr ""
 
@@ -2773,31 +2781,31 @@ msgstr "Crea un progetto con i documenti attualmente aperti"
 msgid "Create empty project"
 msgstr "Crea progetto vuoto"
 
-#: ../src/rcfile.c:486
+#: ../src/rcfile.c:487
 msgid "DVI Viewer"
 msgstr "Visualizzatore DVI"
 
-#: ../src/rcfile.c:488
+#: ../src/rcfile.c:489
 msgid "PDF Viewer"
 msgstr "Visualizzatore PDF"
 
-#: ../src/rcfile.c:490
+#: ../src/rcfile.c:491
 msgid "EPS Viewer"
 msgstr "Visualizzatore EPS"
 
-#: ../src/rcfile.c:564
+#: ../src/rcfile.c:565
 msgid "LaTeX"
 msgstr "LaTeX"
 
-#: ../src/rcfile.c:566
+#: ../src/rcfile.c:567
 msgid "XML"
 msgstr "XML"
 
-#: ../src/rcfile.c:568
+#: ../src/rcfile.c:569
 msgid "Images"
 msgstr "Immagini"
 
-#: ../src/rcfile.c:964
+#: ../src/rcfile.c:933
 msgid "Untitled Project"
 msgstr "Progetto senza nome"
 
