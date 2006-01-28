@@ -3755,7 +3755,7 @@ void doc_new_with_new_file( Tbfwin *bfwin, gchar * new_filename )
 			return ;
 		}
 	}
-	g_print( "doc_new_with_new_file, new_filename=%s\n", new_filename );
+	DEBUG_MSG( "doc_new_with_new_file, new_filename=%s\n", new_filename );
 	add_filename_to_history( bfwin, new_filename );
 	doc = doc_new( bfwin, FALSE );
 	doc->filename = g_strdup( new_filename );
@@ -3803,7 +3803,8 @@ Tdocument * doc_new_with_file( Tbfwin *bfwin, gchar * filename, gboolean delay_a
 			g_free( bfwin->session->opendir );
 		bfwin->session->opendir = tmpstring;
 	}
-	if ( !main_v->props.view_bars & MODE_ALLOW_MULTIPLE_INSTANCE ) {
+	/* BUG#78 */
+	if ( !(main_v->props.view_bars & MODE_ALLOW_MULTIPLE_INSTANCE) ) {
 		GList * alldocs = return_allwindows_documentlist();
 		Tdocument *tmpdoc = documentlist_return_document_from_filename( alldocs, fullfilename );
 		DEBUG_MSG( "doc_new_with_file, fullfilename=%s, tmpdoc=%p\n", fullfilename, tmpdoc );
