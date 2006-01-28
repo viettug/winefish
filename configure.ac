@@ -609,6 +609,8 @@ AC_OUTPUT
 
 echo "-----------"
 echo ""
+echo "Please read CHANGES before using this version."
+echo ""
 echo "Thank you for trying Winefish. Feel free to comment!"
 echo ""
 echo "-----------"
