@@ -489,7 +489,7 @@ static void create_filetype_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pref_create_column(GTK_TREE_VIEW(pd->ftd.lview), 1, G_CALLBACK(filetype_3_edited_lcb), pd, _("Icon"), 3, FALSE);
 	pref_create_column(GTK_TREE_VIEW(pd->ftd.lview), 2, G_CALLBACK(filetype_4_toggled_lcb), pd, _("Editable"), 4, FALSE);
 	pref_create_column(GTK_TREE_VIEW(pd->ftd.lview), 1, G_CALLBACK(filetype_5_edited_lcb), pd, _("Content regex"), 5, FALSE);
-	pref_create_column(GTK_TREE_VIEW(pd->ftd.lview), 1, G_CALLBACK(filetype_6_edited_lcb), pd, _("Auto close enviroment mode"), 6, FALSE);
+	pref_create_column(GTK_TREE_VIEW(pd->ftd.lview), 1, G_CALLBACK(filetype_6_edited_lcb), pd, _("AutoCompletion"), 6, FALSE);
 
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
@@ -1610,6 +1610,13 @@ static void preferences_apply(Tprefdialog *pd) {
 	bitwise_apply(&main_v->props.view_bars, pd->prefs[word_wrap], TRUE, MODE_WRAP);
 	bitwise_apply(&main_v->props.view_bars, pd->prefs[defaulthighlight], TRUE, VIEW_COLORIZED);
 	bitwise_apply(&main_v->props.view_bars, pd->prefs[allow_multi_instances], TRUE, MODE_ALLOW_MULTIPLE_INSTANCE);
+	bitwise_apply(&main_v->props.view_bars, pd->prefs[backup_file], TRUE, MODE_CREATE_BACKUP_ON_SAVE);
+	bitwise_apply(&main_v->props.view_bars, pd->prefs[backup_cleanuponclose], TRUE, MODE_CREATE_BACKUP_ON_SAVE);
+	bitwise_apply(&main_v->props.view_bars, pd->prefs[clear_undo_on_save], TRUE, MODE_REMOVE_BACKUP_ON_CLOSE);
+	bitwise_apply(&main_v->props.view_bars, pd->prefs[restore_dimensions], TRUE, MODE_RESTORE_DIMENSION);
+	bitwise_apply(&main_v->props.view_bars, pd->prefs[transient_htdialogs], TRUE, MODE_MAKE_LATEX_TRANSIENT);
+	bitwise_apply(&main_v->props.view_bars, pd->prefs[filebrowser_two_pane_view], TRUE, MODE_FILE_BROWSERS_TWO_VIEW);
+
 #ifdef WITH_MSG_QUEUE
 	bitwise_apply(&main_v->props.view_bars, pd->prefs[open_in_running_bluefish], TRUE, MODE_REUSE_WINDOW);
 #endif
@@ -1627,17 +1634,17 @@ static void preferences_apply(Tprefdialog *pd) {
 	integer_apply(&main_v->props.bookmarks_default_store, pd->prefs[bookmarks_default_store], TRUE);
 	main_v->props.bookmarks_filename_mode = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[bookmarks_filename_mode]));
 	string_apply(&main_v->props.newfile_default_encoding, GTK_COMBO(pd->prefs[newfile_default_encoding])->entry);
-	integer_apply(&main_v->props.backup_file, pd->prefs[backup_file], TRUE);
+	/* integer_apply(&main_v->props.backup_file, pd->prefs[backup_file], TRUE); */
 	string_apply(&main_v->props.backup_filestring, pd->prefs[backup_filestring]);
 	main_v->props.backup_abort_action = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[backup_abort_action]));
-	integer_apply(&main_v->props.backup_cleanuponclose, pd->prefs[backup_cleanuponclose], TRUE);
+	/* integer_apply(&main_v->props.backup_cleanuponclose, pd->prefs[backup_cleanuponclose], TRUE); */
 	integer_apply(&main_v->props.num_undo_levels, pd->prefs[num_undo_levels], FALSE);
-	integer_apply(&main_v->props.clear_undo_on_save, pd->prefs[clear_undo_on_save], TRUE);
+	/* integer_apply(&main_v->props.clear_undo_on_save, pd->prefs[clear_undo_on_save], TRUE); */
 	main_v->props.modified_check_type = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[modified_check_type]));
 	integer_apply(&main_v->props.max_recent_files, pd->prefs[max_recent_files], FALSE);
 	
-	integer_apply(&main_v->props.restore_dimensions, pd->prefs[restore_dimensions], TRUE);
-	if (!main_v->props.restore_dimensions) {
+	/* integer_apply(&main_v->props.restore_dimensions, pd->prefs[restore_dimensions], TRUE); */
+	if (!(main_v->props.view_bars &MODE_RESTORE_DIMENSION) ) {
 		integer_apply(&main_v->props.left_panel_width, pd->prefs[left_panel_width], FALSE);
 		integer_apply(&main_v->globses.main_window_h, pd->prefs[main_window_h], FALSE);
 		integer_apply(&main_v->globses.main_window_w, pd->prefs[main_window_w], FALSE);
@@ -1647,10 +1654,10 @@ static void preferences_apply(Tprefdialog *pd) {
 	main_v->props.leftpanel_tabposition = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[leftpanel_tabposition]));
 	main_v->props.left_panel_left = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[left_panel_left]));
 
-	integer_apply(&main_v->props.transient_htdialogs, pd->prefs[transient_htdialogs], TRUE);
+	/* integer_apply(&main_v->props.transient_htdialogs, pd->prefs[transient_htdialogs], TRUE); */
 	
 	string_apply(&main_v->props.default_basedir, pd->prefs[default_basedir]);
-	integer_apply(&main_v->props.filebrowser_two_pane_view, pd->prefs[filebrowser_two_pane_view], TRUE);
+	/* integer_apply(&main_v->props.filebrowser_two_pane_view, pd->prefs[filebrowser_two_pane_view], TRUE); */
 	string_apply(&main_v->props.filebrowser_unknown_icon, pd->prefs[filebrowser_unknown_icon]);
 	string_apply(&main_v->props.filebrowser_dir_icon, pd->prefs[filebrowser_dir_icon]);
 	
@@ -1862,7 +1869,7 @@ static void preferences_dialog() {
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 
 	pd->prefs[num_undo_levels] = prefs_integer(_("Undo history size"), main_v->props.num_undo_levels, vbox2, pd, 50, 10000);
-	pd->prefs[clear_undo_on_save] = boxed_checkbut_with_value(_("Clear undo history on save"), main_v->props.clear_undo_on_save, vbox2);
+	pd->prefs[clear_undo_on_save] = boxed_checkbut_with_value(_("Clear undo history on save"), GET_BIT(main_v->props.view_bars,MODE_CLEAR_UNDO_HISTORY_ON_SAVE), vbox2);
 
 	frame = gtk_frame_new(_("Bookmark options"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
@@ -1900,13 +1907,13 @@ static void preferences_dialog() {
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	pd->prefs[backup_file] = boxed_checkbut_with_value(_("Create backup on save"), main_v->props.backup_file, vbox2);
+	pd->prefs[backup_file] = boxed_checkbut_with_value(_("Create backup on save"), GET_BIT(main_v->props.view_bars, MODE_CREATE_BACKUP_ON_SAVE), vbox2);
 	pd->prefs[backup_filestring] = prefs_string(_("Backup file suffix"), main_v->props.backup_filestring, vbox2, pd, string_none);
 	{
 		gchar *failureactions[] = {N_("save"), N_("abort"), N_("ask"), NULL};
 		pd->prefs[backup_abort_action] = boxed_optionmenu_with_value(_("Action on backup failure"), main_v->props.backup_abort_action, vbox2, failureactions);
 	}
-	pd->prefs[backup_cleanuponclose] = boxed_checkbut_with_value(_("Remove backupfile on close"), main_v->props.backup_cleanuponclose, vbox2);
+	pd->prefs[backup_cleanuponclose] = boxed_checkbut_with_value(_("Remove backupfile on close"), GET_BIT(main_v->props.view_bars, MODE_REMOVE_BACKUP_ON_CLOSE), vbox2);
 	create_backup_toggled_lcb(GTK_TOGGLE_BUTTON(pd->prefs[backup_file]), pd);
 	g_signal_connect(G_OBJECT(pd->prefs[backup_file]), "toggled", G_CALLBACK(create_backup_toggled_lcb), pd);
 
@@ -1927,7 +1934,7 @@ static void preferences_dialog() {
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	pd->prefs[default_basedir] = prefs_string(_("Default basedir"), main_v->props.default_basedir, vbox2, pd, string_none);
-	pd->prefs[filebrowser_two_pane_view] = boxed_checkbut_with_value(_("Use separate file and directory view"), main_v->props.filebrowser_two_pane_view, vbox2);
+	pd->prefs[filebrowser_two_pane_view] = boxed_checkbut_with_value(_("Use separate file and directory view"), GET_BIT(main_v->props.view_bars, MODE_FILE_BROWSERS_TWO_VIEW), vbox2);
 	pd->prefs[filebrowser_unknown_icon] = prefs_string(_("Unknown icon"), main_v->props.filebrowser_unknown_icon, vbox2, pd, string_file);
 	pd->prefs[filebrowser_dir_icon] = prefs_string(_("Directory icon"), main_v->props.filebrowser_dir_icon, vbox2, pd, string_file);
 
@@ -1938,7 +1945,7 @@ static void preferences_dialog() {
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	pd->prefs[restore_dimensions] = boxed_checkbut_with_value(_("Restore last used dimensions"), main_v->props.restore_dimensions, vbox2);
+	pd->prefs[restore_dimensions] = boxed_checkbut_with_value(_("Restore last used dimensions"), GET_BIT(main_v->props.view_bars, MODE_RESTORE_DIMENSION), vbox2);
 	pd->prefs[left_panel_width] = prefs_integer(_("Initial sidebar width"), main_v->props.left_panel_width, vbox2, pd, 1, 4000);
 	pd->prefs[main_window_h] = prefs_integer(_("Initial window height"), main_v->globses.main_window_h, vbox2, pd, 1, 4000);
 	pd->prefs[main_window_w] = prefs_integer(_("Initial window width"), main_v->globses.main_window_w, vbox2, pd, 1, 4000);
@@ -1950,7 +1957,7 @@ static void preferences_dialog() {
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	
-	pd->prefs[transient_htdialogs] = boxed_checkbut_with_value(_("Make LaTeX dialogs transient"), main_v->props.transient_htdialogs, vbox2);
+	pd->prefs[transient_htdialogs] = boxed_checkbut_with_value(_("Make LaTeX dialogs transient"), GET_BIT(main_v->props.view_bars, MODE_MAKE_LATEX_TRANSIENT), vbox2);
 
 	pd->prefs[tab_font_string] = prefs_string(_("Notebook tab font (leave empty for gtk default)"), main_v->props.tab_font_string, vbox2, pd, string_font);
 	

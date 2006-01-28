@@ -52,7 +52,7 @@ void setup_toggle_item(GtkItemFactory * ifactory, gchar * path, gint state);
 #define menuitem_set_sensitive(menubar, path, state) gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(menubar), path), state)
 void string_apply(gchar ** config_var, GtkWidget * entry);
 void integer_apply(gint *config_var, GtkWidget * widget, gboolean is_checkbox);
-void bitwise_apply(guint16 *config_var, GtkWidget * widget, gboolean is_checkbox, gint16 BIT);
+void bitwise_apply(guint32 *config_var, GtkWidget * widget, gboolean is_checkbox, guint32 BIT);
 GtkWidget *combo_with_popdown(const gchar * setstring, GList * which_list, gint editable);
 GtkWidget *boxed_combo_with_popdown(const gchar * setstring, GList * which_list, gint editable, GtkWidget *box);
 GtkWidget *combo_with_popdown_sized(const gchar * setstring, GList * which_list, gint editable, gint width);

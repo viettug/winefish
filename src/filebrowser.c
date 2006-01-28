@@ -1730,7 +1730,7 @@ void filebrowser_set_basedir(Tbfwin *bfwin, const gchar *basedir) {
 static void filebrowser_two_pane_notify_position_lcb(GObject *object,GParamSpec *pspec,gpointer data){
 	gint position;
 	g_object_get(object, pspec->name, &position, NULL);
-	if (main_v->props.restore_dimensions) {
+	if (main_v->props.view_bars & MODE_RESTORE_DIMENSION) {
 		main_v->globses.two_pane_filebrowser_height = position;
 	}
 }
@@ -1889,7 +1889,7 @@ GtkWidget *filebrowser_init(Tbfwin *bfwin) {
 /*		gtk_tree_view_append_column(GTK_TREE_VIEW(filebrowser->tree), column);*/
 	}
 	
-	if (main_v->props.filebrowser_two_pane_view) {
+	if (main_v->props.view_bars & MODE_FILE_BROWSERS_TWO_VIEW) {
 		GtkCellRenderer *renderer;
 		GtkTreeViewColumn *column;
 

@@ -204,7 +204,7 @@ static void left_panel_notify_position_lcb(GObject *object,GParamSpec *pspec,gpo
 	gint position;
 	g_object_get(object, pspec->name, &position, NULL);
 	DEBUG_MSG("left_panel_notify_position_lcb, new position=%d\n", position);
-	if (main_v->props.restore_dimensions) {
+	if (main_v->props.view_bars & MODE_RESTORE_DIMENSION) {
 		if (main_v->props.left_panel_left) {
 			main_v->props.left_panel_width = position;
 		} else {
@@ -387,14 +387,16 @@ void gui_set_undo_redo_widgets(Tbfwin *bfwin, gboolean undo, gboolean redo) {
 }
 
 void gui_set_document_widgets(Tdocument *doc) {
+	DEBUG_MSG("gui_set_document_widgets: hellow world ================== \n");
 	GtkItemFactory *tmp1 = gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar);
 	setup_toggle_item(tmp1,("/Document/Highlight Syntax"), ((doc->view_bars & VIEW_COLORIZED) && (doc->hl->highlightlist != NULL)));
 	/*gtk_widget_set_sensitive(gtk_item_factory_get_widget(tmp1,_("/Document/Highlight Syntax")), (doc->hl->highlightlist != NULL));*/
 	gui_set_undo_redo_widgets(doc->bfwin, doc_has_undo_list(doc), doc_has_redo_list(doc));
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Wrap", GET_BIT(doc->view_bars,MODE_WRAP));
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Line Numbers", GET_BIT(doc->view_bars, VIEW_LINE_NUMBER));
-	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Auto close environment", GET_BIT(doc->view_bars, MODE_AUTO_COMPLETE));
+	doc->view_bars  = SET_BIT( doc->view_bars, MODE_AUTO_COMPLETE, ( doc->hl->autoclosingtag > 0 ));	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/AutoCompletion", GET_BIT(doc->view_bars, MODE_AUTO_COMPLETE));
 	menu_current_document_set_toggle_wo_activate(BFWIN(doc->bfwin),doc->hl, doc->encoding);
+	g_print("gui_set_document_widgets: autocompletion =%d\n", GET_BIT(doc->view_bars, MODE_AUTO_COMPLETE));
 }
 
 void gui_notebook_bind_signals(Tbfwin *bfwin) {
@@ -431,7 +433,7 @@ static gboolean gui_main_window_configure_event_lcb(GtkWidget *widget,GdkEvent *
 		}
 	}
 #endif
-	if (main_v->props.restore_dimensions) {
+	if (main_v->props.view_bars &MODE_RESTORE_DIMENSION) {
 		if (revent->type == GDK_CONFIGURE) {
 			GdkEventConfigure *event = (GdkEventConfigure *)revent;
 			if (main_v->globses.main_window_w > 0 ) {

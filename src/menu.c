@@ -473,7 +473,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Document/_Decrease Tabsize"), NULL, gui_change_tabsize, 0, "<Item>"},
 	{N_("/Document/_Auto Indent"), NULL, toggle_doc_property, 4, "<ToggleItem>"},
 	{N_("/Document/sep1"), NULL, NULL, 0, "<Separator>"},
-	{N_("/Document/Auto close environment"), NULL, toggle_doc_property, 3, "<ToggleItem>"},
+	{N_("/Document/Auto_Completion"), NULL, toggle_doc_property, 3, "<ToggleItem>"},
 	{N_("/Document/_Wrap"), NULL, toggle_doc_property, 1, "<ToggleItem>"},
 	{N_("/Document/_Line Numbers"), NULL, toggle_doc_property, 2, "<ToggleItem>"},
 	{N_("/Document/sep2"), NULL, NULL, 0, "<Separator>"},

@@ -349,6 +349,7 @@ gboolean doc_set_filetype( Tdocument *doc, Tfiletype *ft )
 		doc->hl = ft;
 		doc->need_highlighting = TRUE;
 		doc->view_bars  = SET_BIT( doc->view_bars, MODE_AUTO_COMPLETE, ( ft->autoclosingtag > 0 ));
+		DEBUG_MSG("doc_set_filetype: autoclosingtag = %d, view_bar bitwise = %d\n", ft->autoclosingtag , GET_BIT(doc->view_bars, MODE_AUTO_COMPLETE));
 		gui_set_document_widgets( doc );
 		return TRUE;
 	}
@@ -1683,7 +1684,7 @@ static gint doc_check_backup( Tdocument *doc )
 {
 	gint res = 1;
 
-	if ( main_v->props.backup_file && doc->filename && file_exists_and_readable( doc->filename ) ) {
+	if ( (main_v->props.view_bars & MODE_CREATE_BACKUP_ON_SAVE) && doc->filename && file_exists_and_readable( doc->filename ) ) {
 		gchar * backupfilename, *ondiskencoding;
 		backupfilename = g_strconcat( doc->filename, main_v->props.backup_filestring, NULL );
 		ondiskencoding = get_filename_on_disk_encoding( backupfilename );
@@ -2991,7 +2992,7 @@ gint doc_textbox_to_file( Tdocument * doc, gchar * filename, gboolean window_clo
 		return -2;
 	}
 
-	if ( main_v->props.clear_undo_on_save ) {
+	if ( main_v->props.view_bars & MODE_REMOVE_BACKUP_ON_CLOSE ) {
 		doc_unre_clear_all( doc );
 	}
 	DEBUG_MSG( "doc_textbox_to_file, calling doc_set_modified(doc, 0)\n" );
@@ -3085,7 +3086,7 @@ void doc_destroy( Tdocument * doc, gboolean delay_activation )
 	BUG[200502]#7
 	*/
 	if ( doc->filename ) {
-		if ( main_v->props.backup_cleanuponclose ) {
+		if ( main_v->props.view_bars & MODE_REMOVE_BACKUP_ON_CLOSE ) {
 			gchar * backupfile = g_strconcat( doc->filename, main_v->props.backup_filestring, NULL );
 			DEBUG_MSG( "unlinking %s, doc->filename=%s\n", backupfile, doc->filename );
 			unlink( backupfile );
@@ -3620,7 +3621,8 @@ Tdocument *doc_new( Tbfwin* bfwin, gboolean delay_activate )
 					( scroll ), GTK_SHADOW_IN );
 	gtk_container_add( GTK_CONTAINER( scroll ), newdoc->view );
 
-	newdoc->view_bars = SET_BIT(newdoc->view_bars, VIEW_LINE_NUMBER, GET_BIT(main_v->session->view_bars,VIEW_LINE_NUMBER));
+	/* use session value */
+	 newdoc->view_bars = SET_BIT(newdoc->view_bars, VIEW_LINE_NUMBER, GET_BIT(main_v->session->view_bars,VIEW_LINE_NUMBER));
 	document_set_line_numbers( newdoc, GET_BIT(newdoc->view_bars, VIEW_LINE_NUMBER ) );
 
 	newdoc->tab_label = gtk_label_new( NULL );
@@ -3634,6 +3636,8 @@ Tdocument *doc_new( Tbfwin* bfwin, gboolean delay_activate )
 
 	doc_unre_init( newdoc );
 	doc_set_font( newdoc, NULL );
+	
+	/* use project's settings if there's; otherwise use global properties */
 	newdoc->view_bars = SET_BIT(newdoc->view_bars, MODE_WRAP, ( bfwin->project ) ? GET_BIT(bfwin->project->view_bars,MODE_WRAP) : GET_BIT(main_v->props.view_bars,MODE_WRAP) );
 	doc_set_wrap( newdoc );
 	/* newdoc->modified = 0; */
@@ -3707,13 +3711,20 @@ Tdocument *doc_new( Tbfwin* bfwin, gboolean delay_activate )
 	doc_set_tabsize( newdoc, main_v->props.editor_tab_width );
 
 	/* newdoc->view_bars = SET_BIT(newdoc->view_bars, VIEW_COLORIZED, GET_BIT(main_v->props.view_bars,VIEW_COLORIZED)); */
-
-	/* BUG#74 */
+#ifdef DONE_IN_GUI_SET_DOCUMENT_WIDGETS
+	/* BUG#77 */
 	if (newdoc->view_bars & VIEW_COLORIZED) {
 		setup_toggle_item( gtk_item_factory_from_widget( bfwin->menubar ), _( "/Document/Highlight Syntax" ), TRUE );
 	}
-
+	if (newdoc->view_bars & VIEW_LINE_NUMBER) {
+		setup_toggle_item( gtk_item_factory_from_widget( bfwin->menubar ), _( "/Document/Line Numbers" ), TRUE );
+	}
+	if (newdoc->view_bars & MODE_AUTO_COMPLETE) {
+		setup_toggle_item( gtk_item_factory_from_widget( bfwin->menubar ), _( "/Document/AutoCompletion" ), TRUE );
+	}
+	
 	DEBUG_MSG( "doc_new, need_highlighting=%d, highlightstate=%d, global higlight = %d\n", newdoc->need_highlighting, GET_BIT(newdoc->view_bars,VIEW_COLORIZED), GET_BIT(main_v->props.view_bars,VIEW_COLORIZED) );
+#endif /* DONE_IN_GUI_SET_DOCUMENT_WIDGETS */
 	/*
 		these lines should not be here since notebook_changed() calls flush_queue()
 		that means that this document can be closed during notebook_changed(), and functions like open_file 
