@@ -396,7 +396,7 @@ void gui_set_document_widgets(Tdocument *doc) {
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Line Numbers", GET_BIT(doc->view_bars, VIEW_LINE_NUMBER));
 	doc->view_bars  = SET_BIT( doc->view_bars, MODE_AUTO_COMPLETE, ( doc->hl->autoclosingtag > 0 ));	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/AutoCompletion", GET_BIT(doc->view_bars, MODE_AUTO_COMPLETE));
 	menu_current_document_set_toggle_wo_activate(BFWIN(doc->bfwin),doc->hl, doc->encoding);
-	g_print("gui_set_document_widgets: autocompletion =%d\n", GET_BIT(doc->view_bars, MODE_AUTO_COMPLETE));
+	DEBUG_MSG("gui_set_document_widgets: autocompletion =%d\n", GET_BIT(doc->view_bars, MODE_AUTO_COMPLETE));
 }
 
 void gui_notebook_bind_signals(Tbfwin *bfwin) {
