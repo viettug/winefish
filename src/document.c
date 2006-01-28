@@ -3608,6 +3608,7 @@ Tdocument *doc_new( Tbfwin* bfwin, gboolean delay_activate )
 	DEBUG_MSG( "doc_new, main_v is at %p, bfwin at %p, newdoc at %p\n", main_v, bfwin, newdoc );
 	newdoc->bfwin = ( gpointer ) bfwin;
 	newdoc->hl = ( Tfiletype * ) ( ( GList * ) g_list_first( main_v->filetypelist ) ) ->data;
+
 	newdoc->view_bars = SET_BIT(newdoc->view_bars, VIEW_COLORIZED, ( newdoc->hl->autoclosingtag > 0 ));
 	newdoc->buffer = gtk_text_buffer_new( highlight_return_tagtable() );
 	newdoc->view = gtk_text_view_new_with_buffer( newdoc->buffer );
@@ -3705,7 +3706,7 @@ Tdocument *doc_new( Tbfwin* bfwin, gboolean delay_activate )
 	/* for some reason it only works after the document is appended to the notebook */
 	doc_set_tabsize( newdoc, main_v->props.editor_tab_width );
 
-	newdoc->view_bars = SET_BIT(newdoc->view_bars, VIEW_COLORIZED, GET_BIT(main_v->props.view_bars,VIEW_COLORIZED));
+	/* newdoc->view_bars = SET_BIT(newdoc->view_bars, VIEW_COLORIZED, GET_BIT(main_v->props.view_bars,VIEW_COLORIZED)); */
 
 	/* BUG#74 */
 	if (newdoc->view_bars & VIEW_COLORIZED) {
