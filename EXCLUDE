@@ -27,3 +27,4 @@ slack-desc.winefish
 backtrace*
 THANKS.c
 Doxyfile
+src/config.h
