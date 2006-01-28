@@ -2,6 +2,11 @@ $Id$
 
 ============================================================== [200601]
 
+#77/fixed/kyanh/20060127/
+* hilight syntax by default , but the toggle menu Document/HilightSyntax == off
+FIXED:
+	document.c::doc_new():: we need set toogle menu=TRUE if hilightstat=1
+
 #76
 * reload a document should go the previous line
 * winefish knows file was changed by another process only when
