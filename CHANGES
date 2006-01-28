@@ -13,7 +13,9 @@ Winefish 1.3.2.6 (Spring Release)
 
 * new features:
 	- delete command *directly* from popup menu (autocompletion)
-	- 'project mode' (external menu) value is saved automatically
+	- automatically saved:
+		+ 'project mode' (external menu)
+		+ 'line numbers' (document menu)
 	- added popup menu for outputbox (copy message from current line)
 	- TeX filter for spell checker
 	- find in files (menu = edit/find, replace/find in files) (requires `find', `grep')
