@@ -20,6 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 /* #define DEBUG */
 
 #include <gtk/gtk.h>
@@ -88,7 +89,7 @@ static void init_prop_integer(GList ** config_list, void *pointer_to_var, gchar 
 static void xinit_prop_integer(GList ** config_list, void *pointer_to_var, gchar * name_of_var, gint default_value, gboolean set_default)
 {
 	*config_list = make_config_list_item(*config_list, pointer_to_var, 'x', name_of_var, 0);
-	if (set_default) *(guint16 *)pointer_to_var = default_value;
+	if (set_default) *(guint32 *)pointer_to_var = default_value;
 }
 
 static void init_prop_string(GList ** config_list, void *pointer_to_var, gchar * name_of_var, const gchar * default_value)
@@ -152,8 +153,8 @@ static gint save_config_file(GList * config_list, gchar * filename)
 		switch (tmpitem->type) {
 		case 'x':
 			DEBUG_MSG("save_config_file, converting \"%p\" to x integer\n", tmpitem);
-			DEBUG_MSG("save_config_file, converting \"%s %d\"\n", tmpitem->identifier, *(guint16 *) (void *) tmpitem->pointer);
-			tmpstring = g_strdup_printf("%s %d", tmpitem->identifier, *(guint16 *) (void *) tmpitem->pointer);
+			DEBUG_MSG("save_config_file, converting \"%s %d\"\n", tmpitem->identifier, *(guint32 *) (void *) tmpitem->pointer);
+			tmpstring = g_strdup_printf("%s %d", tmpitem->identifier, *(guint32 *) (void *) tmpitem->pointer);
 
 			DEBUG_MSG("save_config_file, adding %s\n", tmpstring);
 
@@ -295,7 +296,7 @@ static gboolean parse_config_file(GList * config_list, gchar * filename)
 
 					switch (tmpitem->type) {
 					case 'x':
-						*(guint16 *) (void *) tmpitem->pointer = atoi(tmpstring);/* kyanh, 20060127 */
+						*(guint32 *) (void *) tmpitem->pointer = atoi(tmpstring);/* kyanh, 20060127 */
 					case 'i':
 						*(int *) (void *) tmpitem->pointer = atoi(tmpstring);
 						break;
@@ -345,7 +346,7 @@ static GList *props_init_main(GList * config_rc)
 /* these are used in the gtk-2 port already */
 	init_prop_integer   (&config_rc, &main_v->props.filebrowser_show_hidden_files, "fb_show_hidden_f:", 0, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.filebrowser_show_backup_files, "fb_show_backup_f:", 0, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.filebrowser_two_pane_view, "fb_two_pane_view:", 1, TRUE);
+	/* init_prop_integer   (&config_rc, &main_v->props.filebrowser_two_pane_view, "fb_two_pane_view:", 1, TRUE);*/
 	init_prop_integer   (&config_rc, &main_v->props.filebrowser_focus_follow, "fb_focus_follow:", 1, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.filebrowser_unknown_icon, "fb_unknown_icon:", PKGDATADIR"icon_unknown.png");
 	init_prop_string    (&config_rc, &main_v->props.filebrowser_dir_icon, "fb_dir_icon:", PKGDATADIR"icon_dir.png");
@@ -356,26 +357,26 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_arraylist (&config_rc, &main_v->props.browsers, "browsers:", 2, TRUE);
 	init_prop_arraylist (&config_rc, &main_v->props.external_commands, "external_commands:", 2, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.highlight_num_lines_count, "highlight_num_lines_count:", 5, TRUE);
-	xinit_prop_integer   (&config_rc, &main_v->props.view_bars, "view_bars:", VIEW_LINE_NUMBER +MODE_AUTO_COMPLETE + MODE_AUTO_INDENT+MODE_REUSE_WINDOW+VIEW_COLORIZED, TRUE);
+	xinit_prop_integer   (&config_rc, &main_v->props.view_bars, "view_bars:", MODE_DEFAULT, TRUE);
 	/* old type filetypes have a different count, they are converted below */
 	init_prop_arraylist (&config_rc, &main_v->props.filetypes, "filetypes:", 0, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.numcharsforfiletype, "numcharsforfiletype:", 200, TRUE);
 	init_prop_arraylist (&config_rc, &main_v->props.filefilters, "filefilters:", 3, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.last_filefilter, "last_filefilter:", "");
-	init_prop_integer   (&config_rc, &main_v->props.transient_htdialogs, "transient_htdialogs:", 1, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.restore_dimensions, "restore_dimensions:", 1, TRUE);	
+	/* init_prop_integer   (&config_rc, &main_v->props.transient_htdialogs, "transient_htdialogs:", 1, TRUE); */
+	/* init_prop_integer   (&config_rc, &main_v->props.restore_dimensions, "restore_dimensions:", 1, TRUE);	 */
 	init_prop_integer   (&config_rc, &main_v->props.left_panel_width, "left_panel_width:", 150, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.left_panel_left, "left_panel_left:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.max_recent_files, "max_recent_files:", 15, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.max_dir_history, "max_dir_history:", 15, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.backup_file,"backup_file:",1, TRUE);
+	/* init_prop_integer   (&config_rc, &main_v->props.backup_file,"backup_file:",1, TRUE); */
 	init_prop_string    (&config_rc, &main_v->props.backup_filestring,"backup_filestring:","~");
 	init_prop_integer   (&config_rc, &main_v->props.backup_abort_action,"backup_abort_action:",DOCUMENT_BACKUP_ABORT_ASK, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.backup_cleanuponclose,"backup_cleanuponclose:",0, TRUE);
+	/* init_prop_integer   (&config_rc, &main_v->props.backup_cleanuponclose,"backup_cleanuponclose:",0, TRUE); */
 	/* init_prop_integer   (&config_rc, &main_v->props.allow_multi_instances,"allow_multi_instances:",0, TRUE); */
 	init_prop_integer   (&config_rc, &main_v->props.modified_check_type,"modified_check_type:",1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.num_undo_levels,"num_undo_levels:",100, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.clear_undo_on_save,"clear_undo_on_save:",0, TRUE);
+	/* init_prop_integer   (&config_rc, &main_v->props.clear_undo_on_save,"clear_undo_on_save:",0, TRUE); */
 	init_prop_string    (&config_rc, &main_v->props.newfile_default_encoding,"newfile_default_encoding:","UTF-8");
 	init_prop_arraylist (&config_rc, &main_v->props.encodings, "encodings:", 2, TRUE);
 	/* init_prop_integer   (&config_rc, &main_v->props.encoding_search_Nbytes, "encoding_search_Nbytes:", 500, TRUE); */
@@ -575,33 +576,6 @@ void rcfile_parse_main(void)
 		fref_rescan_dir(userdir);
 		g_free(userdir);
 	}
-	/* for backwards compatibility with old filetypes, 
-		before version 0.10 had length 4, 
-		before version 0.13 had length 6 */
-	/* kyanh, removed, 20050219	
-	{
-		GList *tmplist = g_list_first(main_v->props.filetypes);
-		while (tmplist) {
-			gchar **orig = (gchar **)tmplist->data;
-			if (count_array(orig)==4) {
-				gchar **new = array_from_arglist(orig[0], orig[1], orig[2], orig[3], "1", "", "1", NULL);
-				tmplist->data = new;
-				g_strfreev(orig);
-			}
-			if (count_array(orig)==6) {
-				gchar **new = array_from_arglist(orig[0], orig[1], orig[2], orig[3], orig[4], orig[5], "0", NULL);
-				tmplist->data = new;
-				if (strcmp(orig[0], "xml")==0) {
-					new[6][0] = '1';
-				} else if (strcmp(orig[0], "html")==0 || strcmp(orig[0], "php")==0 || strcmp(orig[0], "jsp")==0 || strcmp(orig[0], "cfml")==0) {
-					new[6][0] = '2';
-				}
-				g_strfreev(orig);
-			}
-			tmplist = g_list_next(tmplist);
-		}
-	}
-	*/	
 }
 
 static gint rcfile_save_main(void) {
@@ -646,7 +620,7 @@ void rcfile_parse_highlighting(void) {
 		} else {
 			g_print("Unable to find '"PKGDATADIR"highlighting.default'\n");
 		}
-		save_config_file(highlighting_configlist, filename);
+		/* save_config_file(highlighting_configlist, filename); */
 		DEBUG_MSG("rcfile_parse_highlighting, done saving\n");
 	}
 #ifdef NOPTIMIZE
@@ -936,12 +910,7 @@ static GList *return_globalsession_configlist(gboolean init_values) {
  */
 static GList *return_session_configlist(GList *configlist, Tsessionvars *session, gboolean context) {
 	if (!context) {
-		xinit_prop_integer(&configlist, &session->view_bars, "view_bars:", VIEW_LINE_NUMBER+MODE_AUTO_COMPLETE+MODE_AUTO_INDENT+MODE_REUSE_WINDOW+VIEW_COLORIZED, FALSE);
-		/*
-		if (main_v->session->view_bars <= VIEW_DEFAULT) {
-			main_v->session->view_bars = VIEW_LINE_NUMBER;
-		}
-		*/
+		xinit_prop_integer(&configlist, &session->view_bars, "view_bars:", MODE_DEFAULT, FALSE);
 	}
 	init_prop_limitedstringlist(&configlist, &session->searchlist, "searchlist:", 10, FALSE);
 	init_prop_limitedstringlist(&configlist, &session->replacelist, "replacelist:", 10, FALSE);
@@ -966,11 +935,7 @@ static GList *return_project_configlist(Tproject *project) {
 	init_prop_string(&configlist, &project->basedir,"basedir:","");
 	init_prop_string(&configlist, &project->basefile,"basefile:","");
 	init_prop_string(&configlist, &project->template,"template:","");
-	xinit_prop_integer (&configlist, &project->view_bars,"view_bars:", VIEW_LINE_NUMBER+MODE_AUTO_COMPLETE+MODE_AUTO_INDENT+MODE_REUSE_WINDOW+VIEW_COLORIZED, FALSE);
-	/*
-	if (project->view_bars <= VIEW_DEFAULT) {
-		project->view_bars = VIEW_LINE_NUMBER;
-}*/
+	xinit_prop_integer (&configlist, &project->view_bars,"view_bars:",MODE_DEFAULT, FALSE);
 	init_prop_integer (&configlist, &project->word_wrap,"word_wrap:",1,FALSE);
 	configlist = return_session_configlist(configlist, project->session, TRUE);
 	return configlist;
@@ -1047,7 +1012,7 @@ void rcfile_parse_autotext(void *autolist) {
 			g_print("winefish: unable to find '"PKGDATADIR"autotext.default'\n");
 		}
 		g_free(defaultfile);
-		save_config_file(autotext_configlist, filename);
+		/* save_config_file(autotext_configlist, filename); */
 	}
 	free_configlist(autotext_configlist);
 	g_free(filename);
@@ -1070,7 +1035,7 @@ void rcfile_parse_completion(void *autolist, void *autolist_s) {
 			g_print("winefish: unable to find '"PKGDATADIR"words.default'\n");
 		}
 		g_free(defaultfile);
-		save_config_file(configlist, filename);
+		/* save_config_file(configlist, filename); */
 	}
 	free_configlist(configlist);
 

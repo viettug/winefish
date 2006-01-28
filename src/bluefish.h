@@ -139,7 +139,7 @@ typedef struct {
 	gboolean overwrite_mode; /* is document in overwrite mode */
 	gboolean autoclosingtag; /* does the document use autoclosing of tags */
 #endif /* STUFF */
-	guint16 view_bars;
+	guint32 view_bars;
 	gpointer floatingview; /* a 2nd textview widget that has its own window */
 	gpointer bfwin;
 	GtkTreeIter *bmark_parent; /* if NULL this document doesn't have bookmarks, if 
@@ -149,7 +149,7 @@ typedef struct {
 typedef struct {
 	gint filebrowser_show_hidden_files;
 	gint filebrowser_show_backup_files;
-	gint filebrowser_two_pane_view; /* have one or two panes in the filebrowser */
+	/* gint filebrowser_two_pane_view; *//* have one or two panes in the filebrowser */
 	gint filebrowser_focus_follow; /* have the directory of the current document in focus */
 	gchar *filebrowser_unknown_icon;
 	gchar *filebrowser_dir_icon;
@@ -169,20 +169,20 @@ typedef struct {
 	GList *filefilters; /* filebrowser.c filtering */
 	gchar *last_filefilter;	/* last filelist filter type */
 	GList *highlight_patterns; /* the highlight patterns */
-	gint transient_htdialogs;  /* set html dialogs transient ro the main window */
-	gint restore_dimensions; /* use the dimensions as used the previous run */
+	/* gint transient_htdialogs; */ /* set html dialogs transient ro the main window */
+	/* gint restore_dimensions; *//* use the dimensions as used the previous run */
 	gint left_panel_width; 	/* width of filelist */
 	gint left_panel_left; /* 1 = left, 0 = right */
 	gint max_recent_files;	/* length of Open Recent list */
 	gint max_dir_history;	/* length of directory history */
-	gint backup_file; 			/* wheather to use a backup file */
+	/* gint backup_file;*//* wheather to use a backup file */
 	gchar *backup_filestring;  /* the string to append to the backup file */
-	gint backup_abort_action; /* if the backup fails, continue save, abort save, or ask the user */
-	gint backup_cleanuponclose; /* remove the backupfile after close ? */
+	gint backup_abort_action;/* if the backup fails, continue save, abort save, or ask the user */
+	/*gint backup_cleanuponclose; *//* remove the backupfile after close ? */
 	/* gint allow_multi_instances; *//* allow multiple instances of the same file */
 	gint modified_check_type; /* 0=no check, 1=by mtime and size, 2=by mtime, 3=by size, 4,5,...not implemented (md5sum?) */
 	gint num_undo_levels; 	/* number of undo levels per document */
-	gint clear_undo_on_save; 	/* clear all undo information on file save */
+	/*gint clear_undo_on_save;*//* clear all undo information on file save */
 	gchar *newfile_default_encoding; /* if you open a new file, what encoding will it use */
 	GList *encodings; /* all encodings you can choose from */
 	/* gint encoding_search_Nbytes; *//* number of bytes to look for the encoding meta tag */
@@ -207,7 +207,7 @@ typedef struct {
 	GCompletion *completion_s;
 	GHashTable *autotext_hashtable; /* a hash table with (key,form) = (string,integer) */
 	GPtrArray *autotext_array; /* an array contains (start string, end string) */
-	guint16 view_bars;
+	guint32 view_bars;
 } Tproperties;
 
 /* the Tglobalsession contains all settings that can change 
@@ -243,7 +243,7 @@ typedef struct {
 	GList *recent_dirs;
 	gchar *opendir;
 	gchar *savedir;
-	guint16 view_bars;
+	guint32 view_bars;
 } Tsessionvars;
 
 typedef struct {
@@ -254,7 +254,7 @@ typedef struct {
 	gchar *basefile;
 	gchar *template;
 	gpointer editor;
-	guint16 view_bars;
+	guint32 view_bars;
 	gint word_wrap;
 	Tsessionvars *session;
 	GtkTreeStore *bookmarkstore; /* project bookmarks */
@@ -289,7 +289,7 @@ typedef struct {
 	GtkWidget *main_toolbar_hb;
 	GtkWidget *html_toolbar_hb;
 	*/
-	guint16 view_bars;
+	guint32 view_bars;
 	GtkWidget *custom_menu_hb; /* handle box for custom menu */
 	GtkWidget *output_box;
 	GtkWidget *leftpanel_notebook;
@@ -360,23 +360,39 @@ extern Tmain *main_v;
 #define GET_BIT(var,bit) ((var &bit) != 0)
 
 enum {
-	VIEW_DEFAULT = 1<<0,
-/*	VIEW_MAIN_TOOLBAR = 1<<1, 
-	VIEW_LATEX_TOOLBAR = 1<<2, */
-	VIEW_LEFT_PANEL = 1<<3,
-	VIEW_LINE_NUMBER =1<<4,
-	VIEW_CUSTOM_MENU = 1<<5,
-	VIEW_COLORIZED = 1<<6,
-	MODE_WRAP = 1<<7,
-	MODE_PROJECT = 1<<8,
-	MODE_OVERWRITE=1<<9,
-	MODE_AUTO_COMPLETE=1<<10,
-	MODE_INDENT_WITH_SPACES=1<<11,
-	MODE_AUTO_INDENT=1<<12,
-	MODE_REUSE_WINDOW=1<<13,
-	MODE_ALLOW_MULTIPLE_INSTANCE=1<<14
+	VIEW_LEFT_PANEL = 1<<0,
+	VIEW_LINE_NUMBER =1<<1,
+	VIEW_CUSTOM_MENU = 1<<2,
+	VIEW_COLORIZED = 1<<3,
+	MODE_WRAP = 1<<4,
+	MODE_PROJECT = 1<<5,
+	MODE_OVERWRITE=1<<6,
+	MODE_AUTO_COMPLETE=1<<7,
+	MODE_INDENT_WITH_SPACES=1<<8,
+	MODE_AUTO_INDENT=1<<9,
+	MODE_REUSE_WINDOW=1<<10,
+	MODE_ALLOW_MULTIPLE_INSTANCE=1<<11,
+	MODE_CLEAR_UNDO_HISTORY_ON_SAVE=1<<12,
+	MODE_MAKE_PERMANENT=1<<13,
+	MODE_CREATE_BACKUP_ON_SAVE=1<<14,
+	MODE_REMOVE_BACKUP_ON_CLOSE=1<<15,
+	MODE_SEPERATE_FILE_DIR_VIEW=1<<16,
+	MODE_RESTORE_DIMENSION=1<<17,
+	MODE_MAKE_LATEX_TRANSIENT=1<<18,
+	MODE_FILE_BROWSERS_TWO_VIEW=1<<19
 };
-	
+
+#define MODE_DEFAULT \
+	VIEW_LINE_NUMBER \
+	+ MODE_AUTO_INDENT \
+	+ MODE_REUSE_WINDOW \
+	+ VIEW_COLORIZED \
+	+ MODE_MAKE_LATEX_TRANSIENT \
+	+ MODE_RESTORE_DIMENSION \
+	+ MODE_CREATE_BACKUP_ON_SAVE \
+	+ MODE_FILE_BROWSERS_TWO_VIEW \
+	+ MODE_AUTO_COMPLETE
+
 /* public functions from winefish.c */
 void bluefish_exit_request();
 #endif /* __BLUEFISH_H_ */

@@ -1,4 +1,4 @@
-/* $Id: html_diag.c,v 1.1.1.1 2005/06/29 11:03:26 kyanh Exp $ */
+/* $Id$ */
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * html_diag.c - general functions to create HTML dialogs
  *
@@ -89,7 +89,7 @@ Thtml_diag *html_diag_new(Tbfwin *bfwin, gchar *title) {
 	dg->range.end = -1;
 */
 
-	if (main_v->props.transient_htdialogs) {
+	if (main_v->props.view_bars & MODE_MAKE_LATEX_TRANSIENT) {
 		/* must be set before realizing */
 		DEBUG_MSG("html_diag_finish, setting dg->dialog=%p transient!\n", dg->dialog);
 		gtk_window_set_transient_for(GTK_WINDOW(dg->dialog), GTK_WINDOW(bfwin->main_window));
