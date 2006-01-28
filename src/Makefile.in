@@ -47,6 +47,7 @@ autox.c \
 bf_lib.c \
 bfspell.c \
 bookmark.c \
+brace_finder.c \
 char_table.c \
 document.c \
 filebrowser.c \
