@@ -2,11 +2,16 @@ $Id$
 
 ============================================================== [200601]
 
+#79/fixed/kyanh/20060128/
+* empty ~/.winefish/* ==> view line number == false :(
+FIXED:
+	unknown state
+
 #78/fixed/kyanh/20060128/
 * outputbox: open one file in many many tab!!
 FIXED:
  	document.c: !main_v->props.view_bars & MODE_ALLOW_MULTIPLE_INSTANCE
- 	== >  !(main_v->props.view_bars & MODE_ALLOW_MULTIPLE_INSTANCE)su
+ 	== >  !(main_v->props.view_bars & MODE_ALLOW_MULTIPLE_INSTANCE)
 
 #77/fixed/kyanh/20060127/
 * hilight syntax by default , but the toggle menu Document/HilightSyntax == off
