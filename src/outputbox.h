@@ -34,6 +34,13 @@ enum {
 	OB_SHOW_ALL_OUTPUT = 1<<1 /* show all output */
 };
 
+enum {
+	OB_MESSAGE_BOLD=1<<0,
+	OB_MESSAGE_ITALIC=1<<1,
+	OB_MESSAGE_RED=1<<2,
+	OB_MESSAGE_BLUE=1<<3
+};
+
 typedef struct
 {
 	gchar *command;
@@ -115,7 +122,7 @@ void outputbox(
 	/* output */
 	gchar *pattern, gint file_subpat, gint line_subpat, gint output_subpat, gchar *command, gint show_all_output );
 void outputbox_stop (Toutputbox *ob);
-void outputbox_message( Toutputbox *ob, const char *string, const char *markup );
+void outputbox_message( Toutputbox *ob, const char *string, gint markup );
 
 Toutputbox *outputbox_new_box( Tbfwin *bfwin, const gchar *title );
 Toutputbox *outputbox_get_box( Tbfwin *bfwin, guint page);
