@@ -226,16 +226,25 @@ static gboolean ob_lview_button_release_lcb( GtkWidget *widget, GdkEventButton *
 
  @markup: should be: b, i, u
 */
-void outputbox_message( Toutputbox *ob, const char *string, const char *markup )
+void outputbox_message( Toutputbox *ob, const char *string, gint markup )
 {
 	DEBUG_MSG("outputbox_message: %s\n", string);
 	GtkTreeIter iter;
 	gchar *tmpstr = g_markup_escape_text(string,-1);
-	if (markup && strlen(markup)) {
-		tmpstr = g_strdup_printf("&gt; <%s>%s</%s>", markup, string, markup);
-	}else{
-		tmpstr = g_strdup_printf("&gt; %s", string);
+	if (markup) {
+		if (markup  & OB_MESSAGE_BLUE ) {
+			tmpstr = g_strdup_printf("<span foreground=\"blue\">%s</span>", tmpstr);
+		}else if (markup & OB_MESSAGE_RED) {
+			tmpstr = g_strdup_printf("<span foreground=\"red\">%s</span>", tmpstr);
+		}
+		if (markup & OB_MESSAGE_BOLD) {
+			tmpstr = g_strdup_printf("<b>%s</b>", tmpstr);
+		}
+		if (markup & OB_MESSAGE_ITALIC) {
+			tmpstr = g_strdup_printf("<i>%s</i>", tmpstr);
+		}
 	}
+	tmpstr = g_strdup_printf("&gt; %s", tmpstr);
 	gtk_list_store_append( GTK_LIST_STORE( ob->lstore ), &iter );
 	gtk_list_store_set( GTK_LIST_STORE( ob->lstore ), &iter, 2, tmpstr, -1 );
 	g_free(tmpstr);
@@ -414,7 +423,7 @@ void outputbox(Tbfwin *bfwin, gpointer *ob, const gchar *title, gchar *pattern, 
 
 	if ( OUTPUTBOX(*ob)->OB_FETCHING < OB_IS_READY ) { /* stop older output box */
 		DEBUG_MSG("outputbox: current OB_FETCHING=%d < %d\n", OUTPUTBOX(*ob)->OB_FETCHING,OB_IS_READY);
-		outputbox_message( *ob, _("tool is running. press Escape to stop it first."), "b" );
+		outputbox_message( *ob, _("tool is running. press Escape to stop it first."), OB_MESSAGE_RED );
 		flush_queue();
 		return;
 	}
@@ -424,7 +433,7 @@ void outputbox(Tbfwin *bfwin, gpointer *ob, const gchar *title, gchar *pattern, 
 
 	if (!command) {
 		/* TODO: check for valid command */
-		outputbox_message(*ob, _("empty command"), "b");
+		outputbox_message(*ob, _("empty command"), OB_MESSAGE_RED);
 		return;
 	}
 	{
@@ -434,14 +443,14 @@ void outputbox(Tbfwin *bfwin, gpointer *ob, const gchar *title, gchar *pattern, 
 		} else {
 			format_str = g_strdup_printf(_("%s # project mode: OFF"), command);
 		}
-		outputbox_message( *ob, format_str, "i" );
+		outputbox_message( *ob, format_str, OB_MESSAGE_BLUE );
 		g_free( format_str );
 		flush_queue();
 	}
 	if (show_all_output & OB_NEED_SAVE_FILE) {
 		file_save_cb( NULL, bfwin );
 		if ( !bfwin->current_document->filename ) {
-			outputbox_message(*ob, _("file wasnot saved. tool canceled"), "b");
+			outputbox_message(*ob, _("file wasnot saved. tool canceled"), OB_MESSAGE_RED);
 			flush_queue();
 			return;
 		}
@@ -493,7 +502,7 @@ void outputbox_stop(Toutputbox *ob) {
 		if (ob->handle->child_pid) {/* TODO: why check for ob? */
 #endif /* __BF_BACKEND__ */
 			ob->OB_FETCHING = OB_STOP_REQUEST;
-			outputbox_message(ob, _("stop request. stopping tool..."), "b");
+			outputbox_message(ob, _("stop request. stopping tool..."), OB_MESSAGE_RED);
 #ifdef __KA_BACKEND__
 			finish_execute(ob);
 #endif /* __KA_BACKEND__ */
