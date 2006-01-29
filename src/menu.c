@@ -245,29 +245,28 @@ static void brace_finder_cb( Tbfwin *bfwin, guint callback_action, GtkWidget *wi
 	gint find_brace;
 	find_brace = brace_finder(bfwin->current_document->buffer, BR_MOVE_IF_FOUND | callback_action);
 	switch (find_brace) {
+	case BR_RET_NOT_FOUND:
+		statusbar_message(bfwin, _("brace_finder: matching not found"), 1000);
+		break;
+	case BR_RET_IN_COMMENT:
+		statusbar_message(bfwin, _("brace_finder: inside a commented line"), 1000);
+		break;
+	case BR_RET_IN_SELECTION:
+		statusbar_message(bfwin, _("brace_finder: inside the selection"), 1000);
+		break;
+	case BR_RET_WRONG_OPERATION:
+		statusbar_message(bfwin, _("brace_finder: wrong operation or brace escaped"), 1000);
+		break;
 	case BR_RET_FOUND:
 		{
 			GtkTextMark *mark;
-		 	mark = gtk_text_buffer_get_insert( bfwin->current_document->buffer );
+			mark = gtk_text_buffer_get_insert( bfwin->current_document->buffer );
 			gtk_text_view_scroll_mark_onscreen( GTK_TEXT_VIEW( bfwin->current_document->view ), mark );
 		}
-		 break;
-	case BR_RET_NOT_FOUND:
-		statusbar_message(bfwin, _("brace_finder: no matching brace found"), 1000);
-		break;
-	case BR_RET_IN_COMMENT:
-		statusbar_message(bfwin, _("brace_finder: commented brace"), 1000);
-		break;
-	case BR_RET_IN_SELECTION:
-		statusbar_message(bfwin, _("brace_finder: in the selection"), 1000);
-		break;
-	case BR_RET_IS_ESCAPED:
-		statusbar_message(bfwin, _("brace_finder: brace is escaped"), 1000);
 		break;
 	default:
-		statusbar_message(bfwin, _("brace_finder: wrong operation"), 1000);
 		break;
-	 }
+	}
 }
 
 /* extern const guint8 []; */
