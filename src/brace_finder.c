@@ -66,12 +66,20 @@ static gboolean percent_predicate(gunichar ch, gpointer data) {
 	}
 }
 
+static gboolean dollar_predicate(gunichar ch, gpointer data) {
+	if (ch == 36) {
+		return TRUE;
+	} else {
+		return FALSE;
+	}
+}
+
 /* kyanh, 20060128 */
 gint brace_finder(GtkTextBuffer *buffer, gint opt) {
 	GtkTextIter iter_start, iter_end;
 	GtkTextMark *insert, *select;
 	gboolean retval;
-	gunichar ch;
+	gunichar ch, Lch, Rch;
 
 	insert = gtk_text_buffer_get_insert(buffer);
 	select = gtk_text_buffer_get_selection_bound(buffer);
@@ -99,12 +107,13 @@ gint brace_finder(GtkTextBuffer *buffer, gint opt) {
 		}
 
 		retval = FALSE;
-		ch = gtk_text_iter_get_char(&iter_start);
+		Lch = gtk_text_iter_get_char(&iter_start);
 
-		if (ch == 123 ) {/* { */
+		if (Lch == 123 || Lch == 91 || Lch==40) {/* { */
 			DEBUG_MSG("\nbrace_finder: find forward...=============\n");
 			tmpiter = iter_start; /* reset tmpiter */
 			level = 1;
+			Rch = Lch + (Lch==40)?1:2;
 			/* we may meet } */
 			while (gtk_text_iter_forward_char(&tmpiter)) {
 				ch = gtk_text_iter_get_char(&tmpiter);
@@ -119,10 +128,10 @@ gint brace_finder(GtkTextBuffer *buffer, gint opt) {
 #endif /* CANNOT_USE_THIS */
 					gtk_text_iter_forward_to_line_end(&tmpiter);
 					DEBUG_MSG("[%%]");
-				}else if( (ch == 123)  && is_true_char(&tmpiter)) {/* { */
+				}else if( (ch == Lch)  && is_true_char(&tmpiter)) {/* { */
 					level ++;
 					DEBUG_MSG("[+%d]", level);
-				}else if((ch ==125) && is_true_char(&tmpiter)) {/* } */
+				}else if((ch == Rch) && is_true_char(&tmpiter)) {/* } */
 					level --;
 					DEBUG_MSG("[-%d]\n", level);
 					if (level==0) {
