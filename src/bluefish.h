@@ -393,8 +393,8 @@ enum {
 	+ MODE_AUTO_COMPLETE
 
 /*
-Note: though VIEW_LINE_NUMBER is session variable,
-so adding it to MODE_DEFAULT takes no effect.
+Note: VIEW_LINE_NUMBER is session variable;
+adding it to MODE_DEFAULT takes no effect.
 */
 
 /* public functions from winefish.c */
