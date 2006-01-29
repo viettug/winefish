@@ -2,6 +2,14 @@ $Id$
 
 ============================================================== [200601]
 
+#81/fixed/kyanh/20060129/
+* Though `default hilight == OFF', the doc_new() still turn hilight ON
+
+#80/fixed/kyanh/20060129/
+* PasteOperation: though current_document's hilight state = OFF, the regions is still hilighted
+NOTE: the contents in clipboard is hilighted too :(
+FIXED: document.c :: edit_paste_cb()
+
 #79/fixed/kyanh/20060128/
 * empty ~/.winefish/* ==> view line number == false :(
 FIXED:
