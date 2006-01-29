@@ -243,7 +243,7 @@ static void toggle_doc_property(Tbfwin *bfwin,guint callback_action, GtkWidget *
 static void brace_finder_cb( Tbfwin *bfwin, guint callback_action, GtkWidget *widget )
 {
 	gint find_brace;
-	find_brace = brace_finder(bfwin->current_document->buffer, BR_MOVE_IF_FOUND | BR_FIND_FORWARD);
+	find_brace = brace_finder(bfwin->current_document->buffer, BR_MOVE_IF_FOUND | callback_action);
 	switch (find_brace) {
 	case BR_RET_FOUND:
 		{
@@ -253,10 +253,10 @@ static void brace_finder_cb( Tbfwin *bfwin, guint callback_action, GtkWidget *wi
 		}
 		 break;
 	case BR_RET_NOT_FOUND:
-		statusbar_message(bfwin, _("brace_finder: no matching braces found"), 1000);
+		statusbar_message(bfwin, _("brace_finder: no matching brace found"), 1000);
 		break;
 	case BR_RET_IN_COMMENT:
-		statusbar_message(bfwin, _("brace_finder: in the comment line"), 1000);
+		statusbar_message(bfwin, _("brace_finder: commented brace"), 1000);
 		break;
 	case BR_RET_IN_SELECTION:
 		statusbar_message(bfwin, _("brace_finder: in the selection"), 1000);
@@ -265,7 +265,7 @@ static void brace_finder_cb( Tbfwin *bfwin, guint callback_action, GtkWidget *wi
 		statusbar_message(bfwin, _("brace_finder: brace is escaped"), 1000);
 		break;
 	default:
-		statusbar_message(bfwin, _("brace_finder: unknown error"), 1000);
+		statusbar_message(bfwin, _("brace_finder: wrong operation"), 1000);
 		break;
 	 }
 }
@@ -319,7 +319,8 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Edit/Selection/Select _All"), NULL, menu_file_operations_cb, 13, "<Item>"},
 	{N_("/Edit/Find, Replace"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Edit/Find, Replace/Tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Edit/Find, Replace/Brace Finder"), "<control>j", brace_finder_cb, 0, "<Item>"},
+	{N_("/Edit/Find, Replace/Brace Finder (Forward)"), NULL, brace_finder_cb, BR_FIND_FORWARD, "<Item>"},
+	{N_("/Edit/Find, Replace/Brace Finder (Backward)"), NULL, brace_finder_cb, BR_FIND_BACKWARD, "<Item>"},
 	{N_("/Edit/Find, Replace/sep0"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Edit/Find, Replace/_Find..."), "<control>f", menu_file_operations_cb, 14, "<Item>"},
 	{N_("/Edit/Find, Replace/Find A_gain"), "<control>g", menu_file_operations_cb, 16, "<Item>"},
@@ -742,7 +743,9 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 	gtk_accel_map_add_entry("<winefishmain>/Edit/Shift Left", GDK_comma, GDK_CONTROL_MASK);
 	gtk_accel_map_add_entry("<winefishmain>/Edit/Comment", GDK_percent, GDK_CONTROL_MASK);
 	gtk_accel_map_add_entry("<winefishmain>/Edit/UnComment", GDK_percent, GDK_MOD1_MASK);
-	gtk_accel_map_add_entry("<winefishmain>/Edit/Hard Shift Left", GDK_bracketleft, GDK_CONTROL_MASK);
+	gtk_accel_map_add_entry("<winefishmain>/Edit/Hard Shift Left", GDK_less, GDK_CONTROL_MASK);
+	gtk_accel_map_add_entry("<winefishmain>/Edit/Find, Replace/Brace Finder (Forward)", GDK_bracketright, GDK_CONTROL_MASK);
+	gtk_accel_map_add_entry("<winefishmain>/Edit/Find, Replace/Brace Finder (Backward)", GDK_bracketleft, GDK_CONTROL_MASK);
 	gtk_accel_map_add_entry("<winefishmain>/Insert/Tools/Source Separator", GDK_equal, GDK_CONTROL_MASK);
 	gtk_accel_map_add_entry("<winefishmain>/Document/Update Highlighting", GDK_space, GDK_MOD1_MASK);
 	gtk_accel_map_add_entry("<winefishmain>/Go/Previous document", GDK_Page_Up, GDK_CONTROL_MASK);
