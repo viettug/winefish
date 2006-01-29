@@ -62,43 +62,44 @@ static gboolean char_predicate(gunichar ch, gpointer data) {
 }
 
 /* kyanh, 20060128 */
-void brace_finder(Tdocument *doc) {
+gboolean brace_finder(GtkTextBuffer *buffer, gboolean move_if_found) {
 	/* DEBUG_MSG("brace_finder: %%=%d,\\=%d,{=%d,}=%d,[=%d,]=%d\n", '%', '\\', '{','}','[', ']' ); */
 	GtkTextIter iter_start, iter_end;
 	GtkTextMark *insert, *select;
 	gboolean retval;
 	gunichar ch;
 
-	insert = gtk_text_buffer_get_insert(doc->buffer);
-	select = gtk_text_buffer_get_selection_bound(doc->buffer);
-	gtk_text_buffer_get_iter_at_mark(doc->buffer, &iter_start, insert);
-	gtk_text_buffer_get_iter_at_mark(doc->buffer, &iter_end, select);
+	insert = gtk_text_buffer_get_insert(buffer);
+	select = gtk_text_buffer_get_selection_bound(buffer);
+	gtk_text_buffer_get_iter_at_mark(buffer, &iter_start, insert);
+	gtk_text_buffer_get_iter_at_mark(buffer, &iter_end, select);
+
+	/* there's no selection */
 	if (gtk_text_iter_equal(&iter_start, &iter_end)){
-		ch = gtk_text_iter_get_char(&iter_start);
-		if (ch == 123 ) {/* { */
-			/*
-			retval = is_true_char(&iter_start);
-			DEBUG_MSG("brace_finder: first check: true_char ({) =  %d\n", retval);
-			*/
+		GtkTextIter tmpiter;
+		gint level;
+
 		/* A:: check if we are inside comment line */
-			/* A:: 1*/
-			GtkTextIter tmpiter;
-			tmpiter = iter_start;
-			gtk_text_iter_set_line_offset(&tmpiter,0); /* move to start of line */
-			/* now forward to find next %. limit = iter_start */
-			retval = gtk_text_iter_forward_find_char(&tmpiter, char_predicate, GINT_TO_POINTER(37), &iter_start);
-			if (retval && is_true_char(&tmpiter)) {
-				DEBUG_MSG("brace_finder: inside a comment line\n");
-				return;
-			}
-			if (!is_true_char(&iter_start)) {
-				DEBUG_MSG("brace_finder: not a true {\n");
-				return;
-			}
+		tmpiter = iter_start;
+		gtk_text_iter_set_line_offset(&tmpiter,0); /* move to start of line */
+		/* now forward to find next %. limit = iter_start */
+		retval = gtk_text_iter_forward_find_char(&tmpiter, char_predicate, GINT_TO_POINTER(37), &iter_start);
+		if (retval && is_true_char(&tmpiter)) {
+			DEBUG_MSG("brace_finder: inside a comment line\n");
+			return FALSE;
+		}
+		if (!is_true_char(&iter_start)) {
+			DEBUG_MSG("brace_finder: not a true {\n");
+			return FALSE;
+		}
+
+		retval = FALSE;
+		ch = gtk_text_iter_get_char(&iter_start);
+
+		if (ch == 123 ) {/* { */
 		/* B:: now forward until '}' */
-			retval = FALSE;
 			tmpiter = iter_start; /* reset tmpiter */
-			gint level = 1;
+			level = 1;
 			/* we may meet } */
 			while (gtk_text_iter_forward_char(&tmpiter)) {
 				ch = gtk_text_iter_get_char(&tmpiter);
@@ -130,11 +131,13 @@ void brace_finder(Tdocument *doc) {
 					}
 				}
 			}
-			if (retval) {
-				DEBUG_MSG("brace_finder: okay. find }\n");
-			}else{
-				DEBUG_MSG("brace_finder: oops. cannot find }\n");
+		}
+		/* finished */
+		if (retval) {
+			if (move_if_found) {
+				gtk_text_buffer_place_cursor (buffer, &tmpiter);
 			}
+			return TRUE;
 		}
 	}
 #ifdef DEBUG
@@ -142,5 +145,5 @@ void brace_finder(Tdocument *doc) {
 		DEBUG_MSG("brace_finder: selection is not empy. does nothing\n");
 	}
 #endif
+	return FALSE;
 }
-

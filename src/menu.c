@@ -242,7 +242,13 @@ static void toggle_doc_property(Tbfwin *bfwin,guint callback_action, GtkWidget *
 
 static void brace_finder_cb( Tbfwin *bfwin, guint callback_action, GtkWidget *widget )
 {
-	brace_finder(bfwin->current_document);
+	gboolean find_brace;
+	 find_brace = brace_finder(bfwin->current_document->buffer, TRUE);
+	 if (find_brace){
+		 GtkTextMark *mark;
+		 mark = gtk_text_buffer_get_insert( bfwin->current_document->buffer );
+		 gtk_text_view_scroll_mark_onscreen( GTK_TEXT_VIEW( bfwin->current_document->view ), mark );
+	 }
 }
 
 /* extern const guint8 []; */
