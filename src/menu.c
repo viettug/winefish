@@ -3,7 +3,7 @@
 /* Copyright (C) 1998-2000 Olivier Sessink, Chris Mazuc and Roland Steinbach
  * Copyright (C) 2000-2002 Olivier Sessink and Roland Steinbach
  * Copyright (C) 2002-2004 Olivier Sessink
- * Modified for Winefish (C) 2005-2006 Ky Anh <kyanh@o2.pl>
+ * Modified for Winefish (C) 2005-2006 kyanh <kyanh@o2.pl>
  *
  * this file has
  * content-type: UTF8
