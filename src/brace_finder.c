@@ -98,6 +98,17 @@ gint brace_finder(GtkTextBuffer *buffer, gint opt) {
 		gint level;
 		GtkTextIter tmpiter/* LEFT */, tmp2iter /* RIGHT */;
 
+		/* A:: check if we are inside comment line */
+		tmpiter = iter_start;
+		gtk_text_iter_set_line_offset(&tmpiter,0); /* move to start of line */
+		/* now forward to find next %. limit = iter_start_new */
+		ch = gtk_text_iter_get_char(&tmpiter);
+		if ( (ch == 37) || ( gtk_text_iter_forward_find_char(&tmpiter, percent_predicate, NULL, &iter_start) && is_true_char(&tmpiter) ) ) {
+			/* if a line is started by percent, the gtk_text_iter_forward_find_char() still forwards to the next char ;) */
+			DEBUG_MSG("[found %%]");
+			return BR_RET_IN_COMMENT;
+		}
+
 		tmpiter = iter_start;
 		/* tmp2iter = iter_start; */
 		gtk_text_iter_backward_char(&tmpiter);
@@ -124,24 +135,13 @@ gint brace_finder(GtkTextBuffer *buffer, gint opt) {
 			return BR_RET_WRONG_OPERATION;
 		}
 
-		/* A:: check if we are inside comment line */
-		tmpiter = iter_start_new;
-		gtk_text_iter_set_line_offset(&tmpiter,0); /* move to start of line */
-		/* now forward to find next %. limit = iter_start_new */
-		ch = gtk_text_iter_get_char(&tmpiter);
-		if ( (ch == 37) || ( gtk_text_iter_forward_find_char(&tmpiter, percent_predicate, NULL, &iter_start_new) && is_true_char(&tmpiter) ) ) {
-		/* if a line is started by percent, the gtk_text_iter_forward_find_char() still forwards to the next char ;) */
-			DEBUG_MSG("[found %%]");
-			return BR_RET_IN_COMMENT;
-		}
-
 		retval = FALSE;
+		level = 1;
 		Lch = gtk_text_iter_get_char(&iter_start_new);
+		tmpiter = iter_start_new; /* reset tmpiter */
 
 		if ( VALID_LEFT_BRACE(Lch) ) {/* { */
 			DEBUG_MSG("\nbrace_finder: find forward...=============\n");
-			tmpiter = iter_start_new; /* reset tmpiter */
-			level = 1;
 			Rch = (Lch==40)?41:((Lch==91)?93:125);
 			/* we may meet } */
 			while (gtk_text_iter_forward_char(&tmpiter)) {
@@ -171,8 +171,6 @@ gint brace_finder(GtkTextBuffer *buffer, gint opt) {
 			}
 		}else if ( VALID_RIGHT_BRACE(Lch) ) {/* } */
 			DEBUG_MSG("\nbrace_finder: find backward...=============\n");
-			level=1;
-			tmpiter = iter_start_new;
 			Rch = (Lch==41)?40:((Lch==93)?91:123);
 			while (gtk_text_iter_backward_char(&tmpiter) ){
 				ch = gtk_text_iter_get_char(&tmpiter);
@@ -202,7 +200,6 @@ gint brace_finder(GtkTextBuffer *buffer, gint opt) {
 				}
 			}
 		}else if ( Lch == 36 ) {
-			tmpiter = iter_start_new; 
 			if (opt & BR_FIND_FORWARD) {
 				while (gtk_text_iter_forward_char(&tmpiter)) {
 					ch = gtk_text_iter_get_char(&tmpiter);
@@ -239,7 +236,7 @@ gint brace_finder(GtkTextBuffer *buffer, gint opt) {
 			}
 			return BR_RET_FOUND;
 		}
-		return BR_RET_FOUND;
+		return BR_RET_NOT_FOUND;
 	}
 #ifdef DEBUG
 	else{
