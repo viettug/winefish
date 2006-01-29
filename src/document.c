@@ -3610,7 +3610,23 @@ Tdocument *doc_new( Tbfwin* bfwin, gboolean delay_activate )
 	newdoc->bfwin = ( gpointer ) bfwin;
 	newdoc->hl = ( Tfiletype * ) ( ( GList * ) g_list_first( main_v->filetypelist ) ) ->data;
 
-	newdoc->view_bars = SET_BIT(newdoc->view_bars, VIEW_COLORIZED, ( newdoc->hl->autoclosingtag > 0 ));
+	/* * VIEW_BARS settings * */
+	/* so stupid ;) ~~~> BUG#81
+	newdoc->view_bars = SET_BIT(newdoc->view_bars, VIEW_COLORIZED, (main_v->props.view_bars & VIEW_COLORIZED ) && ( newdoc->hl->autoclosingtag > 0 ));
+	*/
+	newdoc->view_bars = SET_BIT(newdoc->view_bars, MODE_AUTO_COMPLETE, (main_v->props.view_bars & MODE_AUTO_COMPLETE ) && ( newdoc->hl->autoclosingtag > 0 ));
+
+	/* use project's settings if there's; otherwise use global properties */
+	newdoc->view_bars = SET_BIT(newdoc->view_bars, MODE_WRAP, ( bfwin->project ) ? GET_BIT(bfwin->project->view_bars,MODE_WRAP) : GET_BIT(main_v->props.view_bars,MODE_WRAP) );
+	newdoc->view_bars = SET_BIT(newdoc->view_bars, MODE_OVERWRITE, FALSE);
+
+	newdoc->view_bars = SET_BIT(newdoc->view_bars, VIEW_COLORIZED, GET_BIT(main_v->props.view_bars,VIEW_COLORIZED));
+
+	/* use session value */
+	newdoc->view_bars = SET_BIT(newdoc->view_bars, VIEW_LINE_NUMBER, GET_BIT(main_v->session->view_bars,VIEW_LINE_NUMBER));
+
+	/* * End VIEW_BARS settings * */
+
 	newdoc->buffer = gtk_text_buffer_new( highlight_return_tagtable() );
 	newdoc->view = gtk_text_view_new_with_buffer( newdoc->buffer );
 	scroll = gtk_scrolled_window_new( NULL, NULL );
@@ -3620,10 +3636,6 @@ Tdocument *doc_new( Tbfwin* bfwin, gboolean delay_activate )
 	gtk_scrolled_window_set_shadow_type( GTK_SCROLLED_WINDOW
 					( scroll ), GTK_SHADOW_IN );
 	gtk_container_add( GTK_CONTAINER( scroll ), newdoc->view );
-
-	/* use session value */
-	 newdoc->view_bars = SET_BIT(newdoc->view_bars, VIEW_LINE_NUMBER, GET_BIT(main_v->session->view_bars,VIEW_LINE_NUMBER));
-	document_set_line_numbers( newdoc, GET_BIT(newdoc->view_bars, VIEW_LINE_NUMBER ) );
 
 	newdoc->tab_label = gtk_label_new( NULL );
 	GTK_WIDGET_UNSET_FLAGS( newdoc->tab_label, GTK_CAN_FOCUS );
@@ -3637,8 +3649,6 @@ Tdocument *doc_new( Tbfwin* bfwin, gboolean delay_activate )
 	doc_unre_init( newdoc );
 	doc_set_font( newdoc, NULL );
 	
-	/* use project's settings if there's; otherwise use global properties */
-	newdoc->view_bars = SET_BIT(newdoc->view_bars, MODE_WRAP, ( bfwin->project ) ? GET_BIT(bfwin->project->view_bars,MODE_WRAP) : GET_BIT(main_v->props.view_bars,MODE_WRAP) );
 	doc_set_wrap( newdoc );
 	/* newdoc->modified = 0; */
 	doc_set_title( newdoc );
@@ -3650,7 +3660,6 @@ Tdocument *doc_new( Tbfwin* bfwin, gboolean delay_activate )
 	newdoc->statbuf.st_gid = -1;
 	newdoc->is_symlink = 0;
 	newdoc->encoding = g_strdup( main_v->props.newfile_default_encoding );
-	newdoc->view_bars = SET_BIT(newdoc->view_bars, MODE_OVERWRITE, FALSE);
 
 	doc_bind_signals( newdoc );
 
@@ -3695,10 +3704,7 @@ Tdocument *doc_new( Tbfwin* bfwin, gboolean delay_activate )
 		image = new_pixmap( 101 );
 		gtk_container_add( GTK_CONTAINER( but ), image );
 		gtk_container_set_border_width( GTK_CONTAINER( but ), 0 );
-/* gtk_widget_set_size_request() is part of gtk 2.0 */
-/* #ifndef HAVE_ATLEAST_GTK_2_4 */
 		gtk_widget_set_size_request( but, 12, 12 );
-/* #endif */
 		gtk_button_set_relief( GTK_BUTTON( but ), GTK_RELIEF_NONE );
 		g_signal_connect( G_OBJECT( but ), "clicked", G_CALLBACK( doc_close_but_clicked_lcb ), newdoc );
 		gtk_container_add( GTK_CONTAINER( newdoc->tab_eventbox ), newdoc->tab_label );
@@ -3707,6 +3713,10 @@ Tdocument *doc_new( Tbfwin* bfwin, gboolean delay_activate )
 		gtk_widget_show_all( hbox );
 		gtk_notebook_append_page_menu( GTK_NOTEBOOK( bfwin->notebook ), scroll , hbox, newdoc->tab_menu );
 	}
+
+	/* why don't we move document_set_line_numbers() to gui_set_document_widgets() ? */
+	document_set_line_numbers( newdoc, GET_BIT(newdoc->view_bars, VIEW_LINE_NUMBER ) );
+
 	/* for some reason it only works after the document is appended to the notebook */
 	doc_set_tabsize( newdoc, main_v->props.editor_tab_width );
 
@@ -4412,8 +4422,16 @@ void edit_paste_cb( GtkWidget * widget, Tbfwin *bfwin )
 
 	doc_unre_new_group( doc );
 	if ( PASTEOPERATION( doc->paste_operation ) ->eo > PASTEOPERATION( doc->paste_operation ) ->so ) {
-		DEBUG_MSG( "edit_paste_cb, start doc_highlight_region for so=%d, eo=%d\n", PASTEOPERATION( doc->paste_operation ) ->so, PASTEOPERATION( doc->paste_operation ) ->eo );
-		doc_highlight_region( doc, PASTEOPERATION( doc->paste_operation ) ->so, PASTEOPERATION( doc->paste_operation ) ->eo );
+		/* BUG#80 */
+		if (doc->view_bars & VIEW_COLORIZED) {
+			DEBUG_MSG( "edit_paste_cb, start doc_highlight_region for so=%d, eo=%d\n", PASTEOPERATION( doc->paste_operation ) ->so, PASTEOPERATION( doc->paste_operation ) ->eo );
+			doc_highlight_region( doc, PASTEOPERATION( doc->paste_operation ) ->so, PASTEOPERATION( doc->paste_operation ) ->eo );
+		}else{
+			/* removed all tags ;) */
+			GtkTextIter itstart, itend;
+			gtk_text_buffer_get_bounds(doc->buffer, &itstart, &itend);
+			gtk_text_buffer_remove_all_tags(doc->buffer, &itstart, &itend);
+		}
 	}
 	g_free( doc->paste_operation );
 	doc->paste_operation = NULL;
