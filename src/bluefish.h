@@ -383,8 +383,7 @@ enum {
 };
 
 #define MODE_DEFAULT \
-	VIEW_LINE_NUMBER \
-	+ MODE_AUTO_INDENT \
+	MODE_AUTO_INDENT \
 	+ MODE_REUSE_WINDOW \
 	+ VIEW_COLORIZED \
 	+ MODE_MAKE_LATEX_TRANSIENT \
@@ -392,6 +391,11 @@ enum {
 	+ MODE_CREATE_BACKUP_ON_SAVE \
 	+ MODE_FILE_BROWSERS_TWO_VIEW \
 	+ MODE_AUTO_COMPLETE
+
+/*
+Note: though VIEW_LINE_NUMBER is session variable,
+so adding it to MODE_DEFAULT takes no effect.
+*/
 
 /* public functions from winefish.c */
 void bluefish_exit_request();
