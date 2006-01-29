@@ -30,7 +30,13 @@
 /* #include "document.h" */
 
 /*
-%=37,\=92,{=123,}=125,[=91,]=93
+(=40,)=41,
+$=36,
+%=37,
+\=92,
+{=123,}=125,
+[=91,]=93,
+\n=10, \r=13
 */
 
 /*
@@ -52,8 +58,8 @@ static gboolean is_true_char(GtkTextIter *iter)
 	return retval;
 }
 
-static gboolean char_predicate(gunichar ch, gpointer data) {
-	if (ch == GPOINTER_TO_INT(data)) {
+static gboolean percent_predicate(gunichar ch, gpointer data) {
+	if (ch == 37) {
 		return TRUE;
 	} else {
 		return FALSE;
@@ -62,7 +68,6 @@ static gboolean char_predicate(gunichar ch, gpointer data) {
 
 /* kyanh, 20060128 */
 gint brace_finder(GtkTextBuffer *buffer, gint opt) {
-	DEBUG_MSG("\nbrace_finder: %%=%d,\\=%d,{=%d,}=%d,[=%d,]=%d, \\n=%d, \\r=%d \n", '%', '\\', '{','}','[', ']', '\n', '\r' );
 	GtkTextIter iter_start, iter_end;
 	GtkTextMark *insert, *select;
 	gboolean retval;
@@ -83,7 +88,7 @@ gint brace_finder(GtkTextBuffer *buffer, gint opt) {
 		gtk_text_iter_set_line_offset(&tmpiter,0); /* move to start of line */
 		/* now forward to find next %. limit = iter_start */
 		ch = gtk_text_iter_get_char(&tmpiter);
-		if ( (ch == 37) || ( gtk_text_iter_forward_find_char(&tmpiter, char_predicate, GINT_TO_POINTER(37), &iter_start) && is_true_char(&tmpiter) ) ) {
+		if ( (ch == 37) || ( gtk_text_iter_forward_find_char(&tmpiter, percent_predicate, NULL, &iter_start) && is_true_char(&tmpiter) ) ) {
 		/* if a line is started by percent, the gtk_text_iter_forward_find_char() still forwards to the next char ;) */
 			DEBUG_MSG("[found %%]");
 			return BR_RET_IN_COMMENT;
@@ -151,7 +156,7 @@ gint brace_finder(GtkTextBuffer *buffer, gint opt) {
 					search from the begining of line to the end == tmpiter;
 					*/
 					ch = gtk_text_iter_get_char(&tmp2iter);
-					if ((ch ==37) || ( gtk_text_iter_forward_find_char(&tmp2iter, char_predicate, GINT_TO_POINTER(37), &tmpiter) && is_true_char(&tmp2iter) ) ) {
+					if ((ch ==37) || ( gtk_text_iter_forward_find_char(&tmp2iter, percent_predicate, NULL, &tmpiter) && is_true_char(&tmp2iter) ) ) {
 						DEBUG_MSG("[found %%]");
 						tmpiter = tmp2iter;
 					}
@@ -160,7 +165,7 @@ gint brace_finder(GtkTextBuffer *buffer, gint opt) {
 		}
 		/* finished */
 		if (retval) {
-			if (opt & MOVE_IF_FOUND) {
+			if (opt & BR_MOVE_IF_FOUND) {
 				gtk_text_buffer_place_cursor (buffer, &tmpiter);
 			}
 			return BR_RET_FOUND;
