@@ -76,9 +76,10 @@ static gboolean dollar_predicate(gunichar ch, gpointer data) {
 }
 */
 
-#define VALID_LEFT_BRACE(Lch) ((Lch == 123) || (Lch == 91) || (Lch==40))
-#define VALID_RIGHT_BRACE(Lch) ((Lch == 125) || (Lch==93) || (Lch==41))
-#define VALID_BRACE(Lch) ( (Lch == 36) || VALID_LEFT_BRACE(Lch) || VALID_RIGHT_BRACE(Lch) )
+#define VALID_LEFT_BRACE(Lch) ( (Lch == 123) || (Lch == 91) || (Lch==40) )
+#define VALID_RIGHT_BRACE(Lch) ( (Lch == 125) || (Lch==93) || (Lch==41) )
+#define VALID_LEFT_RIGHT_BRACE(Lch) ( VALID_LEFT_BRACE(Lch) || VALID_RIGHT_BRACE(Lch) )
+#define VALID_BRACE(Lch) ( (Lch == 36) || VALID_LEFT_RIGHT_BRACE(Lch) )
 
 /* kyanh, 20060128 */
 gint brace_finder(GtkTextBuffer *buffer, gint opt) {
@@ -105,17 +106,22 @@ gint brace_finder(GtkTextBuffer *buffer, gint opt) {
 		/* gtk_text_iter_forward_char(&tmpiter);
 		Rch = gtk_text_iter_get_char(&tmpiter); */
 		
-		if ( (opt & BR_FIND_BACKWARD) && VALID_BRACE(Lch) && is_true_char(&tmpiter) ) {
-			iter_start_new = tmpiter;
-		} else if ( /* (opt & BR_FIND_FORWARD) && */ VALID_BRACE(Rch)  && is_true_char(&iter_start)) {
+		if ( (Rch == 36 ) && is_true_char(&iter_start)) {
 			iter_start_new = iter_start;
+		} else if ( VALID_BRACE(Rch) && is_true_char(&iter_start) ) {
+			if ( opt & BR_FIND_BACKWARD ) {
+				if ( VALID_BRACE(Lch) && is_true_char(&tmpiter) ) {
+					iter_start_new = tmpiter;
+				}else{
+					iter_start_new = iter_start;
+				}
+			} else {
+				iter_start_new = iter_start;
+			}
+		} else if ( VALID_BRACE(Lch) && is_true_char(&tmpiter) ) {
+			iter_start_new = tmpiter;
 		} else {
 			return BR_RET_WRONG_OPERATION;
-		}
-
-		if (!is_true_char(&iter_start_new)) {
-			DEBUG_MSG("[not a true { nor }]");
-			return BR_RET_IS_ESCAPED;
 		}
 
 		/* A:: check if we are inside comment line */
