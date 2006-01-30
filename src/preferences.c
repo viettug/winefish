@@ -1611,8 +1611,8 @@ static void preferences_apply(Tprefdialog *pd) {
 	bitwise_apply(&main_v->props.view_bars, pd->prefs[defaulthighlight], TRUE, VIEW_COLORIZED);
 	bitwise_apply(&main_v->props.view_bars, pd->prefs[allow_multi_instances], TRUE, MODE_ALLOW_MULTIPLE_INSTANCE);
 	bitwise_apply(&main_v->props.view_bars, pd->prefs[backup_file], TRUE, MODE_CREATE_BACKUP_ON_SAVE);
-	bitwise_apply(&main_v->props.view_bars, pd->prefs[backup_cleanuponclose], TRUE, MODE_CREATE_BACKUP_ON_SAVE);
-	bitwise_apply(&main_v->props.view_bars, pd->prefs[clear_undo_on_save], TRUE, MODE_REMOVE_BACKUP_ON_CLOSE);
+	bitwise_apply(&main_v->props.view_bars, pd->prefs[backup_cleanuponclose], TRUE, MODE_REMOVE_BACKUP_ON_CLOSE);
+	bitwise_apply(&main_v->props.view_bars, pd->prefs[clear_undo_on_save], TRUE, MODE_CLEAR_UNDO_HISTORY_ON_SAVE);
 	bitwise_apply(&main_v->props.view_bars, pd->prefs[restore_dimensions], TRUE, MODE_RESTORE_DIMENSION);
 	bitwise_apply(&main_v->props.view_bars, pd->prefs[transient_htdialogs], TRUE, MODE_MAKE_LATEX_TRANSIENT);
 	bitwise_apply(&main_v->props.view_bars, pd->prefs[filebrowser_two_pane_view], TRUE, MODE_FILE_BROWSERS_TWO_VIEW);
