@@ -390,7 +390,10 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_string    (&config_rc, &main_v->props.default_basedir,"default_basedir:",g_get_home_dir());
 #ifdef EXTERNAL_GREP
 #ifdef EXTERNAL_FIND
-	init_prop_string    (&config_rc, &main_v->props.templates_dir,"templates_dir:",g_get_home_dir());
+	gchar *tmpstr;
+	tmpstr = g_strconcat(g_get_home_dir(),"/tex/templates/",NULL);
+	init_prop_string    (&config_rc, &main_v->props.templates_dir,"templates_dir:",tmpstr);
+	g_free(tmpstr);
 #endif
 #endif
 	init_prop_string    (&config_rc, &main_v->props.project_suffix,"project_suffix:",".wfproject");
