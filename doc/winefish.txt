@@ -183,10 +183,10 @@ Here are some rules:
 L(
 * Length of /foo should be at most AUTOTEXT_MAX_LENGTH
 \(this constant is defined in B(src/config.h.in)\)
-* One of the two strings begin and end is not NULL.
+* one of the two strings begin and end is not NULL.
 * If foo is defined twice or more, for e.g.,
 * only the first one is used.
-* Some special characters must be escaped:
+* RED(U(some special characters must be escaped:))
 L(
 	* \n for the new line
 	* \t for a tab
@@ -303,6 +303,10 @@ You can modify them in the file B(src/config.h.in)
 before executing the script `configure'. There're some comment
 which may help you!
 
+<HR>
+This HTML file was generated from RED(winefish.txt) by RED(k2h) program.
+\\
 RED($Id$)
+<HR>
 </BODY>
 </HEAD>
