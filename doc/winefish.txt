@@ -300,8 +300,8 @@ $ LANG=it_IT winefish # for Italian users
 
 There're some variables control behavior of Winefish.
 You can modify them in the file B(src/config.h.in)
-before executing the script `configure'. There're some comment
-which may help you!
+before executing the script `configure'. \(RED(The very last lines.)\)
+There're some comment which may help you!
 
 <HR>
 This HTML file was generated from RED(winefish.txt) by RED(k2h) program.
