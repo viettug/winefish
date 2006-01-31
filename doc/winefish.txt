@@ -1,189 +1,250 @@
- Winefish Documentation
-% =====================================================================
+<HTML>
+<!--
+%
+% $Id$
+% Winefish Documentation
+% Format: KTML
+% Convert: k2h winefish.txt > winefish.html
+%
+-->
+<HEAD>
+<TITLE>Winefish Documentation</TITLE>
+<STYLE>
+<!--
+body { margin: 30px; }
+b { font-weight: normal; color: navy; }
+->
+</STYLE>
+</HEAD>
+<BODY>
+1(@[Winefish Documentation](http://winefish.berlios.de/))
 
-% It's more readable if you open this file in Winefish.
-% Please ingore all brackets [like this]
+This document is available for Winefish version 1.3.2.6f or higher
 
-0. SECTIONS
-% =====================================================================
+2(#(CONTENTS))
 
-	1. features
-	2. installation
-	3. input method
-	4. hotkeys: editting
-	5. hotkeys: compiling
-	6. project mode
-	7. document structure
-	8. autotext
-	9. autocompletion
-	10. commandline options
-	11. tips
-	12. locale support
+L(
+* @[Contents](#CONTENTS)
+* @[Features](#FEATURES)
+* @[Installation](#INSTALLATION)
+* @[Input Method](#INPUT METHOD)
+* @[Hotkeys: editing](#HOTKEYS: EDITING)
+* @[Hotkeys: compiling](#HOTKEYS: COMPILING)
+* @[Project Mode](#PROJECT MODE)
+* @[Document Structure](#DOCUMENT STRUCTURE)
+* @[Autotext](#AUTOTEXT)
+* @[Auto completion](#AUTOCOMPLETION)
+* @[Commandline Options](#COMMANDLINE OPTIONS)
+* @[Outputbox](#OUTPUTBOX)
+* @[Templates Support](#TEMPLATES SUPPORT)
+* @[TIPS](#TIPS)
+* @[Locale Support](#LOCALE SUPPORT)
+)
 
-1. FEATURES
-% =====================================================================
+2(#(FEATURES))
 
-	* autotext
-	* autocompletion
+L(
+	* @[autotext](#AUTOTEXT)
+	* @[autocompletion](#AUTOCOMPLETION)
 	* command collector
-	* multiple encodings
+	* multiple encoding
 	* configurable external tools
-	* configurable hilight support
+	* configurable highlight support
+	* @[templates support](#TEMPLATES SUPPORT)
+)
 
-2. INSTALLATION
-% =====================================================================
+2(#(INSTALLATION))
 
 	Read INSTALL
 
-3. INPUT METHOD
-% =====================================================================
+2(#(INPUT METHOD))
 
-	Input Method isnot a function of Winefish.
-	
+	Input Method is not a function of Winefish.
+
 	Right click on the document. In the context menu,
-	goto the sub [Input Methods] and choose your favorite
+	goto B(Input Methods) and choose your favorite
 	input method. These various methods are selected from your
 	system, not provided by Winefish.
 
-4. HOTKEYS: EDITING
-% =====================================================================
+2(#(HOTKEYS: EDITING))
 
-	* Start "autocompletion": [Control+Space]
-	* Start "autotext": [Shift+Space]
-	* Update syntax highlighting: [Meta+Space]
-	* Go to a line: [Control+/]
-	* Start a numbered section: [Control+{0,1,2,3,4,5,6.}]
-	* Start an unumbered section: [Control+Meta+{0,1,2,3,4}]
-	* Insert an image: [Control+I]
-	* Insert a table or array: [Control+T]
-	* Insert a list: [Control+L]
-	* Insert `verbatim': [Shift+Control+V], [Shift+Control+Meta+V]
-	* (Un)comment selected text: [Control+%], [Control+Meta+%]
-	* Increase/Decrease Indent: [Control+,] [Control+.]
-	* Insert source separator: [Control+=]
-	* Delete the first char of each line in the selected text: [Control+[]
-	* Delete current line: [Control+K]
+L(
+	* Start "autocompletion": B(control + Space)
+	* Start "autotext": B(shift + Space)
+	* Update syntax highlighting: B(meta + Space)
+	* Go to a line: B(control + /)
+	* Start a numbered section: B(control + {0,1,2,3,4,5,6.})
+	* Start an unnumbered section: B(control + meta + {0,1,2,3,4})
+	* Insert an image: B(control + I)
+	* Insert a table or array: B(control + T)
+	* Insert a list: B(control + L)
+	* Insert `verbatim': B(shift + control + V), B(shift + control + meta + V)
+	* \(Un\)comment selected text: B(control + \%), B(control + meta + \%)
+	* Increase/Decrease Indent: B(control + ,) B(control + .)
+	* Insert source separator: B(control + =)
+	* Delete the first char of each line in the selected text: B(control + <)
+	* Delete current line: B(control + K)
+	* Templates manager: B(control + meta + shift + F)
+	* Advanced Find in Files: B(Convert+meta + F)
+	* Brace Finder: B(control + ]), B(control + [)
+)
 
-5. HOTKEYS: COMPILING
-% =====================================================================
+2(#(HOTKEYS: COMPILING))
 
 	By default, Winefish requires LaTeX, xdvi and xpdf.
-	You may changes these from [Preferences] Page.
+	You may changes these from B(Preferences) Page.
 	
-		* Convert to DVI format: [F1]
-		* View DVI document (with DVI SYNC): [Control+F1]
-		* Convert to PDF: [F2]
-		* View PDF document: [Control+F2]
-		* Stop running tools: [Escape]
+	L(
+		* Convert to DVI format: B(F1)
+		* View DVI document \(with DVI SYNC\): B(control + F1)
+		* Convert to PDF: B(F2)
+		* View PDF document: B(control + F2)
+		* Stop running tools: B(Escape)
+	)
 	
 	If you are working in project mode, by default, the above tools
 	will start in the base directory and file of the project.
 	
-	If you want to compile the current document, [NOT] the
-	base document of project, you may use [Control+ESC]
-	to turn project mode ON/OFF, *OR* select menu [External/Project Mode]
+	If you want to compile the current document, B(NOT) the
+	base document of project, you may use B(control + ESC)
+	to turn project mode ON/OFF, *OR* select menu B(External/Project Mode)
 
-6. PROJECT MODE
-% =====================================================================
+2(#(PROJECT MODE))
 
+L(
 	* Each project requires a "base directory" and a "base file"
 	* The "base file" must be located in "base directory"
 	* Project's files should be located in "base directory"
+)
 
-7. DOCUMENT STRUCTURE
-% =====================================================================
+2(#(DOCUMENT STRUCTURE))
 
 	In order to get the document structure, you may try this:
-	
-		* Press [Control+F] to start the search engine
-		* Type [exactly] the following string
-		
-			^\\(sub){0,2}section.*?$
-			
-		* Select PERL type as type (regular expression)
+	L(
+		* Press B(control + F) to start the search engine
+		* Type B(exactly) the following string
+		PRE(^\BACKSLASH\BACKSLASH\(sub\){0,2}section.\*?$)
+		* Select PERL type as type \(regular expression\)
 		* Select Bookmark Results
 		* Press OK.
+	)
 
-8. AUTOTEXT
-% =====================================================================
+2(#(AUTOTEXT))
 
-	If [$HOME/.winefish/autotext] wasnot modified,
+	If B($HOME/.winefish/autotext) wasnot modified,
 	you may try to open a new document, type the string
-	/tsta then press [Shift+Space]. Other tests are /tstd,
+	/tsta then press B(shift + Space). Other tests are /tstd,
 	/tstc and /tstd.
 	
-	You may modify the file [$HOME/.winefish/autotext]
+	You may modify the file B($HOME/.winefish/autotext)
 			% WARNING: Do not open it in Winefish as
 			% Winefish will override your modification when exiting.
 	The contents are similar to
-	
-		att: /tsta:\\begin{foo\n:\n\\end{foo:
-		att: /tstb:\\begin{this-is-b\n:\n\\end{this-is-b:
-		att: /tstc:\\testofsomething::
-		att: /tstd:: Can you see?:
+	PRE(
+att: /tsta:\BACKSLASH\BACKSLASHbegin{foo\n:\n\BACKSLASH\end{foo:
+att: /tstb:\BACKSLASH\BACKSLASHbegin{this-is-b\n:\n\BACKSLASH\end{this-is-b:
+att: /tstc:\BACKSLASH\BACKSLASHtestofsomething::
+att: /tstd:: Can you see?:
+	)
 	
 	Each line is of the from
+	PRE(att: /foo:begin:end:)
 	
-		att: /foo:begin:end:
-	
-	where /foo is the new defintion which [must be started] by a slash /.
+	where /foo is the new defintion which B(must be started) by a slash /.
 	The string begin will be inserted before the cursor,
 	the string end will be inserted after the cursor.
 	
 	Here are some rules:
+	L(
 		* Length of /foo should be at most 10.
 		* One of the two strings begin and end is not NULL.
 		* If foo is defined twice or more, for e.g.,
 		* only the first one is used.
 		* Some special characters must be escaped:
-			\n for the new line
-			\t for a tab
-			\: for a colon
-			\\ for the backslash
+		L(
+			* \n for the new line
+			* \t for a tab
+			* \: for a colon
+			* \BACKSLASH\BACKSLASH for the backslash
+		)
 		* You must restart Winefish after modifying.
+	)
 
-9. AUTOCOMPLETION
-% =====================================================================
+2(#(AUTOCOMPLETION))
 
-	Press [Control+Space] to start autocompletion.
-	You may delete a word from popup menu (press [Delete]),
-	or from [Preferences] page.
+	Press B(control + Space) to start autocompletion.
+	You may delete a word from popup menu (press B(Delete)),
+	or from B(Preferences) page.
 	
-	The words are saved in [$HOME/.winefish/words].
-		% WARNING: Donot open the file in Winefish as
-		% the contents will be overriden when Winefish exists.
+	The words are saved in B($HOME/.winefish/words).
+		% WARNING: Do not open the file in Winefish as
+		% the contents will be overridden when Winefish exists.
 
-10. COMMANDLINE OPTIONS
-% =====================================================================
+2(#(COMMANDLINE OPTIONS))
 
-	$ winefish -h
-	winefish 1.3.2.6 LaTeX editor
-	Usage: winefish [options] [filenames ...]
-	
-	Currently accepted options are:
-	-s           skip root check
-	-v           current version
-	-n 0|1       open new window (1) or not (0)
-	-p filename  open project
-	-l number    set line[number]. Negative value takes no effect.
-	-h           this help screen
+PRE(
+$ winefish -h
+winefish 1.3.2.6 LaTeX editor
+Usage: winefish B(options) B(filenames ...)
+Currently accepted options are:
+-s           skip root check
+-v           current version
+-n 0|1       open new window \(1\) or not \(0\)
+-p filename  open project
+-l number    set lineB(number). Negative value takes no effect.
+-h           this help screen
+)
 
-11. TIPS
-% =====================================================================
+2(#(OUTPUTBOX))
 
-	* Press [Shift+Control+Escape] to hide/show the Sidebar.
-	* Press [Shift+Escape] to hide/show the Outputbox.
-	* Press [Control+I] to insert an image.
-	* [Doubleclick] on an image in the file browsers.
+When you start a tool, start `Grep Function' \(B(control + meta + F)\),
+or start listing your templates \(B(control + meta + shift + F)\),
+the results will be shipped out to a Outputbox.
 
-12. LOCALE SUPPORT
-% =====================================================================
+There are some usefull operations with Outputbox:
+L(
+	* single-click: open file at specify line
+	* right-click: create a popup menu
+	* control + click: clone file (create a new file with the same contains at the file specify)
+)
 
-	There are english, italian and vietnamese. Here're examples:
-	
-	$ LANG=vi_VN winefish # start winefish with vietnamese frontend
-	$ LANG=it_IT winefish # for italian users
+2(#(TEMPLATES SUPPORT))
 
-% =====================================================================
+Go to B(Preferences Pages / Miscellaneous) and specify the directory
+which contains your templates. By default, it is B($HOME/tex/templates).
 
-$Id$
+The template file is of type *.tex or *.sty.
+Each template *MUST* contains the  patterns B(\%\%wf=). 
+This helps you writing description for templates. For e.g.,
+PRE(
+\%\%wf=this is template file
+\%\%wf=this is the description of template
+\documentclass{article}
+...
+)
+To U(list all your template files), press B(control + meta + shift + F).
+Then press B(control + click) to create a clone file \(See @[OUTPUTBOX](#OUTPUTBOX)\)
+
+Winefish doesnot clean up the B(\%\%wf=) string automatically.
+
+2(#(TIPS))
+
+L(
+* Press B(shift + control + Escape) to hide/show the Sidebar.
+* Press B(shift + Escape) to hide/show the Outputbox.
+* Press B(control + I) to insert an image.
+* B(Doubleclick) on an image in the file browsers.
+)
+
+2(#(LOCALE SUPPORT))
+
+There are English, Italian and Vietnamese. Here're examples:
+
+PRE(
+$ LANG=vi_VN winefish # start winefish with Vietnamese frontend
+$ LANG=it_IT winefish # for Italian users
+)
+
+RED($Id$)
+</BODY>
+</HEAD>

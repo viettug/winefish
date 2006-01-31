@@ -1,145 +1,213 @@
-<HTML><HEAD><STYLE>B{font-weight:normal;text-decoration:underline;color: green;}</STYLE><TITLE>Winefish LaTeX Editor</TITLE></HEAD><BODY><PRE>
- <h1><a href="http://winefish.berlios.de/">Winefish Documentation</a></h1>
-<h2>0. <a name="0"><a href="#0">SECTIONS</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#top">#top</a></h2>
-&nbsp;&nbsp;&nbsp;&nbsp;1 <a href="#1">features</a>
-&nbsp;&nbsp;&nbsp;&nbsp;2 <a href="#2">installation</a>
-&nbsp;&nbsp;&nbsp;&nbsp;3 <a href="#3">input method</a>
-&nbsp;&nbsp;&nbsp;&nbsp;4 <a href="#4">hotkeys: editting</a>
-&nbsp;&nbsp;&nbsp;&nbsp;5 <a href="#5">hotkeys: compiling</a>
-&nbsp;&nbsp;&nbsp;&nbsp;6 <a href="#6">project mode</a>
-&nbsp;&nbsp;&nbsp;&nbsp;7 <a href="#7">document structure</a>
-&nbsp;&nbsp;&nbsp;&nbsp;8 <a href="#8">autotext</a>
-&nbsp;&nbsp;&nbsp;&nbsp;9 <a href="#9">autocompletion</a>
-&nbsp;&nbsp;&nbsp;&nbsp;10 <a href="#10">commandline options</a>
-&nbsp;&nbsp;&nbsp;&nbsp;11 <a href="#11">tips</a>
-&nbsp;&nbsp;&nbsp;&nbsp;12 <a href="#12">locale support</a>
-<h2>1. <a name="1"><a href="#1">FEATURES</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#top">#top</a></h2>
-&nbsp;&nbsp;&nbsp;* autotext
-&nbsp;&nbsp;&nbsp;* autocompletion
-&nbsp;&nbsp;&nbsp;* command collector
-&nbsp;&nbsp;&nbsp;* multiple encodings
-&nbsp;&nbsp;&nbsp;* configurable external tools
-&nbsp;&nbsp;&nbsp;* configurable hilight support
-<h2>2. <a name="2"><a href="#2">INSTALLATION</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#top">#top</a></h2>
-&nbsp;&nbsp;&nbsp;Read INSTALL
-<h2>3. <a name="3"><a href="#3">INPUT METHOD</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#top">#top</a></h2>
-&nbsp;&nbsp;&nbsp;Input Method isnot a function of Winefish.
-&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;Right click on the document. In the context menu,
-&nbsp;&nbsp;&nbsp;goto the sub <b>Input Methods</b> and choose your favorite
-&nbsp;&nbsp;&nbsp;input method. These various methods are selected from your
-&nbsp;&nbsp;&nbsp;system, not provided by Winefish.
-<h2>4. <a name="4"><a href="#4">HOTKEYS: EDITING</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#top">#top</a></h2>
-&nbsp;&nbsp;&nbsp;* Start "autocompletion": <b>Control+Space</b>
-&nbsp;&nbsp;&nbsp;* Start "autotext": <b>Shift+Space</b>
-&nbsp;&nbsp;&nbsp;* Update syntax highlighting: <b>Meta+Space</b>
-&nbsp;&nbsp;&nbsp;* Go to a line: <b>Control+/</b>
-&nbsp;&nbsp;&nbsp;* Start a numbered section: <b>Control+{0,1,2,3,4,5,6.}</b>
-&nbsp;&nbsp;&nbsp;* Start an unumbered section: <b>Control+Meta+{0,1,2,3,4}</b>
-&nbsp;&nbsp;&nbsp;* Insert an image: <b>Control+I</b>
-&nbsp;&nbsp;&nbsp;* Insert a table or array: <b>Control+T</b>
-&nbsp;&nbsp;&nbsp;* Insert a list: <b>Control+L</b>
-&nbsp;&nbsp;&nbsp;* Insert `verbatim': <b>Shift+Control+V</b>, <b>Shift+Control+Meta+V</b>
-&nbsp;&nbsp;&nbsp;* (Un)comment selected text: <b>Control+%</b>, <b>Control+Meta+%</b>
-&nbsp;&nbsp;&nbsp;* Increase/Decrease Indent: <b>Control+,</b> <b>Control+.</b>
-&nbsp;&nbsp;&nbsp;* Insert source separator: <b>Control+=</b>
-&nbsp;&nbsp;&nbsp;* Delete the first char of each line in the selected text: <b>Control+]</b>
-&nbsp;&nbsp;&nbsp;* Delete current line: <b>Control+K</b>
-<h2>5. <a name="5"><a href="#5">HOTKEYS: COMPILING</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#top">#top</a></h2>
-&nbsp;&nbsp;&nbsp;By default, Winefish requires LaTeX, xdvi and xpdf.
-&nbsp;&nbsp;&nbsp;You may changes these from <b>Preferences</b> Page.
-&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Convert to DVI format: <b>F1</b>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* View DVI document (with DVI SYNC): <b>Control+F1</b>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Convert to PDF: <b>F2</b>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* View PDF document: <b>Control+F2</b>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Stop running tools: <b>Escape</b>
-&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;If you are working in project mode, by default, the above tools
-&nbsp;&nbsp;&nbsp;will start in the base directory and file of the project.
-&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;If you want to compile the current document, <b>NOT</b> the
-&nbsp;&nbsp;&nbsp;base document of project, you may use <b>Control+ESC</b>
-&nbsp;&nbsp;&nbsp;to turn project mode ON/OFF, *OR* select menu <b>External/Project Mode</b>
-<h2>6. <a name="6"><a href="#6">PROJECT MODE</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#top">#top</a></h2>
-&nbsp;&nbsp;&nbsp;* Each project requires a "base directory" and a "base file"
-&nbsp;&nbsp;&nbsp;* The "base file" must be located in "base directory"
-&nbsp;&nbsp;&nbsp;* Project's files should be located in "base directory"
-<h2>7. <a name="7"><a href="#7">DOCUMENT STRUCTURE</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#top">#top</a></h2>
-&nbsp;&nbsp;&nbsp;In order to get the document structure, you may try this:
-&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Press <b>Control+F</b> to start the search engine
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Type <b>exactly</b> the following string
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^\\(sub){0,2}section.*?$
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Select PERL type as type (regular expression)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Select Bookmark Results
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Press OK.
-<h2>8. <a name="8"><a href="#8">AUTOTEXT</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#top">#top</a></h2>
-&nbsp;&nbsp;&nbsp;If <b>$HOME/.winefish/autotext</b> wasnot modified,
-&nbsp;&nbsp;&nbsp;you may try to open a new document, type the string
-&nbsp;&nbsp;&nbsp;/tsta then press <b>Shift+Space</b>. Other tests are /tstd,
-&nbsp;&nbsp;&nbsp;/tstc and /tstd.
-&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;You may modify the file <b>$HOME/.winefish/autotext</b>
-<font color="red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% WARNING: Do not open it in Winefish as</font>
-<font color="red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% Winefish will override your modification when exiting.</font>
-&nbsp;&nbsp;&nbsp;The contents are similar to
-&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;att: /tsta:\\begin{foo\n:\n\\end{foo:
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;att: /tstb:\\begin{this-is-b\n:\n\\end{this-is-b:
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;att: /tstc:\\testofsomething::
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;att: /tstd:: Can you see?:
-&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;Each line is of the from
-&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;att: /foo:begin:end:
-&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;where /foo is the new defintion which <b>must be started</b> by a slash /.
-&nbsp;&nbsp;&nbsp;The string begin will be inserted before the cursor,
-&nbsp;&nbsp;&nbsp;the string end will be inserted after the cursor.
-&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;Here are some rules:
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Length of /foo should be at most 10.
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* One of the two strings begin and end is not NULL.
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* If foo is defined twice or more, for e.g.,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* only the first one is used.
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Some special characters must be escaped:
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n for the new line
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\t for a tab
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\: for a colon
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\\ for the backslash
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* You must restart Winefish after modifying.
-<h2>9. <a name="9"><a href="#9">AUTOCOMPLETION</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#top">#top</a></h2>
-&nbsp;&nbsp;&nbsp;Press <b>Control+Space</b> to start autocompletion.
-&nbsp;&nbsp;&nbsp;You may delete a word from popup menu (press <b>Delete</b>),
-&nbsp;&nbsp;&nbsp;or from <b>Preferences</b> page.
-&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;The words are saved in <b>$HOME/.winefish/words</b>.
-<font color="red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% WARNING: Donot open the file in Winefish as</font>
-<font color="red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% the contents will be overriden when Winefish exists.</font>
-<h2>10. <a name="10"><a href="#10">COMMANDLINE OPTIONS</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#top">#top</a></h2>
-&nbsp;&nbsp;&nbsp;$ winefish -h
-&nbsp;&nbsp;&nbsp;winefish 1.3.2.6 LaTeX editor
-&nbsp;&nbsp;&nbsp;Usage: winefish <b>options</b> <b>filenames ...</b>
-&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;Currently accepted options are:
-&nbsp;&nbsp;&nbsp;-s           skip root check
-&nbsp;&nbsp;&nbsp;-v           current version
-&nbsp;&nbsp;&nbsp;-n 0|1       open new window (1) or not (0)
-&nbsp;&nbsp;&nbsp;-p filename  open project
-&nbsp;&nbsp;&nbsp;-l number    set line<b>number</b>. Negative value takes no effect.
-&nbsp;&nbsp;&nbsp;-h           this help screen
-<h2>11. <a name="11"><a href="#11">TIPS</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#top">#top</a></h2>
-&nbsp;&nbsp;&nbsp;* Press <b>Shift+Control+Escape</b> to hide/show the Sidebar.
-&nbsp;&nbsp;&nbsp;* Press <b>Shift+Escape</b> to hide/show the Outputbox.
-&nbsp;&nbsp;&nbsp;* Press <b>Control+I</b> to insert an image.
-&nbsp;&nbsp;&nbsp;* <b>Doubleclick</b> on an image in the file browsers.
-<h2>12. <a name="12"><a href="#12">LOCALE SUPPORT</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#top">#top</a></h2>
-&nbsp;&nbsp;&nbsp;There are english, italian and vietnamese. Here're examples:
-&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;$ LANG=vi_VN winefish # start winefish with vietnamese frontend
-&nbsp;&nbsp;&nbsp;$ LANG=it_IT winefish # for italian users
-<br><br><br>$Id$
-</PRE></BODY></HTML>
+<HTML>
+<!--
+-->
+<HEAD>
+<TITLE>Winefish Documentation</TITLE>
+<STYLE>
+<!--
+body { margin: 30px; }
+b { font-weight: normal; color: navy; }
+->
+</STYLE>
+</HEAD>
+<BODY>
+<H1><a href="http://winefish.berlios.de/">Winefish Documentation</a></H1>
+
+This document is available for Winefish version 1.3.2.6f or higher
+<H2><a name="CONTENTS">CONTENTS <a href="#top">top</a></H2>
+
+<UL>
+<li><a href="#CONTENTS">Contents</a>
+<li><a href="#FEATURES">Features</a>
+<li><a href="#INSTALLATION">Installation</a>
+<li><a href="#INPUT METHOD">Input Method</a>
+<li><a href="#HOTKEYS: EDITING">Hotkeys: editing</a>
+<li><a href="#HOTKEYS: COMPILING">Hotkeys: compiling</a>
+<li><a href="#PROJECT MODE">Project Mode</a>
+<li><a href="#DOCUMENT STRUCTURE">Document Structure</a>
+<li><a href="#AUTOTEXT">Autotext</a>
+<li><a href="#AUTOCOMPLETION">Auto completion</a>
+<li><a href="#COMMANDLINE OPTIONS">Commandline Options</a>
+<li><a href="#OUTPUTBOX">Outputbox</a>
+<li><a href="#TEMPLATES SUPPORT">Templates Support</a>
+<li><a href="#TIPS">TIPS</a>
+<li><a href="#LOCALE SUPPORT">Locale Support</a></UL>
+
+<H2><a name="FEATURES">FEATURES <a href="#top">top</a></H2>
+
+<UL>
+<li><a href="#AUTOTEXT">autotext</a>
+<li><a href="#AUTOCOMPLETION">autocompletion</a>
+<li>command collector
+<li>multiple encoding
+<li>configurable external tools
+<li>configurable highlight support
+<li><a href="#TEMPLATES SUPPORT">templates support</a></UL>
+
+<H2><a name="INSTALLATION">INSTALLATION <a href="#top">top</a></H2>
+
+ Read INSTALL
+<H2><a name="INPUT METHOD">INPUT METHOD <a href="#top">top</a></H2>
+
+ Input Method is not a function of Winefish.
+<br><br>
+ Right click on the document. In the context menu,
+ goto <B>Input Methods</B> and choose your favorite
+ input method. These various methods are selected from your
+ system, not provided by Winefish.
+<H2><a name="HOTKEYS: EDITING">HOTKEYS: EDITING <a href="#top">top</a></H2>
+
+<UL>
+<li>Start "autocompletion": <B>control + Space</B>
+<li>Start "autotext": <B>shift + Space</B>
+<li>Update syntax highlighting: <B>meta + Space</B>
+<li>Go to a line: <B>control + /</B>
+<li>Start a numbered section: <B>control + {0,1,2,3,4,5,6.}</B>
+<li>Start an unnumbered section: <B>control + meta + {0,1,2,3,4}</B>
+<li>Insert an image: <B>control + I</B>
+<li>Insert a table or array: <B>control + T</B>
+<li>Insert a list: <B>control + L</B>
+<li>Insert `verbatim': <B>shift + control + V</B>, <B>shift + control + meta + V</B>
+<li>(Un)comment selected text: <B>control + %</B>, <B>control + meta + %</B>
+<li>Increase/Decrease Indent: <B>control + ,</B> <B>control + .</B>
+<li>Insert source separator: <B>control + =</B>
+<li>Delete the first char of each line in the selected text: <B>control + <</B>
+<li>Delete current line: <B>control + K</B>
+<li>Templates manager: <B>control + meta + shift + F</B>
+<li>Advanced Find in Files: <B>Convert+meta + F</B>
+<li>Brace Finder: <B>control + ]</B>, <B>control + [</B></UL>
+
+<H2><a name="HOTKEYS: COMPILING">HOTKEYS: COMPILING <a href="#top">top</a></H2>
+
+ By default, Winefish requires LaTeX, xdvi and xpdf.
+ You may changes these from <B>Preferences</B> Page.
+<UL>
+<li>Convert to DVI format: <B>F1</B>
+<li>View DVI document (with DVI SYNC): <B>control + F1</B>
+<li>Convert to PDF: <B>F2</B>
+<li>View PDF document: <B>control + F2</B>
+<li>Stop running tools: <B>Escape</B></UL>
+
+ If you are working in project mode, by default, the above tools
+ will start in the base directory and file of the project.
+<br><br>
+ If you want to compile the current document, <B>NOT</B> the
+ base document of project, you may use <B>control + ESC</B>
+ to turn project mode ON/OFF, *OR* select menu <B>External/Project Mode</B>
+<H2><a name="PROJECT MODE">PROJECT MODE <a href="#top">top</a></H2>
+
+<UL>
+<li>Each project requires a "base directory" and a "base file"
+<li>The "base file" must be located in "base directory"
+<li>Project's files should be located in "base directory"</UL>
+
+<H2><a name="DOCUMENT STRUCTURE">DOCUMENT STRUCTURE <a href="#top">top</a></H2>
+
+ In order to get the document structure, you may try this:
+<UL>
+<li>Press <B>control + F</B> to start the search engine
+<li>Type <B>exactly</B> the following string
+ <PRE>^\\(sub){0,2}section.*?$</PRE>
+<li>Select PERL type as type (regular expression)
+<li>Select Bookmark Results
+<li>Press OK.</UL>
+
+<H2><a name="AUTOTEXT">AUTOTEXT <a href="#top">top</a></H2>
+
+ If <B>$HOME/.winefish/autotext</B> wasnot modified,
+ you may try to open a new document, type the string
+ /tsta then press <B>shift + Space</B>. Other tests are /tstd,
+ /tstc and /tstd.
+<br><br>
+ You may modify the file <B>$HOME/.winefish/autotext</B>
+   The contents are similar to
+ <PRE>att: /tsta:\\begin{foo\n:\n\\end{foo:
+att: /tstb:\\begin{this-is-b\n:\n\\end{this-is-b:
+att: /tstc:\\testofsomething::
+att: /tstd:: Can you see?:</PRE>
+ Each line is of the from
+ <PRE>att: /foo:begin:end:</PRE>
+ where /foo is the new defintion which <B>must be started</B> by a slash /.
+ The string begin will be inserted before the cursor,
+ the string end will be inserted after the cursor.
+<br><br>
+ Here are some rules:
+<UL>
+<li>Length of /foo should be at most 10.
+<li>One of the two strings begin and end is not NULL.
+<li>If foo is defined twice or more, for e.g.,
+<li>only the first one is used.
+<li>Some special characters must be escaped:
+<UL>
+<li>\n for the new line
+<li>\t for a tab
+<li>\: for a colon
+<li>\\ for the backslash</UL>
+
+<li>You must restart Winefish after modifying.</UL>
+
+<H2><a name="AUTOCOMPLETION">AUTOCOMPLETION <a href="#top">top</a></H2>
+
+ Press <B>control + Space</B> to start autocompletion.
+ You may delete a word from popup menu press <B>Delete</B>,
+ or from <B>Preferences</B> page.
+<br><br>
+ The words are saved in <B>$HOME/.winefish/words</B>.
+  
+<H2><a name="COMMANDLINE OPTIONS">COMMANDLINE OPTIONS <a href="#top">top</a></H2>
+
+<PRE>$ winefish -h
+winefish 1.3.2.6 LaTeX editor
+Usage: winefish <B>options</B> <B>filenames ...</B>
+Currently accepted options are:
+-s skip root check
+-v current version
+-n 0|1 open new window (1) or not (0)
+-p filename open project
+-l number set line<B>number</B>. Negative value takes no effect.
+-h this help screen</PRE>
+<H2><a name="OUTPUTBOX">OUTPUTBOX <a href="#top">top</a></H2>
+
+When you start a tool, start `Grep Function' (<B>control + meta + F</B>),
+or start listing your templates (<B>control + meta + shift + F</B>),
+the results will be shipped out to a Outputbox.
+<br><br>
+There are some usefull operations with Outputbox:
+<UL>
+<li>single-click: open file at specify line
+<li>right-click: create a popup menu
+<li>control + click: clone file create a new file with the same contains at the file specify</UL>
+
+<H2><a name="TEMPLATES SUPPORT">TEMPLATES SUPPORT <a href="#top">top</a></H2>
+
+Go to <B>Preferences Pages / Miscellaneous</B> and specify the directory
+which contains your templates. By default, it is <B>$HOME/tex/templates</B>.
+<br><br>
+The template file is of type *.tex or *.sty.
+Each template *MUST* contains the patterns <B>%%wf=</B>. 
+This helps you writing description for templates. For e.g.,
+<PRE>%%wf=this is template file
+%%wf=this is the description of template
+\documentclass{article}
+...</PRE>
+To <U>list all your template files</U>, press <B>control + meta + shift + F</B>.
+Then press <B>control + click</B> to create a clone file (See <a href="#OUTPUTBOX">OUTPUTBOX</a>)
+<br><br>
+Winefish doesnot clean up the <B>%%wf=</B> string automatically.
+<H2><a name="TIPS">TIPS <a href="#top">top</a></H2>
+
+<UL>
+<li>Press <B>shift + control + Escape</B> to hide/show the Sidebar.
+<li>Press <B>shift + Escape</B> to hide/show the Outputbox.
+<li>Press <B>control + I</B> to insert an image.
+<li><B>Doubleclick</B> on an image in the file browsers.</UL>
+
+<H2><a name="LOCALE SUPPORT">LOCALE SUPPORT <a href="#top">top</a></H2>
+
+There are English, Italian and Vietnamese. Here're examples:
+<br><br>
+<PRE>$ LANG=vi_VN winefish # start winefish with Vietnamese frontend
+$ LANG=it_IT winefish # for Italian users</PRE>
+<font color="RED">$Id$</font>
+</BODY>
+</HEAD>
