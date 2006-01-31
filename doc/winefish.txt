@@ -1,7 +1,7 @@
 <HTML>
 <!--
 %
-% $Id: winefish.txt 1751 2006-01-31 04:16:54Z kyanh $
+% $Id$
 % Winefish Documentation
 % Format: KTML
 % Convert: k2h winefish.txt > winefish.html
@@ -21,7 +21,7 @@ pre {color: olive; }
 1(@[Winefish Documentation](http://winefish.berlios.de/))
 
 L(
-* RED($Id$)
+* Author: kyanh @(kyanh_at_viettug_dot_org)
 * This document is available for Winefish version RED(1.3.2.6f) or higher.
 * My English is not well so you may confuse :\)\)
 )
@@ -274,5 +274,7 @@ PRE(
 $ LANG=vi_VN winefish # start winefish with Vietnamese frontend
 $ LANG=it_IT winefish # for Italian users
 )
+
+RED($Id$)
 </BODY>
 </HEAD>
