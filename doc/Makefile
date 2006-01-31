@@ -34,4 +34,7 @@ txt:
 	@cat tmp2.html >> tmp9.html
 	@echo '</PRE></BODY></HTML>' >> tmp9.html
 	@grep -E '.+' tmp9.html > winefish.html
-	@rm -f tmp*.html
+	@rm -f tmp*.htm
+html:
+	@k2h winefish.txt >winefish.html
+
