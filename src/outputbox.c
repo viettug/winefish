@@ -57,7 +57,9 @@ Move from <wait.h> to <sys/wait.h>
 #include "outputbox_bf.h"
 #endif /* __BF_BACKEND__ */
 
-static void ob_lview_current_cursor_open_file(GtkTreePath *path, Toutputbox *ob)
+#include "document.h" /* doc_file_to_textbox */
+
+static void ob_lview_current_cursor_open_file(GtkTreePath *path, Toutputbox *ob,  gboolean clone_file)
 {
 	GtkTreePath *treepath;
 	if (path) {
@@ -74,20 +76,32 @@ static void ob_lview_current_cursor_open_file(GtkTreePath *path, Toutputbox *ob)
 
 		gtk_tree_model_get( GTK_TREE_MODEL( ob->lstore ), &iter, 3, &filepath, 1, &line, -1 );
 		gtk_tree_model_get( GTK_TREE_MODEL( ob->lstore ), &iter, 3, &filepath, -1 );
-	
+
 		DEBUG_MSG( "ob_lview_current_cursor_open_file, file=%s, line=%s\n", filepath, line );
 		if ( filepath && strlen( filepath ) ) {
-			doc_new_with_file( ob->bfwin, filepath, FALSE, FALSE );
+			if (clone_file) {
+				Tdocument * doc;
+				doc = doc_new( ob->bfwin, FALSE );
+				switch_to_document_by_pointer( ob->bfwin, doc );
+				doc_file_to_textbox( doc, filepath , FALSE, FALSE );
+				doc_activate( doc );
+			}else{
+				doc_new_with_file( ob->bfwin, filepath, FALSE, FALSE );
+			}
 		}
 		if ( line && strlen( line /* linepath, BUG#74 */) ) {
 			lineval = atoi( line );
 			flush_queue();
 			doc_select_line( ob->bfwin->current_document, lineval, TRUE );
 		}
+		/* clone_file: Control + Click doesnot select the row ==> we need select it manually !*/
+		if (clone_file) {
+			gtk_tree_view_set_cursor(GTK_TREE_VIEW(ob->lview), treepath, NULL, FALSE);
+		}
+		gtk_widget_grab_focus( ob->bfwin->current_document->view );
 		g_free( line );
 		g_free(filepath);
 		if (!path) gtk_tree_path_free(treepath);
-		gtk_widget_grab_focus( ob->bfwin->current_document->view );
 	}
 }
 
@@ -123,7 +137,7 @@ static void ob_lview_copy_line_lcb (GtkWidget *widget, Toutputbox *ob ) {
 
 #ifdef OB_POPUP_DYNAMIC_MENU_WITH_LCB
 static void ob_lview_current_cursor_open_file_lcb (GtkWidget *widget, Toutputbox *ob ) {
-	ob_lview_current_cursor_open_file(NULL,ob);
+	ob_lview_current_cursor_open_file(NULL,ob, FALSE);
 }
 #endif /* OB_POPUP_DYNAMIC_MENU_WITH_LCB */
 
@@ -215,7 +229,7 @@ static gboolean ob_lview_button_release_lcb( GtkWidget *widget, GdkEventButton *
 		}
 		/* could we need to free menu ? */
 	}else if(bevent->button ==1) {
-		ob_lview_current_cursor_open_file(NULL,ob);
+		ob_lview_current_cursor_open_file(NULL,ob, bevent -> state & GDK_CONTROL_MASK);
 	}
 	return FALSE;
 }
@@ -517,11 +531,20 @@ Toutputbox *outputbox_get_box (Tbfwin *bfwin, guint page)
 	ob = OUTPUTBOX(bfwin->outputbox);
 	if (ob && (ob->page_number == page)) {
 		return ob;
+#ifdef EXTERNAL_FIND
+#ifdef EXTERNAL_GREP
 	}else {
 		ob = OUTPUTBOX(bfwin->grepbox);
 		if (ob && (ob->page_number == page)) {
 			return ob;
+		}else{
+			ob = OUTPUTBOX(bfwin->templatebox);
+			if (ob && (ob->page_number == page)) {
+				return ob;
+			}
 		}
+#endif /* EXTERNAL_GREP */
+#endif /* EXTERNAL_FIND */
 	}
 	return NULL;
 }

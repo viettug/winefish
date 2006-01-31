@@ -49,6 +49,12 @@ TODO: pass options to find and grep.
 #define FUNC_GREP_RECURSIVE_MAX_DEPTH "-maxdepth 50 "
 #endif
 
+#ifdef EXTERNAL_XARGS
+#ifdef EXTERNAL_SED
+#define HAVE_SED_XARGS
+#endif /* EXTERNAL_SED */
+#endif /* EXTERNAL_XARGS */
+
 /**************************************************************************/
 /* the start of the callback functions for the menu, acting on a document */
 /**************************************************************************/
@@ -152,13 +158,13 @@ static void files_advanced_win_ok_clicked( GtkWidget * widget, Tfiles_advanced *
 	c_grep_pattern =/* gtk_editable_get_chars( GTK_EDITABLE( tfs->grep_pattern ), 0, -1 ); */
 			gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(tfs->grep_pattern)->entry),0,-1);
 	type = (!c_grep_pattern || strlen(c_grep_pattern)==0);
-	if ( open_files-100) {
-		c_is_regex = "l";
+	if ( open_files-100 ) {
+		c_is_regex = "l"; /* list matched files */
 	}else{
 		if (type) {
-			c_is_regex = "l";
+			c_is_regex = "l"; /* list matched files */
 		}else{
-			c_is_regex = "nH";
+			c_is_regex = "nH"; /* H: --with-filename; n: --line-number */
 		}
 	}
 	
@@ -171,7 +177,7 @@ static void files_advanced_win_ok_clicked( GtkWidget * widget, Tfiles_advanced *
 	c_is_regex = g_strconcat("-", c_is_regex, NULL);
 
 	if ( gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( tfs->skipdir ) ) ) {
-		c_skipdir = g_strdup("| grep -v SCCS/ | grep -v CVS | grep -v .svn/");
+		c_skipdir = g_strdup("| grep -v SCCS/ | grep -v CVS/ | grep -v .svn/");
 	}else{
 		c_skipdir = g_strdup("");
 	}
@@ -184,12 +190,7 @@ static void files_advanced_win_ok_clicked( GtkWidget * widget, Tfiles_advanced *
 		command = /* g_strconcat( EXTERNAL_FIND, " '", c_basedir, "' -type f",c_find_pattern, c_recursive, NULL ); */
 				g_strdup_printf("%s '%s' -type f %s %s %s", EXTERNAL_FIND, c_basedir, c_find_pattern, c_recursive, c_skipdir);
 	} else {
-#ifdef EXTERNAL_XARGS
-#ifdef EXTERNAL_SED
-#define SED_XARGS
-#endif /* EXTERNAL_SED */
-#endif /* EXTERNAL_XARGS */
-#ifdef SED_XARGS
+#ifdef HAVE_SED_XARGS
 		c_grep_pattern_escaped = g_strescape(c_grep_pattern,"\"");
 		/* TODO: escape \" */
 
@@ -233,6 +234,7 @@ static void files_advanced_win_ok_clicked( GtkWidget * widget, Tfiles_advanced *
 	g_free( c_find_pattern );
 	g_free( c_grep_pattern );
 	g_free( c_grep_pattern_escaped );
+	g_free( c_is_regex );
 	g_free( c_skipdir);
 	g_free( command );
 	files_advanced_win_destroy( widget, tfs );
@@ -475,6 +477,24 @@ void open_advanced_from_filebrowser( Tbfwin *bfwin, gchar *path )
 	free_stringlist( tmplist );
 }
 
+void template_rescan_cb(Tbfwin *bfwin) {
+	gchar *command;
+	gchar *c_basedir;
+	if (main_v->props.templates_dir && strlen(main_v->props.templates_dir) ){
+		c_basedir = g_strdup(main_v->props.templates_dir);
+	}else{
+		c_basedir = g_strconcat(g_get_home_dir(),"/tex/templates/",NULL);
+	}
+	/* c_basedir = g_strdup("/home/users/kyanh/tex/templates/"); */
+#ifdef HAVE_SED_XARGS
+	command = g_strdup_printf("%s '%s' -type f \\( -name '*.tex' -o -name '*.sty' \\) %s | grep -v SCCS/ | grep -v CVS/ | grep -v .svn/ | %s -e 's/ /\\\\\\ /g' | %s %s -EnH  '%%%%wf='", EXTERNAL_FIND, c_basedir, FUNC_GREP_RECURSIVE_MAX_DEPTH, EXTERNAL_SED, EXTERNAL_XARGS, EXTERNAL_GREP);
+#else
+	command = g_strdup_printf("%s -EnH '%%%%wf=' `%s '%s' -type f \\( -name '*.tex' -o -name '*.sty' \\) %s | grep -v SCCS/ | grep -v CVS/ | grep -v .svn/`",EXTERNAL_GREP, EXTERNAL_FIND, c_basedir, FUNC_GREP_RECURSIVE_MAX_DEPTH);
+#endif /* SED_XARGS */	
+	outputbox(bfwin, &bfwin->templatebox,_("template"), "^([^:]+):([0-9]+):(.*)", 1, 2, 3, command, 0);
+	g_free(command);
+	g_free(c_basedir);
+}
 #endif /* EXTERNAL_FIND */
 #endif /* EXTERNAL_GREP */
 

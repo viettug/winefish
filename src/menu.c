@@ -147,6 +147,9 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 	case 28:
 		file_open_advanced_cb(bfwin, FALSE/*donot open files*/);
 		break;
+	case 29:
+		template_rescan_cb(bfwin);
+		break;
 #endif /* EXTERNAL_FIND */
 #endif /* EXTERNAL_GREP */
 	default:
@@ -327,6 +330,7 @@ static GtkItemFactoryEntry menu_items[] = {
 #ifdef EXTERNAL_GREP
 #ifdef EXTERNAL_FIND
 	{N_("/Edit/Find, Replace/Find from Files"), "<control><alt>f", menu_file_operations_cb, 28, "<Item>"},
+	{N_("/Edit/Find, Replace/Templates"), "<control><alt><shift>f", menu_file_operations_cb, 29, "<Item>"},
 #endif /* EXTERNAL_FIND */
 #endif /* EXTERNAL_GREP */
 	{N_("/Edit/Find, Replace/sep1"), NULL, NULL, 0, "<Separator>"},

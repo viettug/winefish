@@ -208,6 +208,11 @@ typedef struct {
 	GHashTable *autotext_hashtable; /* a hash table with (key,form) = (string,integer) */
 	GPtrArray *autotext_array; /* an array contains (start string, end string) */
 	guint32 view_bars;
+#ifdef EXTERNAL_GREP
+#ifdef EXTERNAL_FIND
+	gchar *templates_dir;
+#endif /* EXTERNAL_FIND */
+#endif /* EXTERNAL_GREP */
 } Tproperties;
 
 /* the Tglobalsession contains all settings that can change 
@@ -308,6 +313,7 @@ typedef struct {
 #ifdef EXTERNAL_FIND
 #ifdef EXTERNAL_GREP
 	gpointer grepbox; /* a grep box */
+	gpointer templatebox; /* box for templates */
 #endif /* EXTERNAL_FIND */
 #endif /* EXTERNAL_GREP */
 	GtkWidget *ob_notebook; /* notebook of outputboxes */
