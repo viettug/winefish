@@ -20,7 +20,7 @@ pre {color: olive; }
 <BODY>
 1(@[Winefish Documentation](http://winefish.berlios.de/))
 
-RED($Auothor$) <@(kyanh at viettug.org)>\\
+RED($Author$) <@(kyanh at viettug.org)>\\
 RED($LastChangedDate: 2006-01-31 11:17:55 +0700 (Tue, 31 Jan 2006) $)\\
 U(Notes:)
 L(
