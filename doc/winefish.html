@@ -87,24 +87,24 @@ Please take care of following properties:
 <li>Start "autotext": <B>shift + Space</B>
 <li>Update syntax highlighting: <B>meta + Space</B>
 <li>Go to a line: <B>control + /</B>
-<li>Start a numbered section: <B>control + {0,1,2,3,4,5,6.}</B>
+<li>Start a numbered section: <B>control + {0,1,2,3,4,5,6}</B>
 <li>Start an unnumbered section: <B>control + meta + {0,1,2,3,4}</B>
 <li>Insert an image: <B>control + I</B>
 <li>Insert a table or array: <B>control + T</B>
 <li>Insert a list: <B>control + L</B>
 <li>Insert `verbatim': <B>shift + control + V</B>, <B>shift + control + meta + V</B>
 <li>(Un)comment selected text: <B>control + %</B>, <B>control + meta + %</B>
-<li>Increase/Decrease Indent: <B>control + ,</B> <B>control + .</B>
+<li>Increase/Decrease Indent: <B>control + ,</B> / <B>control + .</B>
 <li>Insert source separator: <B>control + =</B>
 <li>Delete the first char of each line in the selected text: <B>control + <</B>
 <li>Delete current line: <B>control + K</B>
 <li>Templates manager: <B>control + meta + shift + F</B>
-<li>Advanced Find in Files: <B>Convert+meta + F</B>
+<li>Advanced Find in Files: <B>control + meta + F</B>
 <li>Brace Finder: <B>control + ]</B>, <B>control + [</B></UL>
 
 <H2><a name="HOTKEYS: COMPILING">HOTKEYS: COMPILING <a href="#top">top</a></H2>
 
- By default, Winefish requires LaTeX, xdvi and xpdf.
+By default, Winefish requires LaTeX, xdvi and xpdf.
 You may changes these from <B>Preferences</B> Page.
 <UL>
 <li>Convert to DVI format: <B>F1</B>
@@ -151,8 +151,7 @@ The contents are similar to
 att: /tstb:\\begin{this-is-b\n:\n\\end{this-is-b:
 att: /tstc:\\testofsomething::
 att: /tstd:: Can you see?:</PRE>
-Each line is of the from
-<PRE>att: /foo:begin:end:</PRE>
+Each line is of the from <PRE>att: /foo:begin:end:</PRE>
 where <B>/foo</B> is the new defintion which <B>must be started</B> by a slash /.
 The string begin will be inserted before the cursor,
 the string end will be inserted after the cursor.
@@ -161,7 +160,7 @@ Here are some rules:
 <UL>
 <li>Length of /foo should be at most AUTOTEXT_MAX_LENGTH
 (this constant is defined in <B>src/config.h.in</B>)
-<li>one of the two strings begin and end is not NULL.
+<li>one of the two strings `begin' and `end' is not NULL.
 <li>If foo is defined twice or more, for e.g.,
 <li>only the first one is used.
 <li><font color="RED"><U>some special characters must be escaped:</U></font>
@@ -212,9 +211,9 @@ the results will be shipped out to a Outputbox.
 <br><br>
 There are some usefull operations with Outputbox:
 <UL>
-<li>single-click: open file at specify line
-<li>right-click: create a popup menu
-<li>control + click: clone file (create a new file with the same contains at the file specify)</UL>
+<li><font color="GREEN">single-click:</font> open file at specified line
+<li><font color="GREEN">right-click:</font> create a popup menu
+<li><font color="GREEN">control + click:</font> clone file (create a new file with the same contents)</UL>
 
 <H2><a name="TEMPLATES SUPPORT">TEMPLATES SUPPORT <a href="#top">top</a></H2>
 
@@ -241,9 +240,9 @@ you may want to find the matching one. Just press
 <UL>
 <li>escaped characters will be ignored
 <li>characters in comment line will be ignored
-<li>for $, <B>control + ]</B> start <I>forward</I>-finding the matched $.
-<li>for $, <B>control + [</B> start <I>backward</I>-finding the matched $.
-<li>for other brace:
+<li>for $, <B>control + ]</B> starts <I>forward</I>-finding the matched $.
+<li>for $, <B>control + [</B> starts <I>backward</I>-finding the matched $.
+<li>for other braces:
 <UL>
 <li><I>forward</I>: start finding the matching for current brace.
 <li><I>backward</I>:
@@ -275,8 +274,7 @@ before executing the script `configure'. (<font color="RED">The very last lines.
 There're some comment which may help you!
 <br><br>
 <HR>
-This HTML file was generated from <font color="RED">winefish.txt</font> by <font color="RED">k2h</font> program.
-<br>
+This HTML file was generated from <font color="RED">winefish.txt</font> by <font color="RED">k2h</font> program.<br>
 <font color="RED">$Id$</font>
 <HR>
 </BODY>

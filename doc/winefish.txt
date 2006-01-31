@@ -99,27 +99,26 @@ L(
 * Start "autotext": B(shift + Space)
 * Update syntax highlighting: B(meta + Space)
 * Go to a line: B(control + /)
-* Start a numbered section: B(control + {0,1,2,3,4,5,6.})
+* Start a numbered section: B(control + {0,1,2,3,4,5,6})
 * Start an unnumbered section: B(control + meta + {0,1,2,3,4})
 * Insert an image: B(control + I)
 * Insert a table or array: B(control + T)
 * Insert a list: B(control + L)
 * Insert `verbatim': B(shift + control + V), B(shift + control + meta + V)
 * \(Un\)comment selected text: B(control + \%), B(control + meta + \%)
-* Increase/Decrease Indent: B(control + ,) B(control + .)
+* Increase/Decrease Indent: B(control + ,) / B(control + .)
 * Insert source separator: B(control + =)
 * Delete the first char of each line in the selected text: B(control + <)
 * Delete current line: B(control + K)
 * Templates manager: B(control + meta + shift + F)
-* Advanced Find in Files: B(Convert+meta + F)
+* Advanced Find in Files: B(control + meta + F)
 * Brace Finder: B(control + ]), B(control + [)
 )
 
 2(#(HOTKEYS: COMPILING))
 
-	By default, Winefish requires LaTeX, xdvi and xpdf.
+By default, Winefish requires LaTeX, xdvi and xpdf.
 You may changes these from B(Preferences) Page.
-
 L(
 * Convert to DVI format: B(F1)
 * View DVI document \(with DVI SYNC\): B(control + F1)
@@ -171,10 +170,7 @@ att: /tstb:\BACKSLASH\BACKSLASHbegin{this-is-b\n:\n\BACKSLASH\end{this-is-b:
 att: /tstc:\BACKSLASH\BACKSLASHtestofsomething::
 att: /tstd:: Can you see?:
 )
-	
-Each line is of the from
-PRE(att: /foo:begin:end:)
-
+Each line is of the from PRE(att: /foo:begin:end:)
 where B(/foo) is the new defintion which B(must be started) by a slash /.
 The string begin will be inserted before the cursor,
 the string end will be inserted after the cursor.
@@ -183,7 +179,7 @@ Here are some rules:
 L(
 * Length of /foo should be at most AUTOTEXT_MAX_LENGTH
 \(this constant is defined in B(src/config.h.in)\)
-* one of the two strings begin and end is not NULL.
+* one of the two strings `begin' and `end' is not NULL.
 * If foo is defined twice or more, for e.g.,
 * only the first one is used.
 * RED(U(some special characters must be escaped:))
@@ -236,9 +232,9 @@ the results will be shipped out to a Outputbox.
 
 There are some usefull operations with Outputbox:
 L(
-* single-click: open file at specify line
-* right-click: create a popup menu
-* control + click: clone file \(create a new file with the same contains at the file specify\)
+* GREEN(single-click:) open file at specified line
+* GREEN(right-click:) create a popup menu
+* GREEN(control + click:) clone file \(create a new file with the same contents\)
 )
 
 2(#(TEMPLATES SUPPORT))
@@ -270,9 +266,9 @@ B(control + ]) \(forward\) or B(control + [) \(backward\). Below the rules:
 L(
 * escaped characters will be ignored
 * characters in comment line will be ignored
-* for $, B(control + ]) start I(forward)-finding the matched $.
-* for $, B(control + [) start I(backward)-finding the matched $.
-* for other brace:
+* for $, B(control + ]) starts I(forward)-finding the matched $.
+* for $, B(control + [) starts I(backward)-finding the matched $.
+* for other braces:
 L(
 * I(forward): start finding the matching for current brace.
 * I(backward): L(*if the characters on the left hand is a brace too,
@@ -304,8 +300,7 @@ before executing the script `configure'. \(RED(The very last lines.)\)
 There're some comment which may help you!
 
 <HR>
-This HTML file was generated from RED(winefish.txt) by RED(k2h) program.
-\\
+This HTML file was generated from RED(winefish.txt) by RED(k2h) program.\\
 RED($Id$)
 <HR>
 </BODY>
