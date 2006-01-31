@@ -8,6 +8,7 @@
 
 void file_open_advanced_cb( Tbfwin *bfwin, gboolean open_files);
 void open_advanced_from_filebrowser( Tbfwin *bfwin, gchar *path );
+void template_rescan_cb(Tbfwin *bfwin);
 
 #endif /* EXTERNAL_GREP */
 #endif /* EXTERNAL_FIND */

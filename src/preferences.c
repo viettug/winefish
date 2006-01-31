@@ -97,9 +97,15 @@ enum {
 #ifdef WITH_MSG_QUEUE
 	open_in_running_bluefish, /* open commandline documents in already running session*/
 #endif /* WITH_MSG_QUEUE */
+#ifdef EXTERNAL_GREP
+#ifdef EXTERNAL_FIND
+	templates_dir, /* directory for templates */
+#endif /* EXTERNAL_FIND */
+#endif /* EXTERNAL_GREP */
 	property_num_max
 };
 
+/* listts */
 enum {
 	browsers,
 	external_commands,
@@ -122,10 +128,10 @@ typedef struct {
 typedef struct {
 	GtkListStore *lstore;
 	GtkWidget *lview;
-	GtkWidget *entry[6];
+	GtkWidget *entry[6];/* number of entries */
 	GtkWidget *popmenu;
 	GtkWidget *check;
-	GtkWidget *radio[9];
+	GtkWidget *radio[9]; /* number of radio box */
 	gchar **curstrarr;
 	const gchar *selected_filetype;
 } Thighlightpatterndialog;
@@ -1657,6 +1663,11 @@ static void preferences_apply(Tprefdialog *pd) {
 	/* integer_apply(&main_v->props.transient_htdialogs, pd->prefs[transient_htdialogs], TRUE); */
 	
 	string_apply(&main_v->props.default_basedir, pd->prefs[default_basedir]);
+#ifdef EXTERNAL_GREP
+#ifdef EXTERNAL_FIND
+	string_apply(&main_v->props.templates_dir, pd->prefs[templates_dir]);
+#endif
+#endif
 	/* integer_apply(&main_v->props.filebrowser_two_pane_view, pd->prefs[filebrowser_two_pane_view], TRUE); */
 	string_apply(&main_v->props.filebrowser_unknown_icon, pd->prefs[filebrowser_unknown_icon]);
 	string_apply(&main_v->props.filebrowser_dir_icon, pd->prefs[filebrowser_dir_icon]);
@@ -1847,6 +1858,7 @@ static void preferences_dialog() {
 	
 	gtk_box_pack_start(GTK_BOX(dvbox), pd->noteb, TRUE, TRUE, 0);
 
+	/* tab: editors */
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Editor"),150,TRUE));
 
@@ -1882,6 +1894,7 @@ static void preferences_dialog() {
 		pd->prefs[bookmarks_filename_mode] = boxed_optionmenu_with_value(_("Bookmarks filename display"), main_v->props.bookmarks_filename_mode, vbox2, actions);
 	}
 
+	/* tab: Files */
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Files"),152,TRUE));
 
@@ -1938,6 +1951,7 @@ static void preferences_dialog() {
 	pd->prefs[filebrowser_unknown_icon] = prefs_string(_("Unknown icon"), main_v->props.filebrowser_unknown_icon, vbox2, pd, string_file);
 	pd->prefs[filebrowser_dir_icon] = prefs_string(_("Directory icon"), main_v->props.filebrowser_dir_icon, vbox2, pd, string_file);
 
+	/* tab: user interface */
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("User interface"), 156,TRUE));
 
@@ -1965,6 +1979,7 @@ static void preferences_dialog() {
 	pd->prefs[leftpanel_tabposition] = boxed_optionmenu_with_value(_("Sidebar notebook tab position"), main_v->props.leftpanel_tabposition, vbox2, notebooktabpositions);
 	pd->prefs[left_panel_left] = boxed_optionmenu_with_value(_("Sidebar location"), main_v->props.left_panel_left, vbox2, panellocations);
 
+	/* tab: Filtetypes */
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Filetypes"), 153,TRUE));
 
@@ -1982,6 +1997,7 @@ static void preferences_dialog() {
 	
 	create_filefilter_gui(pd, vbox2);
 
+	/* tab: Hilight */
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Highlighting"), 158,TRUE));
 
@@ -1992,6 +2008,7 @@ static void preferences_dialog() {
 
 	create_highlightpattern_gui(pd, vbox2);
 
+	/* tab: Viewers, Filters */
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Viewers, Filters"), 151,TRUE));
 
@@ -2009,10 +2026,11 @@ static void preferences_dialog() {
 
 	create_externals_gui(pd, vbox2);
 
+	/* tab: TeXbox */
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("TeXbox"), 157,TRUE));
 	
-	frame = gtk_frame_new(_("*LaTeX*box"));
+	frame = gtk_frame_new(_("TeXbox"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
@@ -2027,6 +2045,7 @@ static void preferences_dialog() {
 
 	create_outputbox_info_gui(pd, vbox2);
 
+	/* tab: AutoX */
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("AutoX"), 151,TRUE));
 
@@ -2044,6 +2063,21 @@ static void preferences_dialog() {
 
 	create_completion_gui(pd, vbox2);
 	
+	/* tab: misc */
+	vbox1 = gtk_vbox_new(FALSE, 5);
+	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Miscellaneous"), 151,TRUE));
+
+#ifdef EXTERNAL_GREP
+#ifdef EXTERNAL_FIND
+	frame = gtk_frame_new(_("Templates Directory"));
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	vbox2 = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+
+	pd->prefs[templates_dir] = prefs_string(NULL, main_v->props.templates_dir, vbox2, pd, string_none);
+#endif /* EXTERNAL_FIND */
+#endif /* EXTERNAL_GREP */
+
 	/* end, create buttons for dialog now */
 	{
 		GtkWidget *ahbox, *but;
