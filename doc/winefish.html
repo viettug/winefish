@@ -8,6 +8,9 @@
 body { margin: 30px; font-size: 13px; }
 b { font-weight: normal; color: navy; }
 pre {color: olive; }
+a, a:visited, a:hover { text-decoration: none; }
+a:hover { color: yellow; background-color: black; }
+a:visited { color: green; }
 ->
 </STYLE>
 </HEAD>
@@ -15,18 +18,22 @@ pre {color: olive; }
 <H1><a href="http://winefish.berlios.de/">Winefish Documentation</a></H1>
 
 <UL>
-<li><font color="RED">$Id$</font>
+<li>Author: kyanh <<a href="kyanh_at_viettug_dot_org">kyanh_at_viettug_dot_org</a>>
 <li>This document is available for Winefish version <font color="RED">1.3.2.6f</font> or higher.
-<li>My English is not well so you may confuse :))</UL>
+<li><font color="RED">If you've used an older version of Winefish, you must read <a href="#IMPORTANT NOTES">IMPORTANT NOTES</a></font>
+<li>If you want to make Winefish's package, please read <a href="#CONFIGURE">CONFIGURE</a> section
+<li>My English is not well so you may confuse :))
+<li>For further help, visit <a href="http://winefish.berlios.de/forum/">http://winefish.berlios.de/forum/</a></UL>
 
 <H2><a name="CONTENTS">CONTENTS <a href="#top">top</a></H2>
 
 <UL>
 <li><a href="#FEATURES">Features</a>
 <li><a href="#INSTALLATION">Installation</a>
+<li><a href="#IMPORTANT NOTES">Important Notes</a>
 <li><a href="#INPUT METHOD">Input Method</a>
-<li><a href="#HOTKEYS: EDITING">Hotkeys: editing</a>
-<li><a href="#HOTKEYS: COMPILING">Hotkeys: compiling</a>
+<li>Hotkeys: <a href="#HOTKEYS: EDITING">editing</a>
+<li>Hotkeys: <a href="#HOTKEYS: COMPILING">compiling</a>
 <li><a href="#PROJECT MODE">Project Mode</a>
 <li><a href="#DOCUMENT STRUCTURE">Document Structure</a>
 <li><a href="#AUTOTEXT">Autotext</a>
@@ -36,7 +43,8 @@ pre {color: olive; }
 <li><a href="#TEMPLATES SUPPORT">Templates Support</a>
 <li><a href="#BRACE FINDER">Brace Finder</a>
 <li><a href="#TIPS">TIPS</a>
-<li><a href="#LOCALE SUPPORT">Locale Support</a></UL>
+<li><a href="#LOCALE SUPPORT">Locale Support</a>
+<li><a href="#CONFIGURE">Configure</a></UL>
 
 <H2><a name="FEATURES">FEATURES <a href="#top">top</a></H2>
 
@@ -60,6 +68,18 @@ Right click on the document. In the context menu,
 goto <B>Input Methods</B> and choose your favorite
 input method. These various methods are selected from your
 system, not provided by Winefish.
+<H2><a name="IMPORTANT NOTES">IMPORTANT NOTES <a href="#top">top</a></H2>
+
+If you've used an older version of Winefish, you must reconfigure Winefish
+(use <B>Preferences Pages</B>.)
+Please take care of following properties:
+<UL>
+<li>Editor / Highlighting Syntax by Default
+<li>Files / Create Backup On Save
+<li>Users Interface / *
+<li>TeXbox / Save, Show
+<li>Miscellaneous / Templates Directory</UL>
+
 <H2><a name="HOTKEYS: EDITING">HOTKEYS: EDITING <a href="#top">top</a></H2>
 
 <UL>
@@ -102,8 +122,8 @@ to turn project mode ON/OFF, *OR* select menu <B>External/Project Mode</B>
 <H2><a name="PROJECT MODE">PROJECT MODE <a href="#top">top</a></H2>
 
 <UL>
-<li>Each project requires a "base directory" and a "base file"
-<li>The "base file" must be located in "base directory"
+<li>Each project requires a <U><font color="GREEN">base directory</font></U> and a <U><font color="GREEN">base file</font></U>
+<li>The "base file" <font color="RED">must be located</font> in "base directory"
 <li>Project's files should be located in "base directory"</UL>
 
 <H2><a name="DOCUMENT STRUCTURE">DOCUMENT STRUCTURE <a href="#top">top</a></H2>
@@ -166,7 +186,7 @@ When you're typing, Winefish collects LaTeX commands and add them to
 list of known words. If there's a bad command, you may `<B>delete</B>'
 it directly from PopUp menu.
 <br><br>
-A command will be added to completion list of its length satisfy:
+A command will be added to completion list if its length is:
 <UL>
 <li>greater than 2
 <li>less than or equal COMMAND_MAX_LENGTH</UL>
@@ -194,7 +214,7 @@ There are some usefull operations with Outputbox:
 <UL>
 <li>single-click: open file at specify line
 <li>right-click: create a popup menu
-<li>control + click: clone file create a new file with the same contains at the file specify</UL>
+<li>control + click: clone file (create a new file with the same contains at the file specify)</UL>
 
 <H2><a name="TEMPLATES SUPPORT">TEMPLATES SUPPORT <a href="#top">top</a></H2>
 
@@ -214,21 +234,26 @@ Then press <B>control + click</B> to create a clone file (See <a href="#OUTPUTBO
 Winefish doesnot clean up the <B>%%wf=</B> string automatically.
 <H2><a name="BRACE FINDER">BRACE FINDER <a href="#top">top</a></H2>
 
-If your editor cursor is placed beside a <font color="GREEN">brace</font> ( $, (, ), {, }, [, ] ),
-you may want to find the matching <font color="GREEN">brace</font>. Just press
+If your editor cursor is placed beside a <font color="GREEN">brace</font>
+( <B><font color="RED">$</font></B>, <B><font color="RED">(</font></B>, <B><font color="RED">)</font></B>, <B><font color="RED">{</font></B>, <B><font color="RED">}</font></B>, <B><font color="RED">[</font></B>, <B><font color="RED">]</font></B> ),
+you may want to find the matching one. Just press
 <B>control + ]</B> (forward) or <B>control + [</B> (backward). Below the rules:
 <UL>
 <li>escaped characters will be ignored
 <li>characters in comment line will be ignored
-<li>for $, <B>control+]</B> start Eforward</UL>
--finding the matched $.
-* for $, <B>control+[</B> start Ebackward-finding the matched $.
-* for other brace:
+<li>for $, <B>control + ]</B> start <I>forward</I>-finding the matched $.
+<li>for $, <B>control + [</B> start <I>backward</I>-finding the matched $.
+<li>for other brace:
 <UL>
-<li>Eforward</UL>
-: start finding the matching for current brace.
-* Ebackward: if the characters on the left hand is a brace too,
-start finding the matching for it; otherwise, treat as Eforward.
+<li><I>forward</I>: start finding the matching for current brace.
+<li><I>backward</I>:
+<UL>
+<li>if the characters on the left hand is a brace too,
+start finding the matching for it;
+<li>otherwise, treat as <I>forward</I>.</UL>
+</UL>
+</UL>
+
 <H2><a name="TIPS">TIPS <a href="#top">top</a></H2>
 
 <UL>
@@ -240,8 +265,15 @@ start finding the matching for it; otherwise, treat as Eforward.
 <H2><a name="LOCALE SUPPORT">LOCALE SUPPORT <a href="#top">top</a></H2>
 
 There are English, Italian and Vietnamese. Here're examples:
-<br><br>
 <PRE>$ LANG=vi_VN winefish # start winefish with Vietnamese frontend
 $ LANG=it_IT winefish # for Italian users</PRE>
+<H2><a name="CONFIGURE">CONFIGURE <a href="#top">top</a></H2>
+
+There're some variables control behavior of Winefish.
+You can modify them in the file <B>src/config.h.in</B>
+before executing the script `configure'. There're some comment
+which may help you!
+<br><br>
+<font color="RED">$Id$</font>
 </BODY>
 </HEAD>

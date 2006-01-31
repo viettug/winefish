@@ -14,6 +14,9 @@
 body { margin: 30px; font-size: 13px; }
 b { font-weight: normal; color: navy; }
 pre {color: olive; }
+a, a:visited, a:hover { text-decoration: none; }
+a:hover { color: yellow; background-color: black; }
+a:visited { color: green; }
 ->
 </STYLE>
 </HEAD>
@@ -21,9 +24,12 @@ pre {color: olive; }
 1(@[Winefish Documentation](http://winefish.berlios.de/))
 
 L(
-* Author: kyanh @(kyanh_at_viettug_dot_org)
+* Author: kyanh <@(kyanh_at_viettug_dot_org)>
 * This document is available for Winefish version RED(1.3.2.6f) or higher.
+* RED(If you've used an older version of Winefish, you must read @[IMPORTANT NOTES](#IMPORTANT NOTES) )
+* If you want to make Winefish's package, please read @[CONFIGURE](#CONFIGURE) section
 * My English is not well so you may confuse :\)\)
+* For further help, visit @(http://winefish.berlios.de/forum/)
 )
 
 2(#(CONTENTS))
@@ -31,9 +37,10 @@ L(
 L(
 * @[Features](#FEATURES)
 * @[Installation](#INSTALLATION)
+* @[Important Notes](#IMPORTANT NOTES)
 * @[Input Method](#INPUT METHOD)
-* @[Hotkeys: editing](#HOTKEYS: EDITING)
-* @[Hotkeys: compiling](#HOTKEYS: COMPILING)
+* Hotkeys: @[editing](#HOTKEYS: EDITING)
+* Hotkeys: @[compiling](#HOTKEYS: COMPILING)
 * @[Project Mode](#PROJECT MODE)
 * @[Document Structure](#DOCUMENT STRUCTURE)
 * @[Autotext](#AUTOTEXT)
@@ -44,6 +51,7 @@ L(
 * @[Brace Finder](#BRACE FINDER)
 * @[TIPS](#TIPS)
 * @[Locale Support](#LOCALE SUPPORT)
+* @[Configure](#CONFIGURE)
 )
 
 2(#(FEATURES))
@@ -70,6 +78,19 @@ Right click on the document. In the context menu,
 goto B(Input Methods) and choose your favorite
 input method. These various methods are selected from your
 system, not provided by Winefish.
+
+2(#(IMPORTANT NOTES))
+
+If you've used an older version of Winefish, you must reconfigure Winefish
+(\(use B(Preferences Pages).\)
+Please take care of following properties:
+L(
+* Editor / Highlighting Syntax by Default
+* Files / Create Backup On Save
+* Users Interface / \*
+* TeXbox / Save, Show
+* Miscellaneous / Templates Directory
+)
 
 2(#(HOTKEYS: EDITING))
 
@@ -117,8 +138,8 @@ to turn project mode ON/OFF, *OR* select menu B(External/Project Mode)
 2(#(PROJECT MODE))
 
 L(
-* Each project requires a "base directory" and a "base file"
-* The "base file" must be located in "base directory"
+* Each project requires a U(GREEN((base directory)) and a U(GREEN((base file))
+* The "base file" RED(must be located) in "base directory"
 * Project's files should be located in "base directory"
 )
 
@@ -188,7 +209,7 @@ When you're typing, Winefish collects LaTeX commands and add them to
 list of known words. If there's a bad command, you may `B(delete)'
 it directly from PopUp menu.
 
-A command will be added to completion list of its length satisfy:
+A command will be added to completion list if its length is:
 L(* greater than 2*less than or equal COMMAND_MAX_LENGTH)
 The later constant is defined in B(src/config.h.in)
 
@@ -217,7 +238,7 @@ There are some usefull operations with Outputbox:
 L(
 * single-click: open file at specify line
 * right-click: create a popup menu
-* control + click: clone file (create a new file with the same contains at the file specify)
+* control + click: clone file \(create a new file with the same contains at the file specify\)
 )
 
 2(#(TEMPLATES SUPPORT))
@@ -241,20 +262,21 @@ Winefish doesnot clean up the B(\%\%wf=) string automatically.
 
 2(#(BRACE FINDER))
 
-If your editor cursor is placed beside a GREEN(brace) \( $, \(, \), {, }, [, ] \),
-you may want to find the matching GREEN(brace). Just press
+If your editor cursor is placed beside a GREEN(brace)
+\( B(RED($)), B(RED(\()), B(RED(\))), B(RED({)), B(RED(})), B(RED([)), B(RED(])) \),
+you may want to find the matching one. Just press
 B(control + ]) \(forward\) or B(control + [) \(backward\). Below the rules:
 
 L(
 * escaped characters will be ignored
 * characters in comment line will be ignored
-* for $, B(control+]) start E(forward)-finding the matched $.
-* for $, B(control+[) start E(backward)-finding the matched $.
+* for $, B(control + ]) start I(forward)-finding the matched $.
+* for $, B(control + [) start I(backward)-finding the matched $.
 * for other brace:
 L(
-* E(forward): start finding the matching for current brace.
-* E(backward): if the characters on the left hand is a brace too,
-start finding the matching for it; otherwise, treat as E(forward).
+* I(forward): start finding the matching for current brace.
+* I(backward): L(*if the characters on the left hand is a brace too,
+start finding the matching for it; *otherwise, treat as I(forward).)
 ))
 
 2(#(TIPS))
@@ -269,11 +291,17 @@ L(
 2(#(LOCALE SUPPORT))
 
 There are English, Italian and Vietnamese. Here're examples:
-
 PRE(
 $ LANG=vi_VN winefish # start winefish with Vietnamese frontend
 $ LANG=it_IT winefish # for Italian users
 )
+
+2(#(CONFIGURE))
+
+There're some variables control behavior of Winefish.
+You can modify them in the file B(src/config.h.in)
+before executing the script `configure'. There're some comment
+which may help you!
 
 RED($Id$)
 </BODY>
