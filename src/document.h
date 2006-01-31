@@ -1,4 +1,4 @@
-/* $Id: document.h,v 1.2 2005/07/21 08:59:47 kyanh Exp $ */
+/* $Id$ */
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * document.h - global function for document handling
  *
@@ -124,5 +124,7 @@ void doc_shift_selection(Tdocument *doc, gboolean uncomment);
 void menu_shift_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
 void menu_del_line_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
 void doc_del_line(Tdocument *doc, gboolean vers);
+
+gboolean doc_file_to_textbox( Tdocument * doc, gchar * filename, gboolean enable_undo, gboolean delay );
 
 #endif /* __DOCUMENT_H_ */
