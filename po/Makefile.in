@@ -26,7 +26,7 @@ MSGFMT = @MSGFMT@
 XGETTEXT = @XGETTEXT@
 MSGMERGE = @MSGMERGE@
 
-SRCS = vi.po it.po
+SRCS = vi.po it.po fr.po
 
 .SUFFIXES: .po .gmo
 OBJS = $(SRCS:.po=.gmo)
