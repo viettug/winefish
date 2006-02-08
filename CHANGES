@@ -27,7 +27,10 @@ Winefish 1.3.2.6 (Spring Release)
 		+ right-click: popup menu, copy message from current line
 		+ single-click to open file
 		+ control+click to clone file
-	- documentation: ./doc/winefish.txt
+	- french po (fr.po) added
+	- documentation:
+		+ ./doc/winefish.html
+		+ ./man/winefish.1
 
 * improved:
 	- outputbox's frontend/backend
