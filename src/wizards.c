@@ -1,4 +1,4 @@
-/* $Id: wizards.c,v 1.3 2005/07/21 08:09:56 kyanh Exp $ */
+/* $Id$ */
 
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * wizards.c - much magic is contained within
@@ -162,7 +162,7 @@ static void table_wizard_ok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 	g_free(tmpstr);
 
 	if ((type == TABLE_DEFAULT) && GTK_TOGGLE_BUTTON(dg->check[1])->active) {
-		tablecontent = g_strconcat("\\hline\n",tablecontent); /* add head=\hline */
+		tablecontent = g_strconcat("\\hline\n",tablecontent,NULL); /* add head=\hline */
 	}else{
 #ifdef HAVE_CONTEXT
 		if (type != TABLE_CONTEXT_NATURAL ) {
