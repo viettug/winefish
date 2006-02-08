@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=Winefish Editor
+Name[fr]=Éditeur Winefish
+Comment=LaTeX Editor based on Bluefish
+Comment[fr]=Éditeur LaTeX basé sur Bluefish
+Exec=winefish -n -p %f
+Icon=ICONDIR/winefish-icon.png
+Terminal=false
+Type=Application
+NoDisplay=true
+Encoding=UTF-8
+StartupNotify=true
+MimeType=application/winefish-project;

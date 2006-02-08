@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ref name="Packages" description="LaTeX packges">
+ <tag name="More packages">
+ 	<description>Thousands of LaTeX packages canbe downloaded from TUG http://tug.org/</description>
+ </tag>
+ <group name="VnTeX">
+ 	<description>Gói VnTeX được viết bởi Hàn Thế Thành. Gói này cung cấp hỗ trợ tiếng Việt cho TeX -- bao gồm macro và fonts ở nhiều dạng khác nhau. Bạn có thể tải về gói này ở http://vntex.sourceforge.net/</description>
+ 	<tag name="unicode">
+ 		<insert>\usepackage[utf8]{vietnam}</insert>
+ 		<description>
+Dùng bảng mã UTF8 cho tài liệu của bạn. Nếu bạn dùng bản  mới nhất của 'ucs' (hỗ trợ unicode cho LaTeX), bạn có thể phải dùng \usepackage[utf8x]{vietnam}. Liên hệ tác giả của VnTeX để biết thêm chi tiết.
+		</description>
+ 	</tag>
+ 	<tag name="tcvn">
+ 		<insert>\usepackage[tcvn]{vietnam}</insert>
+ 		<description>
+Dùng bảng mã TCVN có nhiều bất tiện. Chẳng hạn bạn không thể thấy trên trình soạn thảo của bạn phần lớn các chữ cái hoa, ví dụ Ấ, Ổ,... Bạn có thể định nghĩa \let\up\MakeUppercase, sau đó dùng \up{â, ổ} để có Ẩ, Ổ.
+ 		</description>
+ 	</tag>
+ 	<tag name="viscii">
+ 		<insert>\usepackage[viscii]{vietnam}</insert>
+ 	</tag>
+ 	<tag name="vps">
+ 		<insert>\usepackage[vps]{vietnam}</insert>
+ 	</tag>
+ 	<tag name="mviscii">
+ 		<insert>\usepackage[mviscii]{vietnam}</insert>
+ 		<description>Input Method (Viscii) on MAC</description>
+ 	</tag>
+ 	</group>
+</ref>

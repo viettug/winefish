@@ -1,0 +1,18 @@
+text/xml
+	short_list_application_ids_for_novice_user_level=winefish
+	short_list_application_ids_for_intermediate_user_level=winefish
+	short_list_application_ids_for_advanced_user_level=winefish
+
+text/x-tex
+	short_list_application_ids_for_novice_user_level=winefish
+	short_list_application_ids_for_intermediate_user_level=winefish
+	short_list_application_ids_for_advanced_user_level=winefish
+
+application/winefish-project
+	description=winefish project
+	[fr]description=Projet Winefish
+	default_action=application
+	icon_filename=gnome-application-winefish-project.png
+	short_list_application_ids_for_novice_user_level=winefishproject
+	short_list_application_ids_for_intermediate_user_level=winefishproject
+	short_list_application_ids_for_advanced_user_level=winefishproject

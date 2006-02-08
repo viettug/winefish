@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ref name="Symbols" description="Mathematics Symbols">
+ <tag name="More symbols">
+ 	<description>For the full list, see "symbols.pdf". You can download this file from CTAN http://ctan.org/.</description>
+ </tag>
+ <group name="Greek Letters">
+  <description>Greek Letters. Contributed by kyanh &lt;kyanh@o2.pl&gt;</description>
+  	<group name="Lowercase">
+    <tag name="alpha">
+		<insert>\alpha</insert>
+    </tag>
+    <tag name="beta">
+    	<insert>\beta</insert>
+    </tag>
+    <tag name="gamma">
+    	<insert>\gamma</insert>
+    </tag>
+    <tag name="delta">
+    	<insert>\delta</insert>
+    </tag>
+    <tag name="epsilon">
+    	<insert>\epsilon</insert>
+    </tag>
+    <tag name="varepsilon">
+    	<insert>\varepsilon</insert>
+    </tag>
+    <tag name="zeta">
+    	<insert>\zeta</insert>
+    </tag>
+    <tag name="eta">
+    	<insert>\eta</insert>
+    </tag>
+    <tag name="theta">
+    	<insert>\theta</insert>
+    </tag>
+    <tag name="iota">
+    	<insert>\iota</insert>
+    </tag>
+    <tag name="kappa">
+    	<insert>\kappa</insert>
+    </tag>
+    <tag name="lambda">
+    	<insert>\lambda</insert>
+    </tag>
+    <tag name="mu">
+    	<insert>\mu</insert>
+    </tag>
+    <tag name="nu">
+    	<insert>\nu</insert>
+    </tag>
+    <tag name="xi">
+    	<insert>\xi</insert>
+    </tag>
+    <tag name="pi">
+    	<insert>\pi</insert>
+    </tag>
+    <tag name="varpi">
+    	<insert>\varpi</insert>
+    </tag>
+    <tag name="rho">
+    	<insert>\rho</insert>
+    </tag>
+    <tag name="sigma">
+    	<insert>\sigma</insert>
+    </tag>
+    <tag name="varsigma">
+    	<insert>\varsigma</insert>
+    </tag>
+    <tag name="tau">
+    	<insert>\tau</insert>
+    </tag>
+    <tag name="upsilon">
+    	<insert>\upsilon</insert>
+    </tag>
+    <tag name="phi">
+    	<insert>\phi</insert>
+    </tag>
+    <tag name="chi">
+    	<insert>\chi</insert>
+    </tag>
+    <tag name="psi">
+    	<insert>\psi</insert>
+    </tag>
+    <tag name="omega">
+    	<insert>\omega</insert>
+    </tag>
+   </group>
+   <group name="Uppercase">
+    <tag name="Gamma">
+    	<insert>\Gamma</insert>
+    </tag>
+    <tag name="Delta">
+    	<insert>\Delta</insert>
+    </tag>
+    <tag name="Lambda">
+    	<insert>\Lambda</insert>
+    </tag>
+    <tag name="Xi">
+    	<insert>\Xi</insert>
+    </tag>
+    <tag name="Pi">
+    	<insert>\Pi</insert>
+    </tag>
+    <tag name="Sigma">
+    	<insert>\Sigma</insert>
+    </tag>
+    <tag name="Upsilon">
+    	<insert>\Upsilon</insert>
+    </tag>
+    <tag name="Phi">
+    	<insert>\Phi</insert>
+    </tag>
+    <tag name="Psi">
+    	<insert>\Psi</insert>
+    </tag>
+    <tag name="Omega">
+    	<insert>\Omega</insert>
+    </tag>
+   </group>
+  </group>
+</ref>
