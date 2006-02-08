@@ -27,7 +27,10 @@
 /* this is needed for Solaris to comply with the latest POSIX standard
 * regarding the ctime_r() function
 * the problem is that it generates a compiler warning on Linux, lstat() undefined.. */
+/*  Michèle Garoche, 20060208 */
+#ifdef PLATFORM_SOLARIS
 #define _POSIX_C_SOURCE 200312L
+#endif /* PLATFORM_SOLARIS */
 
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h> /* for the keyboard event codes */
@@ -756,7 +759,13 @@ static void doc_set_tooltip( Tdocument *doc )
 	if ( doc->statbuf.st_mode != 0 || doc->statbuf.st_size != 0 ) {
 		modestr = filemode_to_string( doc->statbuf.st_mode );
 		ctime_r( &doc->statbuf.st_mtime, mtimestr );
-		sizestr = g_strdup_printf( "%ld", doc->statbuf.st_size );
+		/* sizestr = g_strdup_printf( "%ld", doc->statbuf.st_size ); */
+		/*  Michèle Garoche, 20060208 */
+		if (sizeof(off_t) == sizeof(unsigned long long int)) {
+			sizestr = g_strdup_printf("%llu", (unsigned long long int )doc->statbuf.st_size);
+		} else {
+			sizestr = g_strdup_printf("%lu", doc->statbuf.st_size);
+		 }
 	}
 	tmp = text = g_strconcat( _( "name: " ), gtk_label_get_text( GTK_LABEL( doc->tab_menu ) )
 					, _( "\ntype: " ), doc->hl->type
