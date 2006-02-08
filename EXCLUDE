@@ -28,3 +28,4 @@ backtrace*
 THANKS.c
 Doxyfile
 src/config.h
+*.orig
