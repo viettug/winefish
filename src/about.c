@@ -79,6 +79,7 @@ gchar *AUTHORS = _(\
 * kyanh <kyanh@viettug.org>\n\
 \n\
 translators:\n\
+* French: Michèle Garoche <michele.garoche@easyconnect.fr>\n\
 * Italian: Daniele Medri <daniele@medri.org>\n\
 * Vietnamese: kyanh <kyanh@viettug.org>\n\
 \n\
