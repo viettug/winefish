@@ -1,0 +1,4 @@
+att: /tsta:\\begin{foo}\n:\n\\end{foo}:
+att: /tstb:\\begin{this-is-b}\n:\n\\end{this-is-b}:
+att: /tstc:\\testofsomething::
+att: /tstd:: Can you see?:

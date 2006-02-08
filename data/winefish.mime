@@ -1,0 +1,8 @@
+text/xml
+	ext: xml
+
+text/x-tex
+	ext: tex sty
+
+application/winefish-project
+	ext: wfproject

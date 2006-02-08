@@ -1,0 +1,5 @@
+tex:.tex\:.sty: \\\n\t%$[]{}:PKGDATADIRicon_tex.png:1::1:
+context:.tex::::%context:1:
+xml:.xml\:.sgml:<> \n":PKGDATADIRicon_xml.png:1:<\\?xml:0:
+wfproject:.wfproject:::0::0:
+image:.jpg\:.png\:.gif\:.jpeg\:.tif\:.tiff\:.xpm\:.xcf::PKGDATADIRicon_image.png:0::0:

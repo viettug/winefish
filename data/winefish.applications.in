@@ -1,0 +1,16 @@
+winefish
+	command=winefish -n
+	name=winefish
+	can_open_multiple_files=true
+	expects_uris=EXPECT_URIS
+	supported_uri_schemes=SUPPORTED_URI_SCHEMES
+	requires_terminal=false
+	mime_types=text/x-tex,text/plain,tex/xml/*
+
+winefishproject
+	command=winefish -p
+	name=winefish project
+	can_open_multiple_files=false
+	expects_uris=false
+	requires_terminal=false
+	mime_types=application/winefish-project

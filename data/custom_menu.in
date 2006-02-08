@@ -1,0 +1,5 @@
+cmenu_replace: /Replace/Strip/End of line Whitespace:(?<=\\S)\\s*(?=(\\n|\\r))::2:2:0:0:
+cmenu_replace: /Replace/Convert In Selection/Tabs to Spaces (8):(\t):        :2:1:0:0:
+cmenu_replace: /Replace/Convert In Selection/Tabs to Spaces (4):(\t):    :2:1:0:0:
+cmenu_replace: /Replace/Convert In Selection/Spaces (8) to Single Tabs:(        ):\t:2:1:0:0:
+cmenu_replace: /Replace/Convert In Selection/Spaces (4) to Single Tabs:(    ):\t:2:1:0:0:

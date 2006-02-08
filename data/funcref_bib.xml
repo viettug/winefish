@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ref name="Bib" description="Bib Samples">
+ <group name="Samples">
+ 	<description>Some samples from TeXMaker</description>
+ 	<tag name="Article in Journal">
+ 		<insert>
+@Article{,
+author = {},
+title = {},
+journal = {},
+year = {},
+OPTkey = {},
+OPTvolume = {},
+OPTnumber = {},
+OPTpages = {},
+OPTmonth = {},
+OPTnote = {},
+OPTannote = {}
+}
+		</insert>
+ 	</tag>
+ 	<tag name="Article in Conference Proceedings">
+ 		<insert>
+@InProceedings{,
+author = {},
+title = {},
+booktitle = {},
+OPTcrossref = {},
+OPTkey = {},
+OPTpages = {},
+OPTyear = {},
+OPTeditor = {},
+OPTvolume = {},
+OPTnumber = {},
+OPTseries = {},
+OPTaddress = {},
+OPTmonth = {},
+OPTorganization = {},
+OPTpublisher = {},
+OPTnote = {},
+OPTannote = {}
+}
+		</insert>
+ 	</tag>
+ 	<tag name="Article in Colletion">
+ 		<insert>
+@InCollection{,
+author = {},
+title = {},
+booktitle = {},
+OPTcrossref = {},
+OPTkey = {},
+OPTpages = {},
+OPTpublisher = {},
+OPTyear = {},
+OPTeditor = {},
+OPTvolume = {},
+OPTnumber = {},
+OPTseries = {},
+OPTtype = {},
+OPTchapter = {},
+OPTaddress = {},
+OPTedition = {},
+OPTmonth = {},
+OPTnote = {},
+OPTannote = {}
+}
+		</insert>
+ 	</tag>
+ 	<tag name="Chapter or Page in a Book">
+ 		<insert>
+@InBook{,
+ALTauthor = {},
+ALTeditor = {},
+title = {},
+chapter = {},
+publisher = {},
+year = {},
+OPTkey = {},
+OPTvolume = {},
+OPTnumber = {},
+OPTseries = {},
+OPTtype = {},
+OPTaddress = {},
+OPTedition = {},
+OPTmonth = {},
+OPTpages = {},
+OPTnote = {},
+OPTannote = {}
+}
+		</insert>
+ 	</tag>
+ 	<tag name="Conference Proceedings">
+ 		<insert>
+@Proceedings{,
+title = {},
+year = {},
+OPTkey = {},
+OPTeditor = {},
+OPTvolume = {},
+OPTnumber = {},
+OPTseries = {},
+OPTaddress = {},
+OPTmonth = {},
+OPTorganization = {},
+OPTpublisher = {},
+OPTnote = {},
+OPTannote = {}
+}
+		</insert>
+ 	</tag>
+ 	<tag name="Book">
+ 		<insert>
+@Book{,
+ALTauthor = {},
+ALTeditor = {},
+title = {},
+publisher = {},
+year = {},
+OPTkey = {},
+OPTvolume = {},
+OPTnumber = {},
+OPTseries = {},
+OPTaddress = {},
+OPTedition = {},
+OPTmonth = {},
+OPTnote = {},
+OPTannote = {}
+}
+		</insert>
+ 	</tag>
+ 	<tag name="Booklet">
+ 		<insert>
+@Booklet{,
+title = {},
+OPTkey = {},
+OPTauthor = {},
+OPThowpublished = {},
+OPTaddress = {},
+OPTmonth = {},
+OPTyear = {},
+OPTnote = {},
+OPTannote = {}
+}
+		</insert>
+ 	</tag>
+ 	<tag name="PhD. Thesis">
+ 		<insert>
+@PhdThesis{,
+author = {},
+title = {},
+school = {},
+year = {},
+OPTkey = {},
+OPTtype = {},
+OPTaddress = {},
+OPTmonth = {},
+OPTnote = {},
+OPTannote = {}
+}
+		</insert>
+ 	</tag>
+ 	<tag name="Master's Thesis">
+ 		<insert>
+@MastersThesis{,
+author = {},
+title = {},
+school = {},
+year = {},
+OPTkey = {},
+OPTtype = {},
+OPTaddress = {},
+OPTmonth = {},
+OPTnote = {},
+OPTannote = {}
+}
+		</insert>
+ 	</tag>
+ 	<tag name="Technichal Report">
+ 		<insert>
+@TechReport{,
+author = {},
+title = {},
+institution = {},
+year = {},
+OPTkey = {},
+OPTtype = {},
+OPTnumber = {},
+OPTaddress = {},
+OPTmonth = {},
+OPTnote = {},
+OPTannote = {}
+}
+		</insert>
+ 	</tag>
+ 	<tag name="Technichal Manual">
+ 		<insert>
+@Manual{,
+title = {},
+OPTkey = {},
+OPTauthor = {},
+OPTorganization = {},
+OPTaddress = {},
+OPTedition = {},
+OPTmonth = {},
+OPTyear = {},
+OPTnote = {},
+OPTannote = {}
+}
+		</insert>
+ 	</tag>
+ 	<tag name="Unpublished">
+ 		<insert>
+@Unpublished{,
+author = {},
+title = {},
+note = {},
+OPTkey = {},
+OPTmonth = {},
+OPTyear = {},
+OPTannote = {}
+}
+		</insert>
+ 	</tag>
+ 	<tag name="Miscellaneous">
+ 		<insert>
+@Misc{,
+OPTkey = {},
+OPTauthor = {},
+OPTtitle = {},
+OPThowpublished = {},
+OPTmonth = {},
+OPTyear = {},
+OPTnote = {},
+OPTannote = {}
+}
+		</insert>
+ 	</tag>
+ </group>
+</ref>
