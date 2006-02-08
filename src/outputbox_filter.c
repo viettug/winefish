@@ -91,7 +91,7 @@ void outputbox_filter_line( Toutputbox *ob, const gchar *source )
 			/* display the basename */
 			tmpstr = g_markup_escape_text(basepath,-1);
 			if (!ob->basepath_cached_color ) {
-				tmpstr = g_strdup_printf("<span foreground=\"blue\"><i>%s</i></span>", tmpstr);
+				tmpstr = g_strdup_printf("<span foreground=\"blue\">%s</span>", tmpstr);
 			}
 			gtk_list_store_set( GTK_LIST_STORE( ob->lstore ), &iter, 0, tmpstr, -1 );
 			
@@ -114,7 +114,7 @@ void outputbox_filter_line( Toutputbox *ob, const gchar *source )
 		if ( output ) {
 			tmp_src = g_markup_escape_text(output,-1);
 			if (!ob->basepath_cached_color ) {
-				tmp_src = g_strdup_printf("<span foreground=\"blue\"><i>%s</i></span>", tmp_src);
+				tmp_src = g_strdup_printf("<span foreground=\"blue\">%s</span>", tmp_src);
 			}
 			gtk_list_store_set( GTK_LIST_STORE( ob->lstore ), &iter, 2, tmp_src, -1 );
 			g_free( output );
