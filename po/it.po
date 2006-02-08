@@ -1,22 +1,25 @@
-# translation of it.po to 
+# translation of it.po to italian
+# translation of it.po to
 # Italian translation of Winefish.
 # Copyright (C) 2005 THE Winefish'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the Winefish package.
 # Daniele Medri <daniele@medri.org>, 2005.
 # kyanh <kyanh@o2.pl>, 2005.
+# Daniele Medri <dmedri@gmail.com>, 2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-31 12:05+0700\n"
-"PO-Revision-Date: 2005-08-18 23:24+0700\n"
-"Last-Translator: kyanh <kyanh@o2.pl>\n"
-"Language-Team:  <en@li.org>\n"
+"PO-Revision-Date: 2006-01-31 09:24+0100\n"
+"Last-Translator: Daniele Medri <dmedri@gmail.com>\n"
+"Language-Team: italian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.2\n"
+"X-Generator: KBabel 1.10.2\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: ../src/about.c:60
 #, c-format
@@ -49,6 +52,14 @@ msgid ""
 "\n"
 "THANKS to all who helped making this software available.\n"
 msgstr ""
+"sviluppatori:\n"
+"* kyanh <kyanh@viettug.org>\n"
+"\n"
+"traduttori:\n"
+"* Italiano: Daniele Medri <dmedri@gmail.com>\n"
+"* Vietnamita: kyanh <kyanh@viettug.org>\n"
+"\n"
+"RINGRAZIAMENTI a tutti quelli che hanno contribuito a questo software.\n"
 
 #: ../src/about.c:87
 msgid "About Winefish"
@@ -65,9 +76,8 @@ msgid "authors"
 msgstr "Autori"
 
 #: ../src/about.c:137
-#, fuzzy
 msgid "oops..."
-msgstr "Scegli..."
+msgstr "Chiudi"
 
 #: ../src/bf_lib.c:54 ../src/bf_lib.c:68
 msgid ""
@@ -117,7 +127,7 @@ msgstr "dizionario di sessione"
 
 #: ../src/bfspell.c:481
 msgid "Dictionary:"
-msgstr "Dizionario."
+msgstr "Dizionario:"
 
 #: ../src/bfspell.c:485
 msgid "_Add"
@@ -140,9 +150,8 @@ msgid "no filter"
 msgstr "nessun filtro"
 
 #: ../src/bfspell.c:507
-#, fuzzy
 msgid "TeX filter"
-msgstr "nessun filtro"
+msgstr "Filtro TeX"
 
 #: ../src/bfspell.c:509
 msgid "html filter"
@@ -242,12 +251,11 @@ msgstr ""
 
 #: ../src/document.c:308 ../src/document.c:3727
 msgid "/Document/Highlight Syntax"
-msgstr ""
+msgstr "/Documento/Evidenzia sintassi"
 
 #: ../src/document.c:761
-#, fuzzy
 msgid "name: "
-msgstr "Nome:"
+msgstr "nome:"
 
 #: ../src/document.c:762
 #, fuzzy
@@ -318,7 +326,7 @@ msgstr "Impossibile visualizzare il file, trovato carattere sconosciuto."
 #: ../src/document.c:2102
 #, c-format
 msgid "deleted '%s'"
-msgstr ""
+msgstr "eliminato '%s'"
 
 #: ../src/document.c:2753 ../src/snr2.c:1340
 msgid "Replace"
@@ -333,9 +341,8 @@ msgid "Delete bookmark"
 msgstr "Elimina segnalibro"
 
 #: ../src/document.c:2912
-#, fuzzy
 msgid "saving file"
-msgstr "Salvataggio file"
+msgstr "salvataggio file"
 
 #: ../src/document.c:2936 ../src/document.c:2960
 msgid "_Abort save"
@@ -371,7 +378,7 @@ msgstr ""
 
 #: ../src/document.c:2972
 msgid "File encoding conversion failure"
-msgstr ""
+msgstr "Conversione non avvenuta della codifica del file"
 
 #: ../src/document.c:3125
 msgid "Previously: "
@@ -473,11 +480,11 @@ msgstr ""
 
 #: ../src/document.c:3730
 msgid "/Document/Line Numbers"
-msgstr ""
+msgstr "/Documento/Numeri di linea"
 
 #: ../src/document.c:3733
 msgid "/Document/AutoCompletion"
-msgstr ""
+msgstr "/Documento/Completamento automatico"
 
 #: ../src/document.c:3769
 msgid "No filename"
@@ -557,7 +564,7 @@ msgstr "Chiudi _tutto"
 
 #: ../src/document.c:4275
 msgid "Choose per _File"
-msgstr ""
+msgstr "Scegli il _file"
 
 #: ../src/document.c:4276
 msgid "Multiple open files have been changed."
@@ -570,7 +577,7 @@ msgstr "Statistiche: %d linee, %d parole, %d caratteri"
 
 #: ../src/filebrowser.c:1019
 msgid "Error creating path"
-msgstr ""
+msgstr "Errore nella creazione del percorso"
 
 #: ../src/filebrowser.c:1019
 msgid "The specified pathname already exists."
@@ -585,9 +592,8 @@ msgid "Directory name"
 msgstr "Nome directory"
 
 #: ../src/filebrowser.c:1118
-#, fuzzy
 msgid "opening directory..."
-msgstr "Apertura directory..."
+msgstr "apertura directory..."
 
 #: ../src/filebrowser.c:1211
 msgid "Could not rename\n"
@@ -608,7 +614,7 @@ msgstr "Impossibile eliminare\n"
 
 #: ../src/filebrowser.c:1400
 msgid "/Open _Advanced..."
-msgstr ""
+msgstr "/Apri _avanzato..."
 
 #: ../src/filebrowser.c:1404
 msgid "/_Refresh"
@@ -616,7 +622,7 @@ msgstr "/_Aggiorna"
 
 #: ../src/filebrowser.c:1405
 msgid "/_Set as basedir"
-msgstr ""
+msgstr "/Impo_sta come directory base"
 
 #: ../src/filebrowser.c:1409
 msgid "/New _File"
@@ -624,7 +630,7 @@ msgstr "/Nuovo _file"
 
 #: ../src/filebrowser.c:1410
 msgid "/_New Directory"
-msgstr ""
+msgstr "/_Nuova directory"
 
 #: ../src/filebrowser.c:1415
 msgid "/_Open"
@@ -726,25 +732,23 @@ msgstr ""
 
 #: ../src/fref.c:2328
 msgid "d"
-msgstr ""
+msgstr "d"
 
 #: ../src/fref.c:2330
 msgid "i"
-msgstr ""
+msgstr "i"
 
 #: ../src/fref.c:2331
 msgid "s"
-msgstr ""
+msgstr "s"
 
 #: ../src/fref.c:2332
-#, fuzzy
 msgid "dialog"
-msgstr "Maschera"
+msgstr "maschera"
 
 #: ../src/fref.c:2334
-#, fuzzy
 msgid "search"
-msgstr "Cerca"
+msgstr "cerca"
 
 #: ../src/func_grep.c:103
 #, fuzzy
@@ -757,7 +761,7 @@ msgstr "ricerca file..."
 
 #: ../src/func_grep.c:218 ../src/func_grep.c:221
 msgid "grep"
-msgstr ""
+msgstr "grep"
 
 #: ../src/func_grep.c:271 ../src/func_grep.c:279 ../src/project.c:443
 #: ../src/project.c:450
@@ -766,7 +770,7 @@ msgstr "Seleziona directory base"
 
 #: ../src/func_grep.c:307
 msgid "Grep Function"
-msgstr ""
+msgstr "Grep della funzione"
 
 #: ../src/func_grep.c:327
 msgid "<b>General</b>"
@@ -789,9 +793,8 @@ msgid "_Recursive:"
 msgstr "_Ricorsivo:"
 
 #: ../src/func_grep.c:351
-#, fuzzy
 msgid "_Open files:"
-msgstr "Apertura file "
+msgstr "_Apri file:"
 
 #: ../src/func_grep.c:356
 msgid "<b>Contains</b>"
@@ -799,16 +802,15 @@ msgstr "<b>Contiene</b>"
 
 #: ../src/func_grep.c:374
 msgid "Pa_ttern:"
-msgstr "Mo_tivo:"
+msgstr "Pa_ttern:"
 
 #: ../src/func_grep.c:379
-#, fuzzy
 msgid "_Case sensitive:"
-msgstr "Maiuscolo/mi_nuscolo"
+msgstr "Maius_colo/minuscolo"
 
 #: ../src/func_grep.c:383
 msgid "Is rege_x:"
-msgstr ""
+msgstr "E' rege_x:"
 
 #: ../src/func_grep.c:387
 #, fuzzy
@@ -817,7 +819,7 @@ msgstr "<b>Generale</b>"
 
 #: ../src/func_grep.c:390
 msgid "Skip VCS dirs:"
-msgstr ""
+msgstr "Salta directory VCS:"
 
 #: ../src/func_grep.c:446
 #, fuzzy
@@ -830,9 +832,8 @@ msgid "loading %d file(s)..."
 msgstr "Apertura di %d file..."
 
 #: ../src/func_grep.c:494
-#, fuzzy
 msgid "template"
-msgstr "_Modello:"
+msgstr "modello"
 
 #: ../src/gtk_easy.c:1186
 #, c-format
@@ -853,7 +854,7 @@ msgstr "Seleziona file"
 
 #: ../src/gui.c:231
 msgid "tree"
-msgstr ""
+msgstr "albero"
 
 #: ../src/gui.c:232
 #, fuzzy
@@ -982,7 +983,7 @@ msgstr "/_File"
 
 #: ../src/menu.c:280
 msgid "/File/tearoff1"
-msgstr ""
+msgstr "/File/tearoff1"
 
 #: ../src/menu.c:281
 msgid "/File/_New"
@@ -1008,11 +1009,11 @@ msgstr "/File/Apri recenti"
 
 #: ../src/menu.c:288
 msgid "/File/Open Ad_vanced..."
-msgstr ""
+msgstr "/File/Apri a_vanzato..."
 
 #: ../src/menu.c:291
 msgid "/File/Open _from selection"
-msgstr ""
+msgstr "/File/Apri _da selezione"
 
 #: ../src/menu.c:292
 msgid "/File/sep1"
@@ -1032,7 +1033,7 @@ msgstr "/File/Salv_a tutto"
 
 #: ../src/menu.c:296
 msgid "/File/_Revert to Saved"
-msgstr ""
+msgstr "/File/_Ripristina alla versione salvata"
 
 #: ../src/menu.c:297
 msgid "/File/sep2"
@@ -1040,11 +1041,11 @@ msgstr "/File/sep2"
 
 #: ../src/menu.c:298
 msgid "/File/_Insert..."
-msgstr ""
+msgstr "/File/_Inserisci..."
 
 #: ../src/menu.c:299
 msgid "/File/Rena_me..."
-msgstr ""
+msgstr "/File/Rino_mina..."
 
 #: ../src/menu.c:300
 msgid "/File/sep3"
@@ -1060,7 +1061,7 @@ msgstr "/File/Chiudi tu_tto"
 
 #: ../src/menu.c:303
 msgid "/File/Close Win_dow"
-msgstr ""
+msgstr "/File/Chiu_di finestra"
 
 #: ../src/menu.c:304
 msgid "/File/sep4"
@@ -1076,7 +1077,7 @@ msgstr "/_Modifica"
 
 #: ../src/menu.c:309
 msgid "/Edit/Tearoff1"
-msgstr ""
+msgstr "/Modifica/Tearoff1"
 
 #: ../src/menu.c:310
 msgid "/Edit/_Undo"
@@ -1084,19 +1085,19 @@ msgstr "/Modifica/_Annulla"
 
 #: ../src/menu.c:311
 msgid "/Edit/_Redo"
-msgstr ""
+msgstr "/Modifica/_Ripeti"
 
 #: ../src/menu.c:312
 msgid "/Edit/Undo All"
-msgstr ""
+msgstr "/Modifica/Annulla tutto"
 
 #: ../src/menu.c:313
 msgid "/Edit/Redo All"
-msgstr ""
+msgstr "/Modifica/_Ripeti tutto"
 
 #: ../src/menu.c:314
 msgid "/Edit/sep1"
-msgstr ""
+msgstr "/Modifica/sep1"
 
 #: ../src/menu.c:315
 #, fuzzy
@@ -1105,22 +1106,19 @@ msgstr "/Modifica/Seleziona _tutto"
 
 #: ../src/menu.c:316
 msgid "/Edit/Selection/Tearoff1"
-msgstr ""
+msgstr "/Modifica/Selezione/Tearoff1"
 
 #: ../src/menu.c:317
-#, fuzzy
 msgid "/Edit/Selection/Cu_t"
-msgstr "/Modifica/Seleziona _tutto"
+msgstr "/Modifica/Selezione/_Taglia"
 
 #: ../src/menu.c:318
-#, fuzzy
 msgid "/Edit/Selection/_Copy"
-msgstr "/Modifica/_Copia"
+msgstr "/Modifica/Selezione/_Copia"
 
 #: ../src/menu.c:319
-#, fuzzy
 msgid "/Edit/Selection/_Paste"
-msgstr "/Modifica/_Incolla"
+msgstr "/Modifica/Selezione/_Incolla"
 
 #: ../src/menu.c:320
 #, fuzzy
@@ -1128,103 +1126,92 @@ msgid "/Edit/Selection/sep2"
 msgstr "/Modifica/Seleziona _tutto"
 
 #: ../src/menu.c:321
-#, fuzzy
 msgid "/Edit/Selection/Select _All"
-msgstr "/Modifica/Seleziona _tutto"
+msgstr "/Modifica/Selezione/Seleziona tutt_o"
 
 #: ../src/menu.c:322
-#, fuzzy
 msgid "/Edit/Find, Replace"
-msgstr "/Modifica/_Sostituisci..."
+msgstr "/Modifica/Trova, sostituisci"
 
 #: ../src/menu.c:323
 msgid "/Edit/Find, Replace/Tearoff1"
-msgstr ""
+msgstr "/Modifica/Trova, sostituisci/Tearoff1"
 
 #: ../src/menu.c:324
-#, fuzzy
 msgid "/Edit/Find, Replace/Brace Finder (Forward)"
-msgstr "/Modifica/_Sostituisci..."
+msgstr "/Modifica/Trova, sostituisci/Parentesi (avanti)"
 
 #: ../src/menu.c:325
-#, fuzzy
 msgid "/Edit/Find, Replace/Brace Finder (Backward)"
-msgstr "/Modifica/_Sostituisci..."
+msgstr "/Modifica/Trova, sostituisci/Parentesi (indietro)"
 
 #: ../src/menu.c:326
-#, fuzzy
 msgid "/Edit/Find, Replace/sep0"
-msgstr "/Modifica/_Sostituisci..."
+msgstr "/Modifica/Trova, sostituisci/sep0"
 
 #: ../src/menu.c:327
-#, fuzzy
 msgid "/Edit/Find, Replace/_Find..."
-msgstr "/Modifica/_Sostituisci..."
+msgstr "/Modifica/Trova, sostituisci/_Trova..."
 
 #: ../src/menu.c:328
 msgid "/Edit/Find, Replace/Find A_gain"
-msgstr ""
+msgstr "/Modifica/Trova, sostituisci/Trova a_ncora"
 
 #: ../src/menu.c:329
 msgid "/Edit/Find, Replace/Find from selection"
-msgstr ""
+msgstr "/Modifica/Trova, sostituisci/Trova da selezione"
 
 #: ../src/menu.c:332
 msgid "/Edit/Find, Replace/Find from Files"
-msgstr ""
+msgstr "/Modifica/Trova, sostituisci/Trova dai file"
 
 #: ../src/menu.c:333
-#, fuzzy
 msgid "/Edit/Find, Replace/Templates"
-msgstr "/Modifica/_Sostituisci..."
+msgstr "/Modifica/Trova, sostituisci/Modelli"
 
 #: ../src/menu.c:336
-#, fuzzy
 msgid "/Edit/Find, Replace/sep1"
-msgstr "/Modifica/_Sostituisci..."
+msgstr "/Modifica/Trova, sostituisci/sep1"
 
 #: ../src/menu.c:337
-#, fuzzy
 msgid "/Edit/Find, Replace/R_eplace..."
-msgstr "/Modifica/_Sostituisci..."
+msgstr "/Modifica/Trova, sostituisci/_Sostituisci..."
 
 #: ../src/menu.c:338
 msgid "/Edit/Find, Replace/Replace Agai_n"
-msgstr ""
+msgstr "/Modifica/Trova, sostituisci/_Sostituisci ancora..."
 
 #: ../src/menu.c:339
-#, fuzzy
 msgid "/Edit/Find, Replace/sep2"
-msgstr "/Modifica/_Sostituisci..."
+msgstr "/Modifica/Trova, sostituisci/sep2"
 
 #: ../src/menu.c:341
 msgid "/Edit/Find, Replace/To _Uppercase"
-msgstr ""
+msgstr "/Modifica/Trova, sostituisci/In m_aiuscole"
 
 #: ../src/menu.c:342
 msgid "/Edit/Find, Replace/To _Lowercase"
-msgstr ""
+msgstr "/Modifica/Trova, sostituisci/In _minuscole"
 
 #: ../src/menu.c:343
-#, fuzzy
 msgid "/Edit/Find, Replace/sep3"
-msgstr "/Modifica/_Sostituisci..."
+msgstr "/Modifca/Trova, sostituisci/sep3"
 
 #: ../src/menu.c:344
 msgid "/Edit/Find, Replace/ASCII to HTML entities"
-msgstr ""
+msgstr "/Modifica/Trova, sostituisci/ASCII in entità HTML"
 
 #: ../src/menu.c:345
 msgid "/Edit/Find, Replace/ISO8859 to HTML entities"
-msgstr ""
+msgstr "/Modifica/Trova, sostituisci/ISO8859 in entità HTML"
 
 #: ../src/menu.c:346
 msgid "/Edit/Find, Replace/ASCII & ISO8859 to HTML entities"
-msgstr ""
+msgstr "/Modifica/Trova, sostituisci/ASCII e ISO8859 in entità HTML"
 
 #: ../src/menu.c:348
 msgid "/Edit/sep4"
-msgstr ""
+msgstr "/Modifica/sep4"
 
 #: ../src/menu.c:349
 msgid "/Edit/Sh_ift Right"
@@ -1240,7 +1227,7 @@ msgstr "/Modifica/_Commenta"
 
 #: ../src/menu.c:352
 msgid "/Edit/_UnComment"
-msgstr ""
+msgstr "/Modifica/T_ogli commento"
 
 #: ../src/menu.c:353
 msgid "/Edit/_Hard Shift Left"
@@ -1248,15 +1235,15 @@ msgstr ""
 
 #: ../src/menu.c:354
 msgid "/Edit/Delete Current Line"
-msgstr ""
+msgstr "/Modifica/Elimina la linea corrente"
 
 #: ../src/menu.c:355
 msgid "/Edit/sep5"
-msgstr ""
+msgstr "/Modifica/sep5"
 
 #: ../src/menu.c:356
 msgid "/Edit/Add _Bookmark"
-msgstr ""
+msgstr "/Modifica/Aggiungi segnali_bro"
 
 #: ../src/menu.c:357
 msgid "/_Insert"
@@ -1264,52 +1251,47 @@ msgstr "/_Inserisci"
 
 #: ../src/menu.c:358
 msgid "/Insert/Tearoff1"
-msgstr ""
+msgstr "/Inserisci/Tearoff1"
 
 #: ../src/menu.c:360
-#, fuzzy
 msgid "/Insert/T_ools"
-msgstr "/Inserisci/sep2"
+msgstr "/Inserisci/S_trumenti"
 
 #: ../src/menu.c:361
-#, fuzzy
 msgid "/Insert/Tools/Tearoff1"
-msgstr "/Inserisci/sep1"
+msgstr "/Inserisci/Strumenti/Tearoff1"
 
 #: ../src/menu.c:362
-#, fuzzy
 msgid "/Insert/Tools/Simple document (code)"
-msgstr "/Inserisci/Nuovo documento"
+msgstr "/Inserisci/Strumenti/Documento semplice (codice)"
 
 #: ../src/menu.c:363
-#, fuzzy
 msgid "/Insert/Tools/Figure"
-msgstr "/Inserisci/Figura"
+msgstr "/Inserisci/Strumenti/Figura"
 
 #: ../src/menu.c:364
 msgid "/Insert/Tools/Time, Date"
-msgstr ""
+msgstr "/Inserisci/Strumenti/Tempo, data"
 
 #: ../src/menu.c:365
 msgid "/Insert/Tools/Source Separator"
-msgstr ""
+msgstr "/Inserisci/Strumenti/Separatore sorgente"
 
 #: ../src/menu.c:367
-#, fuzzy
 msgid "/Insert/_Table, List"
-msgstr "/Inserisci/I_ntestazioni"
+msgstr "/Inserisci/_Tabella, lista"
 
 #: ../src/menu.c:368
 msgid "/Insert/Table, List/Tearoff1"
-msgstr ""
+msgstr "/Inserisci/Tabella, lista/Tearoff1"
 
 #: ../src/menu.c:369
 msgid "/Insert/Table, List/_List"
-msgstr ""
+msgstr "/Inserisci/Tabella, lista/_Lista"
 
 #: ../src/menu.c:370
 msgid "/Insert/Table, List/_Table, Array"
-msgstr ""
+msgstr "/Inserisci/Tabella, lista/_Tabella, array"
 
 #: ../src/menu.c:372
 msgid "/Insert/_Headings"
@@ -1317,148 +1299,127 @@ msgstr "/Inserisci/I_ntestazioni"
 
 #: ../src/menu.c:373
 msgid "/Insert/Headings/Tearoff1"
-msgstr ""
+msgstr "/Inserisci/Intestazioni/Tearoff1"
 
 #: ../src/menu.c:374
-#, fuzzy
 msgid "/Insert/Headings/_part"
-msgstr "/Inserisci/Intestazioni/Parte"
+msgstr "/Inserisci/Intestazioni/_part"
 
 #: ../src/menu.c:375
-#, fuzzy
 msgid "/Insert/Headings/_chapter"
-msgstr "/Inserisci/Intestazioni/Capitolo"
+msgstr "/Inserisci/Intestazioni/_chapter"
 
 #: ../src/menu.c:376
-#, fuzzy
 msgid "/Insert/Headings/_section"
-msgstr "/Inserisci/Intestazioni/Sezione"
+msgstr "/Inserisci/Intestazioni/_section"
 
 #: ../src/menu.c:377
-#, fuzzy
 msgid "/Insert/Headings/s_ubsection"
-msgstr "/Inserisci/Intestazioni/Sotto-sezione"
+msgstr "/Inserisci/Intestazioni/s_otto-sezione"
 
 #: ../src/menu.c:378
-#, fuzzy
 msgid "/Insert/Headings/su_bsubsection"
-msgstr "/Inserisci/Intestazioni/Sotto-sezione"
+msgstr "/Inserisci/Intestazioni/sotto-so_tto-sezione"
 
 #: ../src/menu.c:379
 msgid "/Insert/Headings/sep1"
-msgstr ""
+msgstr "/Inserisci/Intestazioni/sep1"
 
 #: ../src/menu.c:380
-#, fuzzy
 msgid "/Insert/Headings/parag_raph"
-msgstr "/Inserisci/Intestazioni/Parte"
+msgstr "/Inserisci/Intestazioni/parag_raph"
 
 #: ../src/menu.c:381
-#, fuzzy
 msgid "/Insert/Headings/subparag_raph"
-msgstr "/Inserisci/Intestazioni/Parte"
+msgstr "/Inserisci/Intestazioni/sotto-parag_rafo"
 
 #: ../src/menu.c:382
 msgid "/Insert/Headings/sep2"
-msgstr ""
+msgstr "/Inserisci/Intestazioni/sep2"
 
 #: ../src/menu.c:383
-#, fuzzy
 msgid "/Insert/Headings/_part*"
-msgstr "/Inserisci/Intestazioni/Parte"
+msgstr "/Inserisci/Intestazioni/_part*"
 
 #: ../src/menu.c:384
-#, fuzzy
 msgid "/Insert/Headings/_chapter*"
-msgstr "/Inserisci/Intestazioni/Capitolo"
+msgstr "/Inserisci/Intestazioni/_chapter*"
 
 #: ../src/menu.c:385
-#, fuzzy
 msgid "/Insert/Headings/_section*"
-msgstr "/Inserisci/Intestazioni/Sezione"
+msgstr "/Inserisci/Intestazioni/_section*"
 
 #: ../src/menu.c:386
-#, fuzzy
 msgid "/Insert/Headings/s_ubsection*"
-msgstr "/Inserisci/Intestazioni/Sotto-sezione"
+msgstr "/Inserisci/Intestazioni/s_otto-sezione*"
 
 #: ../src/menu.c:387
-#, fuzzy
 msgid "/Insert/Headings/su_bsubsection*"
-msgstr "/Inserisci/Intestazioni/Sotto-sezione"
+msgstr "/Inserisci/Intestazioni/so_tto-sotto-sezione*"
 
 #: ../src/menu.c:389
-#, fuzzy
 msgid "/Insert/_Environments"
-msgstr "/Inserisci/Nuovo documento"
+msgstr "/Inserisci/Ambi_enti"
 
 #: ../src/menu.c:390
 msgid "/Insert/Environments/tearoff1"
-msgstr ""
+msgstr "/Inserisci/Ambienti/tearoff1"
 
 #: ../src/menu.c:392
 msgid "/Insert/Environments/flush_left"
-msgstr ""
+msgstr "/Inserisci/Ambienti/sposta a _sinistra"
 
 #: ../src/menu.c:393
 msgid "/Insert/Environments/flush_right"
-msgstr ""
+msgstr "/Inserisci/Ambienti/sposta a _destra"
 
 #: ../src/menu.c:394
 msgid "/Insert/Environments/_centering"
-msgstr ""
+msgstr "/Inserisci/Ambienti/_centratura"
 
 #: ../src/menu.c:395
-#, fuzzy
 msgid "/Insert/Environments/sep2"
-msgstr "/Inserisci/sep2"
+msgstr "/Inserisci/Ambienti/sep2"
 
 #: ../src/menu.c:396
 msgid "/Insert/Environments/_verbatim"
-msgstr ""
+msgstr "/Inserisci/Ambienti/_verbatim"
 
 #: ../src/menu.c:397
 msgid "/Insert/Environments/verbati_m*"
-msgstr ""
+msgstr "/Inserisci/Ambienti/_verbatim*"
 
 #: ../src/menu.c:398
 msgid "/Insert/Environments/ver_se"
-msgstr ""
+msgstr "/Inserisci/Ambienti/ver_so"
 
 #: ../src/menu.c:399
-#, fuzzy
 msgid "/Insert/Environments/_quotation"
-msgstr "/Inserisci/Equazioni AMS"
+msgstr "/Inserisci/Equazioni AMS/_quota"
 
 #: ../src/menu.c:402
-#, fuzzy
 msgid "/Insert/AMS equations"
 msgstr "/Inserisci/Equazioni AMS"
 
 #: ../src/menu.c:403
-#, fuzzy
 msgid "/Insert/AMS equations/tearoff1"
-msgstr "/Inserisci/Equazioni AMS"
+msgstr "/Inserisci/Equazioni AMS/tearoff1"
 
 #: ../src/menu.c:404
-#, fuzzy
 msgid "/Insert/AMS equations/split"
-msgstr "/Inserisci/Equazioni AMS"
+msgstr "/Inserisci/Equazioni AMS/dividi"
 
 #: ../src/menu.c:405
-#, fuzzy
 msgid "/Insert/AMS equations/cases"
-msgstr "/Inserisci/Equazioni AMS"
+msgstr "/Inserisci/Equazioni AMS/casi"
 
 #: ../src/menu.c:406
-#, fuzzy
 msgid "/Insert/AMS equations/sep1"
-msgstr "/Inserisci/Equazioni AMS"
+msgstr "/Inserisci/Equazioni AMS/sep1"
 
 #: ../src/menu.c:408
-#, fuzzy
 msgid "/Insert/AMS equations/aligned"
-msgstr "/Inserisci/Equazioni AMS"
+msgstr "/Inserisci/Equazioni AMS/aligned"
 
 #: ../src/menu.c:409
 #, fuzzy
@@ -1466,24 +1427,20 @@ msgid "/Insert/AMS equations/gathered"
 msgstr "/Inserisci/Equazioni AMS"
 
 #: ../src/menu.c:410
-#, fuzzy
 msgid "/Insert/AMS equations/sep2"
-msgstr "/Inserisci/Equazioni AMS"
+msgstr "/Inserisci/Equazioni AMS/sep2"
 
 #: ../src/menu.c:412
-#, fuzzy
 msgid "/Insert/AMS equations/equation"
-msgstr "/Inserisci/Equazioni AMS"
+msgstr "/Inserisci/Equazioni AMS/equazione"
 
 #: ../src/menu.c:413
-#, fuzzy
 msgid "/Insert/AMS equations/align"
-msgstr "/Inserisci/Equazioni AMS"
+msgstr "/Inserisci/Equazioni AMS/align"
 
 #: ../src/menu.c:414
-#, fuzzy
 msgid "/Insert/AMS equations/subequations"
-msgstr "/Inserisci/Equazioni AMS"
+msgstr "/Inserisci/Equazioni AMS/sotto-equazioni"
 
 #: ../src/menu.c:415
 #, fuzzy
@@ -1491,29 +1448,24 @@ msgid "/Insert/AMS equations/gather"
 msgstr "/Inserisci/Equazioni AMS"
 
 #: ../src/menu.c:416
-#, fuzzy
 msgid "/Insert/AMS equations/multline"
-msgstr "/Inserisci/Equazioni AMS"
+msgstr "/Inserisci/Equazioni AMS/multi-linea"
 
 #: ../src/menu.c:418
-#, fuzzy
 msgid "/Insert/AMS equations/alignat"
-msgstr "/Inserisci/Equazioni AMS"
+msgstr "/Inserisci/Equazioni AMS/alignat"
 
 #: ../src/menu.c:419
-#, fuzzy
 msgid "/Insert/AMS equations/sep3"
-msgstr "/Inserisci/Equazioni AMS"
+msgstr "/Inserisci/Equazioni AMS/sep3"
 
 #: ../src/menu.c:421
-#, fuzzy
 msgid "/Insert/AMS equations/equation*"
-msgstr "/Inserisci/Equazioni AMS"
+msgstr "/Inserisci/Equazioni AMS/equazioni*"
 
 #: ../src/menu.c:422
-#, fuzzy
 msgid "/Insert/AMS equations/align*"
-msgstr "/Inserisci/Equazioni AMS"
+msgstr "/Inserisci/Equazioni AMS/align*"
 
 #: ../src/menu.c:423
 #, fuzzy
@@ -1521,24 +1473,20 @@ msgid "/Insert/AMS equations/gather*"
 msgstr "/Inserisci/Equazioni AMS"
 
 #: ../src/menu.c:424
-#, fuzzy
 msgid "/Insert/AMS equations/multline*"
-msgstr "/Inserisci/Equazioni AMS"
+msgstr "/Inserisci/Equazioni AMS/multi-linea*"
 
 #: ../src/menu.c:426
-#, fuzzy
 msgid "/Insert/AMS equations/alignat*"
-msgstr "/Inserisci/Equazioni AMS"
+msgstr "/Inserisci/Equazioni AMS/alignat*"
 
 #: ../src/menu.c:428
-#, fuzzy
 msgid "/Insert/_Font style"
-msgstr "/Inserisci/Dimensione carattere"
+msgstr "/Inserisci/Stile c_arattere"
 
 #: ../src/menu.c:431
-#, fuzzy
 msgid "/Insert/Font/Sizes"
-msgstr "/Inserisci/Dimensione carattere"
+msgstr "/Inserisci/Carattere/Dimensioni"
 
 #: ../src/menu.c:432
 #, fuzzy
@@ -1624,13 +1572,12 @@ msgid "/Insert/Font style/\\\\textsc - small_caps"
 msgstr ""
 
 #: ../src/menu.c:455
-#, fuzzy
 msgid "/Insert/Font/Maths"
-msgstr "/Inserisci/Dimensione carattere"
+msgstr "/Inserisci/Carattere/Matematica"
 
 #: ../src/menu.c:456
 msgid "/Insert/Font/Maths/tearoff1"
-msgstr ""
+msgstr "/Inserisci/Carattere/Matematica/tearoff1"
 
 #: ../src/menu.c:457
 msgid "/Insert/Font/Maths/\\\\mathrm - Roman"
@@ -1675,91 +1622,91 @@ msgstr "/_Documento"
 
 #: ../src/menu.c:508
 msgid "/Document/tearoff1"
-msgstr ""
+msgstr "/Documento/tearoff1"
 
 #: ../src/menu.c:509
 msgid "/Document/_Increase Tabsize"
-msgstr ""
+msgstr "/Documento/_Aumenta la dimensione di tabulazione"
 
 #: ../src/menu.c:510
 msgid "/Document/_Decrease Tabsize"
-msgstr ""
+msgstr "/Documento/_Diminuisci la dimensione di tabulazione"
 
 #: ../src/menu.c:511
 msgid "/Document/_Auto Indent"
-msgstr ""
+msgstr "/Documento/Indentazione _automatica"
 
 #: ../src/menu.c:512
 msgid "/Document/sep1"
-msgstr ""
+msgstr "/Documento/sep1"
 
 #: ../src/menu.c:513
 msgid "/Document/Auto_Completion"
-msgstr ""
+msgstr "/Documento/_Completamento automatico"
 
 #: ../src/menu.c:514
 msgid "/Document/_Wrap"
-msgstr ""
+msgstr "/Documento/_Vai a capo"
 
 #: ../src/menu.c:515
 msgid "/Document/_Line Numbers"
-msgstr ""
+msgstr "/Documento/Numeri di _linea"
 
 #: ../src/menu.c:516
 msgid "/Document/sep2"
-msgstr ""
+msgstr "/Documento/sep2"
 
 #: ../src/menu.c:517
 msgid "/Document/_Highlight Syntax"
-msgstr ""
+msgstr "/Documento/_Evidenzia sintassi"
 
 #: ../src/menu.c:518
 msgid "/Document/_Update Highlighting"
-msgstr ""
+msgstr "/Documento/_Aggiorna evidenziazione"
 
 #: ../src/menu.c:519
 msgid "/Document/sep3"
-msgstr ""
+msgstr "/Documento/sep3"
 
 #: ../src/menu.c:520
 msgid "/Document/Document Ty_pe"
-msgstr ""
+msgstr "/Documento/Ti_po di documento"
 
 #: ../src/menu.c:521
 msgid "/Document/Document Type/tearoff1"
-msgstr ""
+msgstr "/Documento/Tipo di documento/tearoff1"
 
 #: ../src/menu.c:522
 msgid "/Document/Character _Encoding"
-msgstr ""
+msgstr "/Documento/Codifica caratt_ere"
 
 #: ../src/menu.c:523
 msgid "/Document/Character Encoding/tearoff1"
-msgstr ""
+msgstr "/Documento/Codifica carattere/tearoff1"
 
 #: ../src/menu.c:524
 msgid "/Document/sep4"
-msgstr ""
+msgstr "/Documento/sep4"
 
 #: ../src/menu.c:526
 msgid "/Document/Check _Spelling..."
-msgstr ""
+msgstr "/Documento/C_ontrollo ortografico..."
 
 #: ../src/menu.c:528
 msgid "/Document/_Floating window"
-msgstr ""
+msgstr "/Documento/Finestra _fluttuante"
 
 #: ../src/menu.c:529
 msgid "/Document/Word _Count"
-msgstr ""
+msgstr "/Documento/_Conteggio parole"
 
 #: ../src/menu.c:533
 msgid "/E_xternal"
-msgstr ""
+msgstr "/E_sterno"
 
 #: ../src/menu.c:534
 msgid "/External/tearoff1"
-msgstr ""
+msgstr "/Esterno/tearoff1"
 
 #: ../src/menu.c:535 ../src/menu.c:772 ../src/outputbox.c:560
 #: ../src/outputbox.c:563
@@ -1767,9 +1714,8 @@ msgid "/External/Stop..."
 msgstr "/Esterno/Interrompi..."
 
 #: ../src/menu.c:536
-#, fuzzy
 msgid "/External/_Project mode"
-msgstr "/Esterno/Interrompi..."
+msgstr "/Esterno/Modalità _progetto"
 
 #: ../src/menu.c:538
 msgid "/_Project"
@@ -1777,22 +1723,19 @@ msgstr "/_Progetto"
 
 #: ../src/menu.c:539
 msgid "/Project/tearoff1"
-msgstr ""
+msgstr "/Progetto/tearoff1"
 
 #: ../src/menu.c:540
-#, fuzzy
 msgid "/Project/_New"
-msgstr "/Progetto/_Salva"
+msgstr "/Progetto/_Nuovo"
 
 #: ../src/menu.c:541
-#, fuzzy
 msgid "/Project/_Open"
-msgstr "/Progetto/_Salva"
+msgstr "/Progetto/_Apri"
 
 #: ../src/menu.c:542
-#, fuzzy
 msgid "/Project/Open R_ecent"
-msgstr "/Progetto/_Apri progetto..."
+msgstr "/Progetto/Apri r_ecente"
 
 #: ../src/menu.c:543
 #, fuzzy
@@ -1809,20 +1752,19 @@ msgstr "/Progetto/_Salva"
 
 #: ../src/menu.c:546
 msgid "/Project/Save _as..."
-msgstr ""
+msgstr "/Progetto/Salv_a come..."
 
 #: ../src/menu.c:547
 msgid "/Project/Save & _close"
-msgstr ""
+msgstr "/Progetto/Salva e _chiudi"
 
 #: ../src/menu.c:548
 msgid "/Project/sep2"
 msgstr "/Progetto/sep2"
 
 #: ../src/menu.c:549 ../src/project.c:226
-#, fuzzy
 msgid "/Project/Project options..."
-msgstr "/Progetto/Modifica opzioni progetto..."
+msgstr "/Progetto/Opzioni progetto..."
 
 #: ../src/menu.c:551
 msgid "/_Go"
@@ -1830,7 +1772,7 @@ msgstr "/_Vai"
 
 #: ../src/menu.c:552
 msgid "/Go/tearoff1"
-msgstr ""
+msgstr "/Vai/tearoff1"
 
 #: ../src/menu.c:553
 msgid "/Go/_Previous document"
@@ -1838,27 +1780,27 @@ msgstr ""
 
 #: ../src/menu.c:554
 msgid "/Go/_Next document"
-msgstr ""
+msgstr "/Vai/Documento s_uccessivo"
 
 #: ../src/menu.c:555 ../src/menu.c:558
 msgid "/Go/sep1"
-msgstr ""
+msgstr "/Vai/sep1"
 
 #: ../src/menu.c:556
 msgid "/Go/_First document"
-msgstr ""
+msgstr "/Vai/_Primo documento"
 
 #: ../src/menu.c:557
 msgid "/Go/L_ast document"
-msgstr ""
+msgstr "/Vai/U_ltimo documento"
 
 #: ../src/menu.c:559
 msgid "/Go/Goto _Line"
-msgstr ""
+msgstr "/Vai/Alla _linea"
 
 #: ../src/menu.c:560
 msgid "/Go/Goto _Selection"
-msgstr ""
+msgstr "/Vai/Alla _selezione"
 
 #: ../src/menu.c:562
 msgid "/_View"
@@ -1882,23 +1824,23 @@ msgstr ""
 
 #: ../src/menu.c:568
 msgid "/_?"
-msgstr ""
+msgstr "/_Aiuto"
 
 #: ../src/menu.c:569
 msgid "/?/_About..."
-msgstr "/?/_Informazioni..."
+msgstr "/Aiuto/_Informazioni..."
 
 #: ../src/menu.c:570
 msgid "/?/sep1"
-msgstr "/?/sep1"
+msgstr "/Aiuto/sep1"
 
 #: ../src/menu.c:571
 msgid "/?/_Save Settings"
-msgstr ""
+msgstr "/Aiuto/_Salva impostazioni"
 
 #: ../src/menu.c:572
 msgid "/?/Save Shortcut _Keys"
-msgstr ""
+msgstr "/Aiuto/Salva tasti ra_pidi"
 
 #: ../src/menu.c:573
 msgid "/?/_Preferences"
@@ -1906,7 +1848,7 @@ msgstr "/?/_Preferenze..."
 
 #: ../src/menu.c:710
 msgid "/Document/Document Type"
-msgstr ""
+msgstr "/Documento/Tipo di documento"
 
 #: ../src/menu.c:766
 msgid "/View/View Custom Menu"
@@ -1918,18 +1860,16 @@ msgstr ""
 
 #: ../src/menu.c:768
 msgid "/Document/Auto Indent"
-msgstr ""
+msgstr "/Documento/Indentazione automatica"
 
 #: ../src/menu.c:769 ../src/project.c:228 ../src/project.c:230
 #: ../src/project.c:232
-#, fuzzy
 msgid "/External/Project mode"
-msgstr "/Esterno/Interrompi..."
+msgstr "/Esterno/Modalità progetto"
 
 #: ../src/menu.c:800
-#, fuzzy
 msgid "output"
-msgstr "Risultato·#"
+msgstr "risultato·#"
 
 #: ../src/menu.c:848
 #, fuzzy
@@ -1945,9 +1885,8 @@ msgid "Could not open file\n"
 msgstr ""
 
 #: ../src/menu.c:876
-#, fuzzy
 msgid "/Project/Open Recent"
-msgstr "/Progetto/_Apri progetto..."
+msgstr "/Progetto/Apri recente"
 
 #: ../src/menu.c:880
 #, fuzzy
@@ -1969,7 +1908,7 @@ msgstr "/Esterno"
 
 #: ../src/menu.c:1341
 msgid "/Document/Character Encoding"
-msgstr ""
+msgstr "/Documento/Codifica carattere"
 
 #: ../src/menu.c:1607
 msgid "This custom search and replace requires a selection"
@@ -2045,7 +1984,7 @@ msgstr "Elimina voce di menu"
 
 #: ../src/menu.c:2164
 msgid "Close Discards Changes"
-msgstr ""
+msgstr "Annulla i cambiamenti fatti"
 
 #: ../src/menu.c:2166
 msgid "Save Changes and Exit"
@@ -2053,7 +1992,7 @@ msgstr "Salva i cambiamenti ed esci"
 
 #: ../src/menu.c:2176
 msgid "_Menu Path:"
-msgstr ""
+msgstr "Percorso _menu"
 
 #: ../src/menu.c:2197
 msgid "Menu path"
@@ -2097,7 +2036,7 @@ msgstr "in tutti i documenti aperti"
 
 #: ../src/menu.c:2269
 msgid "Matc_hing:"
-msgstr ""
+msgstr "Confro_nta:"
 
 #: ../src/menu.c:2272
 msgid "normal"
@@ -2121,32 +2060,31 @@ msgstr "Questi file non sono stati aperti:\n"
 
 #: ../src/outputbox.c:157
 msgid "hide this box"
-msgstr ""
+msgstr "nascondi questa area"
 
 #: ../src/outputbox.c:163
-#, fuzzy
 msgid "copy this line"
-msgstr "Vai alla linea"
+msgstr "copia questa linea"
 
 #: ../src/outputbox.c:183
 #, c-format
 msgid "goto line %s, file = %s"
-msgstr ""
+msgstr "vai alla linea %s, file = %s"
 
 #: ../src/outputbox.c:185
 #, c-format
 msgid "goto file = %s"
-msgstr ""
+msgstr "vai al file = %s"
 
 #: ../src/outputbox.c:189
 #, c-format
 msgid "goto line %s, current file"
-msgstr ""
+msgstr "vai alla linea %s, file corrente"
 
 #: ../src/outputbox.c:194
-#, fuzzy, c-format
+#, c-format
 msgid "file: %s"
-msgstr "File"
+msgstr "file: %s"
 
 #: ../src/outputbox.c:215
 msgid "noop"
@@ -2259,11 +2197,11 @@ msgstr "Modificabile"
 
 #: ../src/preferences.c:497
 msgid "Content regex"
-msgstr ""
+msgstr "Contenuto regex"
 
 #: ../src/preferences.c:498
 msgid "AutoCompletion"
-msgstr ""
+msgstr "Completamento automatico"
 
 #: ../src/preferences.c:581
 msgid "Inverse filter"
@@ -2271,7 +2209,7 @@ msgstr "Filtro inverso"
 
 #: ../src/preferences.c:582
 msgid "Filetypes in filter"
-msgstr ""
+msgstr "Tipi file nel filtro"
 
 #: ../src/preferences.c:936
 msgid "filetype"
@@ -2283,11 +2221,11 @@ msgstr "Annulla"
 
 #: ../src/preferences.c:947
 msgid "Pattern name"
-msgstr "Nome motivo"
+msgstr "Nome pattern"
 
 #: ../src/preferences.c:965 ../src/preferences.c:1493
 msgid "Pattern"
-msgstr "Motivo"
+msgstr "Pattern"
 
 #: ../src/preferences.c:988
 msgid "Start pattern and end pattern"
@@ -2457,7 +2395,7 @@ msgstr "destra"
 
 #: ../src/preferences.c:1846
 msgid "top"
-msgstr "in alto"
+msgstr "interrompi"
 
 #: ../src/preferences.c:1846
 msgid "bottom"
@@ -2593,7 +2531,7 @@ msgstr "Azioni durante un backup non avvenuto"
 
 #: ../src/preferences.c:1929
 msgid "Remove backupfile on close"
-msgstr ""
+msgstr "Rimuovi file di backup in chiusura"
 
 #: ../src/preferences.c:1933
 msgid "Misc"
@@ -2617,11 +2555,11 @@ msgstr "Numero di file in 'Aperti di recente'"
 
 #: ../src/preferences.c:1945
 msgid "File browser"
-msgstr ""
+msgstr "Navigazione file"
 
 #: ../src/preferences.c:1949
 msgid "Default basedir"
-msgstr "Basedir predefinita"
+msgstr "Directory base predefinita"
 
 #: ../src/preferences.c:1950
 msgid "Use separate file and directory view"
@@ -2689,7 +2627,7 @@ msgstr "Tipi file"
 
 #: ../src/preferences.c:1993
 msgid "Filefilters"
-msgstr ""
+msgstr "Filtri"
 
 #: ../src/preferences.c:2002
 #, fuzzy
@@ -2698,7 +2636,7 @@ msgstr "Evidenzia # linee"
 
 #: ../src/preferences.c:2004
 msgid "Patterns"
-msgstr "Motivi"
+msgstr "Pattern"
 
 #: ../src/preferences.c:2013
 #, fuzzy
@@ -2714,9 +2652,8 @@ msgid "Utilities and Filters"
 msgstr "Utilità e filtri"
 
 #: ../src/preferences.c:2031 ../src/preferences.c:2033
-#, fuzzy
 msgid "TeXbox"
-msgstr "*LaTeX*box"
+msgstr "Area TeX"
 
 #: ../src/preferences.c:2041
 msgid "Information"
@@ -2736,11 +2673,11 @@ msgstr ""
 
 #: ../src/preferences.c:2068
 msgid "Miscellaneous"
-msgstr ""
+msgstr "Varie"
 
 #: ../src/preferences.c:2072
 msgid "Templates Directory"
-msgstr ""
+msgstr "Directory dei modelli"
 
 #: ../src/project.c:89
 msgid "New project"
@@ -2795,7 +2732,7 @@ msgstr "_Nome progetto:"
 
 #: ../src/project.c:564
 msgid "_BaseDir:"
-msgstr "_BaseDir:"
+msgstr "Directory _base:"
 
 #: ../src/project.c:567
 msgid "Browse..."
@@ -2803,7 +2740,7 @@ msgstr "Scegli..."
 
 #: ../src/project.c:570
 msgid "BaseFile:"
-msgstr "BaseFile:"
+msgstr "File base:"
 
 #: ../src/project.c:576
 msgid "_Template:"
@@ -2888,11 +2825,11 @@ msgstr "Sostituisci _tutto"
 
 #: ../src/snr2.c:1136 ../src/snr2.c:1143
 msgid "Search: no match found"
-msgstr ""
+msgstr "Ricerca: nessuna voce trovata"
 
 #: ../src/snr2.c:1369
 msgid "_Search for: "
-msgstr ""
+msgstr "_Ricerca: "
 
 #: ../src/snr2.c:1395
 msgid "_Replace with: "
@@ -2904,15 +2841,15 @@ msgstr ""
 
 #: ../src/snr2.c:1420
 msgid "Beginning of document till end"
-msgstr ""
+msgstr "Dall'inizio del documento fino alla fine"
 
 #: ../src/snr2.c:1420
 msgid "Current position till end"
-msgstr ""
+msgstr "Dalla posizione attuale fino alla fine"
 
 #: ../src/snr2.c:1420
 msgid "Beginning of selection till end of selection"
-msgstr ""
+msgstr "Dall'inizio della selezione fino alla fine"
 
 #: ../src/snr2.c:1420
 msgid "All opened files begin till end"
@@ -2976,7 +2913,7 @@ msgstr "Sostituzione u_nica"
 
 #: ../src/snr2.c:1469
 msgid "Bookmark results"
-msgstr ""
+msgstr "Risultati segnalibri"
 
 #: ../src/winefish.c:106
 #, c-format
@@ -2984,12 +2921,16 @@ msgid ""
 "\n"
 "Usage: %s [options] [filenames ...]\n"
 msgstr ""
+"\n"
+"Utilizzo: %s [opzioni] [nome file ...]\n"
 
 #: ../src/winefish.c:107
 msgid ""
 "\n"
 "Currently accepted options are:\n"
 msgstr ""
+"\n"
+"Opzioni attualmente accettate:\n"
 
 #: ../src/winefish.c:108
 msgid "-s           skip root check\n"
@@ -3046,12 +2987,12 @@ msgstr "mostro interfaccia principale..."
 #: ../src/wizards.c:139
 #, c-format
 msgid "row %d col"
-msgstr ""
+msgstr "riga %d colonna"
 
 #: ../src/wizards.c:157
-#, fuzzy, c-format
+#, c-format
 msgid "%%%% row %d\n"
-msgstr "%d·di·%d"
+msgstr "%%%% riga %d\n"
 
 #: ../src/wizards.c:251
 msgid "Table Wizard"
@@ -3096,27 +3037,27 @@ msgstr "  Giorno della _settimana (domenica)"
 
 #: ../src/wizards.c:424
 msgid "  Day of the _week (Monday)"
-msgstr "  Giorno della _settimana (Lunedì)"
+msgstr "  Giorno della _settimana (lunedì)"
 
 #: ../src/wizards.c:427
 msgid "  Day of the _week (Tuesday)"
-msgstr ""
+msgstr "  Giorno della settimana (martedì)"
 
 #: ../src/wizards.c:430
 msgid "  Day of the _week (Wednesday)"
-msgstr ""
+msgstr "  Giorno della settimana (mercoledì)"
 
 #: ../src/wizards.c:433
 msgid "  Day of the _week (Thursday)"
-msgstr ""
+msgstr "  Giorno della settimana (giovedì)"
 
 #: ../src/wizards.c:436
 msgid "  Day of the _week (Friday)"
-msgstr "  Giorno della settimana (Venerdì)"
+msgstr "  Giorno della settimana (venerdì)"
 
 #: ../src/wizards.c:439
 msgid "  Day of the _week (Saturday)"
-msgstr "  Giorno della _settimana (Sabato)"
+msgstr "  Giorno della _settimana (sabato)"
 
 #: ../src/wizards.c:442
 msgid "You appear to have a non existant day!\n"
@@ -3125,7 +3066,7 @@ msgstr "Sembra che tu non abbia un giorno esistente!\n"
 #: ../src/wizards.c:450
 #, c-format
 msgid "  _Date (%i/%i/%i)"
-msgstr "  _Data (%i/%i/%i)"
+msgstr "  _Ora (%i/%i/%i)"
 
 #: ../src/wizards.c:453
 #, c-format
@@ -3150,9 +3091,8 @@ msgid "_VnTeX Support:"
 msgstr "Supporto _VnTeX:"
 
 #: ../src/wizards.c:599 ../src/wizards.c:604 ../src/wizards.c:608
-#, fuzzy
 msgid "item"
-msgstr "Filtro"
+msgstr "elemento"
 
 #: ../src/wizards.c:628
 msgid "Quick List"
@@ -3166,134 +3106,3 @@ msgstr "_Righe:"
 msgid "Type (_Environment):"
 msgstr ""
 
-#~ msgid "*LaTeX*box"
-#~ msgstr "*LaTeX*box"
-
-#~ msgid " Ln %d, Col %d"
-#~ msgstr " Linea %d, Colonna %d"
-
-#~ msgid "Show all output"
-#~ msgstr "Mostra tutto l'output"
-
-#~ msgid "Syntax highlighting"
-#~ msgstr "Evidenzazione sintassi"
-
-#~ msgid "Advanced open file selector"
-#~ msgstr "Finestra avanzata per la selezione file"
-
-#~ msgid "Show info window"
-#~ msgstr "Mostra finestra informazioni"
-
-#~ msgid "Function reference"
-#~ msgstr "Riferimento funzioni"
-
-#~ msgid "QuickStart..."
-#~ msgstr "Avvio rapido..."
-
-#~ msgid "Bold"
-#~ msgstr "Grassetto"
-
-#~ msgid "Italic"
-#~ msgstr "Corsivo"
-
-#~ msgid "Underline"
-#~ msgstr "Sottolineato"
-
-#~ msgid "Left"
-#~ msgstr "Sinistra"
-
-#~ msgid "Center"
-#~ msgstr "Centrato"
-
-#~ msgid "Right"
-#~ msgstr "Destra"
-
-#~ msgid "Comment"
-#~ msgstr "Commento"
-
-#~ msgid "Insert image..."
-#~ msgstr "Inserimento immagine..."
-
-#~ msgid "Table Wizard..."
-#~ msgstr "Assistente di tabella..."
-
-#~ msgid "Remove from quickbar"
-#~ msgstr "Rimuovi dalla barra rapida"
-
-#~ msgid "Move Left"
-#~ msgstr "Sposta a sinistra"
-
-#~ msgid "Move Right"
-#~ msgstr "Sposta a destra"
-
-#~ msgid "Add to quickbar"
-#~ msgstr "Aggiungi alla barra rapida"
-
-#~ msgid "Quick bar"
-#~ msgstr "Barra rapida"
-
-#~ msgid "Standard"
-#~ msgstr "Standard"
-
-#~ msgid "New"
-#~ msgstr "Nuovo"
-
-#~ msgid "Open..."
-#~ msgstr "Apri..."
-
-#~ msgid "Save As..."
-#~ msgstr "Salva come..."
-
-#~ msgid "Cut"
-#~ msgstr "Taglia"
-
-#~ msgid "Copy"
-#~ msgstr "Copia"
-
-#~ msgid "Paste"
-#~ msgstr "Incolla"
-
-#~ msgid "Find..."
-#~ msgstr "Trova..."
-
-#~ msgid "Replace..."
-#~ msgstr "Sostituisci..."
-
-#~ msgid "Redo"
-#~ msgstr "Ripeti"
-
-#~ msgid "Shift Left"
-#~ msgstr "Sposta a sinistra"
-
-#~ msgid "Shift Right"
-#~ msgstr "Sposta a destra"
-
-#~ msgid "Spellcheck..."
-#~ msgstr "Controllo ortografico..."
-
-#~ msgid "Preferences..."
-#~ msgstr "Preferenze..."
-
-#~ msgid "/Edit/_Find..."
-#~ msgstr "/Modifica/_Trova..."
-
-#~ msgid "/Project/_New Project"
-#~ msgstr "/Progetto/_Nuovo progetto"
-
-#~ msgid "Tool canceled."
-#~ msgstr "Strumento cancellato"
-
-#~ msgid "PDFLaTeX"
-#~ msgstr "PDFLaTeX"
-
-#~ msgid "DVIPS"
-#~ msgstr "DVIPS"
-
-#~ msgid "DVIPDFM"
-#~ msgstr "DVIPDFM"
-
-#~ msgid "View LOG"
-#~ msgstr "Visualizza LOG"
-
-#~ msgid "Dos2Unix filter"
-#~ msgstr "Filtro Dos2Unix"
