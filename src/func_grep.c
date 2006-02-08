@@ -26,7 +26,7 @@ TODO: list all files contains a pattern. current: show details..
 TODO: pass options to find and grep.
 */
 
-#define DEBUG
+/* #define DEBUG */
 
 #include "config.h"
 
