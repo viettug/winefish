@@ -1,19 +1,21 @@
+# translation of fr.po to 
 # French locale definition for Winefish.
-# Copyright (C) 2003 Free Software Foundation, Inc.
+# Copyright (C) 2003, 2006 Free Software Foundation, Inc.
 # Michèle Garoche <michele.garoche@easyconnect.fr>, 2006.
+# kyanh <kyanh@o2.pl>, 2006.
 #
 msgid ""
 msgstr ""
-
-"Project-Id-Version: winefish-1.3.2.6\n"
+"Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-06 09:05+0100\n"
-"PO-Revision-Date: 2006-02-06 09:32+0100\n"
-"Last-Translator: Michèle Garoche <michele.garoche@easyconnect.fr>\n"
-"Language-Team: français <fr@li.org>\n"
+"POT-Creation-Date: 2006-02-08 15:22+0700\n"
+"PO-Revision-Date: 2006-02-08 15:25+0700\n"
+"Last-Translator: kyanh <kyanh@o2.pl>\n"
+"Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.2\n"
 
 #: ../src/about.c:60
 #, c-format
@@ -56,6 +58,7 @@ msgid ""
 "* kyanh <kyanh@viettug.org>\n"
 "\n"
 "translators:\n"
+"* French: Michèle Garoche <michele.garoche@easyconnect.fr>\n"
 "* Italian: Daniele Medri <daniele@medri.org>\n"
 "* Vietnamese: kyanh <kyanh@viettug.org>\n"
 "\n"
@@ -65,24 +68,25 @@ msgstr ""
 "* kyanh <kyanh@viettug.org>\n"
 "\n"
 "Traducteurs :\n"
+"* Française: Michèle Garoche <michele.garoche@easyconnect.fr>\n"
 "* Italien : Daniele Medri <daniele@medri.org>\n"
 "* Vietnamien : kyanh <kyanh@viettug.org>\n"
 "\n"
 "Merci à tous ceux qui ont contribué à donner vie à ce logiciel.\n"
 
-#: ../src/about.c:87
+#: ../src/about.c:88
 msgid "About Winefish"
 msgstr "À propos de Winefish"
 
-#: ../src/about.c:121 ../src/fref.c:2318 ../src/fref.c:2333
+#: ../src/about.c:122 ../src/fref.c:2318 ../src/fref.c:2333
 msgid "info"
 msgstr "Info"
 
-#: ../src/about.c:125
+#: ../src/about.c:126
 msgid "authors"
 msgstr "Auteurs"
 
-#: ../src/about.c:137
+#: ../src/about.c:138
 msgid "oops..."
 msgstr "hop-là..."
 
@@ -230,7 +234,7 @@ msgid "Delete all"
 msgstr "Tout supprimer"
 
 #: ../src/bookmark.c:1275 ../src/bookmark.c:1292 ../src/bookmark.c:1330
-#: ../src/document.c:2777
+#: ../src/document.c:2780
 msgid "Add bookmark"
 msgstr "Ajouter un signet"
 
@@ -260,15 +264,15 @@ msgstr ""
 "La position des signets est peut-être incorrecte. Voulez-vous supprimer les "
 "signets ?"
 
-#: ../src/document.c:310 ../src/document.c:3733
+#: ../src/document.c:311 ../src/document.c:3736
 msgid "/Document/Highlight Syntax"
 msgstr "/Document/Colorer le code"
 
-#: ../src/document.c:767
+#: ../src/document.c:770
 msgid "name: "
 msgstr "Nom : "
 
-#: ../src/document.c:768
+#: ../src/document.c:771
 msgid ""
 "\n"
 "type: "
@@ -276,7 +280,7 @@ msgstr ""
 "\n"
 "Type : "
 
-#: ../src/document.c:769
+#: ../src/document.c:772
 msgid ""
 "\n"
 "encoding: "
@@ -284,7 +288,7 @@ msgstr ""
 "\n"
 "Encodage : "
 
-#: ../src/document.c:772
+#: ../src/document.c:775
 msgid ""
 "\n"
 "size (on disk): "
@@ -292,11 +296,11 @@ msgstr ""
 "\n"
 "Taille (sur le disque) : "
 
-#: ../src/document.c:772
+#: ../src/document.c:775
 msgid " bytes"
 msgstr " octets"
 
-#: ../src/document.c:778
+#: ../src/document.c:781
 msgid ""
 "\n"
 "permissions: "
@@ -304,7 +308,7 @@ msgstr ""
 "\n"
 "Permissions : "
 
-#: ../src/document.c:785
+#: ../src/document.c:788
 msgid ""
 "\n"
 "last modified: "
@@ -312,54 +316,54 @@ msgstr ""
 "\n"
 "Dernière modification : "
 
-#: ../src/document.c:811
+#: ../src/document.c:814
 #, c-format
 msgid "Untitled %d"
 msgstr "Sans titre %d"
 
-#: ../src/document.c:1469
+#: ../src/document.c:1472
 msgid "Could not read file:\n"
 msgstr "Impossible de lire le fichier :\n"
 
-#: ../src/document.c:1500
+#: ../src/document.c:1503
 msgid "Opening file "
 msgstr "Ouverture du fichier"
 
-#: ../src/document.c:1631
+#: ../src/document.c:1634
 msgid "Cannot display file, unknown characters found."
 msgstr ""
 "Impossible d'afficher le fichier, des caractères inconnus ont été trouvés."
 
-#: ../src/document.c:2108
+#: ../src/document.c:2111
 #, c-format
 msgid "deleted '%s'"
 msgstr "supprimés '%s'"
 
-#: ../src/document.c:2759 ../src/snr2.c:1340
+#: ../src/document.c:2762 ../src/snr2.c:1340
 msgid "Replace"
 msgstr "Remplacer"
 
-#: ../src/document.c:2764 ../src/snr2.c:1343
+#: ../src/document.c:2767 ../src/snr2.c:1343
 msgid "Find"
 msgstr "Rechercher"
 
-#: ../src/document.c:2773
+#: ../src/document.c:2776
 msgid "Delete bookmark"
 msgstr "Supprimer le signet"
 
-#: ../src/document.c:2918
+#: ../src/document.c:2921
 msgid "saving file"
 msgstr "Enregistrement du fichier"
 
-#: ../src/document.c:2942 ../src/document.c:2966
+#: ../src/document.c:2945 ../src/document.c:2969
 msgid "_Abort save"
 msgstr "_Abandonner l'enregistrement"
 
-#: ../src/document.c:2942
+#: ../src/document.c:2945
 msgid "_Continue save"
 msgstr "_Continuer l'enregistrement"
 
-#: ../src/document.c:2944
+#: ../src/document.c:2947
 #, c-format
 msgid ""
 "A backupfile for %s could not be created. If you continue, this file will be "
@@ -368,15 +372,15 @@ msgstr ""
 "Le fichier de sauvegarde pour %s n'a pas pu être créé. Si vous continuez, ce "
 "fichier sera écrasé."
 
-#: ../src/document.c:2945
+#: ../src/document.c:2948
 msgid "File backup failure"
 msgstr "Échec de la sauvegarde"
 
-#: ../src/document.c:2966
+#: ../src/document.c:2969
 msgid "_Continue save in UTF-8"
 msgstr "_Continuer l'enregistrement en UTF-8"
 
-#: ../src/document.c:2977
+#: ../src/document.c:2980
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -389,57 +393,57 @@ msgstr ""
 "\n"
 "Continuer l'enregistrement en UTF-8 ?"
 
-#: ../src/document.c:2978
+#: ../src/document.c:2981
 msgid "File encoding conversion failure"
 msgstr "Échec de la conversion d'encodage du fichier"
 
-#: ../src/document.c:3131
+#: ../src/document.c:3134
 msgid "Previously: "
 msgstr "Précédemment : "
 
-#: ../src/document.c:3164
+#: ../src/document.c:3167
 #, c-format
 msgid "Move/rename %s to"
 msgstr "Déplacer (vers)/renommer (en) %s"
 
-#: ../src/document.c:3164
+#: ../src/document.c:3167
 #, c-format
 msgid "Save %s as"
 msgstr "Enregistrer %s sous"
 
-#: ../src/document.c:3202 ../src/document.c:3217 ../src/document.c:3304
-#: ../src/document.c:4281 ../src/project.c:193
+#: ../src/document.c:3205 ../src/document.c:3220 ../src/document.c:3307
+#: ../src/document.c:4284 ../src/project.c:193
 msgid "_Cancel"
 msgstr "An_nuler"
 
-#: ../src/document.c:3202 ../src/document.c:3217 ../src/document.c:3304
+#: ../src/document.c:3205 ../src/document.c:3220 ../src/document.c:3307
 #: ../src/project.c:193
 msgid "_Overwrite"
 msgstr "_Écraser"
 
-#: ../src/document.c:3203
+#: ../src/document.c:3206
 #, c-format
 msgid "File %s exists and is opened, overwrite?"
 msgstr "Le fichier %s est déjà ouvert, voulez-vous vraiment l'écraser ?"
 
-#: ../src/document.c:3204
+#: ../src/document.c:3207
 msgid "The file you have selected is being edited in Bluefish."
 msgstr "Le fichier sélectionné est en cours d'édition dans Bluefish."
 
-#: ../src/document.c:3218 ../src/project.c:194
+#: ../src/document.c:3221 ../src/project.c:194
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr "Un fichier nommé \"%s\" existe déjà."
 
-#: ../src/document.c:3220 ../src/project.c:196
+#: ../src/document.c:3223 ../src/project.c:196
 msgid "Do you want to replace the existing file?"
 msgstr "Désirez-vous remplacer le fichier existant ?"
 
-#: ../src/document.c:3273
+#: ../src/document.c:3276
 msgid "save as..."
 msgstr "Enregistrer sous..."
 
-#: ../src/document.c:3308
+#: ../src/document.c:3311
 #, c-format
 msgid ""
 "File: %s\n"
@@ -452,16 +456,16 @@ msgstr ""
 "Heure de la nouvelle modification : %s\n"
 "Heure de l'ancienne modification : %s"
 
-#: ../src/document.c:3309
+#: ../src/document.c:3312
 msgid "File has been modified by another process."
 msgstr "Le fichier a été modifié par un autre processus."
 
-#: ../src/document.c:3322
+#: ../src/document.c:3325
 #, c-format
 msgid "Saving %s"
 msgstr "Enregistrement de %s"
 
-#: ../src/document.c:3338
+#: ../src/document.c:3341
 msgid ""
 "Could not backup file:\n"
 "\""
@@ -469,11 +473,11 @@ msgstr ""
 "Impossible de sauvegarder le fichier :\n"
 "\""
 
-#: ../src/document.c:3339
+#: ../src/document.c:3342
 msgid "File save aborted.\n"
 msgstr "Sauvegarde du fichier annulée.\n"
 
-#: ../src/document.c:3344
+#: ../src/document.c:3347
 msgid ""
 "Could not write file:\n"
 "\""
@@ -481,42 +485,42 @@ msgstr ""
 "Impossible d'écrire le fichier sur le disque :\n"
 "\""
 
-#: ../src/document.c:3345
+#: ../src/document.c:3348
 msgid "File save error"
 msgstr "Erreur d'enregistrement de fichier"
 
-#: ../src/document.c:3396
+#: ../src/document.c:3399
 #, c-format
 msgid "Save changes to \"%s\" before closing?."
 msgstr ""
 "Voulez-vous enregistrer les modifications apportées à \"%s\" avant de le "
 "fermer ?"
 
-#: ../src/document.c:3403 ../src/project.c:360
+#: ../src/document.c:3406 ../src/project.c:360
 msgid "Do_n't save"
 msgstr "Ne pas enre_gistrer"
 
-#: ../src/document.c:3405 ../src/document.c:4283 ../src/project.c:369
+#: ../src/document.c:3408 ../src/document.c:4286 ../src/project.c:369
 msgid "If you don't save your changes they will be lost."
 msgstr "Si vous n'enregistrez pas les modifications, elles seront perdues."
 
-#: ../src/document.c:3736
+#: ../src/document.c:3739
 msgid "/Document/Line Numbers"
 msgstr "/Document/Numéros de ligne"
 
-#: ../src/document.c:3739
+#: ../src/document.c:3742
 msgid "/Document/AutoCompletion"
 msgstr "/Document/Terminaison automatique"
 
-#: ../src/document.c:3775
+#: ../src/document.c:3778
 msgid "No filename"
 msgstr "Aucun nom de fichier"
 
-#: ../src/document.c:3918
+#: ../src/document.c:3921
 msgid "Loading files..."
 msgstr "Chargement des fichiers..."
 
-#: ../src/document.c:3942
+#: ../src/document.c:3945
 msgid ""
 "These files could not opened:\n"
 "\n"
@@ -524,23 +528,23 @@ msgstr ""
 "Ces fichiers n'ont pas pu être ouverts :\n"
 "\n"
 
-#: ../src/document.c:3944 ../src/msg_queue.c:245
+#: ../src/document.c:3947 ../src/msg_queue.c:245
 msgid "Unable to open file(s)\n"
 msgstr "Impossible d'ouvrir le(s) fichier(s)\n"
 
-#: ../src/document.c:3977
+#: ../src/document.c:3980
 msgid "unable to open file"
 msgstr "Impossible d'ouvrir le fichier"
 
-#: ../src/document.c:4028
+#: ../src/document.c:4031
 msgid "_Reload"
 msgstr "_Recharger"
 
-#: ../src/document.c:4028
+#: ../src/document.c:4031
 msgid "_Ignore"
 msgstr "_Ignorer"
 
-#: ../src/document.c:4032
+#: ../src/document.c:4035
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -553,44 +557,44 @@ msgstr ""
 "Heure de la nouvelle modification : %s\n"
 "Heure de l'ancienne modification : %s"
 
-#: ../src/document.c:4033
+#: ../src/document.c:4036
 msgid "File has been modified by another process\n"
 msgstr "Le fichier a été modifié par un autre processus.\n"
 
-#: ../src/document.c:4167 ../src/gtk_easy.c:1629
+#: ../src/document.c:4170 ../src/gtk_easy.c:1629
 msgid "Select files"
 msgstr "Sélectionner des fichiers"
 
-#: ../src/document.c:4185
+#: ../src/document.c:4188
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "Chargement de %d fichier(s)..."
 
-#: ../src/document.c:4212 ../src/document.c:4220
+#: ../src/document.c:4215 ../src/document.c:4223
 msgid "Select file to insert"
 msgstr "Sélectionner le fichier à insérer"
 
-#: ../src/document.c:4224
+#: ../src/document.c:4227
 msgid "no file to insert"
 msgstr "Aucun fichier à insérer"
 
-#: ../src/document.c:4281
+#: ../src/document.c:4284
 msgid "_Save All"
 msgstr "Tout enregi_strer"
 
-#: ../src/document.c:4281
+#: ../src/document.c:4284
 msgid "Close _All"
 msgstr "Tout fermer"
 
-#: ../src/document.c:4281
+#: ../src/document.c:4284
 msgid "Choose per _File"
 msgstr "Choisir par _fichier"
 
-#: ../src/document.c:4282
+#: ../src/document.c:4285
 msgid "Multiple open files have been changed."
 msgstr "Certains fichiers ont été modifiés."
 
-#: ../src/document.c:4550
+#: ../src/document.c:4553
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "Statistiques : %d lignes, %d mots, %d caractères"
@@ -987,7 +991,9 @@ msgstr "Appariement de crochets : dans la sélection"
 
 #: ../src/menu.c:261
 msgid "brace_finder: wrong operation or brace escaped"
-msgstr "Appariement de crochets : opération erronnée ou crochet précédé du signe escape"
+msgstr ""
+"Appariement de crochets : opération erronnée ou crochet précédé du signe "
+"escape"
 
 #: ../src/menu.c:279
 msgid "/_File"
