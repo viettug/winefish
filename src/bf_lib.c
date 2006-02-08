@@ -1396,11 +1396,11 @@ gchar *create_secure_dir_return_filename() {
 	}
 	*/
 	/* g_get_tmp_dir(): The return value is never NULL. */
-	tmpstr = g_strdup_printf("%s/winefish%dXXXXXX",g_get_tmp_dir(),getpid());
+	tmpstr = g_strdup_printf("%s/winefish-XXXXXX",g_get_tmp_dir());
 	/* g_free(tmpdir); */
 	if (mkstemp(tmpstr)) {
 		unlink(tmpstr); /* for mkfifo() */
-		DEBUG_MSG("create_secure_dir_return_filename: return [%s]\n",tmpstr);
+		g_print("create_secure_dir_return_filename: return [%s]\n",tmpstr);
 		/* g_print("P_tmpdir=%s\n", P_tmpdir); */
 		return tmpstr;
 	}else{
