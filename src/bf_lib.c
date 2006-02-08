@@ -1396,7 +1396,7 @@ gchar *create_secure_dir_return_filename() {
 	}
 	*/
 	/* g_get_tmp_dir(): The return value is never NULL. */
-	tmpstr = g_strdup_printf(g_strconcat(g_get_tmp_dir(),"/winefish%dXXXXXX",NULL), getpid());
+	tmpstr = g_strdup_printf("%s/winefish%dXXXXXX",g_get_tmp_dir(),getpid());
 	/* g_free(tmpdir); */
 	if (mkstemp(tmpstr)) {
 		unlink(tmpstr); /* for mkfifo() */
