@@ -11,7 +11,7 @@
 <TITLE>Winefish Documentation</TITLE>
 <STYLE>
 <!--
-body { margin: 30px; font-size: 13px; width: 60\%; }
+body { margin: 30px; font-size: 13px; margin-right: 100px; }
 b { font-weight: normal; color: navy; font-family: monospace; }
 pre {color: olive; }
 a, a:visited, a:hover { text-decoration: none; }
