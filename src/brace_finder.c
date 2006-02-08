@@ -24,6 +24,7 @@
 /* #define DEBUG */
 
 #include <gtk/gtk.h>
+#include <string.h> /* strlen */
 
 #include "bluefish.h"
 #include "brace_finder.h"
@@ -85,6 +86,7 @@ static gboolean dollar_predicate(gunichar ch, gpointer data) {
 gint brace_finder(GtkTextBuffer *buffer, gint opt) {
 	GtkTextIter iter_start, iter_start_new, iter_end;
 	GtkTextMark *insert, *select;
+	gchar *tmpstr;
 	gboolean retval;
 	gunichar ch, Lch, Rch;
 
@@ -93,8 +95,10 @@ gint brace_finder(GtkTextBuffer *buffer, gint opt) {
 	gtk_text_buffer_get_iter_at_mark(buffer, &iter_start, insert);
 	gtk_text_buffer_get_iter_at_mark(buffer, &iter_end, select);
 
+	tmpstr = gtk_text_iter_get_text(&iter_start, &iter_end);
+
 	/* there's no selection */
-	if (gtk_text_iter_equal(&iter_start, &iter_end)){
+	if (!tmpstr || (strlen(tmpstr) <= 1) ){
 		gint level;
 		GtkTextIter tmpiter/* LEFT */, tmp2iter /* RIGHT */;
 
@@ -233,6 +237,9 @@ gint brace_finder(GtkTextBuffer *buffer, gint opt) {
 		if (retval) {
 			if (opt & BR_MOVE_IF_FOUND) {
 				gtk_text_buffer_place_cursor (buffer, &tmpiter);
+				tmp2iter = tmpiter;
+				gtk_text_iter_forward_char(&tmp2iter);
+				gtk_text_buffer_select_range(buffer,&tmpiter,&tmp2iter);
 			}
 			return BR_RET_FOUND;
 		}
@@ -243,5 +250,6 @@ gint brace_finder(GtkTextBuffer *buffer, gint opt) {
 		DEBUG_MSG("brace_finder: selection is not empy. does nothing\n");
 	}
 #endif
+	g_free(tmpstr);
 	return BR_RET_IN_SELECTION;
 }
