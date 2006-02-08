@@ -1,0 +1,3130 @@
+# French locale definition for Winefish.
+# Copyright (C) 2003 Free Software Foundation, Inc.
+# Michèle Garoche <michele.garoche@easyconnect.fr>, 2006.
+#
+msgid ""
+msgstr ""
+
+"Project-Id-Version: winefish-1.3.2.6\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-02-06 09:05+0100\n"
+"PO-Revision-Date: 2006-02-06 09:32+0100\n"
+"Last-Translator: Michèle Garoche <michele.garoche@easyconnect.fr>\n"
+"Language-Team: français <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../src/about.c:60
+#, c-format
+msgid ""
+"Winefish LaTeX Editor (based on Bluefish)\n"
+"\n"
+"* home: http://winefish.berlios.de/\n"
+"* open source development project\n"
+"* released under the GPL license\n"
+"\n"
+"* version: %s\n"
+"* maximum length\n"
+"    latex command: %d\n"
+"    autotext command: %d\n"
+"* recursive grep: %s\n"
+"* delimiters:\n"
+"    %s\n"
+"* configured:\n"
+"    $%s\n"
+msgstr ""
+"Éditeur LaTeX Winefish (basé sur Bluefish)\n"
+"\n"
+"* Accueil : http://winefish.berlios.de/\n"
+"* Projet de développement open source\n"
+"* distribué sous licence GPL\n"
+"\n"
+"* Version : %s\n"
+"* Longueur maximale\n"
+"    d'une commande latex : %d\n"
+"    d'une commande autotext : %d\n"
+"* Récursion grep : %s\n"
+"* Délimiteurs :\n"
+"    %s\n"
+"* Configuration :\n"
+"    $%s\n"
+
+#: ../src/about.c:77
+msgid ""
+"developers:\n"
+"* kyanh <kyanh@viettug.org>\n"
+"\n"
+"translators:\n"
+"* Italian: Daniele Medri <daniele@medri.org>\n"
+"* Vietnamese: kyanh <kyanh@viettug.org>\n"
+"\n"
+"THANKS to all who helped making this software available.\n"
+msgstr ""
+"Développeurs :\n"
+"* kyanh <kyanh@viettug.org>\n"
+"\n"
+"Traducteurs :\n"
+"* Italien : Daniele Medri <daniele@medri.org>\n"
+"* Vietnamien : kyanh <kyanh@viettug.org>\n"
+"\n"
+"Merci à tous ceux qui ont contribué à donner vie à ce logiciel.\n"
+
+#: ../src/about.c:87
+msgid "About Winefish"
+msgstr "À propos de Winefish"
+
+#: ../src/about.c:121 ../src/fref.c:2318 ../src/fref.c:2333
+msgid "info"
+msgstr "Info"
+
+#: ../src/about.c:125
+msgid "authors"
+msgstr "Auteurs"
+
+#: ../src/about.c:137
+msgid "oops..."
+msgstr "hop-là..."
+
+#: ../src/bf_lib.c:54 ../src/bf_lib.c:68
+msgid ""
+"Winefish has trouble reading the filenames. Try to set the environment "
+"variable G_BROKEN_FILENAMES=1\n"
+msgstr ""
+"Winefish a du mal à lire les noms de fichiers. Essayez d'initialiser la "
+"variable d'environnement G_BROKEN_FILENAMES=1\n"
+
+#: ../src/bfspell.c:428
+msgid "Check Spelling"
+msgstr "Vérification orthographique"
+
+#: ../src/bfspell.c:432
+msgid "Checking"
+msgstr "Vérification"
+
+#: ../src/bfspell.c:441
+msgid "_Misspelled word:"
+msgstr "_Mot mal orthographié :"
+
+#: ../src/bfspell.c:445
+msgid "Change _to:"
+msgstr "Remplacer _par :"
+
+#: ../src/bfspell.c:448
+msgid "I_gnore"
+msgstr "I_gnorer"
+
+#: ../src/bfspell.c:449 ../src/snr2.c:890
+msgid "_Replace"
+msgstr "_Remplacer"
+
+#: ../src/bfspell.c:462
+msgid "In _document"
+msgstr "Dans le _document actif"
+
+#: ../src/bfspell.c:463
+msgid "I_n selection"
+msgstr "Da_ns la sélection"
+
+#: ../src/bfspell.c:472
+msgid "personal dictionary"
+msgstr "Dictionnaire personnel"
+
+#: ../src/bfspell.c:475
+msgid "session dictionary"
+msgstr "Session dictionnaire"
+
+#: ../src/bfspell.c:481
+msgid "Dictionary:"
+msgstr "Dictionnaire :"
+
+#: ../src/bfspell.c:485
+msgid "_Add"
+msgstr "_Ajouter"
+
+#: ../src/bfspell.c:489
+msgid "Language:"
+msgstr "Langue :"
+
+#: ../src/bfspell.c:493
+msgid "Set defa_ult"
+msgstr "Par défa_ut"
+
+#: ../src/bfspell.c:497
+msgid "Filter:"
+msgstr "Filtre :"
+
+#: ../src/bfspell.c:505
+msgid "no filter"
+msgstr "Aucun filtre"
+
+#: ../src/bfspell.c:507
+msgid "TeX filter"
+msgstr "Filtre TeX"
+
+#: ../src/bfspell.c:509
+msgid "html filter"
+msgstr "Filtre HTML"
+
+#: ../src/bookmark.c:363
+msgid "_Name:"
+msgstr "_Nom :"
+
+#: ../src/bookmark.c:368
+msgid "_Description:"
+msgstr "_Description :"
+
+#: ../src/bookmark.c:370
+msgid "Temporary"
+msgstr "Temporaire"
+
+#: ../src/bookmark.c:470
+#, c-format
+msgid "Could not find the file \"%s\"."
+msgstr "Impossible de trouver le fichier \"%s\"."
+
+#: ../src/bookmark.c:472
+msgid "This bookmark is set in a file that no longer exists."
+msgstr "Ce signet concerne un fichier qui n'existe plus."
+
+#: ../src/bookmark.c:607
+#, c-format
+msgid "Do you really want to delete all bookmarks for %s?"
+msgstr "Voulez-vous vraiment supprimer tous les signets relatifs à %s ?"
+
+#: ../src/bookmark.c:608
+msgid "Delete bookmarks?"
+msgstr "Voulez-vous supprimer les signets ?"
+
+#: ../src/bookmark.c:638
+#, c-format
+msgid "Do you really want to delete %s?"
+msgstr "Désirez-vous vraiment supprimer %s ?"
+
+#: ../src/bookmark.c:640
+msgid "Delete permanent bookmark."
+msgstr "Supprimer le signet permanent"
+
+#: ../src/bookmark.c:657
+msgid "Edit bookmark"
+msgstr "Éditer le signet"
+
+#: ../src/bookmark.c:671
+msgid "Goto bookmark"
+msgstr "Aller au signet"
+
+#: ../src/bookmark.c:679
+msgid "Edit"
+msgstr "Éditer"
+
+#: ../src/bookmark.c:683
+msgid "Delete"
+msgstr "Supprimer"
+
+#: ../src/bookmark.c:689
+msgid "Delete all in document"
+msgstr "Tout supprimer dans le document actif"
+
+#: ../src/bookmark.c:694
+msgid "Delete all"
+msgstr "Tout supprimer"
+
+#: ../src/bookmark.c:1275 ../src/bookmark.c:1292 ../src/bookmark.c:1330
+#: ../src/document.c:2777
+msgid "Add bookmark"
+msgstr "Ajouter un signet"
+
+#: ../src/bookmark.c:1276 ../src/bookmark.c:1331
+msgid "Cannot add bookmarks in unnamed files."
+msgstr "Impossible d'ajouter un signet pour un fichier sans nom"
+
+#: ../src/bookmark.c:1293
+msgid "You already have a bookmark here!"
+msgstr "Il existe déjà un signet à cet endroit !"
+
+#: ../src/bookmark.c:1368
+msgid "Delete all bookmarks."
+msgstr "Supprimer tous les signets"
+
+#: ../src/bookmark.c:1368
+msgid "Are you sure?"
+msgstr "En êtes-vous sûr(e) ?"
+
+#: ../src/bookmark.c:1407
+msgid "File size changed in file\n"
+msgstr "Le nombre de caractères du fichier a changé\n"
+
+#: ../src/bookmark.c:1408
+msgid "Bookmarks positions could be incorrect. Delete bookmarks?"
+msgstr ""
+"La position des signets est peut-être incorrecte. Voulez-vous supprimer les "
+"signets ?"
+
+#: ../src/document.c:310 ../src/document.c:3733
+msgid "/Document/Highlight Syntax"
+msgstr "/Document/Colorer le code"
+
+#: ../src/document.c:767
+msgid "name: "
+msgstr "Nom : "
+
+#: ../src/document.c:768
+msgid ""
+"\n"
+"type: "
+msgstr ""
+"\n"
+"Type : "
+
+#: ../src/document.c:769
+msgid ""
+"\n"
+"encoding: "
+msgstr ""
+"\n"
+"Encodage : "
+
+#: ../src/document.c:772
+msgid ""
+"\n"
+"size (on disk): "
+msgstr ""
+"\n"
+"Taille (sur le disque) : "
+
+#: ../src/document.c:772
+msgid " bytes"
+msgstr " octets"
+
+#: ../src/document.c:778
+msgid ""
+"\n"
+"permissions: "
+msgstr ""
+"\n"
+"Permissions : "
+
+#: ../src/document.c:785
+msgid ""
+"\n"
+"last modified: "
+msgstr ""
+"\n"
+"Dernière modification : "
+
+#: ../src/document.c:811
+#, c-format
+msgid "Untitled %d"
+msgstr "Sans titre %d"
+
+#: ../src/document.c:1469
+msgid "Could not read file:\n"
+msgstr "Impossible de lire le fichier :\n"
+
+#: ../src/document.c:1500
+msgid "Opening file "
+msgstr "Ouverture du fichier"
+
+#: ../src/document.c:1631
+msgid "Cannot display file, unknown characters found."
+msgstr ""
+"Impossible d'afficher le fichier, des caractères inconnus ont été trouvés."
+
+#: ../src/document.c:2108
+#, c-format
+msgid "deleted '%s'"
+msgstr "supprimés '%s'"
+
+#: ../src/document.c:2759 ../src/snr2.c:1340
+msgid "Replace"
+msgstr "Remplacer"
+
+#: ../src/document.c:2764 ../src/snr2.c:1343
+msgid "Find"
+msgstr "Rechercher"
+
+#: ../src/document.c:2773
+msgid "Delete bookmark"
+msgstr "Supprimer le signet"
+
+#: ../src/document.c:2918
+msgid "saving file"
+msgstr "Enregistrement du fichier"
+
+#: ../src/document.c:2942 ../src/document.c:2966
+msgid "_Abort save"
+msgstr "_Abandonner l'enregistrement"
+
+#: ../src/document.c:2942
+msgid "_Continue save"
+msgstr "_Continuer l'enregistrement"
+
+#: ../src/document.c:2944
+#, c-format
+msgid ""
+"A backupfile for %s could not be created. If you continue, this file will be "
+"overwritten."
+msgstr ""
+"Le fichier de sauvegarde pour %s n'a pas pu être créé. Si vous continuez, ce "
+"fichier sera écrasé."
+
+#: ../src/document.c:2945
+msgid "File backup failure"
+msgstr "Échec de la sauvegarde"
+
+#: ../src/document.c:2966
+msgid "_Continue save in UTF-8"
+msgstr "_Continuer l'enregistrement en UTF-8"
+
+#: ../src/document.c:2977
+#, c-format
+msgid ""
+"Failed to convert %s to character encoding %s. Encoding failed on character "
+"'%s' at line %d column %d\n"
+"\n"
+"Continue saving in UTF-8 encoding?"
+msgstr ""
+"Impossible de convertir %s vers l'encodage %s. L'encodage a échoué sur le "
+"caractère '%s' à la ligne %d colonne %d\n"
+"\n"
+"Continuer l'enregistrement en UTF-8 ?"
+
+#: ../src/document.c:2978
+msgid "File encoding conversion failure"
+msgstr "Échec de la conversion d'encodage du fichier"
+
+#: ../src/document.c:3131
+msgid "Previously: "
+msgstr "Précédemment : "
+
+#: ../src/document.c:3164
+#, c-format
+msgid "Move/rename %s to"
+msgstr "Déplacer (vers)/renommer (en) %s"
+
+#: ../src/document.c:3164
+#, c-format
+msgid "Save %s as"
+msgstr "Enregistrer %s sous"
+
+#: ../src/document.c:3202 ../src/document.c:3217 ../src/document.c:3304
+#: ../src/document.c:4281 ../src/project.c:193
+msgid "_Cancel"
+msgstr "An_nuler"
+
+#: ../src/document.c:3202 ../src/document.c:3217 ../src/document.c:3304
+#: ../src/project.c:193
+msgid "_Overwrite"
+msgstr "_Écraser"
+
+#: ../src/document.c:3203
+#, c-format
+msgid "File %s exists and is opened, overwrite?"
+msgstr "Le fichier %s est déjà ouvert, voulez-vous vraiment l'écraser ?"
+
+#: ../src/document.c:3204
+msgid "The file you have selected is being edited in Bluefish."
+msgstr "Le fichier sélectionné est en cours d'édition dans Bluefish."
+
+#: ../src/document.c:3218 ../src/project.c:194
+#, c-format
+msgid "A file named \"%s\" already exists."
+msgstr "Un fichier nommé \"%s\" existe déjà."
+
+#: ../src/document.c:3220 ../src/project.c:196
+msgid "Do you want to replace the existing file?"
+msgstr "Désirez-vous remplacer le fichier existant ?"
+
+#: ../src/document.c:3273
+msgid "save as..."
+msgstr "Enregistrer sous..."
+
+#: ../src/document.c:3308
+#, c-format
+msgid ""
+"File: %s\n"
+"\n"
+"New modification time: %s\n"
+"Old modification time: %s"
+msgstr ""
+"Le fichier %s\n"
+"\n"
+"Heure de la nouvelle modification : %s\n"
+"Heure de l'ancienne modification : %s"
+
+#: ../src/document.c:3309
+msgid "File has been modified by another process."
+msgstr "Le fichier a été modifié par un autre processus."
+
+#: ../src/document.c:3322
+#, c-format
+msgid "Saving %s"
+msgstr "Enregistrement de %s"
+
+#: ../src/document.c:3338
+msgid ""
+"Could not backup file:\n"
+"\""
+msgstr ""
+"Impossible de sauvegarder le fichier :\n"
+"\""
+
+#: ../src/document.c:3339
+msgid "File save aborted.\n"
+msgstr "Sauvegarde du fichier annulée.\n"
+
+#: ../src/document.c:3344
+msgid ""
+"Could not write file:\n"
+"\""
+msgstr ""
+"Impossible d'écrire le fichier sur le disque :\n"
+"\""
+
+#: ../src/document.c:3345
+msgid "File save error"
+msgstr "Erreur d'enregistrement de fichier"
+
+#: ../src/document.c:3396
+#, c-format
+msgid "Save changes to \"%s\" before closing?."
+msgstr ""
+"Voulez-vous enregistrer les modifications apportées à \"%s\" avant de le "
+"fermer ?"
+
+#: ../src/document.c:3403 ../src/project.c:360
+msgid "Do_n't save"
+msgstr "Ne pas enre_gistrer"
+
+#: ../src/document.c:3405 ../src/document.c:4283 ../src/project.c:369
+msgid "If you don't save your changes they will be lost."
+msgstr "Si vous n'enregistrez pas les modifications, elles seront perdues."
+
+#: ../src/document.c:3736
+msgid "/Document/Line Numbers"
+msgstr "/Document/Numéros de ligne"
+
+#: ../src/document.c:3739
+msgid "/Document/AutoCompletion"
+msgstr "/Document/Terminaison automatique"
+
+#: ../src/document.c:3775
+msgid "No filename"
+msgstr "Aucun nom de fichier"
+
+#: ../src/document.c:3918
+msgid "Loading files..."
+msgstr "Chargement des fichiers..."
+
+#: ../src/document.c:3942
+msgid ""
+"These files could not opened:\n"
+"\n"
+msgstr ""
+"Ces fichiers n'ont pas pu être ouverts :\n"
+"\n"
+
+#: ../src/document.c:3944 ../src/msg_queue.c:245
+msgid "Unable to open file(s)\n"
+msgstr "Impossible d'ouvrir le(s) fichier(s)\n"
+
+#: ../src/document.c:3977
+msgid "unable to open file"
+msgstr "Impossible d'ouvrir le fichier"
+
+#: ../src/document.c:4028
+msgid "_Reload"
+msgstr "_Recharger"
+
+#: ../src/document.c:4028
+msgid "_Ignore"
+msgstr "_Ignorer"
+
+#: ../src/document.c:4032
+#, c-format
+msgid ""
+"Filename: %s\n"
+"\n"
+"New modification time is: %s\n"
+"Old modification time is: %s"
+msgstr ""
+"Nom de fichier : %s\n"
+"\n"
+"Heure de la nouvelle modification : %s\n"
+"Heure de l'ancienne modification : %s"
+
+#: ../src/document.c:4033
+msgid "File has been modified by another process\n"
+msgstr "Le fichier a été modifié par un autre processus.\n"
+
+#: ../src/document.c:4167 ../src/gtk_easy.c:1629
+msgid "Select files"
+msgstr "Sélectionner des fichiers"
+
+#: ../src/document.c:4185
+#, c-format
+msgid "Loading %d file(s)..."
+msgstr "Chargement de %d fichier(s)..."
+
+#: ../src/document.c:4212 ../src/document.c:4220
+msgid "Select file to insert"
+msgstr "Sélectionner le fichier à insérer"
+
+#: ../src/document.c:4224
+msgid "no file to insert"
+msgstr "Aucun fichier à insérer"
+
+#: ../src/document.c:4281
+msgid "_Save All"
+msgstr "Tout enregi_strer"
+
+#: ../src/document.c:4281
+msgid "Close _All"
+msgstr "Tout fermer"
+
+#: ../src/document.c:4281
+msgid "Choose per _File"
+msgstr "Choisir par _fichier"
+
+#: ../src/document.c:4282
+msgid "Multiple open files have been changed."
+msgstr "Certains fichiers ont été modifiés."
+
+#: ../src/document.c:4550
+#, c-format
+msgid "Statistics: %d lines, %d words, %d characters"
+msgstr "Statistiques : %d lignes, %d mots, %d caractères"
+
+#: ../src/filebrowser.c:1019
+msgid "Error creating path"
+msgstr "Erreur de création du chemin"
+
+#: ../src/filebrowser.c:1019
+msgid "The specified pathname already exists."
+msgstr "Le chemin de fichier spécifié existe déjà."
+
+#: ../src/filebrowser.c:1085
+msgid "File name"
+msgstr "Nom du fichier"
+
+#: ../src/filebrowser.c:1087
+msgid "Directory name"
+msgstr "Nom du répertoire"
+
+#: ../src/filebrowser.c:1118
+msgid "opening directory..."
+msgstr "Ouverture du répertoire..."
+
+#: ../src/filebrowser.c:1211
+msgid "Could not rename\n"
+msgstr "Impossible de renommer le fichier\n"
+
+#: ../src/filebrowser.c:1253
+#, c-format
+msgid "Are you sure you want to delete \"%s\" ?"
+msgstr "Voulez-vous vraiment supprimer \"%s\" ?"
+
+#: ../src/filebrowser.c:1254
+msgid "If you delete this file, it will be permanently lost."
+msgstr "Le fichier sera définitivement effacé."
+
+#: ../src/filebrowser.c:1262
+msgid "Could not delete \n"
+msgstr "Impossible d'effacer le fichier\n"
+
+#: ../src/filebrowser.c:1400
+msgid "/Open _Advanced..."
+msgstr "/P_aramétrer l'ouverture..."
+
+#: ../src/filebrowser.c:1404
+msgid "/_Refresh"
+msgstr "/Actualise_r"
+
+#: ../src/filebrowser.c:1405
+msgid "/_Set as basedir"
+msgstr "/_Sélectionner comme répertoire de travail"
+
+#: ../src/filebrowser.c:1409
+msgid "/New _File"
+msgstr "/Créer un _fichier"
+
+#: ../src/filebrowser.c:1410
+msgid "/_New Directory"
+msgstr "/Créer u_n répertoire"
+
+#: ../src/filebrowser.c:1415
+msgid "/_Open"
+msgstr "/_Ouvrir un fichier"
+
+#: ../src/filebrowser.c:1416
+msgid "/Rena_me"
+msgstr "/Reno_mmer"
+
+#: ../src/filebrowser.c:1417
+msgid "/_Delete"
+msgstr "/_Supprimer"
+
+#: ../src/filebrowser.c:1439
+msgid "Show hidden files"
+msgstr "Afficher les fichiers cachés"
+
+#: ../src/filebrowser.c:1444
+msgid "Show backup files"
+msgstr "Afficher les fichiers de sauvegarde"
+
+#: ../src/filebrowser.c:1450
+msgid "Filter"
+msgstr "Filtre"
+
+#: ../src/filebrowser.c:1650 ../src/gtk_easy.c:1408
+msgid "All files"
+msgstr "Tous les fichiers"
+
+#: ../src/filebrowser.c:1922
+msgid "Show full tree"
+msgstr "Afficher toute l'arborescence"
+
+#: ../src/filebrowser.c:1923
+msgid "Follow focus"
+msgstr "Suivre le focus"
+
+#: ../src/fref.c:1450 ../src/fref.c:1734 ../src/fref.c:1821 ../src/fref.c:1856
+msgid "Info"
+msgstr "Informations"
+
+#: ../src/fref.c:1469
+msgid "Close"
+msgstr "Fermer"
+
+#: ../src/fref.c:1473 ../src/fref.c:1815 ../src/fref.c:1851
+msgid "Dialog"
+msgstr "Dialogue"
+
+#: ../src/fref.c:1474 ../src/fref.c:1818 ../src/fref.c:1845
+msgid "Insert"
+msgstr "Insérer"
+
+#: ../src/fref.c:1827
+msgid "Options"
+msgstr "Options"
+
+#: ../src/fref.c:1835
+msgid "Rescan reference files"
+msgstr "Rescanner les fichiers de référence"
+
+#: ../src/fref.c:1839
+msgid "Left doubleclick action"
+msgstr "Action du double clic gauche"
+
+#: ../src/fref.c:1861
+msgid "Info type"
+msgstr "Type d'informations"
+
+#: ../src/fref.c:1866
+msgid "Description"
+msgstr "Description"
+
+#: ../src/fref.c:1871
+msgid "Attributes/Parameters"
+msgstr "Attributs/Paramètres"
+
+#: ../src/fref.c:1876
+msgid "Notes"
+msgstr "Notes"
+
+#: ../src/fref.c:2052 ../src/fref.c:2066
+msgid "Reference search"
+msgstr "Recherche dans la référence"
+
+#: ../src/fref.c:2067
+msgid "Reference not found"
+msgstr "Référence introuvable"
+
+#: ../src/fref.c:2084
+msgid "Error"
+msgstr "Erreur"
+
+#: ../src/fref.c:2086
+msgid ""
+"Perhaps you didn't load a reference, or you did not select a reference to "
+"search in."
+msgstr ""
+"Peut-être n'avez-vous pas chargé de référence ou bien n'avez vous pas choisi "
+"de référence dans laquelle rechercher."
+
+#: ../src/fref.c:2328
+msgid "d"
+msgstr "d"
+
+#: ../src/fref.c:2330
+msgid "i"
+msgstr "i"
+
+#: ../src/fref.c:2331
+msgid "s"
+msgstr "s"
+
+#: ../src/fref.c:2332
+msgid "dialog"
+msgstr "Dialogue"
+
+#: ../src/fref.c:2334
+msgid "search"
+msgstr "Recherche"
+
+#: ../src/func_grep.c:103
+msgid "no directory specified"
+msgstr "Aucun répertoire spécifié"
+
+#: ../src/func_grep.c:207
+msgid "searching files..."
+msgstr "Recherche des fichiers..."
+
+#: ../src/func_grep.c:218 ../src/func_grep.c:221
+msgid "grep"
+msgstr "grep"
+
+#: ../src/func_grep.c:271 ../src/func_grep.c:279 ../src/project.c:443
+#: ../src/project.c:450
+msgid "Select basedir"
+msgstr "Choisir le répertoire de base"
+
+#: ../src/func_grep.c:307
+msgid "Grep Function"
+msgstr "Fonction grep"
+
+#: ../src/func_grep.c:327
+msgid "<b>General</b>"
+msgstr "<b>Général</b>"
+
+#: ../src/func_grep.c:329
+msgid "Base_dir:"
+msgstr "Répertoire _de base :"
+
+#: ../src/func_grep.c:331 ../src/gtk_easy.c:1342
+msgid "_Browse..."
+msgstr "_Parcourir..."
+
+#: ../src/func_grep.c:341
+msgid "_File Type:"
+msgstr "Type de _fichier :"
+
+#: ../src/func_grep.c:347
+msgid "_Recursive:"
+msgstr "_Récursif :"
+
+#: ../src/func_grep.c:351
+msgid "_Open files:"
+msgstr "_Ouvrir les fichiers :"
+
+#: ../src/func_grep.c:356
+msgid "<b>Contains</b>"
+msgstr "<b>Contient</b>"
+
+#: ../src/func_grep.c:374
+msgid "Pa_ttern:"
+msgstr "_Modèle :"
+
+#: ../src/func_grep.c:379
+msgid "_Case sensitive:"
+msgstr "Respecter la _casse :"
+
+#: ../src/func_grep.c:383
+msgid "Is rege_x:"
+msgstr "Est une e_xpression régulière :"
+
+#: ../src/func_grep.c:387
+msgid "<b>Advanced</b>"
+msgstr "<b>Expert</b>"
+
+#: ../src/func_grep.c:390
+msgid "Skip VCS dirs:"
+msgstr "Omettre les répertoires VCS :"
+
+#: ../src/func_grep.c:446
+msgid "no matching files found"
+msgstr "Aucun fichier trouvé"
+
+#: ../src/func_grep.c:451 ../src/func_grep.c:471
+#, c-format
+msgid "loading %d file(s)..."
+msgstr "Chargement de %d fichier(s)"
+
+#: ../src/func_grep.c:494
+msgid "template"
+msgstr "Modèle"
+
+#: ../src/gtk_easy.c:1186
+#, c-format
+msgid "%d of %d"
+msgstr "%d sur %d"
+
+#: ../src/gtk_easy.c:1288
+msgid "Select File"
+msgstr "Sélectionner un fichier"
+
+#: ../src/gtk_easy.c:1401
+msgid "Show hidden"
+msgstr "Afficher les fichiers cachés"
+
+#: ../src/gtk_easy.c:1602
+msgid "Select file"
+msgstr "Sélectionner un fichier"
+
+#: ../src/gui.c:231
+msgid "tree"
+msgstr "Arborescence"
+
+#: ../src/gui.c:232
+msgid "functions"
+msgstr "Fonctions"
+
+#: ../src/gui.c:233
+msgid "marks"
+msgstr "Signets"
+
+#: ../src/gui.c:613
+msgid "New Winefish Window"
+msgstr "Nouvelle fenêtre Winefish"
+
+#: ../src/gui.c:677
+msgid "Stand by..."
+msgstr "Veuillez patienter..."
+
+#: ../src/gui.c:873
+msgid "Goto line"
+msgstr "Aller à la ligne"
+
+#: ../src/gui.c:881
+msgid "_Line number:"
+msgstr "Numéro de _ligne : "
+
+#: ../src/gui.c:887
+msgid "From _selection"
+msgstr "À partir de la _sélection"
+
+#: ../src/gui.c:890
+msgid "Keep _dialog"
+msgstr "Laisser la boîte de _dialogue ouverte"
+
+#: ../src/gui.c:956
+msgid "starting winefish"
+msgstr "Démarrage de Winefish"
+
+#: ../src/gui.c:1055 ../src/gui.c:1064 ../src/outputbox.c:118
+#: ../src/outputbox.c:339 ../src/outputbox.c:428
+msgid "/View/View Outputbox"
+msgstr "/Afficher/Afficher la boîte de sortie"
+
+#: ../src/highlight.c:391 ../src/highlight.c:403 ../src/highlight.c:430
+#: ../src/highlight.c:444
+msgid "Syntax highlighting error for "
+msgstr "Erreur de coloration syntaxique pour "
+
+#: ../src/highlight.c:392
+#, c-format
+msgid "compiling pattern '%s': %s at offset %d"
+msgstr "compilation du modèle '%s' : %s à la position %d"
+
+#: ../src/highlight.c:404
+#, c-format
+msgid "studying pattern '%s': %s"
+msgstr "vérification du modèle '%s' : %s"
+
+#: ../src/highlight.c:431
+#, c-format
+msgid "compiling 2nd pattern '%s': %s at offset %d"
+msgstr "compilation du second modèle '%s' : %s à la position %d"
+
+#: ../src/highlight.c:445
+#, c-format
+msgid "studying 2nd pattern '%s': %s"
+msgstr "vérification du second modèle '%s' : %s"
+
+#: ../src/image.c:209
+msgid "Insert image"
+msgstr "Insérer une image"
+
+#: ../src/image.c:216
+msgid "Preview"
+msgstr "Prévisualiser"
+
+#: ../src/image.c:240
+msgid "_Image location:"
+msgstr "Emplacement de l'_image :"
+
+#: ../src/image.c:246
+msgid "Relative Path:"
+msgstr "Chemin relatif :"
+
+#: ../src/image.c:250
+msgid "Label:"
+msgstr "Étiquette :"
+
+#: ../src/image.c:255
+msgid "Caption:"
+msgstr "Légende :"
+
+#: ../src/menu.c:225
+msgid "project mode: ON"
+msgstr "Mode projet : ACTIF"
+
+#: ../src/menu.c:227
+msgid "project mode: OFF"
+msgstr "Mode projet : INACTIF"
+
+#: ../src/menu.c:252
+msgid "brace_finder: matching not found"
+msgstr "Appariement de crochets : aucun résultat"
+
+#: ../src/menu.c:255
+msgid "brace_finder: inside a commented line"
+msgstr "Appariement de crochets : dans un commentaire"
+
+#: ../src/menu.c:258
+msgid "brace_finder: inside the selection"
+msgstr "Appariement de crochets : dans la sélection"
+
+#: ../src/menu.c:261
+msgid "brace_finder: wrong operation or brace escaped"
+msgstr "Appariement de crochets : opération erronnée ou crochet précédé du signe escape"
+
+#: ../src/menu.c:279
+msgid "/_File"
+msgstr "/_Fichier"
+
+#: ../src/menu.c:280
+msgid "/File/tearoff1"
+msgstr "/Fichier/tearoff1"
+
+#: ../src/menu.c:281
+msgid "/File/_New"
+msgstr "/Fichier/_Nouveau"
+
+#: ../src/menu.c:282
+msgid "/File/New _Window"
+msgstr "/Fichier/Nouve_lle fenêtre"
+
+#: ../src/menu.c:283
+msgid "/File/_Open..."
+msgstr "/Fichier/_Ouvrir..."
+
+#: ../src/menu.c:284
+msgid "/File/Open Recen_t"
+msgstr "/Fichier/Récemment ou_vert"
+
+#: ../src/menu.c:285
+msgid "/File/Open Recent/tearoff1"
+msgstr "/Fichier/Récemment ouvert/tearoff1"
+
+#: ../src/menu.c:288
+msgid "/File/Open Ad_vanced..."
+msgstr "/Fichier/P_aramétrer l'ouverture..."
+
+#: ../src/menu.c:291
+msgid "/File/Open _from selection"
+msgstr "/Fichier/Ouvrir à partir de la séle_ction"
+
+#: ../src/menu.c:292
+msgid "/File/sep1"
+msgstr "/Fichier/sep1"
+
+#: ../src/menu.c:293
+msgid "/File/_Save"
+msgstr "/Fichier/_Enregistrer"
+
+#: ../src/menu.c:294
+msgid "/File/Save _As..."
+msgstr "/Fichier/Enregistrer _sous..."
+
+#: ../src/menu.c:295
+msgid "/File/Sav_e All"
+msgstr "/Fichier/Tout Enre_gistrer"
+
+#: ../src/menu.c:296
+msgid "/File/_Revert to Saved"
+msgstr "/Fichier/Revenir au _dernier enregistrement"
+
+#: ../src/menu.c:297
+msgid "/File/sep2"
+msgstr "/Fichier/sep2"
+
+#: ../src/menu.c:298
+msgid "/File/_Insert..."
+msgstr "/Fichier/_Insérer..."
+
+#: ../src/menu.c:299
+msgid "/File/Rena_me..."
+msgstr "/Fichier/Reno_mmer..."
+
+#: ../src/menu.c:300
+msgid "/File/sep3"
+msgstr "/Fichier/sep3"
+
+#: ../src/menu.c:301
+msgid "/File/_Close"
+msgstr "/Fichier/_Fermer"
+
+#: ../src/menu.c:302
+msgid "/File/Close A_ll"
+msgstr "/Fichier/_Tout fermer"
+
+#: ../src/menu.c:303
+msgid "/File/Close Win_dow"
+msgstr "/Fichier/Fe_rmer la fenêtre"
+
+#: ../src/menu.c:304
+msgid "/File/sep4"
+msgstr "/Fichier/sep4"
+
+#: ../src/menu.c:306
+msgid "/File/_Quit"
+msgstr "/Fichier/_Quitter"
+
+#: ../src/menu.c:308
+msgid "/_Edit"
+msgstr "/_Éditer"
+
+#: ../src/menu.c:309
+msgid "/Edit/Tearoff1"
+msgstr "/Éditer/Tearoff1"
+
+#: ../src/menu.c:310
+msgid "/Edit/_Undo"
+msgstr "/Éditer/_Annuler"
+
+#: ../src/menu.c:311
+msgid "/Edit/_Redo"
+msgstr "/Éditer/_Rétablir"
+
+#: ../src/menu.c:312
+msgid "/Edit/Undo All"
+msgstr "/Éditer/Tout annuler"
+
+#: ../src/menu.c:313
+msgid "/Edit/Redo All"
+msgstr "/Éditer/Tout rétablir"
+
+#: ../src/menu.c:314
+msgid "/Edit/sep1"
+msgstr "/Éditer/sep1"
+
+#: ../src/menu.c:315
+msgid "/Edit/Selection"
+msgstr "/Éditer/Sélectionner"
+
+#: ../src/menu.c:316
+msgid "/Edit/Selection/Tearoff1"
+msgstr "/Éditer/Sélectionner/Tearoff1"
+
+#: ../src/menu.c:317
+msgid "/Edit/Selection/Cu_t"
+msgstr "/Éditer/Sélectionner/Cou_per"
+
+#: ../src/menu.c:318
+msgid "/Edit/Selection/_Copy"
+msgstr "/Éditer/Sélectionner/_Copier"
+
+#: ../src/menu.c:319
+msgid "/Edit/Selection/_Paste"
+msgstr "/Éditer/Sélectionner/Co_ller"
+
+#: ../src/menu.c:320
+msgid "/Edit/Selection/sep2"
+msgstr "/Éditer/Sélectionner/sep2"
+
+#: ../src/menu.c:321
+msgid "/Edit/Selection/Select _All"
+msgstr "/Éditer/Sélectionner/_Tout sélectionner"
+
+#: ../src/menu.c:322
+msgid "/Edit/Find, Replace"
+msgstr "/Éditer/Rechercher, Remplacer"
+
+#: ../src/menu.c:323
+msgid "/Edit/Find, Replace/Tearoff1"
+msgstr "/Éditer/Rechercher, Remplacer/Tearoff1"
+
+#: ../src/menu.c:324
+msgid "/Edit/Find, Replace/Brace Finder (Forward)"
+msgstr "/Éditer/Rechercher, Remplacer/Apparier les crochets (vers le bas)"
+
+#: ../src/menu.c:325
+msgid "/Edit/Find, Replace/Brace Finder (Backward)"
+msgstr "/Éditer/Rechercher, Remplacer/Apparier les crochets (vers le haut)"
+
+#: ../src/menu.c:326
+msgid "/Edit/Find, Replace/sep0"
+msgstr "/Éditer/Rechercher, Remplacer/sep0"
+
+#: ../src/menu.c:327
+msgid "/Edit/Find, Replace/_Find..."
+msgstr "/Éditer/Rechercher, Remplacer/Rec_hercher..."
+
+#: ../src/menu.c:328
+msgid "/Edit/Find, Replace/Find A_gain"
+msgstr "/Éditer/Rechercher, Remplacer/Rec_ommencer la recherche"
+
+#: ../src/menu.c:329
+msgid "/Edit/Find, Replace/Find from selection"
+msgstr "/Éditer/Rechercher, Remplacer/Rechercher à partir de la sélection"
+
+#: ../src/menu.c:332
+msgid "/Edit/Find, Replace/Find from Files"
+msgstr "/Éditer/Rechercher, Remplacer/Rechercher à partir des fichiers"
+
+#: ../src/menu.c:333
+msgid "/Edit/Find, Replace/Templates"
+msgstr "/Éditer/Rechercher, Remplacer/Modèles"
+
+#: ../src/menu.c:336
+msgid "/Edit/Find, Replace/sep1"
+msgstr "/Éditer/Rechercher, Remplacer/sep1"
+
+#: ../src/menu.c:337
+msgid "/Edit/Find, Replace/R_eplace..."
+msgstr "/Éditer/Rechercher, Remplacer/R_emplacer..."
+
+#: ../src/menu.c:338
+msgid "/Edit/Find, Replace/Replace Agai_n"
+msgstr "/Éditer/Rechercher, Remplacer/Remplacer e_ncore"
+
+#: ../src/menu.c:339
+msgid "/Edit/Find, Replace/sep2"
+msgstr "/Éditer/Rechercher, Remplacer/sep2"
+
+#: ../src/menu.c:341
+msgid "/Edit/Find, Replace/To _Uppercase"
+msgstr "/Éditer/Rechercher, Remplacer/Par des maj_uscules"
+
+#: ../src/menu.c:342
+msgid "/Edit/Find, Replace/To _Lowercase"
+msgstr "/Éditer/Rechercher, Remplacer/Par des minuscu_les"
+
+#: ../src/menu.c:343
+msgid "/Edit/Find, Replace/sep3"
+msgstr "/Éditer/Rechercher, Remplacer/sep3"
+
+#: ../src/menu.c:344
+msgid "/Edit/Find, Replace/ASCII to HTML entities"
+msgstr "/Éditer/Rechercher, Remplacer/ASCII => entités HTML"
+
+#: ../src/menu.c:345
+msgid "/Edit/Find, Replace/ISO8859 to HTML entities"
+msgstr "/Éditer/Rechercher, Remplacer/ISO-8859 => entités HTML"
+
+#: ../src/menu.c:346
+msgid "/Edit/Find, Replace/ASCII & ISO8859 to HTML entities"
+msgstr "/Éditer/Rechercher, Remplacer/ASCII et ISo8859 => entités HTML"
+
+#: ../src/menu.c:348
+msgid "/Edit/sep4"
+msgstr "/Éditer/sep4"
+
+#: ../src/menu.c:349
+msgid "/Edit/Sh_ift Right"
+msgstr "/Éditer/Au_gmenter le retrait"
+
+#: ../src/menu.c:350
+msgid "/Edit/S_hift Left"
+msgstr "/Éditer/Dimin_uer le retrait"
+
+#: ../src/menu.c:351
+msgid "/Edit/_Comment"
+msgstr "/Éditer/Mettre en _commentaire"
+
+#: ../src/menu.c:352
+msgid "/Edit/_UnComment"
+msgstr "/Éditer/Ôter les _marques de commentaire"
+
+#: ../src/menu.c:353
+msgid "/Edit/_Hard Shift Left"
+msgstr "/Éditer/Retrait _négatif"
+
+#: ../src/menu.c:354
+msgid "/Edit/Delete Current Line"
+msgstr "/Éditer/Supprimer la ligne active"
+
+#: ../src/menu.c:355
+msgid "/Edit/sep5"
+msgstr "/Éditer/sep5"
+
+#: ../src/menu.c:356
+msgid "/Edit/Add _Bookmark"
+msgstr "/Éditer/A_jouter un signet"
+
+#: ../src/menu.c:357
+msgid "/_Insert"
+msgstr "/_Insertion"
+
+#: ../src/menu.c:358
+msgid "/Insert/Tearoff1"
+msgstr "/Insertion/Tearoff1"
+
+#: ../src/menu.c:360
+msgid "/Insert/T_ools"
+msgstr "/Insertion/_Outils"
+
+#: ../src/menu.c:361
+msgid "/Insert/Tools/Tearoff1"
+msgstr "/Insertion/Outils/Tearoff1"
+
+#: ../src/menu.c:362
+msgid "/Insert/Tools/Simple document (code)"
+msgstr "/Insertion/Outils/Document de base (code)"
+
+#: ../src/menu.c:363
+msgid "/Insert/Tools/Figure"
+msgstr "/Insertion/Outils/Graphique"
+
+#: ../src/menu.c:364
+msgid "/Insert/Tools/Time, Date"
+msgstr "/Insertion/Outils/Date, Heure"
+
+#: ../src/menu.c:365
+msgid "/Insert/Tools/Source Separator"
+msgstr "/Insertion/Outils/Séparateur de source"
+
+#: ../src/menu.c:367
+msgid "/Insert/_Table, List"
+msgstr "/Insertion/_Tableau, Liste"
+
+#: ../src/menu.c:368
+msgid "/Insert/Table, List/Tearoff1"
+msgstr "/Insertion/Tableau, Liste/Tearoff1"
+
+#: ../src/menu.c:369
+msgid "/Insert/Table, List/_List"
+msgstr "/Insertion/Tableau, Liste/_Liste"
+
+#: ../src/menu.c:370
+msgid "/Insert/Table, List/_Table, Array"
+msgstr "/Insertion/Tableau, Liste/_Tableau, Matrice"
+
+#: ../src/menu.c:372
+msgid "/Insert/_Headings"
+msgstr "/Insertion/_En-têtes"
+
+#: ../src/menu.c:373
+msgid "/Insert/Headings/Tearoff1"
+msgstr "/Insertion/En-têtes/Tearoff1"
+
+#: ../src/menu.c:374
+msgid "/Insert/Headings/_part"
+msgstr "/Insertion/En-têtes/_Partie"
+
+#: ../src/menu.c:375
+msgid "/Insert/Headings/_chapter"
+msgstr "/Insertion/En-têtes/_Chapitre"
+
+#: ../src/menu.c:376
+msgid "/Insert/Headings/_section"
+msgstr "/Insertion/En-têtes/_Section"
+
+#: ../src/menu.c:377
+msgid "/Insert/Headings/s_ubsection"
+msgstr "/Insertion/En-têtes/S_ous-section"
+
+#: ../src/menu.c:378
+msgid "/Insert/Headings/su_bsubsection"
+msgstr "/Insertion/En-têtes/So_us-sous-section"
+
+#: ../src/menu.c:379
+msgid "/Insert/Headings/sep1"
+msgstr "/Insertion/En-têtes/sep1"
+
+#: ../src/menu.c:380
+msgid "/Insert/Headings/parag_raph"
+msgstr "/Insertion/En-têtes/Para_graphe"
+
+#: ../src/menu.c:381
+msgid "/Insert/Headings/subparag_raph"
+msgstr "/Insertion/En-têtes/Sous-parag_raphe"
+
+#: ../src/menu.c:382
+msgid "/Insert/Headings/sep2"
+msgstr "/Insertion/En-têtes/sep2"
+
+#: ../src/menu.c:383
+msgid "/Insert/Headings/_part*"
+msgstr "/Insertion/En-têtes/P_artie*"
+
+#: ../src/menu.c:384
+msgid "/Insert/Headings/_chapter*"
+msgstr "/Insertion/En-têtes/C_hapitre*"
+
+#: ../src/menu.c:385
+msgid "/Insert/Headings/_section*"
+msgstr "/Insertion/En-têtes/Sectio_n*"
+
+#: ../src/menu.c:386
+msgid "/Insert/Headings/s_ubsection*"
+msgstr "/Insertion/En-têtes/Sous-se_ction*"
+
+#: ../src/menu.c:387
+msgid "/Insert/Headings/su_bsubsection*"
+msgstr "/Insertion/En-têtes/Sous-sous-sect_ion*"
+
+#: ../src/menu.c:389
+msgid "/Insert/_Environments"
+msgstr "/Insertion/En_vironnements"
+
+#: ../src/menu.c:390
+msgid "/Insert/Environments/tearoff1"
+msgstr "/Insertion/Environnements/tearoff1"
+
+#: ../src/menu.c:392
+msgid "/Insert/Environments/flush_left"
+msgstr "/Insertion/Environnements/Aligné à _gauche"
+
+#: ../src/menu.c:393
+msgid "/Insert/Environments/flush_right"
+msgstr "/Insertion/Environnements/Aligné à _droite"
+
+#: ../src/menu.c:394
+msgid "/Insert/Environments/_centering"
+msgstr "/Insertion/Environnements/_Centré"
+
+#: ../src/menu.c:395
+msgid "/Insert/Environments/sep2"
+msgstr "/Insertion/Environnements/sep2"
+
+#: ../src/menu.c:396
+msgid "/Insert/Environments/_verbatim"
+msgstr "/Insertion/Environnements/_Verbatim"
+
+#: ../src/menu.c:397
+msgid "/Insert/Environments/verbati_m*"
+msgstr "/Insertion/Environnements/Verbati_m*"
+
+#: ../src/menu.c:398
+msgid "/Insert/Environments/ver_se"
+msgstr "/Insertion/Environnements/Ver_s"
+
+#: ../src/menu.c:399
+msgid "/Insert/Environments/_quotation"
+msgstr "/Insertion/Environnements/_Guillemets"
+
+#: ../src/menu.c:402
+msgid "/Insert/AMS equations"
+msgstr "/Insertion/Équations AMS"
+
+#: ../src/menu.c:403
+msgid "/Insert/AMS equations/tearoff1"
+msgstr "/Insertion/Équations AMS/tearoff1"
+
+#: ../src/menu.c:404
+msgid "/Insert/AMS equations/split"
+msgstr "/Insertion/Équations AMS/Scinder"
+
+#: ../src/menu.c:405
+msgid "/Insert/AMS equations/cases"
+msgstr "/Insertion/Équations AMS/Cas"
+
+#: ../src/menu.c:406
+msgid "/Insert/AMS equations/sep1"
+msgstr "/Insertion/Équations AMS/sep1"
+
+#: ../src/menu.c:408
+msgid "/Insert/AMS equations/aligned"
+msgstr "/Insertion/Équations AMS/Aligné"
+
+#: ../src/menu.c:409
+msgid "/Insert/AMS equations/gathered"
+msgstr "/Insertion/Équations AMS/Regroupé"
+
+#: ../src/menu.c:410
+msgid "/Insert/AMS equations/sep2"
+msgstr "/Insertion/Équations AMS/sep2"
+
+#: ../src/menu.c:412
+msgid "/Insert/AMS equations/equation"
+msgstr "/Insertion/Équations AMS/Équation"
+
+#: ../src/menu.c:413
+msgid "/Insert/AMS equations/align"
+msgstr "/Insertion/Équations AMS/Alignement"
+
+#: ../src/menu.c:414
+msgid "/Insert/AMS equations/subequations"
+msgstr "/Insertion/Équations AMS/Sous-équations"
+
+#: ../src/menu.c:415
+msgid "/Insert/AMS equations/gather"
+msgstr "/Insertion/Équations AMS/Regrouper"
+
+#: ../src/menu.c:416
+msgid "/Insert/AMS equations/multline"
+msgstr "/Insertion/Équations AMS/Multiligne"
+
+#: ../src/menu.c:418
+msgid "/Insert/AMS equations/alignat"
+msgstr "/Insertion/Équations AMS/Alignement réparti"
+
+#: ../src/menu.c:419
+msgid "/Insert/AMS equations/sep3"
+msgstr "/Insertion/Équations AMS/sep3"
+
+#: ../src/menu.c:421
+msgid "/Insert/AMS equations/equation*"
+msgstr "/Insertion/Équations AMS/Équation*"
+
+#: ../src/menu.c:422
+msgid "/Insert/AMS equations/align*"
+msgstr "/Insertion/Équations AMS/Alignement*"
+
+#: ../src/menu.c:423
+msgid "/Insert/AMS equations/gather*"
+msgstr "/Insertion/Équations AMS/Regroupé*"
+
+#: ../src/menu.c:424
+msgid "/Insert/AMS equations/multline*"
+msgstr "/Insertion/Équations AMS/Multiligne*"
+
+#: ../src/menu.c:426
+msgid "/Insert/AMS equations/alignat*"
+msgstr "/Insertion/Équations AMS/Alignement réparti*"
+
+#: ../src/menu.c:428
+msgid "/Insert/_Font style"
+msgstr "/Insertion/Style de _police"
+
+#: ../src/menu.c:431
+msgid "/Insert/Font/Sizes"
+msgstr "/Insertion/Polices/Corps"
+
+#: ../src/menu.c:432
+msgid "/Insert/Font/Sizes/tearoff1"
+msgstr "/Insertion/Polices/Corps/tearoff1"
+
+#: ../src/menu.c:433
+msgid "/Insert/Font/Sizes/{\\\\tiny }"
+msgstr "/Insertion/Polices/Corps/{\\\\Très petit }"
+
+#: ../src/menu.c:434
+msgid "/Insert/Font/Sizes/{\\\\scriptsize }"
+msgstr "/Insertion/Polices/Corps/{\\\\Script }"
+
+#: ../src/menu.c:435
+msgid "/Insert/Font/Sizes/{\\\\footnotesize }"
+msgstr "/Insertion/Polices/Corps/{\\\\Note de bas de page }"
+
+#: ../src/menu.c:436
+msgid "/Insert/Font/Sizes/{\\\\small }"
+msgstr "/Insertion/Polices/Corps/{\\\\Petit }"
+
+#: ../src/menu.c:437
+msgid "/Insert/Font/Sizes/{\\\\normalsize }"
+msgstr "/Insertion/Polices/Corps/{\\\\Normal }"
+
+#: ../src/menu.c:438
+msgid "/Insert/Font/Sizes/{\\\\large }"
+msgstr "/Insertion/Polices/Corps/{\\\\grand }"
+
+#: ../src/menu.c:439
+msgid "/Insert/Font/Sizes/{\\\\Large }"
+msgstr "/Insertion/Polices/Corps/{\\\\Grand }"
+
+#: ../src/menu.c:440
+msgid "/Insert/Font/Sizes/{\\\\huge }"
+msgstr "/Insertion/Polices/Corps/{\\\\Très grand }"
+
+#: ../src/menu.c:441
+msgid "/Insert/Font/Sizes/{\\\\Huge }"
+msgstr "/Insertion/Polices/Corps/{\\\\Très Grand }"
+
+#: ../src/menu.c:445
+msgid "/Insert/Font style/tearoff1"
+msgstr "/Insertion/Style de police/tearoff1"
+
+#: ../src/menu.c:446
+msgid "/Insert/Font style/\\\\emph - _emphasized"
+msgstr "/Insertion/Style de police/\\\\emph - _Emphase"
+
+#: ../src/menu.c:447
+msgid "/Insert/Font style/\\\\underline - _underlined"
+msgstr "/Insertion/Style de police/\\\\underline - _Souligné"
+
+#: ../src/menu.c:448
+msgid "/Insert/Font style/\\\\textit - _italic"
+msgstr "/Insertion/Style de police/\\\\textit - _Italique"
+
+#: ../src/menu.c:449
+msgid "/Insert/Font style/\\\\textsl - _slanted"
+msgstr "/Insertion/Style de police/\\\\textsl - _Oblique"
+
+#: ../src/menu.c:450
+msgid "/Insert/Font style/\\\\textbf - _boldface"
+msgstr "/Insertion/Style de police/\\\\textbf - _Gras"
+
+#: ../src/menu.c:451
+msgid "/Insert/Font style/\\\\texttt - _typewriter"
+msgstr "/Insertion/Style de police/\\\\texttt - _Machine à écrire"
+
+#: ../src/menu.c:452
+msgid "/Insert/Font style/\\\\textsc - small_caps"
+msgstr "/Insertion/Style de police/\\\\textsc - Petites ma_juscules"
+
+#: ../src/menu.c:455
+msgid "/Insert/Font/Maths"
+msgstr "/Insertion/Polices/Mathématique"
+
+#: ../src/menu.c:456
+msgid "/Insert/Font/Maths/tearoff1"
+msgstr "/Insertion/Polices/Mathématique/tearoff1"
+
+#: ../src/menu.c:457
+msgid "/Insert/Font/Maths/\\\\mathrm - Roman"
+msgstr "/Insertion/Polices/Mathématique/\\\\mathrm - Roman"
+
+#: ../src/menu.c:458
+msgid "/Insert/Font/Maths/\\\\mathit - Italic"
+msgstr "/Insertion/Polices/Mathématique/\\\\mathit - Italique"
+
+#: ../src/menu.c:459
+msgid "/Insert/Font/Maths/\\\\mathbf - Boldface"
+msgstr "/Insertion/Polices/Mathématique/\\\\mathbf - Gras"
+
+#: ../src/menu.c:460
+msgid "/Insert/Font/Maths/\\\\mathsf - Sans serif"
+msgstr "/Insertion/Polices/Mathématique/\\\\mathsf - Sans serif"
+
+#: ../src/menu.c:461
+msgid "/Insert/Font/Maths/\\\\mathtt - Typewriter"
+msgstr "/Insertion/Polices/Mathématique/\\\\mathtt - Machine à écrire"
+
+#: ../src/menu.c:462
+msgid "/Insert/Font/Maths/sep1"
+msgstr "/Insertion/Polices/Mathématique/sep1"
+
+#: ../src/menu.c:463
+msgid "/Insert/Font/Maths/\\\\mathcal - Caligraphic"
+msgstr "/Insertion/Polices/Mathématique/\\\\mathcal - Calligraphique"
+
+#: ../src/menu.c:464
+msgid "/Insert/Font/Maths/\\\\mathbb - Blackboard"
+msgstr "/Insertion/Polices/Mathématique/\\\\mathbb - Tableau noir"
+
+#: ../src/menu.c:465
+msgid "/Insert/Font/Maths/\\\\mathfrak - Fraktur"
+msgstr "/Insertion/Polices/Mathématique/\\\\mathfrak - Gothique"
+
+#: ../src/menu.c:507
+msgid "/_Document"
+msgstr "/_Document"
+
+#: ../src/menu.c:508
+msgid "/Document/tearoff1"
+msgstr "/Document/tearoff1"
+
+#: ../src/menu.c:509
+msgid "/Document/_Increase Tabsize"
+msgstr "/Document/Au_gmenter la largeur de tabulat_ion"
+
+#: ../src/menu.c:510
+msgid "/Document/_Decrease Tabsize"
+msgstr "/Document/Ré_duire la largeur de tabulation"
+
+#: ../src/menu.c:511
+msgid "/Document/_Auto Indent"
+msgstr "/Document/Indentation _automatique"
+
+#: ../src/menu.c:512
+msgid "/Document/sep1"
+msgstr "/Document/sep1"
+
+#: ../src/menu.c:513
+msgid "/Document/Auto_Completion"
+msgstr "/Document/_Terminaison automatique"
+
+#: ../src/menu.c:514
+msgid "/Document/_Wrap"
+msgstr "/Document/_Césure"
+
+#: ../src/menu.c:515
+msgid "/Document/_Line Numbers"
+msgstr "/Document/Numéros de _ligne"
+
+#: ../src/menu.c:516
+msgid "/Document/sep2"
+msgstr "/Document/sep2"
+
+#: ../src/menu.c:517
+msgid "/Document/_Highlight Syntax"
+msgstr "/Document/C_olorer le code"
+
+#: ../src/menu.c:518
+msgid "/Document/_Update Highlighting"
+msgstr "/Document/Mettre à jo_ur la coloration syntaxique"
+
+#: ../src/menu.c:519
+msgid "/Document/sep3"
+msgstr "/Document/sep3"
+
+#: ../src/menu.c:520
+msgid "/Document/Document Ty_pe"
+msgstr "/Document/Ty_pe de document"
+
+#: ../src/menu.c:521
+msgid "/Document/Document Type/tearoff1"
+msgstr "/Document/Type de document/tearoff1"
+
+#: ../src/menu.c:522
+msgid "/Document/Character _Encoding"
+msgstr "/Document/_Encodage"
+
+#: ../src/menu.c:523
+msgid "/Document/Character Encoding/tearoff1"
+msgstr "/Document/Encodage/tearoff1"
+
+#: ../src/menu.c:524
+msgid "/Document/sep4"
+msgstr "/Document/sep4"
+
+#: ../src/menu.c:526
+msgid "/Document/Check _Spelling..."
+msgstr "/Document/Vérification ort_hographique..."
+
+#: ../src/menu.c:528
+msgid "/Document/_Floating window"
+msgstr "/Document/Fenêtre _flottante"
+
+#: ../src/menu.c:529
+msgid "/Document/Word _Count"
+msgstr "/Document/Compter les _mots"
+
+#: ../src/menu.c:533
+msgid "/E_xternal"
+msgstr "/E_xterne"
+
+#: ../src/menu.c:534
+msgid "/External/tearoff1"
+msgstr "/Externe/tearoff1"
+
+#: ../src/menu.c:535 ../src/menu.c:772 ../src/outputbox.c:560
+#: ../src/outputbox.c:563
+msgid "/External/Stop..."
+msgstr "/Externe/Arrêter..."
+
+#: ../src/menu.c:536
+msgid "/External/_Project mode"
+msgstr "/Externe/Mode _projet"
+
+#: ../src/menu.c:538
+msgid "/_Project"
+msgstr "/_Projet"
+
+#: ../src/menu.c:539
+msgid "/Project/tearoff1"
+msgstr "/Projet/tearoff1"
+
+#: ../src/menu.c:540
+msgid "/Project/_New"
+msgstr "/Projet/_Nouveau"
+
+#: ../src/menu.c:541
+msgid "/Project/_Open"
+msgstr "/Projet/_Ouvrir"
+
+#: ../src/menu.c:542
+msgid "/Project/Open R_ecent"
+msgstr "/Projet/_Récemment ouvert"
+
+#: ../src/menu.c:543
+msgid "/Project/Open Recent/tearoff1"
+msgstr "/Projet/_Récemment ouvert/tearoff1"
+
+#: ../src/menu.c:544
+msgid "/Project/sep1"
+msgstr "/Projet/sep1"
+
+#: ../src/menu.c:545
+msgid "/Project/_Save"
+msgstr "/Projet/_Enregistrer"
+
+#: ../src/menu.c:546
+msgid "/Project/Save _as..."
+msgstr "/Projet/Enregistrer _sous..."
+
+#: ../src/menu.c:547
+msgid "/Project/Save & _close"
+msgstr "/Projet/Enregistrer et _fermer"
+
+#: ../src/menu.c:548
+msgid "/Project/sep2"
+msgstr "Projet/sep2"
+
+#: ../src/menu.c:549 ../src/project.c:226
+msgid "/Project/Project options..."
+msgstr "Projet/Options du projet..."
+
+#: ../src/menu.c:551
+msgid "/_Go"
+msgstr "/A_ller à"
+
+#: ../src/menu.c:552
+msgid "/Go/tearoff1"
+msgstr "Aller à/tearoff1"
+
+#: ../src/menu.c:553
+msgid "/Go/_Previous document"
+msgstr "/Aller à/Document _précédent"
+
+#: ../src/menu.c:554
+msgid "/Go/_Next document"
+msgstr "/Aller à/Document suiva_nt"
+
+#: ../src/menu.c:555 ../src/menu.c:558
+msgid "/Go/sep1"
+msgstr "/Aller à/sep1"
+
+#: ../src/menu.c:556
+msgid "/Go/_First document"
+msgstr "/Aller à/Premier d_ocument"
+
+#: ../src/menu.c:557
+msgid "/Go/L_ast document"
+msgstr "/Aller à/Dernier doc_ument"
+
+#: ../src/menu.c:559
+msgid "/Go/Goto _Line"
+msgstr "/Aller à/Aller à la _ligne"
+
+#: ../src/menu.c:560
+msgid "/Go/Goto _Selection"
+msgstr "/Aller à/Aller à la _sélection"
+
+#: ../src/menu.c:562
+msgid "/_View"
+msgstr "/A_ffichage"
+
+#: ../src/menu.c:563
+msgid "/View/tearoff1"
+msgstr "/Affichage/tearoff1"
+
+#: ../src/menu.c:565
+msgid "/View/View _Custom Menu"
+msgstr "/Affichage/Afficher le menu _personnalisé"
+
+#: ../src/menu.c:566
+msgid "/View/View _Sidebar"
+msgstr "/Affichage/Afficher le panneau _latéral"
+
+#: ../src/menu.c:567
+msgid "/View/View _Outputbox"
+msgstr "/Affichage/Afficher la boîte de _sortie"
+
+#: ../src/menu.c:568
+msgid "/_?"
+msgstr "/_Aide"
+
+#: ../src/menu.c:569
+msgid "/?/_About..."
+msgstr "/Aide/A _propos..."
+
+#: ../src/menu.c:570
+msgid "/?/sep1"
+msgstr "/Aide/sep1"
+
+#: ../src/menu.c:571
+msgid "/?/_Save Settings"
+msgstr "/Aide/Enregistrer les para_mètres"
+
+#: ../src/menu.c:572
+msgid "/?/Save Shortcut _Keys"
+msgstr "/Aide/Enregistrer les _raccourcis clavier"
+
+#: ../src/menu.c:573
+msgid "/?/_Preferences"
+msgstr "/Aide/_Préférences"
+
+#: ../src/menu.c:710
+msgid "/Document/Document Type"
+msgstr "/Document/Type de document"
+
+#: ../src/menu.c:766
+msgid "/View/View Custom Menu"
+msgstr "/Affichage/Afficher le menu personnalisé"
+
+#: ../src/menu.c:767
+msgid "/View/View Sidebar"
+msgstr "/Affichage/Afficher le panneau latéral"
+
+#: ../src/menu.c:768
+msgid "/Document/Auto Indent"
+msgstr "/Document/Indentation automatique"
+
+#: ../src/menu.c:769 ../src/project.c:228 ../src/project.c:230
+#: ../src/project.c:232
+msgid "/External/Project mode"
+msgstr "/Externe/Mode Projet"
+
+#: ../src/menu.c:800
+msgid "output"
+msgstr "Sortie"
+
+#: ../src/menu.c:848
+msgid "loading file(s)..."
+msgstr "Chargement des fichiers..."
+
+#: ../src/menu.c:852
+msgid "The filename was:\n"
+msgstr "Le nom du fichier était :\n"
+
+#: ../src/menu.c:853
+msgid "Could not open file\n"
+msgstr "Impossible d'ouvrir le fichier\n"
+
+#: ../src/menu.c:876
+msgid "/Project/Open Recent"
+msgstr "/Projet/Récemment ouvert"
+
+#: ../src/menu.c:880
+msgid "/File/Open Recent"
+msgstr "/Fichier/Récemment ouvert"
+
+#: ../src/menu.c:1007
+msgid "/Windows"
+msgstr "/Fenêtres"
+
+#: ../src/menu.c:1056
+msgid "Could not view file in browser, the file does not yet have a name\n"
+msgstr ""
+"Impossible de visualiser le fichier dans le navigateur, le fichier n'a pas "
+"encore de nom\n"
+
+#: ../src/menu.c:1206 ../src/menu.c:1226 ../src/menu.c:1244 ../src/menu.c:1258
+#: ../src/menu.c:1282 ../src/menu.c:1296
+msgid "/External"
+msgstr "/Externe"
+
+#: ../src/menu.c:1341
+msgid "/Document/Character Encoding"
+msgstr "/Document/Encodage"
+
+#: ../src/menu.c:1607
+msgid "This custom search and replace requires a selection"
+msgstr "Cette recherche et remplacement personnalisé requiert une sélection"
+
+#: ../src/menu.c:1705
+msgid "/_Custom menu"
+msgstr "/_Menu personnalisé"
+
+#: ../src/menu.c:1706
+msgid "/Custom menu/sep"
+msgstr "/Menu personnalisé/sep"
+
+#: ../src/menu.c:1707
+msgid "/Custom menu/Edit custom menu..."
+msgstr "/Menu personnalisé/Éditer menu personnalisé..."
+
+#: ../src/menu.c:1708
+msgid "/Custom menu/Reset"
+msgstr "Menu personnalisé/Revenir aux valeurs par défaut"
+
+#: ../src/menu.c:1709
+msgid "/Custom menu/Load new"
+msgstr "Menu personnalisé/Charger le nouveau menu"
+
+#: ../src/menu.c:1925
+msgid "Search Pattern"
+msgstr "Rechercher un modèle"
+
+#: ../src/menu.c:1926
+msgid "Replace String"
+msgstr "Remplacer la chaîne"
+
+#: ../src/menu.c:1929
+msgid "Formatstring Before"
+msgstr "Préfixe de formatage"
+
+#: ../src/menu.c:1930
+msgid "Formatstring After"
+msgstr "Suffixe de formatage"
+
+#: ../src/menu.c:1977
+msgid "The menupath you want to update does not exist yet"
+msgstr "Le chemin du menu que vous voulez mettre à jour n'existe pas encore"
+
+#: ../src/menu.c:1977
+msgid "Try 'add' instead."
+msgstr "Essayez plutôt 'Ajouter'."
+
+#: ../src/menu.c:1979
+msgid "The menupath you want to add already exists."
+msgstr "Le chemin du menu que vous voulez ajouter existe déjà."
+
+#: ../src/menu.c:1984
+msgid "The menupath should start with a / character"
+msgstr "Le chemin du menu doit commencer par le caractère /"
+
+#: ../src/menu.c:2146
+msgid "Custom Menu Editor"
+msgstr "Éditeur de menu personnalisé"
+
+#: ../src/menu.c:2157
+msgid "Add New Menu Entry"
+msgstr "Ajouter une nouvelle entrée au Menu"
+
+#: ../src/menu.c:2159
+msgid "Apply Changes"
+msgstr "Appliquer les changements"
+
+#: ../src/menu.c:2161
+msgid "Delete Menu Entry"
+msgstr "Supprimer l'entrée du Menu"
+
+#: ../src/menu.c:2164
+msgid "Close Discards Changes"
+msgstr "Abandonner et Fermer"
+
+#: ../src/menu.c:2166
+msgid "Save Changes and Exit"
+msgstr "Enregistrer les changements et quitter"
+
+#: ../src/menu.c:2176
+msgid "_Menu Path:"
+msgstr "Chemin du _menu :"
+
+#: ../src/menu.c:2197
+msgid "Menu path"
+msgstr "Chemin du menu :"
+
+#: ../src/menu.c:2217
+msgid "Number of _Variables:"
+msgstr "Nombre de _variables :"
+
+#: ../src/menu.c:2225
+msgid "Variables"
+msgstr "Variables"
+
+#: ../src/menu.c:2244
+msgid "Custom Dialo_g"
+msgstr "Dialo_gue personnalisé"
+
+#: ../src/menu.c:2246
+msgid "Custom Replace"
+msgstr "Remplacement personnalisé"
+
+#: ../src/menu.c:2258
+msgid "_Replace:"
+msgstr "_Remplacer :"
+
+#: ../src/menu.c:2261
+msgid "in current document"
+msgstr "dans le document actif"
+
+#: ../src/menu.c:2261
+msgid "from cursor"
+msgstr "à partir du curseur"
+
+#: ../src/menu.c:2261
+msgid "in selection"
+msgstr "à l'intérieur de la sélection"
+
+#: ../src/menu.c:2261
+msgid "in all open documents"
+msgstr "dans tous les documents ouverts"
+
+#: ../src/menu.c:2269
+msgid "Matc_hing:"
+msgstr "Correspondance :"
+
+#: ../src/menu.c:2272
+msgid "normal"
+msgstr "normale"
+
+#: ../src/menu.c:2272
+msgid "posix regular expresions"
+msgstr "expression régulière posix"
+
+#: ../src/menu.c:2272
+msgid "perl regular expresions"
+msgstr "expression régulière perl"
+
+#: ../src/menu.c:2278
+msgid "Case Se_nsitive"
+msgstr "Se_nsible à la casse"
+
+#: ../src/msg_queue.c:243
+msgid "These files were not opened:\n"
+msgstr "Ces fichiers n'ont pas été ouverts :\n"
+
+#: ../src/outputbox.c:157
+msgid "hide this box"
+msgstr "Masquer la boîte"
+
+#: ../src/outputbox.c:163
+msgid "copy this line"
+msgstr "Copier la ligne"
+
+#: ../src/outputbox.c:183
+#, c-format
+msgid "goto line %s, file = %s"
+msgstr "Aller à la ligne %s du fichier %s"
+
+#: ../src/outputbox.c:185
+#, c-format
+msgid "goto file = %s"
+msgstr "Aller dans le fichier %s"
+
+#: ../src/outputbox.c:189
+#, c-format
+msgid "goto line %s, current file"
+msgstr "Aller à la ligne %s du fichier actif"
+
+#: ../src/outputbox.c:194
+#, c-format
+msgid "file: %s"
+msgstr "Fichier : %s"
+
+#: ../src/outputbox.c:215
+msgid "noop"
+msgstr "Néant"
+
+#: ../src/outputbox.c:440
+msgid "tool is running. press Escape to stop it first."
+msgstr ""
+"La commande est en cours d'exécution. Appuyez d'abord sur la touche Escape "
+"pour arrêter son exécution."
+
+#: ../src/outputbox.c:450
+msgid "empty command"
+msgstr "Rafraîchir la ligne de commande"
+
+#: ../src/outputbox.c:456
+#, c-format
+msgid "%s # project mode: ON"
+msgstr "%s # mode projet: ACTIF"
+
+#: ../src/outputbox.c:458
+#, c-format
+msgid "%s # project mode: OFF"
+msgstr "%s # mode projet: INACTIF"
+
+#: ../src/outputbox.c:467
+msgid "file wasnot saved. tool canceled"
+msgstr "Le fichier n'a pas été enregistré. La commande a été annulée."
+
+#: ../src/outputbox.c:519
+msgid "stop request. stopping tool..."
+msgstr "Demande d'arrêt d'exécution. Commande en cours d'arrêt..."
+
+#: ../src/outputbox_bf.c:169 ../src/outputbox_bf.c:178
+#, c-format
+msgid "some error happened creating fifo %s"
+msgstr "Une erreur s'est produite lors de la création du fifo %s"
+
+#: ../src/outputbox_bf.c:390
+#, c-format
+msgid "exit code: %d"
+msgstr "Code de sortie : %d"
+
+#: ../src/outputbox_bf.c:394 ../src/outputbox_ka.c:97
+msgid "the child process exited abnormally"
+msgstr "Le processus enfant s'est terminé anormalement"
+
+#: ../src/outputbox_ka.c:93
+#, c-format
+msgid "Exit code: %d"
+msgstr "Code de sortie : %d"
+
+#: ../src/outputbox_ka.c:151
+#, c-format
+msgid "IOChannel Error: %s"
+msgstr "Erreur sur les canaux E/S : %s"
+
+#: ../src/outputbox_ka.c:294
+#, c-format
+msgid "Error: %s"
+msgstr "Erreur : %s"
+
+#: ../src/outputbox_ka.c:297
+msgid "hint: you may call the tool again"
+msgstr "Astuce : vous pouvez relancer la commande"
+
+#: ../src/outputbox_ka.c:300
+msgid "tool finished."
+msgstr "Exécution de la commande terminée."
+
+#: ../src/outputbox_ka.c:306
+msgid "error: cannot create PIPE file."
+msgstr "Erreur : impossible de créer le fichier tube."
+
+#: ../src/outputbox_ka.c:311
+msgid "error: cannot create temporarily file."
+msgstr "Erreur : impossible de créer le fichier temporaire."
+
+#: ../src/preferences.c:266
+msgid "Untitled"
+msgstr "Sans titre"
+
+#: ../src/preferences.c:366
+msgid "Select font"
+msgstr "Sélection de police"
+
+#: ../src/preferences.c:492 ../src/preferences.c:580 ../src/preferences.c:1065
+#: ../src/preferences.c:1402
+msgid "Label"
+msgstr "Étiquette"
+
+#: ../src/preferences.c:493
+msgid "Extensions"
+msgstr "Extensions"
+
+#: ../src/preferences.c:494
+msgid "Update chars"
+msgstr "Mise à jour des caractères"
+
+#: ../src/preferences.c:495
+msgid "Icon"
+msgstr "Icône"
+
+#: ../src/preferences.c:496
+msgid "Editable"
+msgstr "Modifiable"
+
+#: ../src/preferences.c:497
+msgid "Content regex"
+msgstr "Contenu de l'expression régulière"
+
+#: ../src/preferences.c:498
+msgid "AutoCompletion"
+msgstr "Terminaison automatique"
+
+#: ../src/preferences.c:581
+msgid "Inverse filter"
+msgstr "Inverser le filtre"
+
+#: ../src/preferences.c:582
+msgid "Filetypes in filter"
+msgstr "Types de fichier dans le filtre"
+
+#: ../src/preferences.c:936
+msgid "filetype"
+msgstr "Type de fichier"
+
+#: ../src/preferences.c:941
+msgid "Reset"
+msgstr "Revenir aux valeurs par défaut"
+
+#: ../src/preferences.c:947
+msgid "Pattern name"
+msgstr "Nom du modèle"
+
+#: ../src/preferences.c:965 ../src/preferences.c:1493
+msgid "Pattern"
+msgstr "Modèle"
+
+#: ../src/preferences.c:988
+msgid "Start pattern and end pattern"
+msgstr "Le modèle comporte un début et une fin"
+
+#: ../src/preferences.c:990
+msgid "Only start pattern"
+msgstr "Le modèle ne comporte pas de fin"
+
+#: ../src/preferences.c:992
+msgid "Subpattern from parent"
+msgstr "Modèle enfant"
+
+#: ../src/preferences.c:998
+msgid "Start pattern"
+msgstr "Début du modèle"
+
+#: ../src/preferences.c:999
+msgid "End pattern"
+msgstr "Fin du modèle"
+
+#: ../src/preferences.c:1000
+msgid "Case sensitive matching"
+msgstr "Respecter la casse"
+
+#: ../src/preferences.c:1001
+msgid "Parentmatch"
+msgstr "Modèle parent"
+
+#: ../src/preferences.c:1002
+msgid "Foreground color"
+msgstr "Couleur du premier plan"
+
+#: ../src/preferences.c:1003
+msgid "Background color"
+msgstr "Couleur d'arrière-plan"
+
+#: ../src/preferences.c:1011
+msgid "don't change weight"
+msgstr "Ne pas changer la graisse"
+
+#: ../src/preferences.c:1013
+msgid "force non-bold weight"
+msgstr "Non-gras"
+
+#: ../src/preferences.c:1015
+msgid "force bold weight"
+msgstr "Gras"
+
+#: ../src/preferences.c:1021
+msgid "don't change style"
+msgstr "Ne pas changer le style"
+
+#: ../src/preferences.c:1023
+msgid "force non-italic style"
+msgstr "Non-italique"
+
+#: ../src/preferences.c:1025
+msgid "force italic style"
+msgstr "Italique"
+
+#: ../src/preferences.c:1066 ../src/preferences.c:1322
+#: ../src/preferences.c:1403 ../src/preferences.c:1497
+msgid "Command"
+msgstr "Commande"
+
+#: ../src/preferences.c:1170 ../src/preferences.c:1200
+msgid "Warning:"
+msgstr "Important :"
+
+#: ../src/preferences.c:1170
+msgid ""
+"Please refresh the list before adding any item!\n"
+"\n"
+"Because of peformance reason, Winefish doesnot load your autotext file "
+"automatically. You may do it manually by choosing 'Refresh' now. *Note* that "
+"this may take a quite long time."
+msgstr ""
+"Veuillez mettre à jour la liste avant d'ajouter un élément.\n"
+"\n"
+"Pour des raisons de performance, Winefish ne charge pas automatiquement le "
+"texte automatique. Vous pouvez le faire manuellement en cliquant sur 'Mettre "
+"à jour maintenant'. *Notez* que cela peut prendre un certain temps."
+
+#: ../src/preferences.c:1200
+msgid ""
+"Please refresh the list before adding any item!\n"
+"\n"
+"Because of peformance reason, Winefish doesnot load your 'word-list' file "
+"automatically. You may do it manually by choosing 'Refresh' now. *Note* that "
+"this may take a quite long time."
+msgstr ""
+"Veuillez mettre à jour la liste avant d'ajouter un élément.\n"
+"\n"
+"Pour des raisons de performance, Winefish ne charge pas automatiquement le "
+"fichier 'liste de mots'. Vous pouvez le faire manuellement en cliquant sur "
+"'Mettre à jour maintenant'. *Notez* que cela peut prendre un certain temps."
+
+#: ../src/preferences.c:1269
+msgid "Definition"
+msgstr "Définition de terme"
+
+#: ../src/preferences.c:1270
+msgid "Before"
+msgstr "Avant"
+
+#: ../src/preferences.c:1271
+msgid "After"
+msgstr "Après"
+
+#: ../src/preferences.c:1309
+msgid ""
+"Add new autotext definition.\n"
+"Start finding the old one by pressing CTRL+F."
+msgstr ""
+"Ajoute une nouvelle définition de texte automatique.\n"
+"Commencez par rechercher l'ancienne en appuyant sur CTRL+F."
+
+#: ../src/preferences.c:1361
+msgid ""
+"Add new word which should be started by '\\'.\n"
+"Start finding the old one by pressing CTRL+F."
+msgstr ""
+"Ajoute un nouveau mot - il doit commencer par '\\'.\n"
+"Commencez par rechercher l'ancien en appuyant sur CTRL+F."
+
+#: ../src/preferences.c:1424
+#, c-format
+msgid ""
+"%f for current filename (any command)\n"
+"%i for input and %o for output filename (filters)"
+msgstr ""
+"%f correspond au nom du fichier actif (toute commande)\n"
+"%i correspond au nom du fichier d'entrée et %o au nom du fichier de sortie "
+"(filtres)"
+
+#: ../src/preferences.c:1492
+msgid "Name"
+msgstr "Nom"
+
+#: ../src/preferences.c:1494
+msgid "File #"
+msgstr "Fichier #"
+
+#: ../src/preferences.c:1495
+msgid "Line #"
+msgstr "Ligne #"
+
+#: ../src/preferences.c:1496
+msgid "Output #"
+msgstr "Résultat à l'écran #"
+
+#: ../src/preferences.c:1498
+msgid "Save,Show"
+msgstr "Enregistrement, Affichage"
+
+#: ../src/preferences.c:1537
+msgid ""
+"%D: basedir of project\n"
+"%B: basefile (without extension) of project\n"
+"%d: current directory\n"
+"%b: basename (without extension) of current file\n"
+"%f: current file (full path)\n"
+"%l: current line\n"
+"\n"
+"If there isn't any project, or project mode is off, we have\n"
+"\t%D=%d, %B=%b\n"
+"\n"
+"Save,Show:\n"
+"\tneed save file: 1\n"
+"\tshow all output: 2\n"
+"\tboth of them: 1+2 =3\n"
+"\tnone of them: 0"
+msgstr ""
+"%D : répertoire de base du projet\n"
+"%B : fichier de base du projet (sans extension)\n"
+"%d : répertoire courant\n"
+"%b : nom de base du fichier actif (sans extension)\n"
+"%f : nom du fichier actif (chemin complet)\n"
+"%l : ligne active\n"
+"\n"
+"Si aucun projet n'est ouvert ou si le mode projet est inactif,\n"
+"on a :\n"
+"\t%D = %d et %B = %b\n"
+"\n"
+"Enregistrement, Affichage :\n"
+"\tEnregistrer le fichier : 1\n"
+"\tAfficher tous les résultats : 2\n"
+"\tLes deux : 1+2 =3\n"
+"\tAucun des deux: 0"
+
+#: ../src/preferences.c:1846 ../src/preferences.c:1847
+msgid "left"
+msgstr "à gauche"
+
+#: ../src/preferences.c:1846 ../src/preferences.c:1847
+msgid "right"
+msgstr "à droite"
+
+#: ../src/preferences.c:1846
+msgid "top"
+msgstr "en haut"
+
+#: ../src/preferences.c:1846
+msgid "bottom"
+msgstr "en bas"
+
+#: ../src/preferences.c:1848
+msgid "no check"
+msgstr "Aucune vérification"
+
+#: ../src/preferences.c:1848
+msgid "check mtime and size"
+msgstr "Vérifier la date de modification et la taille du fichier"
+
+#: ../src/preferences.c:1848
+msgid "check mtime"
+msgstr "Vérifier la date de modification"
+
+#: ../src/preferences.c:1848
+msgid "check size"
+msgstr "Vérifier la taille"
+
+#: ../src/preferences.c:1851
+msgid "Edit preferences"
+msgstr "Éditer les préférences"
+
+#: ../src/preferences.c:1863
+msgid "Editor"
+msgstr "Éditeur"
+
+#: ../src/preferences.c:1865
+msgid "Editor options"
+msgstr "Options de l'éditeur"
+
+#: ../src/preferences.c:1870
+msgid "Font"
+msgstr "Police"
+
+#: ../src/preferences.c:1871
+msgid "Tab width"
+msgstr "Largeur de tabulation"
+
+#: ../src/preferences.c:1872
+msgid "Use spaces to indent, not tabs"
+msgstr "Utiliser des espaces pour indenter plutôt que des tabulations"
+
+#: ../src/preferences.c:1873
+msgid "Word wrap default"
+msgstr "Césure par défaut"
+
+#: ../src/preferences.c:1875
+msgid "Highlight syntax by default"
+msgstr "Coloration syntaxique par défaut"
+
+#: ../src/preferences.c:1876
+msgid "Highlight # lines"
+msgstr "Coloration nombre de lignes"
+
+#: ../src/preferences.c:1878
+msgid "Undo"
+msgstr "Annuler"
+
+#: ../src/preferences.c:1883
+msgid "Undo history size"
+msgstr "Nombre de niveaux d'annulation"
+
+#: ../src/preferences.c:1884
+msgid "Clear undo history on save"
+msgstr "Effacer les niveaux d'annulation lors de l'enregistrement"
+
+#: ../src/preferences.c:1886
+msgid "Bookmark options"
+msgstr "Options des signets"
+
+#: ../src/preferences.c:1891
+msgid "Make permanent by default"
+msgstr "Rendre permanent par défaut"
+
+#: ../src/preferences.c:1893
+msgid "full path"
+msgstr "Chemin complet"
+
+#: ../src/preferences.c:1893
+msgid "path from basedir"
+msgstr "Chemin à partir du répertoire de travail"
+
+#: ../src/preferences.c:1893
+msgid "filename"
+msgstr "Nom de fichier"
+
+#: ../src/preferences.c:1894
+msgid "Bookmarks filename display"
+msgstr "Affichage du nom de fichier du signet"
+
+#: ../src/preferences.c:1899
+msgid "Files"
+msgstr "Fichiers"
+
+#: ../src/preferences.c:1901
+msgid "Encoding"
+msgstr "Encodage"
+
+#: ../src/preferences.c:1913
+msgid "Default character set"
+msgstr "Jeu de caractères par défaut"
+
+#: ../src/preferences.c:1919
+msgid "Backup"
+msgstr "Sauvegarder"
+
+#: ../src/preferences.c:1923
+msgid "Create backup on save"
+msgstr "Créer une sauvegarde à l'enregistrement"
+
+#: ../src/preferences.c:1924
+msgid "Backup file suffix"
+msgstr "Extension du fichier de sauvegarde"
+
+#: ../src/preferences.c:1926
+msgid "save"
+msgstr "Enregistrer"
+
+#: ../src/preferences.c:1926
+msgid "abort"
+msgstr "Abandonner"
+
+#: ../src/preferences.c:1926
+msgid "ask"
+msgstr "Demander"
+
+#: ../src/preferences.c:1927
+msgid "Action on backup failure"
+msgstr "Action en cas d'échec de la sauvegarde"
+
+#: ../src/preferences.c:1929
+msgid "Remove backupfile on close"
+msgstr "Supprimer la sauvegarde à la fermeture"
+
+#: ../src/preferences.c:1933
+msgid "Misc"
+msgstr "Divers"
+
+#: ../src/preferences.c:1938
+msgid "Allow multi instances of a file"
+msgstr "Autoriser plusieurs instances d'un même fichier"
+
+#: ../src/preferences.c:1940
+msgid "Open files in already running winefish window"
+msgstr "Ouvrir les fichiers dans la fenêtre active de Winefish"
+
+#: ../src/preferences.c:1942
+msgid "File modified on disk check "
+msgstr "Fichier modifié sur le disque"
+
+#: ../src/preferences.c:1943
+msgid "Number of files in 'Open recent'"
+msgstr "Nombre de fichiers dans 'Récemment ouvert'"
+
+#: ../src/preferences.c:1945
+msgid "File browser"
+msgstr "Navigateur de fichiers"
+
+#: ../src/preferences.c:1949
+msgid "Default basedir"
+msgstr "Répertoire de travail par défaut"
+
+#: ../src/preferences.c:1950
+msgid "Use separate file and directory view"
+msgstr "Utiliser une vue scindée répertoires/fichiers"
+
+#: ../src/preferences.c:1951
+msgid "Unknown icon"
+msgstr "Icône de type inconnu"
+
+#: ../src/preferences.c:1952
+msgid "Directory icon"
+msgstr "Icône de répertoire"
+
+#: ../src/preferences.c:1956
+msgid "User interface"
+msgstr "Interface utilisateur"
+
+#: ../src/preferences.c:1958
+msgid "Dimensions"
+msgstr "Dimensions"
+
+#: ../src/preferences.c:1962
+msgid "Restore last used dimensions"
+msgstr "Restaurer les dernières dimensions utilisées"
+
+#: ../src/preferences.c:1963
+msgid "Initial sidebar width"
+msgstr "Largeur initiale du panneau latéral"
+
+#: ../src/preferences.c:1964
+msgid "Initial window height"
+msgstr "Hauteur initiale de la fenêtre"
+
+#: ../src/preferences.c:1965
+msgid "Initial window width"
+msgstr "Largeur initiale de la fenêtre"
+
+#: ../src/preferences.c:1969
+msgid "General"
+msgstr "Général"
+
+#: ../src/preferences.c:1974
+msgid "Make LaTeX dialogs transient"
+msgstr "Garder les boîtes de dialogue LaTeX au premier plan"
+
+#: ../src/preferences.c:1976
+msgid "Notebook tab font (leave empty for gtk default)"
+msgstr "Police des onglets Notebook (ne pas remplir pour le GTK par défaut)"
+
+#: ../src/preferences.c:1978
+msgid "Document notebook tab position"
+msgstr "Position de l'onglet"
+
+#: ../src/preferences.c:1979
+msgid "Sidebar notebook tab position"
+msgstr "Position de l'onglet du panneau latéral"
+
+#: ../src/preferences.c:1980
+msgid "Sidebar location"
+msgstr "Emplacement du panneau latéral"
+
+#: ../src/preferences.c:1984 ../src/preferences.c:1986
+msgid "Filetypes"
+msgstr "Types de fichiers"
+
+#: ../src/preferences.c:1993
+msgid "Filefilters"
+msgstr "Filtres de fichiers"
+
+#: ../src/preferences.c:2002
+msgid "Highlighting"
+msgstr "Coloration syntaxique"
+
+#: ../src/preferences.c:2004
+msgid "Patterns"
+msgstr "Modèles"
+
+#: ../src/preferences.c:2013
+msgid "Viewers, Filters"
+msgstr "Visionneurs, filtres"
+
+#: ../src/preferences.c:2015
+msgid "Viewers"
+msgstr "Visionneurs"
+
+#: ../src/preferences.c:2022
+msgid "Utilities and Filters"
+msgstr "Utilitaires et Filtres"
+
+#: ../src/preferences.c:2031 ../src/preferences.c:2033
+msgid "TeXbox"
+msgstr "Boîte TeX"
+
+#: ../src/preferences.c:2041
+msgid "Information"
+msgstr "Information"
+
+#: ../src/preferences.c:2050
+msgid "AutoX"
+msgstr "Automation"
+
+#: ../src/preferences.c:2052
+msgid "Autotext"
+msgstr "Texte automatique"
+
+#: ../src/preferences.c:2059
+msgid "Word List (for Autocompletion)"
+msgstr "Liste de mots (pour la terminaison automatique)"
+
+#: ../src/preferences.c:2068
+msgid "Miscellaneous"
+msgstr "Divers"
+
+#: ../src/preferences.c:2072
+msgid "Templates Directory"
+msgstr "Répertoire des modèles"
+
+#: ../src/project.c:89
+msgid "New project"
+msgstr "Créer un Projet"
+
+#: ../src/project.c:176 ../src/project.c:183
+msgid "Enter Winefish project filename"
+msgstr "Saisir le nom du projet Winefish"
+
+#: ../src/project.c:223
+msgid "/Project/Save"
+msgstr "/Projet/Enregistrer"
+
+#: ../src/project.c:224
+msgid "/Project/Save as..."
+msgstr "/Projet/Enregistrer sous..."
+
+#: ../src/project.c:225
+msgid "/Project/Save & close"
+msgstr "/Projet/Enregistrer et fermer"
+
+#: ../src/project.c:302 ../src/project.c:309
+msgid "Select Winefish project filename"
+msgstr "Choisir le nom d'un projet Winefish"
+
+#: ../src/project.c:367
+msgid "Do you want to save the project?"
+msgstr "Voulez-vous enregistrer le projet ?"
+
+#: ../src/project.c:495
+msgid ""
+"The BaseDir must exist.\n"
+"The BaseFile must be located in BaseDir."
+msgstr ""
+"Le répertoire de base doit exister.\n"
+"Le fichier de base doit être situé dans le répertoire de base."
+
+#: ../src/project.c:522
+msgid "Create New Project"
+msgstr "Créer un projet"
+
+#: ../src/project.c:525
+msgid "Edit Project"
+msgstr "Éditer le projet"
+
+#: ../src/project.c:548
+#, c-format
+msgid "This project contains %d files"
+msgstr "Ce projet contient %d fichiers"
+
+#: ../src/project.c:560
+msgid "Project _Name:"
+msgstr "_Nom du projet :"
+
+#: ../src/project.c:564
+msgid "_BaseDir:"
+msgstr "Répertoire de _base :"
+
+#: ../src/project.c:567
+msgid "Browse..."
+msgstr "Parcourir..."
+
+#: ../src/project.c:570
+msgid "BaseFile:"
+msgstr "Fichier de base :"
+
+#: ../src/project.c:576
+msgid "_Template:"
+msgstr "_Modèle :"
+
+#: ../src/project.c:582
+msgid "_Word wrap by default"
+msgstr "_Césure par défaut"
+
+#: ../src/project.c:594
+msgid "Create _Project"
+msgstr "Créer un _projet"
+
+#: ../src/project.c:634
+msgid "Create project"
+msgstr "Créer un projet"
+
+#: ../src/project.c:638
+msgid "Create project with currently opened documents"
+msgstr "Créer un projet avec les documents ouverts"
+
+#: ../src/project.c:639
+msgid "Create empty project"
+msgstr "Créer un projet vide"
+
+#: ../src/rcfile.c:495
+msgid "DVI Viewer"
+msgstr "Visionneur DVI"
+
+#: ../src/rcfile.c:497
+msgid "PDF Viewer"
+msgstr "Visionneur PDF"
+
+#: ../src/rcfile.c:499
+msgid "EPS Viewer"
+msgstr "Visionneur EPS"
+
+#: ../src/rcfile.c:573
+msgid "LaTeX"
+msgstr "LaTeX"
+
+#: ../src/rcfile.c:575
+msgid "XML"
+msgstr "XML"
+
+#: ../src/rcfile.c:577
+msgid "Images"
+msgstr "Images"
+
+#: ../src/rcfile.c:941
+msgid "Untitled Project"
+msgstr "Projet sans titre"
+
+#: ../src/snr2.c:193
+msgid "Regular expression error: "
+msgstr "Erreur d'expression régulière : "
+
+#: ../src/snr2.c:194 ../src/snr2.c:239
+msgid "Search failed"
+msgstr "Échec de la recherche"
+
+#: ../src/snr2.c:238
+#, c-format
+msgid "Regular expression error: %s at offset %d"
+msgstr "Erreur d'expression régulière : %s à la position %d"
+
+#: ../src/snr2.c:864
+msgid "Confirm replace"
+msgstr "Confirmer le remplacement"
+
+#: ../src/snr2.c:876
+msgid "Replace selected text?"
+msgstr "Remplacer le texte sélectionné ?"
+
+#: ../src/snr2.c:889
+msgid "_Skip"
+msgstr "_Ignorer"
+
+#: ../src/snr2.c:891
+msgid "Replace _all"
+msgstr "Tout rempl_acer"
+
+#: ../src/snr2.c:1136 ../src/snr2.c:1143
+msgid "Search: no match found"
+msgstr "Recherche : aucun résultat trouvé"
+
+#: ../src/snr2.c:1369
+msgid "_Search for: "
+msgstr "_Rechercher : "
+
+#: ../src/snr2.c:1395
+msgid "_Replace with: "
+msgstr "Remplacer _par : "
+
+#: ../src/snr2.c:1405
+msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
+msgstr "\\0 se réfère au premier sous-modèle, \\1 au deuxième, etc."
+
+#: ../src/snr2.c:1420
+msgid "Beginning of document till end"
+msgstr "Du début à la fin du document"
+
+#: ../src/snr2.c:1420
+msgid "Current position till end"
+msgstr "De la position du curseur jusqu'à la fin"
+
+#: ../src/snr2.c:1420
+msgid "Beginning of selection till end of selection"
+msgstr "Du début à la fin de la sélection"
+
+#: ../src/snr2.c:1420
+msgid "All opened files begin till end"
+msgstr "Du début à la fin de tous les fichiers ouverts"
+
+#: ../src/snr2.c:1421
+msgid "Disabled"
+msgstr "Désactivée"
+
+#: ../src/snr2.c:1421
+msgid "POSIX type"
+msgstr "De type POSIX"
+
+#: ../src/snr2.c:1421
+msgid "PERL type"
+msgstr "De type PERL"
+
+#: ../src/snr2.c:1422
+msgid "Starts at:"
+msgstr "Zone de recherche : "
+
+#: ../src/snr2.c:1434
+msgid "Regular expression:"
+msgstr "Expression régulière : "
+
+#: ../src/snr2.c:1448
+msgid "Normal"
+msgstr "Normal"
+
+#: ../src/snr2.c:1448
+msgid "Uppercase"
+msgstr "Mettre en majuscules"
+
+#: ../src/snr2.c:1448
+msgid "Lowercase"
+msgstr "Mettre en minuscules"
+
+#: ../src/snr2.c:1449
+msgid "Replace type:"
+msgstr "Type de remplacement :"
+
+#: ../src/snr2.c:1462
+msgid "_Patterns contain backslash escape sequences (\\n, \\t)"
+msgstr "Les _modèles contiennent des séquences d'échappement (\\n, \\t)"
+
+#: ../src/snr2.c:1463
+msgid "_Match case"
+msgstr "Respecter la ca_sse"
+
+#: ../src/snr2.c:1464
+msgid "O_verlap searches"
+msgstr "Recherches ré_cursives"
+
+#: ../src/snr2.c:1466
+msgid "Prompt _before replace"
+msgstr "_Demander avant de remplacer"
+
+#: ../src/snr2.c:1467
+msgid "Replace o_nce"
+msgstr "Remplacer _une seule fois"
+
+#: ../src/snr2.c:1469
+msgid "Bookmark results"
+msgstr "Créer des signets"
+
+#: ../src/winefish.c:106
+#, c-format
+msgid ""
+"\n"
+"Usage: %s [options] [filenames ...]\n"
+msgstr ""
+"\n"
+"Utilisation : %s [options] [nomdefichier ...]\n"
+
+#: ../src/winefish.c:107
+msgid ""
+"\n"
+"Currently accepted options are:\n"
+msgstr ""
+"\n"
+"Les options actuellement acceptées sont :\n"
+
+#: ../src/winefish.c:108
+msgid "-s           skip root check\n"
+msgstr "-s          Omettre la vérification root\n"
+
+#: ../src/winefish.c:109
+msgid "-v           current version\n"
+msgstr "-v          Version actuelle\n"
+
+#: ../src/winefish.c:110
+msgid "-n 0|1       open new window (1) or not (0)\n"
+msgstr "-n 0|1       ouvrir une nouvelle fenêtre (1) ou non (0)\n"
+
+#: ../src/winefish.c:111
+msgid "-p filename  open project\n"
+msgstr "-p nomdefichier  ouvrir un projet\n"
+
+#: ../src/winefish.c:112
+msgid "-l number    set line<number>. Negative value takes no effect.\n"
+msgstr ""
+"-l nombre    definit le <numéro> de lignes. Les valeurs négatives n'ont "
+"aucun effet.\n"
+
+#: ../src/winefish.c:113
+msgid "-h           this help screen\n"
+msgstr "-h          Aide en ligne de commande\n"
+
+#: ../src/winefish.c:185
+msgid "parsing highlighting file..."
+msgstr "Traitement de la coloration syntaxique du fichier..."
+
+#: ../src/winefish.c:196
+msgid "compiling highlighting patterns..."
+msgstr "Compilation des modèles de coloration syntaxique..."
+
+#: ../src/winefish.c:200
+msgid "initialize some other things..."
+msgstr "Initialisation diverses..."
+
+#: ../src/winefish.c:206
+msgid "parsing autotext and words file..."
+msgstr "Analyse du texte automatique et du fichier de mots..."
+
+#: ../src/winefish.c:211
+msgid "parsing custom menu file..."
+msgstr "Traitement du fichier de menu personnalisé..."
+
+#: ../src/winefish.c:225
+msgid "creating main gui..."
+msgstr "Création de l'interface principale..."
+
+#: ../src/winefish.c:236
+msgid "showing main gui..."
+msgstr "Affichage de l'interface principale..."
+
+#: ../src/wizards.c:139
+#, c-format
+msgid "row %d col"
+msgstr "ligne % colonne"
+
+#: ../src/wizards.c:157
+#, c-format
+msgid "%%%% row %d\n"
+msgstr "%%%% ligne %d\n"
+
+#: ../src/wizards.c:251
+msgid "Table Wizard"
+msgstr "Assistant tableau"
+
+#: ../src/wizards.c:259
+msgid "Number of _rows:"
+msgstr "Nombre de _lignes :"
+
+#: ../src/wizards.c:263
+msgid "Number of colu_mns:"
+msgstr "No_mbre de colonnes :"
+
+#: ../src/wizards.c:267
+msgid "Add Horizontal Rules:"
+msgstr "Ajouter des traits horizontaux :"
+
+#: ../src/wizards.c:287
+msgid "Type (Environment):"
+msgstr "Type (environnement) :"
+
+#: ../src/wizards.c:297
+msgid "Columns Alignmen:"
+msgstr "Alignement des colonnes :"
+
+#: ../src/wizards.c:311
+msgid "Vertical Rules:"
+msgstr "Traits Verticaux :"
+
+#: ../src/wizards.c:408
+msgid "Insert Time"
+msgstr "Insérer l'heure"
+
+#: ../src/wizards.c:416
+#, c-format
+msgid "  _Time (%i:%i:%i)"
+msgstr "  _Heure (%i:%i:%i)"
+
+#: ../src/wizards.c:421
+msgid "  Day of the _week (Sunday)"
+msgstr "  Jour de la _semaine (Dimanche)"
+
+#: ../src/wizards.c:424
+msgid "  Day of the _week (Monday)"
+msgstr "  Jour de la _semaine (Lundi)"
+
+#: ../src/wizards.c:427
+msgid "  Day of the _week (Tuesday)"
+msgstr "  Jour de la _semaine (Mardi)"
+
+#: ../src/wizards.c:430
+msgid "  Day of the _week (Wednesday)"
+msgstr "  Jour de la _semaine (Mercredi)"
+
+#: ../src/wizards.c:433
+msgid "  Day of the _week (Thursday)"
+msgstr "  Jour de la _semaine (Jeudi)"
+
+#: ../src/wizards.c:436
+msgid "  Day of the _week (Friday)"
+msgstr "  Jour de la _semaine (Vendredi)"
+
+#: ../src/wizards.c:439
+msgid "  Day of the _week (Saturday)"
+msgstr "  Jour de la _semaine (Samedi)"
+
+#: ../src/wizards.c:442
+msgid "You appear to have a non existant day!\n"
+msgstr "Il semble que la date fournie n'existe pas !\n"
+
+#: ../src/wizards.c:450
+#, c-format
+msgid "  _Date (%i/%i/%i)"
+msgstr "  _Date (%i/%i/%i)"
+
+#: ../src/wizards.c:453
+#, c-format
+msgid "  _Unix Time (%i)"
+msgstr "  Heure au format _Unix (%i)"
+
+#: ../src/wizards.c:456
+#, c-format
+msgid "  Unix Date _String (%s"
+msgstr "  Date au _format Unix (%s"
+
+#: ../src/wizards.c:518
+msgid "Quick Start"
+msgstr "Démarrage rapide"
+
+#: ../src/wizards.c:533
+msgid "Document _Class:"
+msgstr "_Classe du document :"
+
+#: ../src/wizards.c:551
+msgid "_VnTeX Support:"
+msgstr "Gestion _VnTeX :"
+
+#: ../src/wizards.c:599 ../src/wizards.c:604 ../src/wizards.c:608
+msgid "item"
+msgstr "Élément"
+
+#: ../src/wizards.c:628
+msgid "Quick List"
+msgstr "Liste rapide"
+
+#: ../src/wizards.c:635
+msgid "_Rows:"
+msgstr "_Lignes :"
+
+#: ../src/wizards.c:646
+msgid "Type (_Environment):"
+msgstr "Type (_Environnement) :"
