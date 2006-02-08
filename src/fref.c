@@ -1,4 +1,4 @@
-/* $Id: fref.c,v 1.1.1.1 2005/06/29 11:03:23 kyanh Exp $ */
+/* $Id$ */
 /* 
  * fref.c - function reference file
  * Modified for Winefish (C) 2005 Ky Anh <kyanh@o2.pl>
@@ -1794,7 +1794,7 @@ static void fref_popup_menu_info(GtkWidget * widget, Tcallbackdata * cd)
 
 static void fref_popup_menu_rescan_lcb(GtkWidget * widget, gpointer user_data)
 {
-	gchar *userdir = g_strconcat(g_get_home_dir(), "/.bluefish/", NULL);
+	gchar *userdir = g_strconcat(g_get_home_dir(), "/.winefish/", NULL);
 	DEBUG_MSG("fref_popup_menu_rescan_lcb, started\n");
 	fref_rescan_dir(PKGDATADIR);
 	fref_rescan_dir(userdir);
