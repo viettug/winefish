@@ -1,0 +1,38 @@
+# Winefish LaTeX Editor
+# Makefile.in - the Makefile template
+# Copyright (C) 2006 Winefish Development Team
+# 
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+mandir = @mandir@
+
+INSTALL = @INSTALL@
+INSTALL_DIR = $(INSTALL) -d -m 755
+INSTALL_DATA = ${INSTALL} -m 644
+
+all:
+
+install:
+	$(INSTALL_DIR) $(DESTDIR)$(mandir)/man1
+	$(INSTALL_DATA) winefish.1 $(DESTDIR)$(mandir)/man1
+
+uninstall:
+	rm -f $(DESTDIR)$(mandir)/man1/winefish.1
+
+clean:
+
+distclean: clean
