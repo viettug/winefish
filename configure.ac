@@ -32,7 +32,7 @@ AC_DEFINE_UNQUOTED(CURRENT_VERSION_NAME, "$PACKAGE $VERSION LaTeX editor")
 AC_DEFINE_UNQUOTED(CONFIGURE_OPTIONS, "$0 $*")
 
 # these are the languages that will be installed, so these should be finished
-ALL_LINGUAS="it vi"
+ALL_LINGUAS="fr it vi"
 AC_SUBST(ALL_LINGUAS)
 
 dnl ************************
@@ -284,14 +284,19 @@ AC_CHECK_HEADER(aspell.h,
 	AC_CHECK_LIB(aspell, new_aspell_config, 
 		LIBS="$LIBS -laspell"
 		AC_DEFINE(HAVE_LIBASPELL),
-		echo "libaspell not found please install libaspell-dev or similar"), 
-	OLDLIBS=$LIBS
-	LIBS="$LIBS -laspell-common -lstdc++"
-	AC_CHECK_LIB(aspell, new_aspell_config,
-		LIBS="$LIBS -laspell"
-		AC_DEFINE(HAVE_LIBASPELL),
-		LIBS=$OLDLIBS
-		echo "libaspell not found please install libaspell-dev or similar"
+		OLDLIBS=$LIBS
+		LIBS="$OLDSLIBS -lstdc++"
+		AC_CHECK_LIB(aspell, new_aspell_config,
+			LIBS="$LIBS -laspell"
+			AC_DEFINE(HAVE_LIBASPELL),
+			LIBS="$OLDSLIBS -laspell-common -lstdc++"
+			AC_CHECK_LIB(aspell, new_aspell_config,
+				LIBS="$LIBS -laspell"
+				AC_DEFINE(HAVE_LIBASPELL),
+				LIBS=$OLDLIBS
+				echo "libaspell not found please install libaspell-dev or similar"
+			)
+		)
 	)
 )
 
@@ -604,7 +609,7 @@ AC_SUBST(INSTALLDATA)
 AC_SUBST(INSTALLMAIN)
 AC_SUBST(MAKEMAIN)
 
-AC_CONFIG_FILES(Makefile icons/Makefile src/Makefile data/Makefile po/Makefile)
+AC_CONFIG_FILES(Makefile icons/Makefile src/Makefile data/Makefile po/Makefile man/Makefile)
 AC_OUTPUT
 
 echo "-----------"

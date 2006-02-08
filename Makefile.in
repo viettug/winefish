@@ -33,6 +33,7 @@ bindir=@bindir@
 datadir=@datadir@
 pkgdatadir=$(datadir)/$(PACKAGE)
 pixmapsdir=@prefix@/share/pixmaps
+docdir=@prefix@/share/doc/$(PACKAGE)
 
 INSTALLMAIN=@INSTALLMAIN@
 MAKEMAIN=@MAKEMAIN@
@@ -52,6 +53,7 @@ winefish:all
 all: ${MAKEMAIN}
 	@cd data/ && $(MAKE) all
 	@cd src/ && $(MAKE) all
+	@cd man/ && $(MAKE) all
 
 make-nls:
 	cd po/ && $(MAKE) all;
@@ -61,6 +63,7 @@ clean:
 	@cd src/ && $(MAKE) clean
 	@cd po/ && $(MAKE) clean
 	@cd data/ && $(MAKE) clean
+	@cd man/ && $(MAKE) clean
 
 patchclean: clean
 	rm -f *.orig *.rej
@@ -85,17 +88,26 @@ install: src/winefish ${INSTALLMAIN}
 	pkgdatadir=@pkgdatadir@
 	$(INSTALL_DIR) $(DESTDIR)$(pkgdatadir)
 	$(INSTALL_DATA) images/winefish_splash.png $(DESTDIR)$(pkgdatadir)
+	$(INSTALL_DIR) $(DESTDIR)$(docdir)
+	$(INSTALL_DATA) doc/winefish.html $(DESTDIR)$(docdir)
+	$(INSTALL_DATA) doc/winefish.txt $(DESTDIR)$(docdir)
 	@cd icons/ && $(MAKE) install
 	@cd src/ && $(MAKE) install
 	@cd data/ && $(MAKE) install
+	@cd man/ && $(MAKE) install
 
 uninstall:
 	@cd icons/ && $(MAKE) uninstall
 	@cd src/ && $(MAKE) uninstall
 	@cd po/ && $(MAKE) uninstall
 	@cd data/ && $(MAKE) uninstall
+	@cd man/ && $(MAKE) uninstall
+	rm -f $(pkgdatadir)/winefish_splash.png
+	rm -f $(pkgdatadir)/winefish_splash.png
 	rm -f $(pkgdatadir)/winefish_splash.png
 	rm -f $(iconpath)/winefish-icon.png
+	rm -f $(docdir)/winefish.html
+	rm -f $(docdir)/winefish.txt
 	/bin/rmdir $(DESTDIR)$(pkgdatadir)
 
 strip:
