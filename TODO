@@ -1,5 +1,6 @@
 $Id$
 
+* Move template_rescan_cb() from func_grep.c to menu.c (make it static)
 * Optimize usage of GET_BIT
 * implement message box (not statusbar_message);
 * windows/close all others
@@ -7,7 +8,7 @@ $Id$
 * gtk2.4: gtk_combo_* => gtk_combo_box_*
 	/done/kyanh/200507/19/* add '~', '\~'
 * add line number in lines of table
-* Document: HTML version (tex4ht: bad!)
+	/done/kyanh/200601xx/* Document: HTML version (tex4ht: bad!)
 * Optimized document.c::(gap_command)
 * Use VTE to emulate the console
 * capture: \usepackage{foobar}
