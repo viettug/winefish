@@ -158,6 +158,7 @@ static void files_advanced_win_ok_clicked( GtkWidget * widget, Tfiles_advanced *
 	c_grep_pattern =/* gtk_editable_get_chars( GTK_EDITABLE( tfs->grep_pattern ), 0, -1 ); */
 			gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(tfs->grep_pattern)->entry),0,-1);
 	type = (!c_grep_pattern || strlen(c_grep_pattern)==0);
+#ifdef OLD_CODE
 	if ( open_files-100 ) {
 		c_is_regex = "l"; /* list matched files */
 	}else{
@@ -175,6 +176,8 @@ static void files_advanced_win_ok_clicked( GtkWidget * widget, Tfiles_advanced *
 		c_is_regex = g_strconcat("i", c_is_regex, NULL);
 	}
 	c_is_regex = g_strconcat("-", c_is_regex, NULL);
+#endif /* OLD_CODE */
+	c_is_regex = g_strdup_printf( "-%s%s%s", (open_files-100)?"l":(type?"l":"nH"), gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( tfs->is_regex ) ) ? "E": "",  gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( tfs->case_sensitive ) ) ? "" : "i" );
 
 	if ( gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( tfs->skipdir ) ) ) {
 		c_skipdir = g_strdup("| grep -v SCCS/ | grep -v CVS/ | grep -v .svn/");
