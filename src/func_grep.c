@@ -169,7 +169,7 @@ static void files_advanced_win_ok_clicked( GtkWidget * widget, Tfiles_advanced *
 	}
 	
 	if ( gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( tfs->is_regex ) ) ) {
-		c_is_regex = g_strconcat("E ", c_is_regex, NULL);
+		c_is_regex = g_strconcat("E", c_is_regex, NULL);
 	}
 	if ( !gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( tfs->case_sensitive ) ) ) {
 		c_is_regex = g_strconcat("i", c_is_regex, NULL);
