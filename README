@@ -18,7 +18,7 @@ Starting Winefish:
   run winefish -h for more startup options
 
 Documentation:
-  see ./doc/winefish.{html,txt}
+  see ./doc/winefish.html
 
 Homepage:
   http://winefish.berlios.de/
