@@ -25,15 +25,16 @@ a:visited { color: green; }
 
 L(
 * Author: kyanh <@(kyanh_at_viettug_dot_org)>
-* This document is available for Winefish version RED(1.3.2.6f) or higher.
-* RED(If you've used an older version of Winefish, you must read @[IMPORTANT NOTES](#IMPORTANT NOTES) )
-* My English is not well so you may confuse :\)\)
+* This document is available for Winefish version RED(1.3.2.6h) or higher.
+* RED(If you've used an older version of Winefish, you should read @[NEWS](#NEWS) and @[IMPORTANT NOTES](#IMPORTANT NOTES) )
 * For further help, visit @(http://winefish.berlios.de/forum/)
+* I'm sorry about my English :\)\)
 )
 
 2(#(CONTENTS))
 
 L(
+* @[News](#NEWS)
 * @[Features](#FEATURES)
 * @[Installation](#INSTALLATION)
 * @[Important Notes](#IMPORTANT NOTES)
@@ -43,7 +44,7 @@ L(
 * @[Project Mode](#PROJECT MODE)
 * @[Document Structure](#DOCUMENT STRUCTURE)
 * @[Autotext](#AUTOTEXT)
-* @[Auto completion](#AUTO_COMPLETION)
+* @[AutoCompletion](#AUTO_COMPLETION)
 * @[Commandline Options](#COMMANDLINE OPTIONS)
 * @[Outputbox](#OUTPUTBOX)
 * @[Templates Support](#TEMPLATES SUPPORT)
@@ -77,10 +78,22 @@ goto B(Input Methods) and choose your favorite
 input method. These various methods are selected from your
 system, not provided by Winefish.
 
+2(#(NEWS))
+
+Some new features:
+L(
+* delete directly any command from PopUp menu. See @[AUTO_COMPLETION](#AUTO_COMPLETION)
+* outputbox with two useful operations: B(single-click) and B(control + single-click). See @[OUTPUTBOX](#OUTPUTBOX)
+* manage your templates easily with Grep Function. See @[TEMPLATES SUPPORT](#TEMPLATES SUPPORT)
+* TeX filter for spell checker
+* @[Brace Finder](#BRACE FINDER)
+)
+
 2(#(IMPORTANT NOTES))
 
-If you've used an older version of Winefish, you must reconfigure Winefish
-(\(use B(Preferences Pages).\)
+Winefish now uses B($HOME/.winefish/rcfile) to save configuration.
+Move the old one B($HOME/.winefish/rcfile_v2) to B($HOME/.winefish/rcfile)
+manually then reconfigure Winefish (\(use B(Preferences Pages).\)
 Please take care of following properties:
 L(
 * Editor / Highlighting Syntax by Default
@@ -89,6 +102,9 @@ L(
 * TeXbox / Save, Show
 * Miscellaneous / Templates Directory
 )
+
+If you donot move B($HOME/.winefish/rcfile_v2) to B($HOME/.winefish/rcfile),
+winefish will start with default set and of course ignore your old one.
 
 2(#(HOTKEYS: EDITING))
 
@@ -272,6 +288,11 @@ L(
 * I(backward): L(*if the characters on the left hand is a brace too,
 start finding the matching for it; *otherwise, treat as I(forward).)
 ))
+
+The brace finder also starts it jobs automatically when you're editing:
+the matched brace(s) will be hilighted. For performance reason, the finder
+will search in a limited area. The maxium number of lines of this area
+is defined via BRACE_FINDER_MAX_LINES \(B(src/config_spec.h)\).
 
 2(#(TIPS))
 

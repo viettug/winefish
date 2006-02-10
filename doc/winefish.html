@@ -19,15 +19,15 @@ a:visited { color: green; }
 
 <UL>
 <li>Author: kyanh <<a href="kyanh_at_viettug_dot_org">kyanh_at_viettug_dot_org</a>>
-<li>This document is available for Winefish version <font color="RED">1.3.2.6f</font> or higher.
-<li><font color="RED">If you've used an older version of Winefish, you must read <a href="#IMPORTANT NOTES">IMPORTANT NOTES</a></font>
-<li>If you want to make Winefish's package, please read <a href="#INSTALLATION">INSTALLATION</a> section
-<li>My English is not well so you may confuse :))
-<li>For further help, visit <a href="http://winefish.berlios.de/forum/">http://winefish.berlios.de/forum/</a></UL>
+<li>This document is available for Winefish version <font color="RED">1.3.2.6h</font> or higher.
+<li><font color="RED">If you've used an older version of Winefish, you should read <a href="#NEWS">NEWS</a> and <a href="#IMPORTANT NOTES">IMPORTANT NOTES</a></font>
+<li>For further help, visit <a href="http://winefish.berlios.de/forum/">http://winefish.berlios.de/forum/</a>
+<li>I'm sorry about my English :))</UL>
 
 <H2><a name="CONTENTS">CONTENTS <a href="#top">top</a></H2>
 
 <UL>
+<li><a href="#NEWS">News</a>
 <li><a href="#FEATURES">Features</a>
 <li><a href="#INSTALLATION">Installation</a>
 <li><a href="#IMPORTANT NOTES">Important Notes</a>
@@ -37,7 +37,7 @@ a:visited { color: green; }
 <li><a href="#PROJECT MODE">Project Mode</a>
 <li><a href="#DOCUMENT STRUCTURE">Document Structure</a>
 <li><a href="#AUTOTEXT">Autotext</a>
-<li><a href="#AUTO_COMPLETION">Auto completion</a>
+<li><a href="#AUTO_COMPLETION">AutoCompletion</a>
 <li><a href="#COMMANDLINE OPTIONS">Commandline Options</a>
 <li><a href="#OUTPUTBOX">Outputbox</a>
 <li><a href="#TEMPLATES SUPPORT">Templates Support</a>
@@ -59,11 +59,6 @@ a:visited { color: green; }
 <H2><a name="INSTALLATION">INSTALLATION <a href="#top">top</a></H2>
 
 Read INSTALL
-<br><br>
-There're some variables control behavior of Winefish.
-You can modify them in the file <B>src/config_spec.h</B>
-before executing the script `configure'. (<font color="RED">The very last lines.</font>)
-There're some comment which may help you!
 <H2><a name="INPUT METHOD">INPUT METHOD <a href="#top">top</a></H2>
 
 Input Method is not a function of Winefish.
@@ -72,10 +67,21 @@ Right click on the document. In the context menu,
 goto <B>Input Methods</B> and choose your favorite
 input method. These various methods are selected from your
 system, not provided by Winefish.
+<H2><a name="NEWS">NEWS <a href="#top">top</a></H2>
+
+Some new features:
+<UL>
+<li>delete directly any command from PopUp menu. See <a href="#AUTO_COMPLETION">AUTO_COMPLETION</a>
+<li>outputbox with two useful operations: <B>single-click</B> and <B>control + single-click</B>. See <a href="#OUTPUTBOX">OUTPUTBOX</a>
+<li>manage your templates easily with Grep Function. See <a href="#TEMPLATES SUPPORT">TEMPLATES SUPPORT</a>
+<li>TeX filter for spell checker
+<li><a href="#BRACE FINDER">Brace Finder</a></UL>
+
 <H2><a name="IMPORTANT NOTES">IMPORTANT NOTES <a href="#top">top</a></H2>
 
-If you've used an older version of Winefish, you must reconfigure Winefish
-(use <B>Preferences Pages</B>.)
+Winefish now uses <B>$HOME/.winefish/rcfile</B> to save configuration.
+Move the old one <B>$HOME/.winefish/rcfile_v2</B> to <B>$HOME/.winefish/rcfile</B>
+manually then reconfigure Winefish (use <B>Preferences Pages</B>.)
 Please take care of following properties:
 <UL>
 <li>Editor / Highlighting Syntax by Default
@@ -84,6 +90,8 @@ Please take care of following properties:
 <li>TeXbox / Save, Show
 <li>Miscellaneous / Templates Directory</UL>
 
+If you donot move <B>$HOME/.winefish/rcfile_v2</B> to <B>$HOME/.winefish/rcfile</B>,
+winefish will start with default set and of course ignore your old one.
 <H2><a name="HOTKEYS: EDITING">HOTKEYS: EDITING <a href="#top">top</a></H2>
 
 <UL>
@@ -257,6 +265,10 @@ start finding the matching for it;
 </UL>
 </UL>
 
+The brace finder also starts it jobs automatically when you're editing:
+the matched braces will be hilighted. For performance reason, the finder
+will search in a limited area. The maxium number of lines of this area
+is defined via BRACE_FINDER_MAX_LINES (<B>src/config_spec.h</B>).
 <H2><a name="TIPS">TIPS <a href="#top">top</a></H2>
 
 <UL>
