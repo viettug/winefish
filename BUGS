@@ -2,11 +2,14 @@ $Id$
 
 ============================================================== [200602]
 
-#82/
+#82/fixed/kyanh/20060210/
 * LANG=fr_FR winefish
 cat xxx.log when xxx.log doesnot exist -> expose invalid UTF8 string
 and we see nothing in outputbox. try to set_encoding for io_channel
 in outputbox_bf.c, but the result is the same. it's hard to handle!!!
+* FIXED:
+	use (g_locale_to_utf8) in outputbox_filter::outputbox_filter.c
+	(thanks to a member of winefish-devel. now i forget his name. update soon)
 
 ============================================================== [200601]
 
