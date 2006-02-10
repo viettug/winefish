@@ -106,38 +106,6 @@
 /* with splash screen */
 #undef NOSPLASH
 
-/*********************** winefish ***********************
- *
- * outputbox
- * these lines alter `rcfile.c::rc_parse_main()'
- *
- *********************** winefish ***********************/
-
-#define OB_LaTeX "latex -file-line-error-style -src-specials '%B'"
-#define OB_PDFLaTeX "pdflatex -file-line-error-style -src-specials '%B'"
-#define OB_DVIPS "dvips -o '%B.ps' '%B.dvi'"
-#define OB_DVIPDFM "dvipdfm -o '%B.pdf' '%B.dvi'"
-#define OB_ViewLog "cat '%B.log'"
-#define OB_SoftClean "rm -fv '%B.log' '%B.aux' '%B.toc'"
-#define OB_Dos2Unix "cat '%f' | dos2unix > '%o'"
-#define OB_Tidy "cat '%f' | tidy -utf8 -q >'%o' 2>/dev/null"
-
-/*********************** winefish ***********************
- *
- * below things you may modify...
- *
- *********************** winefish ***********************/
-
-/* maximum depth for `find' function */
-#define FUNC_GREP_RECURSIVE_MAX_DEPTH "-maxdepth 50"
-
-/* maximum length of latex command (\foobar) */
-#define COMMAND_MAX_LENGTH 20
-
-/* maximum length of autotext command (/foobar) */
-#define AUTOTEXT_MAX_LENGTH 20
-
-/* delimiters for recognization of latex commands */
-#define DELIMITERS " `1234567890-=~!@#$%^&*()_+[]{};':\",./<>?\\|"
+#include "config_spec.h"
 
 /*********************** winefish ***********************/
