@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-08 15:22+0700\n"
+"POT-Creation-Date: 2006-02-10 10:33+0700\n"
 "PO-Revision-Date: 2006-02-08 15:23+0700\n"
 "Last-Translator: kyanh <kyanh@o2.pl>\n"
 "Language-Team:  <en@li.org>\n"
@@ -782,81 +782,81 @@ msgstr "tìm kiếm"
 msgid "no directory specified"
 msgstr "không có thư mục nào được chỉ ra"
 
-#: ../src/func_grep.c:207
+#: ../src/func_grep.c:210
 msgid "searching files..."
 msgstr "đang tìm kiếm tập tin..."
 
-#: ../src/func_grep.c:218 ../src/func_grep.c:221
+#: ../src/func_grep.c:221 ../src/func_grep.c:224
 msgid "grep"
 msgstr "tìm"
 
-#: ../src/func_grep.c:271 ../src/func_grep.c:279 ../src/project.c:443
+#: ../src/func_grep.c:274 ../src/func_grep.c:282 ../src/project.c:443
 #: ../src/project.c:450
 msgid "Select basedir"
 msgstr "Chọn thư mục chính"
 
-#: ../src/func_grep.c:307
+#: ../src/func_grep.c:310
 msgid "Grep Function"
 msgstr "Tìm kiếm trong tập tin"
 
-#: ../src/func_grep.c:327
+#: ../src/func_grep.c:330
 msgid "<b>General</b>"
 msgstr "<b>Tổng quát</b>"
 
-#: ../src/func_grep.c:329
+#: ../src/func_grep.c:332
 msgid "Base_dir:"
 msgstr "thư _mục chính:"
 
-#: ../src/func_grep.c:331 ../src/gtk_easy.c:1342
+#: ../src/func_grep.c:334 ../src/gtk_easy.c:1342
 msgid "_Browse..."
 msgstr "_Thư mục..."
 
-#: ../src/func_grep.c:341
+#: ../src/func_grep.c:344
 msgid "_File Type:"
 msgstr "kiểu _tập tin:"
 
-#: ../src/func_grep.c:347
+#: ../src/func_grep.c:350
 msgid "_Recursive:"
 msgstr "đệ qu_y:"
 
-#: ../src/func_grep.c:351
+#: ../src/func_grep.c:354
 msgid "_Open files:"
 msgstr "_mở tập tin"
 
-#: ../src/func_grep.c:356
+#: ../src/func_grep.c:359
 msgid "<b>Contains</b>"
 msgstr "<b>Chứa</b>"
 
-#: ../src/func_grep.c:374
+#: ../src/func_grep.c:377
 msgid "Pa_ttern:"
 msgstr "_mẫu tìm:"
 
-#: ../src/func_grep.c:379
+#: ../src/func_grep.c:382
 msgid "_Case sensitive:"
 msgstr "phân biệt hoa thường"
 
-#: ../src/func_grep.c:383
+#: ../src/func_grep.c:386
 msgid "Is rege_x:"
 msgstr "chính _quy:"
 
-#: ../src/func_grep.c:387
+#: ../src/func_grep.c:390
 msgid "<b>Advanced</b>"
 msgstr "<b>Nâng cao</b>"
 
-#: ../src/func_grep.c:390
+#: ../src/func_grep.c:393
 msgid "Skip VCS dirs:"
 msgstr "bỏ qua thư mục VCS:"
 
-#: ../src/func_grep.c:446
+#: ../src/func_grep.c:449
 msgid "no matching files found"
 msgstr "không có tập tin nào"
 
-#: ../src/func_grep.c:451 ../src/func_grep.c:471
+#: ../src/func_grep.c:454 ../src/func_grep.c:474
 #, c-format
 msgid "loading %d file(s)..."
 msgstr "đang nạp %d tập tin..."
 
-#: ../src/func_grep.c:494
+#: ../src/func_grep.c:497
 msgid "template"
 msgstr "mẫu"
 
