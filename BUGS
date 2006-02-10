@@ -2,6 +2,16 @@ $Id$
 
 ============================================================== [200602]
 
+#84/fixed/Michèle Garoche/200602xx/
+* missing NULL in using (g_strconcat) somewhere in wizards.c (see backtrace/winefish.diff-M-Garoche)
+
+#83/fixed/kyanh/20060210/
+* brace_finder:
+	<any_code>{|%<end_of_line>
+(| is the cursor). start finding brace returns BR_RET_IN_COMMENT
+FIXED:
+	must detect `iter_start_new' before checking for BR_RET_IN_COMMENT status.
+
 #82/fixed/kyanh/20060210/
 * LANG=fr_FR winefish
 cat xxx.log when xxx.log doesnot exist -> expose invalid UTF8 string
