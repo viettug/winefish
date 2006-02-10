@@ -1,4 +1,4 @@
-# translation of it.po to 
+# translation of it.po to
 # translation of it.po to italian
 # translation of it.po to
 # Italian translation of Winefish.
@@ -12,14 +12,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-08 15:22+0700\n"
-"PO-Revision-Date: 2006-02-08 15:30+0700\n"
-"Last-Translator: kyanh <kyanh@o2.pl>\n"
-"Language-Team:  <en@li.org>\n"
+"POT-Creation-Date: 2006-02-10 10:33+0700\n"
+"PO-Revision-Date: 2006-02-09 08:34+0100\n"
+"Last-Translator: Daniele Medri <dmedri@gmail.com>\n"
+"Language-Team: italian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.2\n"
+"X-Generator: KBabel 1.10.2\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: ../src/about.c:60
@@ -68,14 +68,12 @@ msgid "About Winefish"
 msgstr "Informazioni su Winefish"
 
 #: ../src/about.c:122 ../src/fref.c:2318 ../src/fref.c:2333
-#, fuzzy
 msgid "info"
 msgstr "Informazioni"
 
 #: ../src/about.c:126
-#, fuzzy
 msgid "authors"
-msgstr "Autori"
+msgstr "autori"
 
 #: ../src/about.c:138
 msgid "oops..."
@@ -86,6 +84,8 @@ msgid ""
 "Winefish has trouble reading the filenames. Try to set the environment "
 "variable G_BROKEN_FILENAMES=1\n"
 msgstr ""
+"Winefish ha \"problemi\" nella lettura dei nomi dei file. Prova a impostare "
+"la variabile di ambiente G_BROKEN_FILENAMES=1\n"
 
 #: ../src/bfspell.c:428
 msgid "Check Spelling"
@@ -97,7 +97,7 @@ msgstr "Controllo"
 
 #: ../src/bfspell.c:441
 msgid "_Misspelled word:"
-msgstr ""
+msgstr "P_arola errata:"
 
 #: ../src/bfspell.c:445
 msgid "Change _to:"
@@ -250,6 +250,7 @@ msgstr "Dimensione del fine cambiata\n"
 #: ../src/bookmark.c:1408
 msgid "Bookmarks positions could be incorrect. Delete bookmarks?"
 msgstr ""
+"La posizione dei segnalibri potrebbe essere errata. Eliminare i segnalibri?"
 
 #: ../src/document.c:311 ../src/document.c:3736
 msgid "/Document/Highlight Syntax"
@@ -343,11 +344,11 @@ msgstr "salvataggio file"
 
 #: ../src/document.c:2945 ../src/document.c:2969
 msgid "_Abort save"
-msgstr ""
+msgstr "Termin_a il salvataggio"
 
 #: ../src/document.c:2945
 msgid "_Continue save"
-msgstr ""
+msgstr "_Continua il salvataggio"
 
 #: ../src/document.c:2947
 #, c-format
@@ -355,6 +356,8 @@ msgid ""
 "A backupfile for %s could not be created. If you continue, this file will be "
 "overwritten."
 msgstr ""
+"Un file di backup per %s non può essere creato. Se continui, questo file "
+"sarà sovrascritto."
 
 #: ../src/document.c:2948
 msgid "File backup failure"
@@ -362,7 +365,7 @@ msgstr "Backup del file non avvenuto"
 
 #: ../src/document.c:2969
 msgid "_Continue save in UTF-8"
-msgstr ""
+msgstr "_Continua il salvataggio in UTF-8"
 
 #: ../src/document.c:2980
 #, c-format
@@ -384,7 +387,7 @@ msgstr "Precedentemente: "
 #: ../src/document.c:3167
 #, c-format
 msgid "Move/rename %s to"
-msgstr ""
+msgstr "Muovi/rinomina %s in"
 
 #: ../src/document.c:3167
 #, c-format
@@ -408,7 +411,7 @@ msgstr "Il file %s esiste ed è aperto, sovrascrivo?"
 
 #: ../src/document.c:3207
 msgid "The file you have selected is being edited in Bluefish."
-msgstr ""
+msgstr "Il file selezionato è stato modificato in Bluefish."
 
 #: ../src/document.c:3221 ../src/project.c:194
 #, c-format
@@ -420,9 +423,8 @@ msgid "Do you want to replace the existing file?"
 msgstr "Vuoi sostituire il file esistente?"
 
 #: ../src/document.c:3276
-#, fuzzy
 msgid "save as..."
-msgstr "Salva come..."
+msgstr "salva come..."
 
 #: ../src/document.c:3311
 #, c-format
@@ -432,6 +434,10 @@ msgid ""
 "New modification time: %s\n"
 "Old modification time: %s"
 msgstr ""
+"File: %s\n"
+"\n"
+"Nuova data-ora di modifica: %s\n"
+"Vecchia data-ora di modifica: %s"
 
 #: ../src/document.c:3312
 msgid "File has been modified by another process."
@@ -447,6 +453,8 @@ msgid ""
 "Could not backup file:\n"
 "\""
 msgstr ""
+"Non è possibile fare il backup del file:\n"
+"\""
 
 #: ../src/document.c:3342
 msgid "File save aborted.\n"
@@ -457,6 +465,8 @@ msgid ""
 "Could not write file:\n"
 "\""
 msgstr ""
+"Non è possibile scrivere il file:\n"
+"\""
 
 #: ../src/document.c:3348
 msgid "File save error"
@@ -473,7 +483,7 @@ msgstr "No_n salvare"
 
 #: ../src/document.c:3408 ../src/document.c:4286 ../src/project.c:369
 msgid "If you don't save your changes they will be lost."
-msgstr ""
+msgstr "Se non salvi i cambiamenti andranno persi."
 
 #: ../src/document.c:3739
 msgid "/Document/Line Numbers"
@@ -504,9 +514,8 @@ msgid "Unable to open file(s)\n"
 msgstr "Non è possibile aprire il file\n"
 
 #: ../src/document.c:3980
-#, fuzzy
 msgid "unable to open file"
-msgstr "Non è possibile caricare il file"
+msgstr "non è possibile caricare il file"
 
 #: ../src/document.c:4031
 msgid "_Reload"
@@ -750,81 +759,81 @@ msgstr "cerca"
 msgid "no directory specified"
 msgstr "dimensione cronologia di annulla"
 
-#: ../src/func_grep.c:207
+#: ../src/func_grep.c:210
 msgid "searching files..."
 msgstr "ricerca file..."
 
-#: ../src/func_grep.c:218 ../src/func_grep.c:221
+#: ../src/func_grep.c:221 ../src/func_grep.c:224
 msgid "grep"
 msgstr "grep"
 
-#: ../src/func_grep.c:271 ../src/func_grep.c:279 ../src/project.c:443
+#: ../src/func_grep.c:274 ../src/func_grep.c:282 ../src/project.c:443
 #: ../src/project.c:450
 msgid "Select basedir"
 msgstr "Seleziona directory base"
 
-#: ../src/func_grep.c:307
+#: ../src/func_grep.c:310
 msgid "Grep Function"
 msgstr "Grep della funzione"
 
-#: ../src/func_grep.c:327
+#: ../src/func_grep.c:330
 msgid "<b>General</b>"
 msgstr "<b>Generale</b>"
 
-#: ../src/func_grep.c:329
+#: ../src/func_grep.c:332
 msgid "Base_dir:"
 msgstr "_Directory base:"
 
-#: ../src/func_grep.c:331 ../src/gtk_easy.c:1342
+#: ../src/func_grep.c:334 ../src/gtk_easy.c:1342
 msgid "_Browse..."
 msgstr "_Scegli..."
 
-#: ../src/func_grep.c:341
+#: ../src/func_grep.c:344
 msgid "_File Type:"
 msgstr "Tipo _file:"
 
-#: ../src/func_grep.c:347
+#: ../src/func_grep.c:350
 msgid "_Recursive:"
 msgstr "_Ricorsivo:"
 
-#: ../src/func_grep.c:351
+#: ../src/func_grep.c:354
 msgid "_Open files:"
 msgstr "_Apri file:"
 
-#: ../src/func_grep.c:356
+#: ../src/func_grep.c:359
 msgid "<b>Contains</b>"
 msgstr "<b>Contiene</b>"
 
-#: ../src/func_grep.c:374
+#: ../src/func_grep.c:377
 msgid "Pa_ttern:"
 msgstr "Pa_ttern:"
 
-#: ../src/func_grep.c:379
+#: ../src/func_grep.c:382
 msgid "_Case sensitive:"
 msgstr "Maius_colo/minuscolo"
 
-#: ../src/func_grep.c:383
+#: ../src/func_grep.c:386
 msgid "Is rege_x:"
 msgstr "E' rege_x:"
 
-#: ../src/func_grep.c:387
-msgid "<b>Advanced</b>"
-msgstr ""
-
 #: ../src/func_grep.c:390
+msgid "<b>Advanced</b>"
+msgstr "<b>Avanzate</b>"
+
+#: ../src/func_grep.c:393
 msgid "Skip VCS dirs:"
 msgstr "Salta directory VCS:"
 
-#: ../src/func_grep.c:446
+#: ../src/func_grep.c:449
 msgid "no matching files found"
 msgstr "nessun file corrispondente trovato"
 
-#: ../src/func_grep.c:451 ../src/func_grep.c:471
+#: ../src/func_grep.c:454 ../src/func_grep.c:474
 #, c-format
 msgid "loading %d file(s)..."
 msgstr "apertura di %d file..."
 
-#: ../src/func_grep.c:494
+#: ../src/func_grep.c:497
 msgid "template"
 msgstr "modello"
 
@@ -903,7 +912,7 @@ msgstr ""
 #: ../src/highlight.c:404
 #, c-format
 msgid "studying pattern '%s': %s"
-msgstr ""
+msgstr "studio del pattern '%s': %s"
 
 #: ../src/highlight.c:431
 #, c-format
@@ -913,7 +922,7 @@ msgstr ""
 #: ../src/highlight.c:445
 #, c-format
 msgid "studying 2nd pattern '%s': %s"
-msgstr ""
+msgstr "studio del secondo pattern '%s': %s"
 
 #: ../src/image.c:209
 msgid "Insert image"
@@ -956,14 +965,12 @@ msgid "brace_finder: inside a commented line"
 msgstr ""
 
 #: ../src/menu.c:258
-#, fuzzy
 msgid "brace_finder: inside the selection"
-msgstr "Nessun file corrispondente trovato"
+msgstr "ricerca di parentesi: nella selezione"
 
 #: ../src/menu.c:261
-#, fuzzy
 msgid "brace_finder: wrong operation or brace escaped"
-msgstr "Nessun file corrispondente trovato"
+msgstr ""
 
 #: ../src/menu.c:279
 msgid "/_File"
@@ -1199,11 +1206,11 @@ msgstr "/Modifica/sep4"
 
 #: ../src/menu.c:349
 msgid "/Edit/Sh_ift Right"
-msgstr ""
+msgstr "/Modifica/Sposta a _destra"
 
 #: ../src/menu.c:350
 msgid "/Edit/S_hift Left"
-msgstr ""
+msgstr "/Modifica/Spo_sta a sinistra"
 
 #: ../src/menu.c:351
 msgid "/Edit/_Comment"
@@ -1470,87 +1477,76 @@ msgid "/Insert/Font/Sizes"
 msgstr "/Inserisci/Carattere/Dimensioni"
 
 #: ../src/menu.c:432
-#, fuzzy
 msgid "/Insert/Font/Sizes/tearoff1"
-msgstr "/Inserisci/Dimensione carattere"
+msgstr "/Inserisci/Carattere/Dimensioni/tearoff1"
 
 #: ../src/menu.c:433
-#, fuzzy
 msgid "/Insert/Font/Sizes/{\\\\tiny }"
-msgstr "/Inserisci/Dimensione carattere"
+msgstr "/Inserisci/Carattere/Dimensioni/{\\\\tiny }"
 
 #: ../src/menu.c:434
-#, fuzzy
 msgid "/Insert/Font/Sizes/{\\\\scriptsize }"
-msgstr "/Inserisci/Dimensione carattere"
+msgstr "/Inserisci/Carattere/Dimensioni/{\\\\scriptsize }"
 
 #: ../src/menu.c:435
-#, fuzzy
 msgid "/Insert/Font/Sizes/{\\\\footnotesize }"
-msgstr "/Inserisci/Dimensione carattere"
+msgstr "/Inserisci/Carattere/Dimensioni/{\\\\footnotesize }"
 
 #: ../src/menu.c:436
-#, fuzzy
 msgid "/Insert/Font/Sizes/{\\\\small }"
-msgstr "/Inserisci/Dimensione carattere"
+msgstr "/Inserisci/Carattere/Dimensioni/{\\\\small }"
 
 #: ../src/menu.c:437
-#, fuzzy
 msgid "/Insert/Font/Sizes/{\\\\normalsize }"
-msgstr "/Inserisci/Dimensione carattere"
+msgstr "/Inserisci/Carattere/Dimensioni/{\\\\normalsize }"
 
 #: ../src/menu.c:438
-#, fuzzy
 msgid "/Insert/Font/Sizes/{\\\\large }"
-msgstr "/Inserisci/Dimensione carattere"
+msgstr "/Inserisci/Carattere/Dimensioni/{\\\\large }"
 
 #: ../src/menu.c:439
-#, fuzzy
 msgid "/Insert/Font/Sizes/{\\\\Large }"
-msgstr "/Inserisci/Dimensione carattere"
+msgstr "/Inserisci/Carattere/Dimensioni/{\\\\Large }"
 
 #: ../src/menu.c:440
-#, fuzzy
 msgid "/Insert/Font/Sizes/{\\\\huge }"
-msgstr "/Inserisci/Dimensione carattere"
+msgstr "/Inserisci/Carattere/Dimensioni/{\\\\huge }"
 
 #: ../src/menu.c:441
-#, fuzzy
 msgid "/Insert/Font/Sizes/{\\\\Huge }"
-msgstr "/Inserisci/Dimensione carattere"
+msgstr "/Inserisci/Carattere/Dimensioni/{\\\\Huge }"
 
 #: ../src/menu.c:445
-#, fuzzy
 msgid "/Insert/Font style/tearoff1"
-msgstr "/Inserisci/Dimensione carattere"
+msgstr "/Inserisci/Carattere/Dimensioni/tearoff1"
 
 #: ../src/menu.c:446
 msgid "/Insert/Font style/\\\\emph - _emphasized"
-msgstr ""
+msgstr "/Inserisci/Stile carattere/\\\\emph - _emphasized"
 
 #: ../src/menu.c:447
 msgid "/Insert/Font style/\\\\underline - _underlined"
-msgstr ""
+msgstr "/Inserisci/Stile carattere/\\\\underline - _underlined"
 
 #: ../src/menu.c:448
 msgid "/Insert/Font style/\\\\textit - _italic"
-msgstr ""
+msgstr "/Inserisci/Stile carattere/\\\\textit - _italic"
 
 #: ../src/menu.c:449
 msgid "/Insert/Font style/\\\\textsl - _slanted"
-msgstr ""
+msgstr "/Inserisci/Stile carattere/\\\\textsl - _slanted"
 
 #: ../src/menu.c:450
 msgid "/Insert/Font style/\\\\textbf - _boldface"
-msgstr ""
+msgstr "/Inserisci/Stile carattere/\\\\textbf - _boldface"
 
 #: ../src/menu.c:451
 msgid "/Insert/Font style/\\\\texttt - _typewriter"
-msgstr ""
+msgstr "/Inserisci/Stile carattere/\\\\texttt - _typewriter"
 
 #: ../src/menu.c:452
 msgid "/Insert/Font style/\\\\textsc - small_caps"
-msgstr ""
+msgstr "/Inserisci/Stile carattere/\\\\textsc - small_caps"
 
 #: ../src/menu.c:455
 msgid "/Insert/Font/Maths"
@@ -1562,40 +1558,39 @@ msgstr "/Inserisci/Carattere/Matematica/tearoff1"
 
 #: ../src/menu.c:457
 msgid "/Insert/Font/Maths/\\\\mathrm - Roman"
-msgstr ""
+msgstr "/Inserisci/Carattere/Matematica/\\\\mathrm - Roman"
 
 #: ../src/menu.c:458
 msgid "/Insert/Font/Maths/\\\\mathit - Italic"
-msgstr ""
+msgstr "/Inserisci/Carattere/Matematica/\\\\mathit - Italic"
 
 #: ../src/menu.c:459
 msgid "/Insert/Font/Maths/\\\\mathbf - Boldface"
-msgstr ""
+msgstr "/Inserisci/Carattere/Matematica/\\\\mathbf - Boldface"
 
 #: ../src/menu.c:460
 msgid "/Insert/Font/Maths/\\\\mathsf - Sans serif"
-msgstr ""
+msgstr "/Inserisci/Carattere/Matematica/\\\\mathsf - Sans serif"
 
 #: ../src/menu.c:461
 msgid "/Insert/Font/Maths/\\\\mathtt - Typewriter"
-msgstr ""
+msgstr "/Inserisci/Carattere/Matematica/\\\\mathtt - Typewriter"
 
 #: ../src/menu.c:462
-#, fuzzy
 msgid "/Insert/Font/Maths/sep1"
-msgstr "/Inserisci/sep1"
+msgstr "/Inserisci/Carattere/Matematica/sep1"
 
 #: ../src/menu.c:463
 msgid "/Insert/Font/Maths/\\\\mathcal - Caligraphic"
-msgstr ""
+msgstr "/Inserisci/Carattere/Matematica/\\\\mathcal - Caligraphic"
 
 #: ../src/menu.c:464
 msgid "/Insert/Font/Maths/\\\\mathbb - Blackboard"
-msgstr ""
+msgstr "/Inserisci/Carattere/Matematica/\\\\mathbb - Blackboard"
 
 #: ../src/menu.c:465
 msgid "/Insert/Font/Maths/\\\\mathfrak - Fraktur"
-msgstr ""
+msgstr "/Inserisci/Carattere/Matematica/\\\\mathfrak - Fraktur"
 
 #: ../src/menu.c:507
 msgid "/_Document"
@@ -1719,9 +1714,8 @@ msgid "/Project/Open R_ecent"
 msgstr "/Progetto/Apri r_ecente"
 
 #: ../src/menu.c:543
-#, fuzzy
 msgid "/Project/Open Recent/tearoff1"
-msgstr "/Progetto/_Apri progetto..."
+msgstr "/Progetto/Apri recenti/tearoff1"
 
 #: ../src/menu.c:544
 msgid "/Project/sep1"
@@ -1757,7 +1751,7 @@ msgstr "/Vai/tearoff1"
 
 #: ../src/menu.c:553
 msgid "/Go/_Previous document"
-msgstr ""
+msgstr "/Vai/Documento _precedente"
 
 #: ../src/menu.c:554
 msgid "/Go/_Next document"
@@ -1793,15 +1787,15 @@ msgstr "/Visualizza/tearoff1"
 
 #: ../src/menu.c:565
 msgid "/View/View _Custom Menu"
-msgstr ""
+msgstr "/Visualizza/Visualizza menu per_sonalizzato"
 
 #: ../src/menu.c:566
 msgid "/View/View _Sidebar"
-msgstr ""
+msgstr "/Visualizza/Visualizza barra l_aterale"
 
 #: ../src/menu.c:567
 msgid "/View/View _Outputbox"
-msgstr ""
+msgstr "/Visualizza/Visualizza are_a risultati"
 
 #: ../src/menu.c:568
 msgid "/_?"
@@ -1833,11 +1827,11 @@ msgstr "/Documento/Tipo di documento"
 
 #: ../src/menu.c:766
 msgid "/View/View Custom Menu"
-msgstr ""
+msgstr "/Visualizza/Visualizza menu personalizzato"
 
 #: ../src/menu.c:767
 msgid "/View/View Sidebar"
-msgstr ""
+msgstr "/Visualizza/Visualizza barra laterale"
 
 #: ../src/menu.c:768
 msgid "/Document/Auto Indent"
@@ -1853,9 +1847,8 @@ msgid "output"
 msgstr "risultato·#"
 
 #: ../src/menu.c:848
-#, fuzzy
 msgid "loading file(s)..."
-msgstr "Apertura file..."
+msgstr "apertura file..."
 
 #: ../src/menu.c:852
 msgid "The filename was:\n"
@@ -1863,7 +1856,7 @@ msgstr "Il nome file era:\n"
 
 #: ../src/menu.c:853
 msgid "Could not open file\n"
-msgstr ""
+msgstr "Non è possibile aprire il file\n"
 
 #: ../src/menu.c:876
 msgid "/Project/Open Recent"
@@ -1880,6 +1873,8 @@ msgstr "/Finestre"
 #: ../src/menu.c:1056
 msgid "Could not view file in browser, the file does not yet have a name\n"
 msgstr ""
+"Non è possibile visualizzare il file nel browser, il file non ha ancora un "
+"nome\n"
 
 #: ../src/menu.c:1206 ../src/menu.c:1226 ../src/menu.c:1244 ../src/menu.c:1258
 #: ../src/menu.c:1282 ../src/menu.c:1296
@@ -1892,7 +1887,7 @@ msgstr "/Documento/Codifica carattere"
 
 #: ../src/menu.c:1607
 msgid "This custom search and replace requires a selection"
-msgstr ""
+msgstr "Questa ricerca e sostituzione personalizzata richiede una selezione"
 
 #: ../src/menu.c:1705
 msgid "/_Custom menu"
@@ -1900,19 +1895,19 @@ msgstr "/Menu personaliz_zato"
 
 #: ../src/menu.c:1706
 msgid "/Custom menu/sep"
-msgstr ""
+msgstr "/Menu personalizzato/sep"
 
 #: ../src/menu.c:1707
 msgid "/Custom menu/Edit custom menu..."
-msgstr ""
+msgstr "/Menu personalizzato/Modifica menu personalizzato..."
 
 #: ../src/menu.c:1708
 msgid "/Custom menu/Reset"
-msgstr ""
+msgstr "/Menu personalizzato/Annulla"
 
 #: ../src/menu.c:1709
 msgid "/Custom menu/Load new"
-msgstr ""
+msgstr "/Menu personalizzato/Apri nuovo"
 
 #: ../src/menu.c:1925
 msgid "Search Pattern"
@@ -1936,7 +1931,7 @@ msgstr ""
 
 #: ../src/menu.c:1977
 msgid "Try 'add' instead."
-msgstr ""
+msgstr "Prova \"aggiungi\" in alternativa."
 
 #: ../src/menu.c:1979
 msgid "The menupath you want to add already exists."
@@ -2075,9 +2070,8 @@ msgid "tool is running. press Escape to stop it first."
 msgstr ""
 
 #: ../src/outputbox.c:450
-#, fuzzy
 msgid "empty command"
-msgstr "Comando"
+msgstr "comando assente"
 
 #: ../src/outputbox.c:456
 #, c-format
@@ -2100,7 +2094,7 @@ msgstr ""
 #: ../src/outputbox_bf.c:169 ../src/outputbox_bf.c:178
 #, c-format
 msgid "some error happened creating fifo %s"
-msgstr ""
+msgstr "alcuni errori sono occorsi creando il fifo %s"
 
 #: ../src/outputbox_bf.c:390
 #, c-format
@@ -2109,7 +2103,7 @@ msgstr "codice di uscita: %d"
 
 #: ../src/outputbox_bf.c:394 ../src/outputbox_ka.c:97
 msgid "the child process exited abnormally"
-msgstr ""
+msgstr "il processo figlio è uscito in maniera anomala"
 
 #: ../src/outputbox_ka.c:93
 #, c-format
@@ -2127,24 +2121,20 @@ msgid "Error: %s"
 msgstr "Errore: %s"
 
 #: ../src/outputbox_ka.c:297
-#, fuzzy
 msgid "hint: you may call the tool again"
-msgstr "Suggerimento: puoi richiamare lo strumento ancora"
+msgstr "suggerimento: puoi richiamare lo strumento ancora"
 
 #: ../src/outputbox_ka.c:300
-#, fuzzy
 msgid "tool finished."
-msgstr "Strumento finito."
+msgstr "strumento finito."
 
 #: ../src/outputbox_ka.c:306
-#, fuzzy
 msgid "error: cannot create PIPE file."
-msgstr "Errore: non è possibile creare un file PIPE."
+msgstr "errore: non è possibile creare un file PIPE."
 
 #: ../src/outputbox_ka.c:311
-#, fuzzy
 msgid "error: cannot create temporarily file."
-msgstr "Errore: non è possibile creare un file temporaneo."
+msgstr "errore: non è possibile creare un file temporaneo."
 
 #: ../src/preferences.c:266
 msgid "Untitled"
@@ -2342,9 +2332,8 @@ msgid "Output #"
 msgstr "Risultato·#"
 
 #: ../src/preferences.c:1498
-#, fuzzy
 msgid "Save,Show"
-msgstr "Salva"
+msgstr "Salva, Mostra"
 
 #: ../src/preferences.c:1537
 msgid ""
@@ -2610,18 +2599,16 @@ msgid "Filefilters"
 msgstr "Filtri"
 
 #: ../src/preferences.c:2002
-#, fuzzy
 msgid "Highlighting"
-msgstr "Evidenzia # linee"
+msgstr "Evidenzia"
 
 #: ../src/preferences.c:2004
 msgid "Patterns"
 msgstr "Pattern"
 
 #: ../src/preferences.c:2013
-#, fuzzy
 msgid "Viewers, Filters"
-msgstr "Visualizzatore e filtri"
+msgstr "Visualizzatori, filtri"
 
 #: ../src/preferences.c:2015
 msgid "Viewers"
