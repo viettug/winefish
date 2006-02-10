@@ -1,3 +1,4 @@
+# translation of it.po to 
 # translation of it.po to
 # translation of it.po to italian
 # translation of it.po to
@@ -13,13 +14,13 @@ msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-10 10:33+0700\n"
-"PO-Revision-Date: 2006-02-09 08:34+0100\n"
-"Last-Translator: Daniele Medri <dmedri@gmail.com>\n"
-"Language-Team: italian\n"
+"PO-Revision-Date: 2006-02-10 21:44+0700\n"
+"Last-Translator: kyanh <kyanh@o2.pl>\n"
+"Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10.2\n"
+"X-Generator: KBabel 1.2\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: ../src/about.c:60
@@ -58,6 +59,7 @@ msgstr ""
 "* kyanh <kyanh@viettug.org>\n"
 "\n"
 "traduttori:\n"
+"* French: Michèle Garoche <michele.garoche@easyconnect.fr>\n"
 "* Italiano: Daniele Medri <dmedri@gmail.com>\n"
 "* Vietnamita: kyanh <kyanh@viettug.org>\n"
 "\n"
@@ -249,8 +251,7 @@ msgstr "Dimensione del fine cambiata\n"
 
 #: ../src/bookmark.c:1408
 msgid "Bookmarks positions could be incorrect. Delete bookmarks?"
-msgstr ""
-"La posizione dei segnalibri potrebbe essere errata. Eliminare i segnalibri?"
+msgstr "La posizione dei segnalibri potrebbe essere errata. Eliminare i segnalibri?"
 
 #: ../src/document.c:311 ../src/document.c:3736
 msgid "/Document/Highlight Syntax"
@@ -3072,3 +3073,4 @@ msgstr "_Righe:"
 #: ../src/wizards.c:646
 msgid "Type (_Environment):"
 msgstr ""
+
