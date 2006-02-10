@@ -614,8 +614,9 @@ AC_OUTPUT
 
 echo "-----------"
 echo ""
-echo "Please read CHANGES before using this version."
+echo "* Configure extra features in 'src/config_spec.h' before running 'make'"
+echo "* Read CHANGES before using this version."
 echo ""
-echo "Thank you for trying Winefish. Feel free to comment!"
+echo "* Feel free to comment! Thank you!"
 echo ""
 echo "-----------"

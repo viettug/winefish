@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-08 15:22+0700\n"
+"POT-Creation-Date: 2006-02-10 10:33+0700\n"
 "PO-Revision-Date: 2006-02-08 15:25+0700\n"
 "Last-Translator: kyanh <kyanh@o2.pl>\n"
 "Language-Team:  <en@li.org>\n"
@@ -780,81 +780,81 @@ msgstr "Recherche"
 msgid "no directory specified"
 msgstr "Aucun répertoire spécifié"
 
-#: ../src/func_grep.c:207
+#: ../src/func_grep.c:210
 msgid "searching files..."
 msgstr "Recherche des fichiers..."
 
-#: ../src/func_grep.c:218 ../src/func_grep.c:221
+#: ../src/func_grep.c:221 ../src/func_grep.c:224
 msgid "grep"
 msgstr "grep"
 
-#: ../src/func_grep.c:271 ../src/func_grep.c:279 ../src/project.c:443
+#: ../src/func_grep.c:274 ../src/func_grep.c:282 ../src/project.c:443
 #: ../src/project.c:450
 msgid "Select basedir"
 msgstr "Choisir le répertoire de base"
 
-#: ../src/func_grep.c:307
+#: ../src/func_grep.c:310
 msgid "Grep Function"
 msgstr "Fonction grep"
 
-#: ../src/func_grep.c:327
+#: ../src/func_grep.c:330
 msgid "<b>General</b>"
 msgstr "<b>Général</b>"
 
-#: ../src/func_grep.c:329
+#: ../src/func_grep.c:332
 msgid "Base_dir:"
 msgstr "Répertoire _de base :"
 
-#: ../src/func_grep.c:331 ../src/gtk_easy.c:1342
+#: ../src/func_grep.c:334 ../src/gtk_easy.c:1342
 msgid "_Browse..."
 msgstr "_Parcourir..."
 
-#: ../src/func_grep.c:341
+#: ../src/func_grep.c:344
 msgid "_File Type:"
 msgstr "Type de _fichier :"
 
-#: ../src/func_grep.c:347
+#: ../src/func_grep.c:350
 msgid "_Recursive:"
 msgstr "_Récursif :"
 
-#: ../src/func_grep.c:351
+#: ../src/func_grep.c:354
 msgid "_Open files:"
 msgstr "_Ouvrir les fichiers :"
 
-#: ../src/func_grep.c:356
+#: ../src/func_grep.c:359
 msgid "<b>Contains</b>"
 msgstr "<b>Contient</b>"
 
-#: ../src/func_grep.c:374
+#: ../src/func_grep.c:377
 msgid "Pa_ttern:"
 msgstr "_Modèle :"
 
-#: ../src/func_grep.c:379
+#: ../src/func_grep.c:382
 msgid "_Case sensitive:"
 msgstr "Respecter la _casse :"
 
-#: ../src/func_grep.c:383
+#: ../src/func_grep.c:386
 msgid "Is rege_x:"
 msgstr "Est une e_xpression régulière :"
 
-#: ../src/func_grep.c:387
+#: ../src/func_grep.c:390
 msgid "<b>Advanced</b>"
 msgstr "<b>Expert</b>"
 
-#: ../src/func_grep.c:390
+#: ../src/func_grep.c:393
 msgid "Skip VCS dirs:"
 msgstr "Omettre les répertoires VCS :"
 
-#: ../src/func_grep.c:446
+#: ../src/func_grep.c:449
 msgid "no matching files found"
 msgstr "Aucun fichier trouvé"
 
-#: ../src/func_grep.c:451 ../src/func_grep.c:471
+#: ../src/func_grep.c:454 ../src/func_grep.c:474
 #, c-format
 msgid "loading %d file(s)..."
 msgstr "Chargement de %d fichier(s)"
 
-#: ../src/func_grep.c:494
+#: ../src/func_grep.c:497
 msgid "template"
 msgstr "Modèle"
 
