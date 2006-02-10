@@ -6,8 +6,9 @@ Winefish 1.3.2.6 (Spring Release)
 * important changes:
 	- requires  libgtk+-2.0 version >= 2.4
 
-* for users of previous version:
-	- move ~/.winefish/rcfile_v2 to ~/.winefish/.rcfile
+* for users of previous version: (see doc/winefish.html for details)
+	- move ~/.winefish/rcfile_v2 to ~/.winefish/rcfile
+	- reconfigure Winefish
 	- reset the last variable (Save,Show) for tool (Preferences Page/TeXbox)
 
 * fixed
