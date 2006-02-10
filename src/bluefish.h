@@ -106,6 +106,16 @@ typedef struct {
 	gchar *content_regex; /* a regex pattern to test the filetype using the content */
 } Tfiletype;
 
+/* brace_finder */
+typedef struct {
+	GtkTextMark *mark_left;
+	GtkTextMark *mark_mid;
+	GtkTextMark *mark_right;
+	GtkTextTag *tag;
+	gint last_status;
+} Tbracefinder;
+#define BRACEFINDER(var)((Tbracefinder *)(var))
+
 /*******************/
 /* document struct */
 /*******************/
@@ -144,6 +154,7 @@ typedef struct {
 	gpointer bfwin;
 	GtkTreeIter *bmark_parent; /* if NULL this document doesn't have bookmarks, if 
 		it does have bookmarks they are children of this GtkTreeIter */
+	gpointer brace_finder;
 } Tdocument;
 
 typedef struct {
