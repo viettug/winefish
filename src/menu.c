@@ -246,7 +246,7 @@ static void toggle_doc_property(Tbfwin *bfwin,guint callback_action, GtkWidget *
 static void brace_finder_cb( Tbfwin *bfwin, guint callback_action, GtkWidget *widget )
 {
 	gint find_brace;
-	find_brace = brace_finder(bfwin->current_document->buffer, BR_MOVE_IF_FOUND | callback_action);
+	find_brace = brace_finder(bfwin->current_document->buffer, NULL, BR_MOVE_IF_FOUND | callback_action, 0);
 	switch (find_brace) {
 	case BR_RET_NOT_FOUND:
 		statusbar_message(bfwin, _("brace_finder: matching not found"), 1000);
@@ -260,14 +260,12 @@ static void brace_finder_cb( Tbfwin *bfwin, guint callback_action, GtkWidget *wi
 	case BR_RET_WRONG_OPERATION:
 		statusbar_message(bfwin, _("brace_finder: wrong operation or brace escaped"), 1000);
 		break;
-	case BR_RET_FOUND:
-		{
+	default:
+		if (find_brace & BR_RET_FOUND) {
 			GtkTextMark *mark;
 			mark = gtk_text_buffer_get_insert( bfwin->current_document->buffer );
 			gtk_text_view_scroll_mark_onscreen( GTK_TEXT_VIEW( bfwin->current_document->view ), mark );
-		}
-		break;
-	default:
+		}/* else? unknown status :((( */
 		break;
 	}
 }

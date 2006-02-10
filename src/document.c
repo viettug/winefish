@@ -67,6 +67,7 @@
 #include "bookmark.h"
 #include "autox.h" /* autotext_done() */
 #include "snooper.h"
+#include "brace_finder.h" /* VALID_BRACE */
 
 #include "func_grep.h"
 
@@ -1835,7 +1836,7 @@ static void gap_command( GtkWidget *widget, GdkEventKey *kevent, Tdocument *doc 
 	if ( (kevent->keyval != GDK_Return) && (character==0 || !strstr(DELIMITERS, kevent->string)) ) {
 		return;
 	}
-
+	
 	gchar *buf=NULL;
 	GtkTextMark * imark;
 	GtkTextIter itstart, iter, maxsearch;
@@ -2302,6 +2303,9 @@ static gboolean doc_view_key_release_lcb( GtkWidget *widget, GdkEventKey *kevent
 	/* shift> = ]*/
 	/* if the shift key is released before the '>' key, we get a key release not for '>' but for '.'. We, therefore have set that in the key_press event, and check if the same hardware keycode was released */
 	/* complete environment */
+#define IS_MOVE_KEY(var) ((var == GDK_Left)||(var==GDK_Right)||(var==GDK_Up)||(var==GDK_Down)||(var==GDK_Home)||(var=GDK_End)||(var==GDK_BackSpace))
+	brace_finder(doc->buffer,&doc->brace_finder,BR_FIND_FORWARD |BR_HILIGHT_IF_FOUND, BRACE_FINDER_MAX_LINES);
+
 	if ( ( kevent->keyval == GDK_braceright ) || ( kevent->hardware_keycode == main_v->lastkp_hardware_keycode && main_v->lastkp_keyval == GDK_braceright ) ) {
 		/* autoclose environment for LaTeX */
 		if ( doc->view_bars & MODE_AUTO_COMPLETE ) {
@@ -2671,6 +2675,9 @@ static void doc_buffer_delete_range_lcb( GtkTextBuffer *textbuffer, GtkTextIter 
 static gboolean doc_view_button_release_lcb( GtkWidget *widget, GdkEventButton *bevent, Tdocument *doc )
 {
 	DEBUG_MSG( "doc_view_button_release_lcb, button %d\n", bevent->button );
+	if (bevent->button == 1) {
+		brace_finder(doc->buffer, &doc->brace_finder, BR_FIND_FORWARD | BR_HILIGHT_IF_FOUND, BRACE_FINDER_MAX_LINES);
+	}
 	if ( bevent->button == 2 ) {
 		/* end of paste */
 		if ( doc->paste_operation ) {
@@ -3056,6 +3063,8 @@ void doc_destroy( Tdocument * doc, gboolean delay_activation )
 	gtk_text_buffer_delete(doc->buffer, &start, &end);
 	DEBUG_MSG("doc_destroy: destroyed text buffer\n");
 	/* >> */
+	
+	g_free(doc->brace_finder); /* free the brace finder */
 	
 	g_object_ref( doc->view->parent );
 	if ( doc->floatingview ) {
@@ -3616,6 +3625,7 @@ Tdocument *doc_new( Tbfwin* bfwin, gboolean delay_activate )
 	GtkWidget * scroll;
 	Tdocument *newdoc = g_new0( Tdocument, 1 );
 	DEBUG_MSG( "doc_new, main_v is at %p, bfwin at %p, newdoc at %p\n", main_v, bfwin, newdoc );
+	
 	newdoc->bfwin = ( gpointer ) bfwin;
 	newdoc->hl = ( Tfiletype * ) ( ( GList * ) g_list_first( main_v->filetypelist ) ) ->data;
 
@@ -3637,6 +3647,15 @@ Tdocument *doc_new( Tbfwin* bfwin, gboolean delay_activate )
 	/* * End VIEW_BARS settings * */
 
 	newdoc->buffer = gtk_text_buffer_new( highlight_return_tagtable() );
+	
+	newdoc->brace_finder =g_new0( Tbracefinder, 1);
+	BRACEFINDER(newdoc->brace_finder)->tag = gtk_text_buffer_create_tag (newdoc->buffer, NULL,"background", "yellow", "foreground", "black", "weight","bold", NULL);
+	/*
+	BRACEFINDER(newdoc->brace_finder)->tag_extra = gtk_text_buffer_create_tag (newdoc->buffer, NULL,"background", "black", "foreground", "yellow", "weight","bold", NULL);
+	*/
+
+	BRACEFINDER(newdoc->brace_finder)->last_status = 0;
+	
 	newdoc->view = gtk_text_view_new_with_buffer( newdoc->buffer );
 	scroll = gtk_scrolled_window_new( NULL, NULL );
 	gtk_scrolled_window_set_policy( GTK_SCROLLED_WINDOW( scroll ),
