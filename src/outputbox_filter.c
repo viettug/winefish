@@ -36,9 +36,9 @@
 static regex_t on_input_line;
 static gboolean first_time = TRUE;
 
-void outputbox_filter_line( Toutputbox *ob, const gchar *source )
+void outputbox_filter_line( Toutputbox *ob, const gchar *source_orig )
 {
-	if (!source || (strlen(source) == 0) ) {
+	if (!source_orig || (strlen(source_orig) == 0) ) {
 		return;
 	}
 	/* handle non UTF8 strings */
@@ -52,6 +52,11 @@ void outputbox_filter_line( Toutputbox *ob, const gchar *source )
 	GtkTreeIter iter;
 	gchar *tmp_src = NULL;
 	gboolean scroll= FALSE;
+
+	gchar *source;
+	source = g_locale_to_utf8(source_orig, strlen(source_orig), NULL,NULL,NULL); /* fixed BUG#82 */
+	if (!source) { return; }
+
 	if ( ob->def->show_all_output & OB_SHOW_ALL_OUTPUT ) {
 		tmp_src = g_markup_escape_text(source,-1);
 		gtk_list_store_append( GTK_LIST_STORE( ob->lstore ), &iter );
@@ -161,6 +166,7 @@ void outputbox_filter_line( Toutputbox *ob, const gchar *source )
 		}
 		flush_queue();
 	}
+	g_free(source);
 	DEBUG_MSG("outputbox_filter_line: finished.\n");
 }
 
