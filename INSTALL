@@ -27,9 +27,7 @@ To install Winefish from source
 
 	$ autoconf
 
-4) some variables control winefish.
-   modify them in `config.h.in' (the very last lines).
-   See `doc/winefihs.html#CONFIGURE' for more details
+4) some variables control winefish. Seed `src/config_spec.h' for details.
 
 5) configure and compile
 
