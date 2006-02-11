@@ -33,7 +33,7 @@ patterns: tex:labelref-type:1:2::3:^labelref$:blue::0:0:
 patterns: tex:labelref:0:\\\\(label|eqref|ref|vref|vpageref|pageref){([a-z]+)\:[^}]+}::2::brown:#e4d7e4:0:0:
 patterns: tex:macro-ams-a:0:\\\\(renewtheorem|newtheorem|newtheoremstyle|theoremstyle|DeclareMathOperator|tag|qquad|Big|Bigg|Biggl|Biggr|Bigl|Bigr|big|bigg|biggl|biggr|bigl|bigr|text|intertext)\\b::2::#00C4C4::0:0:
 patterns: tex:argument-optional:0:\\[[^\\n\\]]+\\]::2::#008C00::0:0:
-patterns: tex:argument-mandatory:0:{[a-zA-Z]+}::2::#54b0b0::0:0:
+patterns: tex:argument-mandatory:0:{[a-zA-Z]+}::2::#54b6b6::0:0:
 patterns: tex:environments-ams-mix:0:{(subarray|split|smallmatrix|([vVpb]?matrix))}::2::brown::0:0:
 patterns: tex:environments-ams:0:{((align|aligned|equation|gather|gathered|cases|multline)\\*?)}::2::brown::2:0:
 patterns: tex:environments-standard:0:{(list|document|quote|flushleft|flushright|center|minipage|quotation|tabular|figure|table|longtable|itemize|description|enumerate)}::2::navy::2:0:
