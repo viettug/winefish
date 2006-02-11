@@ -86,7 +86,7 @@ gint brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint limi
 	gint retval;
 	gunichar ch, Lch, Rch;
 
-	if (brfinder) {
+	if (limit==-1) {
 		if ( BRACEFINDER(*brfinder)->last_status & BR_RET_FOUND) {
 			gtk_text_buffer_get_iter_at_mark(buffer, &tmpiter, BRACEFINDER(*brfinder)->mark_left);
 			gtk_text_buffer_get_iter_at_mark(buffer, &tmp2iter, BRACEFINDER(*brfinder)->mark_mid);
@@ -109,6 +109,7 @@ gint brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint limi
 			}
 		}
 		BRACEFINDER(*brfinder)->last_status = 0;
+		return BR_RET_NOOPS;
 	}
 
 	insert = gtk_text_buffer_get_insert(buffer);

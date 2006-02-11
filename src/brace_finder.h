@@ -17,7 +17,8 @@ BR_RET_IN_SELECTION =1<<4,
 BR_RET_WRONG_OPERATION = 1<<5,
 BR_RET_FOUND_DOLLAR_EXTRA =1<<6,
 BR_RET_FOUND_LEFT_BRACE =1 <<7,
-BR_RET_FOUND_RIGHT_BRACE =1 <<8
+BR_RET_FOUND_RIGHT_BRACE =1 <<8,
+BR_RET_NOOPS = 1 <<9
 };
 
 gint brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint limit);
