@@ -2,11 +2,29 @@ $Id$
 
 ============================================================== [200602]
 
+======== 1.3.2.7a
+
+#88
+* copy/paste a brace: it is still hilighted
+
+#87
+* bad STORIES, see brace_finder.c :(
+if there is {} then after inserting {\} the \ will be hilighted
+if there is $$$ then after inserting $\$$ the \ will be hilighted
+(\basckslash or any other character)
+instead of inserting we may paste something between { and }s
+
+#86/fixed/kyanh/20060211/
+* brace_finder: for the dollar sign, if the extra $ isnot found, finder return BR_RET_NOT_FOUND
+(even the the left $ is found)
+
+======== 1.3.2.6
+
 #85/fixed/kyanh/20060211/
 * autocompletion: press Control+S sometimes causes popup menu to be showed
 (press Control+S twice, release control after the first)
 BACKTRACE:
-	bactrace/snooper85.log
+	backtrace/snooper85.log
 FIXED:
 	should check for state of previous kevent -> added (main_v->last_kevent);
 
