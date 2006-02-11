@@ -4472,7 +4472,6 @@ void edit_paste_cb( GtkWidget * widget, Tbfwin *bfwin )
 	gtk_text_view_scroll_mark_onscreen( GTK_TEXT_VIEW( bfwin->current_document->view ), mark );
 	/* BUGS#88 */
 	if ( eo_so_diff ==1 ) {
-		g_print("oops\n");
 		gtk_text_buffer_get_iter_at_mark(doc->buffer, &itstart, mark);
 		itend = itstart;
 		gtk_text_iter_backward_char(&itend);
