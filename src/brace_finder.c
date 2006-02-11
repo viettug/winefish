@@ -89,22 +89,23 @@ gint brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint limi
 	if (brfinder) {
 		if ( BRACEFINDER(*brfinder)->last_status & BR_RET_FOUND) {
 			gtk_text_buffer_get_iter_at_mark(buffer, &tmpiter, BRACEFINDER(*brfinder)->mark_left);
-			tmp2iter = tmpiter;
-			gtk_text_iter_forward_char(&tmp2iter);
-			gtk_text_buffer_remove_tag(buffer, BRACEFINDER(*brfinder)->tag, &tmpiter, &tmp2iter);
-			DEBUG_MSG("\nbrace_finder: delete hilight marks for %s\n", gtk_text_iter_get_text(&tmpiter, &tmp2iter));
+			gtk_text_buffer_get_iter_at_mark(buffer, &tmp2iter, BRACEFINDER(*brfinder)->mark_mid);
 
-			gtk_text_buffer_get_iter_at_mark(buffer, &tmpiter, BRACEFINDER(*brfinder)->mark_mid);
-			tmp2iter = tmpiter;
-			gtk_text_iter_forward_char(&tmp2iter);
-			DEBUG_MSG("brace_finder: delete hilight marks for %s\n", gtk_text_iter_get_text(&tmpiter, &tmp2iter));
-			gtk_text_buffer_remove_tag(buffer, BRACEFINDER(*brfinder)->tag, &tmpiter, &tmp2iter);
+			tmpiter_extra = tmpiter;
+			gtk_text_iter_forward_char(&tmpiter_extra);
+			gtk_text_buffer_remove_tag(buffer, BRACEFINDER(*brfinder)->tag, &tmpiter, &tmpiter_extra);
+			DEBUG_MSG("\nbrace_finder: delete hilight marks for %s\n", gtk_text_iter_get_text(&tmpiter, &tmpiter_extra));
+
+			tmpiter_extra = tmp2iter;
+			gtk_text_iter_forward_char(&tmpiter_extra);
+			DEBUG_MSG("brace_finder: delete hilight marks for %s\n", gtk_text_iter_get_text(&tmp2iter, &tmpiter_extra));
+			gtk_text_buffer_remove_tag(buffer, BRACEFINDER(*brfinder)->tag, &tmp2iter, &tmpiter_extra);
 
 			if (BRACEFINDER(*brfinder)->last_status & BR_RET_FOUND_DOLLAR_EXTRA) {
 				gtk_text_buffer_get_iter_at_mark(buffer, &tmpiter, BRACEFINDER(*brfinder)->mark_right);
-				tmp2iter = tmpiter;
-				gtk_text_iter_forward_char(&tmp2iter);
-				gtk_text_buffer_remove_tag(buffer, BRACEFINDER(*brfinder)->tag, &tmpiter, &tmp2iter);
+				tmpiter_extra = tmpiter;
+				gtk_text_iter_forward_char(&tmpiter_extra);
+				gtk_text_buffer_remove_tag(buffer, BRACEFINDER(*brfinder)->tag, &tmpiter, &tmpiter_extra);
 			}
 		}
 		BRACEFINDER(*brfinder)->last_status = 0;
@@ -244,7 +245,13 @@ gint brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint limi
 						break;
 					} else if (gtk_text_iter_ends_line(&tmpiter_extra)) {
 						limit_idx++;
-						if (limit && (limit_idx > limit)) { return BR_RET_NOT_FOUND; }
+						if (limit && (limit_idx > limit)) {
+							if ( retval & BR_RET_FOUND ) {
+								break;
+							}else{
+								return BR_RET_NOT_FOUND;
+							}
+						}
 						tmp2iter = tmpiter_extra;
 						gtk_text_iter_set_line_offset(&tmp2iter,0);
 						ch = gtk_text_iter_get_char(&tmp2iter);
@@ -260,6 +267,11 @@ gint brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint limi
 		}
 		/* finished */
 		if (retval & BR_RET_FOUND ) {
+			/* for $:  result is (extra-mid-left)
+			for others: result is (left-mid) or (mid-left)
+			*/
+			/* gtk_text_iter_order(&tmpiter,&iter_start_new); */
+
 			tmp2iter = tmpiter;
 			gtk_text_iter_forward_char(&tmp2iter);
 			if (opt & BR_MOVE_IF_FOUND) {
@@ -268,13 +280,13 @@ gint brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint limi
 			}
 			if ((opt & BR_HILIGHT_IF_FOUND) && brfinder) {
 				BRACEFINDER(*brfinder)->last_status = retval;
-
 				if (BRACEFINDER(*brfinder)->mark_left) {
 					gtk_text_buffer_move_mark(buffer,BRACEFINDER(*brfinder)->mark_left , &tmpiter);
 					gtk_text_buffer_move_mark(buffer,BRACEFINDER(*brfinder)->mark_mid, &iter_start_new);
 				}else{
 					/* STORIES: i used TRUE (left_gravity), then when we put a slash before anymark,
-					the backslash will be hilighted :D Now i now the reason why. Now ready to fix BUG#82 */
+					the backslash will be hilighted :D Now i know the reason. Ready to fix BUG#82. with 
+					left_gravity, inserting will move the mark left.... ??? */
 					BRACEFINDER(*brfinder)->mark_left = gtk_text_buffer_create_mark(buffer,NULL,&tmpiter,FALSE);
 					BRACEFINDER(*brfinder)->mark_mid = gtk_text_buffer_create_mark(buffer,NULL,&iter_start_new,FALSE);
 				}
