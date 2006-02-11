@@ -361,8 +361,11 @@ typedef struct {
 	GtkTreeStore *bookmarkstore; /* the global bookmarks from the global session */
 	gint num_untitled_documents;
 	GtkTooltips *tooltips;
+	GdkEvent *last_kevent;
+#ifdef BUG84
 	guint16 lastkp_hardware_keycode; /* for the autoclosing, we need to know the last pressed key, in the key release callback, */
 	guint lastkp_keyval;             /* this is different if the modifier key is not pressed anymore during the key-release */
+#endif
 	pcre *autoclosingtag_regc; /* the regular expression to check for a valid tag in tag autoclosing*/
 	pcre *autoclosingtag_be_regc; /* for context \start...\stop and plain text \begin...\end */
 	pcre *anycommand_regc;
