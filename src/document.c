@@ -4476,14 +4476,12 @@ void edit_paste_cb( GtkWidget * widget, Tbfwin *bfwin )
 	mark = gtk_text_buffer_get_insert( doc->buffer );
 	gtk_text_view_scroll_mark_onscreen( GTK_TEXT_VIEW( bfwin->current_document->view ), mark );
 	/* BUGS#88 */
-#ifdef BLABLABLA
 	if ( eo_so_diff ==1 ) {
 		gtk_text_buffer_get_iter_at_mark(doc->buffer, &itstart, mark);
 		itend = itstart;
 		gtk_text_iter_backward_char(&itend);
-		//gtk_text_buffer_remove_tag(doc->buffer, BRACEFINDER(doc->brace_finder)->tag , &itstart, &itend);
+		gtk_text_buffer_remove_tag(doc->buffer, BRACEFINDER(doc->brace_finder)->tag , &itstart, &itend);
 	}
-#endif /* BLABLABLA */
 	DEBUG_MSG( "edit_paste_cb, finished\n" );
 }
 
