@@ -1,4 +1,4 @@
-/* $Id: undo_redo.h,v 1.1.1.1 2005/06/29 11:03:35 kyanh Exp $ */
+/* $Id$ */
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  *
  * undo_redo.h -- undo structures and function declarations

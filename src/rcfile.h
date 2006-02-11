@@ -1,4 +1,4 @@
-/* $Id: rcfile.h,v 1.2 2005/07/21 08:13:18 kyanh Exp $ */
+/* $Id$ */
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * rcfile.h - functions to load the config
  *

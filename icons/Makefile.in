@@ -1,0 +1,57 @@
+# Winefish LaTeX Editor
+#
+# Makefile.in - the Makefile template
+# Copyright (C) 2002 Olivier Sessink
+# Modified for Winefish (C) 2005 Ky Anh <kyanh@o2.pl>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+top_srcdir = @top_srcdir@
+top_builddir = @top_srcdir@
+srcdir = @srcdir@
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+bindir = @bindir@
+pkgdatadir = @pkgdatadir@
+
+infodir = $(prefix)/info
+libdir = $(prefix)/lib/gnudl
+mandir = $(prefix)/man/man1
+localedir = @localedir@
+gnulocaledir = $(prefix)/share/locale
+aliaspath = $(localedir):.
+
+OBJS = 	icon_unknown.png \
+			icon_dir.png \
+			icon_image.png \
+			icon_xml.png \
+			icon_tex.png
+
+INSTALL = @INSTALL@
+INSTALL_DIR = $(INSTALL) -d -m 755 
+INSTALL_DATA = $(INSTALL) -m 644
+
+all: bluefish
+bluefish:
+
+install: all
+	$(INSTALL_DIR) $(DESTDIR)$(pkgdatadir)
+	for file in $(OBJS) ; \
+		do $(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir) ; \
+	done
+
+uninstall:
+	/bin/rm -f $(DESTDIR)$(pkgdatadir)icon_*.png
+

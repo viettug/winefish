@@ -12,7 +12,7 @@ $ cd po # change to `po' directory
 * In this 'po' directory, try:
 $ rm -fv winefish.po && make winefish.po
 
-* If there's already LANG.po files, please trye
+* If there's already LANG.po files, please try
 $ make update-po
 
 * If not, copying winefish.po to LANG.po

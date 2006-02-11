@@ -1,8 +1,0 @@
-* how to convert an invalid UTF8 string to UTF8 string?
-* BUG#71
-* properties:
-	- default properties [winefish]
-	- projects properties [project]
-	- session projects [session]
-
-$Id$

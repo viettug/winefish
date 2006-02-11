@@ -1,4 +1,4 @@
-/* $Id: pixmap.c,v 1.2 2005/07/25 02:54:00 kyanh Exp $ */
+/* $Id$ */
 #include <gtk/gtk.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 

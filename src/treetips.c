@@ -1,4 +1,4 @@
-/* $Id: treetips.c,v 1.1.1.1 2005/06/29 11:03:35 kyanh Exp $ */
+/* $Id$ */
 #include "treetips.h"
 
 static gint tree_tips_paint(TreeTips *tips)

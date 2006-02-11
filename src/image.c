@@ -1,4 +1,4 @@
-/* $Id: image.c,v 1.2 2005/07/21 08:59:47 kyanh Exp $ */
+/* $Id$ */
 /*
  * Modified for Winefish (C) 2005 Ky Anh <kyanh@o2.pl> 
  */

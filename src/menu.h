@@ -1,4 +1,4 @@
-/* $Id: menu.h,v 1.1.1.1 2005/06/29 11:03:29 kyanh Exp $ */
+/* $Id$ */
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * menu.h - uhh, duh.
  *
