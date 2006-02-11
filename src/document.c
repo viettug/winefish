@@ -2031,6 +2031,8 @@ static gboolean doc_view_key_press_lcb( GtkWidget *widget, GdkEventKey *kevent, 
 #ifdef SHOW_SNOOPER
 	g_print("doc: got key pressed\n");
 #endif
+	brace_finder(doc->buffer, &doc->brace_finder, 0, -1);
+
 	if (main_v->completion.show == COMPLETION_DELETE ) {
 		DEBUG_MSG("doc: delete item from popup\n");
 		/* delete stuff:
@@ -2736,6 +2738,9 @@ static void doc_get_iter_at_bevent( Tdocument *doc, GdkEventButton *bevent, GtkT
 static gboolean doc_view_button_press_lcb( GtkWidget *widget, GdkEventButton *bevent, Tdocument *doc )
 {
 	DEBUG_MSG( "doc_view_button_press_lcb, button %d\n", bevent->button );
+	if (bevent->button==1) {
+		brace_finder(doc->buffer, &doc->brace_finder, 0, -1);
+	}
 	if ( bevent->button == 2 && !doc->paste_operation ) {
 		doc->paste_operation = g_new( Tpasteoperation, 1 );
 		PASTEOPERATION( doc->paste_operation ) ->so = -1;
