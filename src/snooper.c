@@ -28,7 +28,7 @@
 #include "bluefish.h"
 #include "snooper.h"
 
-#define SHOW_SNOOPER
+/* #define SHOW_SNOOPER */
 
 /* UniKey stuff:
  this function will be call twice, once when key is pressed, once when key is released;
@@ -118,12 +118,15 @@ static gint completion_snooper (GtkWidget *widget, GdkEventKey *kevent, gpointer
 #ifdef SHOW_SNOOPER
 		g_print("snooper: -- auto call -- or nothing\n");
 #endif
-		if ( (main_v->completion.show == COMPLETION_WINDOW_SHOW ) && ( kevent->state & ALL_CONTROL_MASK)) {
+		if ( (main_v->completion.show == COMPLETION_WINDOW_SHOW ) && ( kevent->state & ALL_CONTROL_MASK) ) {
 		/* only SHIFT mask available here; this happens when user press SHIFT to get a Uppercase letters, for example. */
+		/* BUG#5990, for belgian keyboard: must press ALT+{, ALT+} to get {, }*/
+			if ( (kevent->keyval != GDK_braceleft) && (kevent->keyval != GDK_braceright) ) {
 #ifdef SHOW_SNOOPER
-			g_print("snooper: popup is showing. 'non-null-state' event will be canceled\n");
+				g_print("snooper: popup is showing. 'non-null-state' event will be canceled\n");
 #endif
-			retval = TRUE;
+				retval = TRUE;
+			}
 		} else if (kevent->type == GDK_KEY_RELEASE) {
 			/* auto show the form. TODO: Should be a main's properties */
 			if ((kevent->state == 0) && (((GdkEventKey*)main_v->last_kevent)->state==0)&& ( (((GdkEventKey*)main_v->last_kevent)->keyval == GDK_braceleft) || ( (GDK_a <= ((GdkEventKey*)main_v->last_kevent)->keyval) && (GDK_z >= ((GdkEventKey*)main_v->last_kevent)->keyval)) || ((GDK_A <= ((GdkEventKey*)main_v->last_kevent)->keyval) && (GDK_Z >= ((GdkEventKey*)main_v->last_kevent)->keyval))) )
