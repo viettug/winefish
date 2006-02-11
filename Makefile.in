@@ -73,7 +73,7 @@ distclean:
 	@cd src/ && $(MAKE) distclean
 	@cd po/ && $(MAKE) distclean
 	@cd data/ && $(MAKE) distclean
-	rm -f Makefile src/Makefile icons/Makefile config.status config.cache config.log
+	rm -f Makefile src/Makefile icons/Makefile man/Makefile config.status config.cache config.log
 	rm -rf autom4te.cache/
 	rm -f *.orig *.rej
 
