@@ -86,31 +86,30 @@ gint brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint limi
 	gint retval;
 	gunichar ch, Lch, Rch;
 
-	if (limit==-1) {
-		if ( BRACEFINDER(*brfinder)->last_status & BR_RET_FOUND) {
-			gtk_text_buffer_get_iter_at_mark(buffer, &tmpiter, BRACEFINDER(*brfinder)->mark_left);
-			gtk_text_buffer_get_iter_at_mark(buffer, &tmp2iter, BRACEFINDER(*brfinder)->mark_mid);
+	if ( brfinder && (BRACEFINDER(*brfinder)->last_status & BR_RET_FOUND) ) {
+		DEBUG_MSG("brace_finder: remove old hilight\n");
+		gtk_text_buffer_get_iter_at_mark(buffer, &tmpiter, BRACEFINDER(*brfinder)->mark_left);
+		gtk_text_buffer_get_iter_at_mark(buffer, &tmp2iter, BRACEFINDER(*brfinder)->mark_mid);
 
+		tmpiter_extra = tmpiter;
+		gtk_text_iter_forward_char(&tmpiter_extra);
+		gtk_text_buffer_remove_tag(buffer, BRACEFINDER(*brfinder)->tag, &tmpiter, &tmpiter_extra);
+		DEBUG_MSG("\nbrace_finder: delete hilight marks for %s\n", gtk_text_iter_get_text(&tmpiter, &tmpiter_extra));
+
+		tmpiter_extra = tmp2iter;
+		gtk_text_iter_forward_char(&tmpiter_extra);
+		DEBUG_MSG("brace_finder: delete hilight marks for %s\n", gtk_text_iter_get_text(&tmp2iter, &tmpiter_extra));
+		gtk_text_buffer_remove_tag(buffer, BRACEFINDER(*brfinder)->tag, &tmp2iter, &tmpiter_extra);
+
+		if (BRACEFINDER(*brfinder)->last_status & BR_RET_FOUND_DOLLAR_EXTRA) {
+			gtk_text_buffer_get_iter_at_mark(buffer, &tmpiter, BRACEFINDER(*brfinder)->mark_right);
 			tmpiter_extra = tmpiter;
 			gtk_text_iter_forward_char(&tmpiter_extra);
 			gtk_text_buffer_remove_tag(buffer, BRACEFINDER(*brfinder)->tag, &tmpiter, &tmpiter_extra);
-			DEBUG_MSG("\nbrace_finder: delete hilight marks for %s\n", gtk_text_iter_get_text(&tmpiter, &tmpiter_extra));
-
-			tmpiter_extra = tmp2iter;
-			gtk_text_iter_forward_char(&tmpiter_extra);
-			DEBUG_MSG("brace_finder: delete hilight marks for %s\n", gtk_text_iter_get_text(&tmp2iter, &tmpiter_extra));
-			gtk_text_buffer_remove_tag(buffer, BRACEFINDER(*brfinder)->tag, &tmp2iter, &tmpiter_extra);
-
-			if (BRACEFINDER(*brfinder)->last_status & BR_RET_FOUND_DOLLAR_EXTRA) {
-				gtk_text_buffer_get_iter_at_mark(buffer, &tmpiter, BRACEFINDER(*brfinder)->mark_right);
-				tmpiter_extra = tmpiter;
-				gtk_text_iter_forward_char(&tmpiter_extra);
-				gtk_text_buffer_remove_tag(buffer, BRACEFINDER(*brfinder)->tag, &tmpiter, &tmpiter_extra);
-			}
 		}
 		BRACEFINDER(*brfinder)->last_status = 0;
-		return BR_RET_NOOPS;
 	}
+	if (limit ==-1) { return BR_RET_NOOPS; }
 
 	insert = gtk_text_buffer_get_insert(buffer);
 	select = gtk_text_buffer_get_selection_bound(buffer);
