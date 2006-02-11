@@ -4436,6 +4436,9 @@ void edit_copy_cb( GtkWidget * widget, Tbfwin *bfwin )
 void edit_paste_cb( GtkWidget * widget, Tbfwin *bfwin )
 {
 	GtkTextMark * mark;
+	GtkTextIter itstart, itend;
+	gint eo_so_diff;
+
 	Tdocument *doc = bfwin->current_document;
 	DEBUG_MSG( "edit_paste_cb, started\n" );
 	if ( !doc->paste_operation ) {
@@ -4449,14 +4452,15 @@ void edit_paste_cb( GtkWidget * widget, Tbfwin *bfwin )
 	gtk_text_buffer_paste_clipboard ( doc->buffer, gtk_clipboard_get( GDK_SELECTION_CLIPBOARD ), NULL, TRUE );
 
 	doc_unre_new_group( doc );
-	if ( PASTEOPERATION( doc->paste_operation ) ->eo > PASTEOPERATION( doc->paste_operation ) ->so ) {
+	
+	eo_so_diff = PASTEOPERATION( doc->paste_operation ) ->eo - PASTEOPERATION( doc->paste_operation ) ->so;
+	if ( eo_so_diff >0 ) {
 		/* BUG#80 */
 		if (doc->view_bars & VIEW_COLORIZED) {
 			DEBUG_MSG( "edit_paste_cb, start doc_highlight_region for so=%d, eo=%d\n", PASTEOPERATION( doc->paste_operation ) ->so, PASTEOPERATION( doc->paste_operation ) ->eo );
 			doc_highlight_region( doc, PASTEOPERATION( doc->paste_operation ) ->so, PASTEOPERATION( doc->paste_operation ) ->eo );
 		}else{
 			/* removed all tags ;) */
-			GtkTextIter itstart, itend;
 			gtk_text_buffer_get_bounds(doc->buffer, &itstart, &itend);
 			gtk_text_buffer_remove_all_tags(doc->buffer, &itstart, &itend);
 		}
@@ -4464,8 +4468,16 @@ void edit_paste_cb( GtkWidget * widget, Tbfwin *bfwin )
 	g_free( doc->paste_operation );
 	doc->paste_operation = NULL;
 
-	mark = gtk_text_buffer_get_insert( bfwin->current_document->buffer );
+	mark = gtk_text_buffer_get_insert( doc->buffer );
 	gtk_text_view_scroll_mark_onscreen( GTK_TEXT_VIEW( bfwin->current_document->view ), mark );
+	/* BUGS#88 */
+	if ( eo_so_diff ==1 ) {
+		g_print("oops\n");
+		gtk_text_buffer_get_iter_at_mark(doc->buffer, &itstart, mark);
+		itend = itstart;
+		gtk_text_iter_backward_char(&itend);
+		gtk_text_buffer_remove_tag(doc->buffer, BRACEFINDER(doc->brace_finder)->tag , &itstart, &itend);
+	}
 	DEBUG_MSG( "edit_paste_cb, finished\n" );
 }
 
