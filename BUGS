@@ -7,6 +7,8 @@ $Id$
 #88/fixed/kyanh/20060211/
 * copy/paste a brace: it is still hilighted
 FIXED: modify past_operation
+But... the bug dies itself... as an effect of removing
+tag when key/button press.
 
 #87/fixed/kyanh/20060211/
 * bad STORIES, see brace_finder.c :(
