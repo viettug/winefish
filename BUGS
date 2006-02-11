@@ -2,6 +2,14 @@ $Id$
 
 ============================================================== [200602]
 
+#85/fixed/kyanh/20060211/
+* autocompletion: press Control+S sometimes causes popup menu to be showed
+(press Control+S twice, release control after the first)
+BACKTRACE:
+	bactrace/snooper85.log
+FIXED:
+	should check for state of previous kevent -> added (main_v->last_kevent);
+
 #84/fixed/Michèle Garoche/200602xx/
 * missing NULL in using (g_strconcat) somewhere in wizards.c (see backtrace/winefish.diff-M-Garoche)
 

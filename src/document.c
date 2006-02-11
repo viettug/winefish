@@ -2306,7 +2306,7 @@ static gboolean doc_view_key_release_lcb( GtkWidget *widget, GdkEventKey *kevent
 #define IS_MOVE_KEY(var) ((var == GDK_Left)||(var==GDK_Right)||(var==GDK_Up)||(var==GDK_Down)||(var==GDK_Home)||(var=GDK_End)||(var==GDK_BackSpace))
 	brace_finder(doc->buffer,&doc->brace_finder,BR_FIND_FORWARD |BR_HILIGHT_IF_FOUND, BRACE_FINDER_MAX_LINES);
 
-	if ( ( kevent->keyval == GDK_braceright ) || ( kevent->hardware_keycode == main_v->lastkp_hardware_keycode && main_v->lastkp_keyval == GDK_braceright ) ) {
+	if ( ( kevent->keyval == GDK_braceright ) || ( kevent->hardware_keycode == ((GdkEventKey *)main_v->last_kevent)->hardware_keycode && ((GdkEventKey *)main_v->last_kevent)->keyval == GDK_braceright ) ) {
 		/* autoclose environment for LaTeX */
 		if ( doc->view_bars & MODE_AUTO_COMPLETE ) {
 			GtkTextMark * imark;
