@@ -1,4 +1,4 @@
-/* $Id: treetips.h,v 1.1.1.1 2005/06/29 11:03:35 kyanh Exp $ */
+/* $Id$ */
 #ifndef TREETIPS_H
 #define TREETIPS_H
 

@@ -1,4 +1,4 @@
-/* $Id: about.h,v 1.1.1.1 2005/06/29 11:03:15 kyanh Exp $ */
+/* $Id$ */
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * about.h
  *

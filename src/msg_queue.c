@@ -1,4 +1,4 @@
-/* $Id: msg_queue.c,v 1.2 2005/07/06 01:27:09 kyanh Exp $ */
+/* $Id$ */
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * msg_queue.c - message queue handling
  *

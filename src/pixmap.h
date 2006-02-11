@@ -1,4 +1,4 @@
-/* $Id: pixmap.h,v 1.1.1.1 2005/06/29 11:03:30 kyanh Exp $ */
+/* $Id$ */
 /*
  * Modified for Winefish (C) Ky Anh <kyanh@o2.pl>
  */
