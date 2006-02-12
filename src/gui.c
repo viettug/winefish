@@ -394,7 +394,7 @@ void gui_set_document_widgets(Tdocument *doc) {
 	gui_set_undo_redo_widgets(doc->bfwin, doc_has_undo_list(doc), doc_has_redo_list(doc));
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Wrap", GET_BIT(doc->view_bars,MODE_WRAP));
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Line Numbers", GET_BIT(doc->view_bars, VIEW_LINE_NUMBER));
-	doc->view_bars  = SET_BIT( doc->view_bars, MODE_AUTO_COMPLETE, ( doc->hl->autoclosingtag > 0 ));	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/AutoCompletion", GET_BIT(doc->view_bars, MODE_AUTO_COMPLETE));
+	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/AutoCompletion", GET_BIT(doc->view_bars, MODE_AUTO_COMPLETE));
 	menu_current_document_set_toggle_wo_activate(BFWIN(doc->bfwin),doc->hl, doc->encoding);
 	DEBUG_MSG("gui_set_document_widgets: autocompletion =%d\n", GET_BIT(doc->view_bars, MODE_AUTO_COMPLETE));
 }
