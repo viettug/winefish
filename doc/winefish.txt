@@ -321,6 +321,7 @@ L(
 * Press B(shift + Escape) to hide/show the Outputbox.
 * Press B(control + I) to insert an image.
 * B(Doubleclick) on an image in the file browsers.
+* Line which is quite long should be splitted into shorter lines.
 )
 
 2(#(LOCAL SUPPORT))
