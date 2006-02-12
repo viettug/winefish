@@ -26,7 +26,8 @@ L(
 * This document is available for Winefish version GREEN(U(1.3.2-RC1)) or higher.
 * RED(If you've used an older version of Winefish, you should read @[NEWS](#NEWS) and @[IMPORTANT NOTES](#IMPORTANT NOTES) )
 * For further help, visit @(http://winefish.berlios.de/forum/)
-* I'm sorry about my English :\)\)
+* I'm sorry about my English :\)\)\\
+If you find any \(spell\) mistakes in this document feel free to let me know!
 )
 
 2(#(CONTENTS))
@@ -48,7 +49,7 @@ L(
 * @[Templates Support](#TEMPLATES SUPPORT)
 * @[Brace Finder](#BRACE FINDER)
 * @[TIPS](#TIPS)
-* @[Locale Support](#LOCALE SUPPORT)
+* @[Local Support](#LOCAL SUPPORT)
 )
 
 2(#(FEATURES))
@@ -184,7 +185,7 @@ att: /tstc:\BACKSLASH\BACKSLASHtestofsomething::
 att: /tstd:: Can you see?:
 )
 Each line is of the from PRE(att: /foo:begin:end:)
-where B(/foo) is the new defintion which B(must be started) by a slash B(/).
+where B(/foo) is the new definition which B(must be started) by a slash B(/).
 The string begin will be inserted before the cursor,
 the string end will be inserted after the cursor.
 
@@ -309,7 +310,7 @@ is defined via BRACE_FINDER_MAX_LINES \(B(src/config_spec.h)\).
 
 RED(U(NOTE:)) when a key is pressed it isnot released yet, the color of
 matching brace(s) is dropped. This causes GREEN(FLASH) effect.
-This is an unwanted-effect which takes place naturally after fixing BUG#87.
+This is an unwanted-effect which takes place naturally after fixing the BUG#87.
 I \(kyanh\) found this is quite nice stuff. Please give comment
 via forum \(@(http://winefish.berlios.de/forum/)\).
 
@@ -322,9 +323,9 @@ L(
 * B(Doubleclick) on an image in the file browsers.
 )
 
-2(#(LOCALE SUPPORT))
+2(#(LOCAL SUPPORT))
 
-There are English, French, Italian and Vietnamese. Here're examples:
+There are English, French, Italian and Vietnamese. For e.g.,
 PRE(
 $ LANG=vi_VN winefish # start winefish with Vietnamese frontend
 $ LANG=it_IT winefish # for Italian users
