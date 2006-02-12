@@ -89,18 +89,18 @@ guint16 brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint l
 	}
 	g_print("brace_finder: opt=%d, limit=%d, last_status=%hd, moved_left=%hd, moved_right=%hd\n", opt, limit,retval, retval &BR_RET_MOVED_LEFT, retval & BR_RET_MOVED_RIGHT );
 	if ( retval & BR_RET_FOUND ) {
-		if (retval & (BR_RET_FOUND_RIGHT_BRACE | BR_RET_FOUND_RIGHT_DOLLAR) ) {
-			gtk_text_buffer_get_iter_at_mark(buffer, &tmpiter, BRACEFINDER(*brfinder)->mark_left);
-			tmpiter_extra = tmpiter;
-			gtk_text_iter_forward_char(&tmpiter_extra);
-			gtk_text_buffer_remove_tag(buffer, BRACEFINDER(*brfinder)->tag, &tmpiter, &tmpiter_extra);
-		}
-
 		if (!(retval & BR_RET_MISS_MID_BRACE)) {
 			gtk_text_buffer_get_iter_at_mark(buffer, &tmp2iter, BRACEFINDER(*brfinder)->mark_mid);
 			tmpiter_extra = tmp2iter;
 			gtk_text_iter_forward_char(&tmpiter_extra);
 			gtk_text_buffer_remove_tag(buffer, BRACEFINDER(*brfinder)->tag, &tmp2iter, &tmpiter_extra);
+		}
+
+		if (retval & (BR_RET_FOUND_RIGHT_BRACE | BR_RET_FOUND_RIGHT_DOLLAR) ) {
+			gtk_text_buffer_get_iter_at_mark(buffer, &tmpiter, BRACEFINDER(*brfinder)->mark_left);
+			tmpiter_extra = tmpiter;
+			gtk_text_iter_forward_char(&tmpiter_extra);
+			gtk_text_buffer_remove_tag(buffer, BRACEFINDER(*brfinder)->tag, &tmpiter, &tmpiter_extra);
 		}
 
 		if (  retval & ( BR_RET_FOUND_LEFT_DOLLAR | BR_RET_FOUND_LEFT_BRACE )  ) {
