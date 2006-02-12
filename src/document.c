@@ -3654,7 +3654,7 @@ Tdocument *doc_new( Tbfwin* bfwin, gboolean delay_activate )
 	newdoc->buffer = gtk_text_buffer_new( highlight_return_tagtable() );
 	
 	newdoc->brace_finder =g_new0( Tbracefinder, 1);
-	BRACEFINDER(newdoc->brace_finder)->tag = gtk_text_buffer_create_tag (newdoc->buffer, NULL,"background", "yellow", "foreground", "black", "weight","bold", NULL);
+	BRACEFINDER(newdoc->brace_finder)->tag = gtk_text_buffer_create_tag (newdoc->buffer, NULL,"background", "yellow", "foreground", "black", NULL);
 	/*
 	BRACEFINDER(newdoc->brace_finder)->tag_extra = gtk_text_buffer_create_tag (newdoc->buffer, NULL,"background", "black", "foreground", "yellow", "weight","bold", NULL);
 	*/
