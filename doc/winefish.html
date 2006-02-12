@@ -1,5 +1,9 @@
 <HTML>
 <!--
+$Id$
+Winefish Documentation
+Format: KTML
+Convert: k2h winefish.txt > winefish.html
 -->
 <HEAD>
 <TITLE>Winefish Documentation</TITLE>
@@ -7,11 +11,11 @@
 <!--
 body { margin: 30px; font-size: 13px; margin-right: 100px; }
 b { font-weight: normal; color: navy; font-family: monospace; }
-pre {color: olive; }
+pre {color: olive; border-left: 2px solid navy; padding-left: 10px; }
 a, a:visited, a:hover { text-decoration: none; }
 a:hover { color: yellow; background-color: black; }
 a:visited { color: green; }
-->
+-->
 </STYLE>
 </HEAD>
 <BODY>
@@ -19,7 +23,7 @@ a:visited { color: green; }
 
 <UL>
 <li>Author: kyanh <<a href="kyanh_at_viettug_dot_org">kyanh_at_viettug_dot_org</a>>
-<li>This document is available for Winefish version <font color="RED">1.3.2.6h</font> or higher.
+<li>This document is available for Winefish version <font color="GREEN"><U>1.3.2-RC1</U></font> or higher.
 <li><font color="RED">If you've used an older version of Winefish, you should read <a href="#NEWS">NEWS</a> and <a href="#IMPORTANT NOTES">IMPORTANT NOTES</a></font>
 <li>For further help, visit <a href="http://winefish.berlios.de/forum/">http://winefish.berlios.de/forum/</a>
 <li>I'm sorry about my English :))</UL>
@@ -54,7 +58,8 @@ a:visited { color: green; }
 <li>multiple encoding
 <li>configurable external tools
 <li>configurable highlight support
-<li><a href="#TEMPLATES SUPPORT">templates support</a></UL>
+<li><a href="#TEMPLATES SUPPORT">templates support</a>
+<li><a href="#BRACE FINDER">brace finder</a></UL>
 
 <H2><a name="INSTALLATION">INSTALLATION <a href="#top">top</a></H2>
 
@@ -117,7 +122,7 @@ winefish will start with default set and of course ignore your old one.
 <H2><a name="HOTKEYS: COMPILING">HOTKEYS: COMPILING <a href="#top">top</a></H2>
 
 By default, Winefish requires LaTeX, xdvi and xpdf.
-You may changes these from <B>Preferences</B> Page.
+You may changes these from <B>Preferences Page</B>.
 <UL>
 <li>Convert to DVI format: <B>F1</B>
 <li>View DVI document (with DVI SYNC): <B>control + F1</B>
@@ -156,7 +161,7 @@ you may try to open a new document, type the string
 <B>/tsta</B> then press <B>shift + Space</B>. Other tests are <B>/tstd</B>,
 <B>/tstc</B> and <B>/tstd</B>.
 <br><br>
-You may modify the file <B>$HOME/.winefish/autotext</B>
+You may modify the file <B>$HOME/.winefish/autotext</B>.
 <font color="RED">Do not open it in Winefish as Winefish will override your modification when exiting.</font>
 The contents are similar to
 <PRE>att: /tsta:\\begin{foo\n:\n\\end{foo:
@@ -164,23 +169,23 @@ att: /tstb:\\begin{this-is-b\n:\n\\end{this-is-b:
 att: /tstc:\\testofsomething::
 att: /tstd:: Can you see?:</PRE>
 Each line is of the from <PRE>att: /foo:begin:end:</PRE>
-where <B>/foo</B> is the new defintion which <B>must be started</B> by a slash /.
+where <B>/foo</B> is the new defintion which <B>must be started</B> by a slash <B>/</B>.
 The string begin will be inserted before the cursor,
 the string end will be inserted after the cursor.
 <br><br>
 Here are some rules:
 <UL>
 <li>Length of /foo should be at most AUTOTEXT_MAX_LENGTH
-(this constant is defined in <B>src/config_spec.h</B>)
+(defined in <B>src/config_spec.h</B>)
 <li>one of the two strings `begin' and `end' is not NULL.
 <li>If foo is defined twice or more, for e.g.,
 <li>only the first one is used.
 <li><font color="RED"><U>some special characters must be escaped:</U></font>
 <UL>
-<li>\n for the new line
-<li>\t for a tab
-<li>\: for a colon
-<li>\\ for the backslash</UL>
+<li><B>\n</B> for the new line
+<li><B>\t</B> for a tab
+<li><B>\:</B> for a colon
+<li><B>\\</B> for the backslash</UL>
 
 <li>You must restart Winefish after modifying.</UL>
 
@@ -200,9 +205,11 @@ it directly from PopUp menu.
 A command will be added to completion list if its length is:
 <UL>
 <li>greater than 2
-<li>less than or equal COMMAND_MAX_LENGTH</UL>
+<li>less than or equal COMMAND_MAX_LENGTH (defined in <B>src/config_spec.h</B>)</UL>
 
-The later constant is defined in <B>src/config_spec.h</B>
+You may add commands by using <B>Preferences Pages / AutoX</B> but this is <U>not recommended</U>
+as Winefish collects commands automatically and <B>Preferences Pages / AutoX</B> will be
+dropped some days;)
 <H2><a name="COMMANDLINE OPTIONS">COMMANDLINE OPTIONS <a href="#top">top</a></H2>
 
 <PRE>$ winefish -h
@@ -221,19 +228,20 @@ When you start a tool, start `Grep Function' (<B>control + meta + F</B>),
 or start listing your templates (<B>control + meta + shift + F</B>),
 the results will be shipped out to a Outputbox.
 <br><br>
-There are some usefull operations with Outputbox:
+There are some useful operations with Outputbox:
 <UL>
 <li><font color="GREEN">single-click:</font> open file at specified line
 <li><font color="GREEN">right-click:</font> create a popup menu
 <li><font color="GREEN">control + click:</font> clone file (create a new file with the same contents)</UL>
 
+You may press <B>shift + Escape</B> to hide/show the Outputbox.
 <H2><a name="TEMPLATES SUPPORT">TEMPLATES SUPPORT <a href="#top">top</a></H2>
 
 Go to <B>Preferences Pages / Miscellaneous</B> and specify the directory
 which contains your templates. By default, it is <B>$HOME/tex/templates</B>.
 <br><br>
 The template file is of type *.tex or *.sty.
-Each template *MUST* contains the patterns <B>%%wf=</B>. 
+Each template *MUST* contains the pattern <B>%%wf=</B>.
 This helps you writing description for templates. For e.g.,
 <PRE>%%wf=this is template file
 %%wf=this is the description of template
@@ -263,12 +271,23 @@ you may want to find the matching one. Just press
 start finding the matching for it;
 <li>otherwise, treat as <I>forward</I>.</UL>
 </UL>
+
+<li>for other characters:
+<UL>
+<li><I>forward</I>: start finding }
+<li><I>backward</I>: start finding the {</UL>
 </UL>
 
-The brace finder also starts it jobs automatically when you're editing:
+The brace finder also <font color="GREEN"><U>starts it jobs automatically</U></font> when you're editing:
 the matched braces will be hilighted. For performance reason, the finder
 will search in a limited area. The maxium number of lines of this area
 is defined via BRACE_FINDER_MAX_LINES (<B>src/config_spec.h</B>).
+<br><br>
+<font color="RED"><U>NOTE:</U></font> when a key is pressed it isnot released yet, the color of
+matching braces is dropped. This causes <font color="GREEN">FLASH</font> effect.
+This is an unwanted-effect which takes place naturally after fixing BUG#87.
+I (kyanh) found this is quite nice stuff. Please give comment
+via forum (<a href="http://winefish.berlios.de/forum/">http://winefish.berlios.de/forum/</a>).
 <H2><a name="TIPS">TIPS <a href="#top">top</a></H2>
 
 <UL>
@@ -283,6 +302,9 @@ There are English, French, Italian and Vietnamese. Here're examples:
 <PRE>$ LANG=vi_VN winefish # start winefish with Vietnamese frontend
 $ LANG=it_IT winefish # for Italian users
 $ LANG=fr_FR winefish # for French users</PRE>
+<BR>
+<BR>
+<BR>
 <HR>
 This HTML file was generated from <font color="RED">winefish.txt</font> by <font color="RED">k2h</font> program.<br>
 <font color="RED">$Id$</font>
