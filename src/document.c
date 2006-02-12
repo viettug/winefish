@@ -2031,7 +2031,7 @@ static gboolean doc_view_key_press_lcb( GtkWidget *widget, GdkEventKey *kevent, 
 #ifdef SHOW_SNOOPER
 	g_print("doc: got key pressed\n");
 #endif
-	if ( (kevent->keyval != GDK_Control_R) && (kevent->keyval != GDK_Control_L) && (kevent->keyval != GDK_bracketleft) && (kevent->keyval != GDK_bracketright) ) {
+	if ( ! ( (kevent->state & GDK_CONTROL_MASK) && ( (kevent->keyval == GDK_bracketleft) || (kevent->keyval == GDK_bracketright) ) ) ) {
 		brace_finder(doc->buffer, &doc->brace_finder, 0, -1);
 	}
 
@@ -2312,7 +2312,7 @@ static gboolean doc_view_key_release_lcb( GtkWidget *widget, GdkEventKey *kevent
 	/* shift> = ]*/
 	/* if the shift key is released before the '>' key, we get a key release not for '>' but for '.'. We, therefore have set that in the key_press event, and check if the same hardware keycode was released */
 	/* complete environment */
-	if ( (kevent->keyval != GDK_Control_R) && (kevent->keyval != GDK_Control_L) && (kevent->keyval != GDK_bracketleft) && (kevent->keyval != GDK_bracketright) ) {
+	if ( ! ( (kevent->state & GDK_CONTROL_MASK) && ( (kevent->keyval == GDK_bracketleft) || (kevent->keyval == GDK_bracketright) ) ) ) {
 		brace_finder(doc->buffer,&doc->brace_finder,BR_AUTO_FIND, BRACE_FINDER_MAX_LINES);
 	}
 
