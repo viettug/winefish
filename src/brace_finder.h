@@ -16,12 +16,13 @@ BR_RET_IN_COMMENT =1<<3,
 BR_RET_IN_SELECTION =1<<4,
 BR_RET_WRONG_OPERATION = 1<<5,
 BR_RET_FOUND_DOLLAR_EXTRA =1<<6,
-BR_RET_FOUND_LEFT_BRACE =1 <<7,
-BR_RET_FOUND_RIGHT_BRACE =1 <<8,
-BR_RET_NOOPS = 1 <<9
+BR_RET_FOUND_LEFT_BRACE =1<<7,
+BR_RET_FOUND_RIGHT_BRACE =1<<8,
+BR_RET_NOOP = 1<<9,
+BR_RET_MISS_MID_BRACE = 1<<10
 };
 
-gint brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint limit);
+guint16 brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint limit);
 
 #define VALID_LEFT_BRACE(Lch) ( (Lch == 123) || (Lch == 91) || (Lch==40) )
 #define VALID_RIGHT_BRACE(Lch) ( (Lch == 125) || (Lch==93) || (Lch==41) )
