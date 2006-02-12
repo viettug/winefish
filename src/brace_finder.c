@@ -90,7 +90,7 @@ guint16 brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint l
 	if ( retval & BR_RET_FOUND ) {
 		DEBUG_MSG("brace_finder: remove old hilight\n");
 		
-		if (retval & BR_RET_FOUND_RIGHT_BRACE ) {
+		if (retval & (BR_RET_FOUND_RIGHT_BRACE | BR_RET_FOUND_RIGHT_DOLLAR) ) {
 			gtk_text_buffer_get_iter_at_mark(buffer, &tmpiter, BRACEFINDER(*brfinder)->mark_left);
 			tmpiter_extra = tmpiter;
 			gtk_text_iter_forward_char(&tmpiter_extra);
@@ -104,7 +104,7 @@ guint16 brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint l
 			gtk_text_buffer_remove_tag(buffer, BRACEFINDER(*brfinder)->tag, &tmp2iter, &tmpiter_extra);
 		}
 
-		if ( (retval & BR_RET_FOUND_DOLLAR_EXTRA) || ( retval & BR_RET_FOUND_LEFT_BRACE) ) {
+		if (  retval & ( BR_RET_FOUND_LEFT_DOLLAR | BR_RET_FOUND_LEFT_BRACE )  ) {
 			gtk_text_buffer_get_iter_at_mark(buffer, &tmpiter, BRACEFINDER(*brfinder)->mark_right);
 			tmpiter_extra = tmpiter;
 			gtk_text_iter_forward_char(&tmpiter_extra);
@@ -136,16 +136,22 @@ guint16 brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint l
 	gint level, limit_idx;
 	retval = BR_RET_NOT_FOUND;
 
+	/* A:: check if we are inside comment line */
 	tmpiter = iter_start;
-	/* tmp2iter = iter_start; */
+	gtk_text_iter_set_line_offset(&tmpiter,0); /* move to start of line */
+	/* now forward to find next %. limit = iter_start_new */
+	if ( gtk_text_iter_forward_find_char(&tmpiter, percent_predicate, NULL, &iter_start) && is_true_char(&tmpiter) )  {
+		if (gtk_text_iter_compare(&tmpiter, &iter_start) <0) {/* in comment */
+			iter_start = tmpiter;
+		}
+	}
+
+	/* recaculate the iter_start */
+	tmpiter = iter_start;
 	gtk_text_iter_backward_char(&tmpiter);
 	Lch = gtk_text_iter_get_char(&tmpiter);
 	Rch = gtk_text_iter_get_char(&iter_start);
-	/* gtk_text_iter_forward_char(&tmpiter);
-	Rch = gtk_text_iter_get_char(&tmpiter); */
-	
-	/* recaculate the iter_start */
-	if ( (Rch == 36 ) && is_true_char(&iter_start)) {
+	if ( (Rch == 36) && is_true_char(&iter_start) ) {
 		iter_start_new = iter_start;
 	} else if ( VALID_BRACE(Rch) && is_true_char(&iter_start) ) {
 		if ( opt & BR_FIND_BACKWARD ) {
@@ -161,33 +167,10 @@ guint16 brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint l
 		iter_start_new = tmpiter;
 	} else {
 		iter_start_new = iter_start;
-		if ( opt & BR_FIND_BACKWARD ) {
-			retval = retval | BR_RET_MISS_MID_BRACE;
-		}else if (opt & BR_FIND_FORWARD) {
-			retval = retval | BR_RET_MISS_MID_BRACE;
-		}else{
-			retval = BR_RET_WRONG_OPERATION;
-		}
-	}
-	
-	if (retval & BR_RET_WRONG_OPERATION) {
-		return BR_RET_WRONG_OPERATION;
+		retval = retval | BR_RET_MISS_MID_BRACE;
 	}
 
-	if ( !(retval & BR_RET_MISS_MID_BRACE) ) {
-		/* A:: check if we are inside comment line */
-		tmpiter = iter_start_new;
-		gtk_text_iter_set_line_offset(&tmpiter,0); /* move to start of line */
-		/* now forward to find next %. limit = iter_start_new */
-		ch = gtk_text_iter_get_char(&tmpiter);
-		if ( (ch == 37) || ( gtk_text_iter_forward_find_char(&tmpiter, percent_predicate, NULL, &iter_start_new) && is_true_char(&tmpiter) ) ) {
-			/* if a line is started by percent, the gtk_text_iter_forward_find_char() still forwards to the next char ;) */
-			DEBUG_MSG("[found %%]");
-			return BR_RET_IN_COMMENT;
-		}
-	}
-
-	level = 1; limit_idx=1;
+	limit_idx=1; level=1;
 	tmpiter = iter_start_new;
 	if (retval & BR_RET_MISS_MID_BRACE) {
 		Lch = 123;
@@ -218,12 +201,14 @@ guint16 brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint l
 				if (level==0) {
 					retval = retval | BR_RET_FOUND | BR_RET_FOUND_RIGHT_BRACE;
 					break; /* finish the loop */
+				}else if(level<0){
+					break;
 				}
 			}
 		}
 	}
 
-	level = 1; limit_idx=1;
+	limit_idx=1; level=1;
 	tmpiter_extra = iter_start_new;
 	if (retval & BR_RET_MISS_MID_BRACE) {
 		Lch = 125;
@@ -240,6 +225,8 @@ guint16 brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint l
 				level--;
 				if (level==0) {
 					retval = retval | BR_RET_FOUND | BR_RET_FOUND_LEFT_BRACE;
+					break;
+				}else if (level<0) {
 					break;
 				}
 				DEBUG_MSG("[-%d]", level);
@@ -264,9 +251,6 @@ guint16 brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint l
 				}
 			}
 		}
-		if (!(retval & BR_RET_MISS_MID_BRACE) ) {
-			tmpiter = tmpiter_extra;
-		}
 	}
 	if ( Lch == 36 ) {
 		if ( (opt & BR_HILIGHT_IF_FOUND) || (opt & BR_FIND_FORWARD) ) {
@@ -279,7 +263,7 @@ guint16 brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint l
 					}
 					gtk_text_iter_forward_to_line_end(&tmpiter);
 				}else if( (ch == 36)  && is_true_char(&tmpiter)) {/* { */
-					retval = retval | BR_RET_FOUND/* | BR_RET_FOUND_DOLLAR*/;
+					retval = retval | BR_RET_FOUND | BR_RET_FOUND_RIGHT_DOLLAR;
 					break;
 				}
 			}
@@ -289,7 +273,7 @@ guint16 brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint l
 			while (gtk_text_iter_backward_char(&tmpiter_extra)) {
 				ch = gtk_text_iter_get_char(&tmpiter_extra);
 				if( (ch == 36)  && is_true_char(&tmpiter_extra)) {/* { */
-					retval = retval | BR_RET_FOUND | BR_RET_FOUND_DOLLAR_EXTRA;
+					retval = retval | BR_RET_FOUND | BR_RET_FOUND_LEFT_DOLLAR;
 					break;
 				} else if (gtk_text_iter_ends_line(&tmpiter_extra)) {
 					limit_idx++;
@@ -304,9 +288,6 @@ guint16 brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint l
 					}
 				}
 			}
-			if ( !(opt & BR_HILIGHT_IF_FOUND) ) {
-				tmpiter = tmpiter_extra;
-			}
 		}
 	}
 	/* finished */
@@ -315,18 +296,36 @@ guint16 brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint l
 		for others: result is (left-mid) or (mid-left)
 		*/
 		/* gtk_text_iter_order(&tmpiter,&iter_start_new); */
-
-		tmp2iter = tmpiter;
-		gtk_text_iter_forward_char(&tmp2iter);
 		if ( opt & BR_MOVE_IF_FOUND ) {
-			gtk_text_buffer_place_cursor (buffer, &tmpiter);
-			/* gtk_text_buffer_select_range(buffer,&tmpiter,&tmp2iter);*//* should we select? */
+			if (retval & BR_RET_MISS_MID_BRACE) {
+				if ( (opt & BR_FIND_BACKWARD) && (retval & BR_RET_FOUND_LEFT_BRACE) ) {
+					retval = retval | BR_RET_MOVED_LEFT;
+					gtk_text_buffer_place_cursor (buffer, &tmpiter_extra);
+				} else if ( (opt & BR_FIND_FORWARD) && (retval & BR_RET_FOUND_RIGHT_BRACE) ) {
+					retval = retval | BR_RET_MOVED_RIGHT;
+					gtk_text_buffer_place_cursor (buffer, &tmpiter);
+				}
+			}else{
+				if ( (opt & BR_FIND_BACKWARD) && (retval & BR_RET_FOUND_LEFT_DOLLAR) ) {
+					retval = retval | BR_RET_MOVED_LEFT;
+					gtk_text_buffer_place_cursor (buffer, &tmpiter_extra);
+				}else if ( (opt & BR_FIND_FORWARD) && (retval & BR_RET_FOUND_RIGHT_DOLLAR) ) {
+					retval = retval | BR_RET_MOVED_RIGHT;
+					gtk_text_buffer_place_cursor (buffer, &tmpiter);
+				}else if ( (retval & BR_RET_FOUND_RIGHT_BRACE) ){
+					retval = retval | BR_RET_MOVED_RIGHT;
+					gtk_text_buffer_place_cursor (buffer, &tmpiter);
+				}else if ( (retval & BR_RET_FOUND_LEFT_BRACE) ) {
+					retval = retval | BR_RET_MOVED_LEFT;
+					gtk_text_buffer_place_cursor (buffer, &tmpiter_extra);
+				}
+			}
 		}
 		if ((opt & BR_HILIGHT_IF_FOUND) && brfinder) {
 
 			BRACEFINDER(*brfinder)->last_status = retval;
 
-			if (retval & BR_RET_FOUND_RIGHT_BRACE) {
+			if (retval & (BR_RET_FOUND_RIGHT_BRACE | BR_RET_FOUND_RIGHT_DOLLAR) ) {
 				if (BRACEFINDER(*brfinder)->mark_left) {
 					gtk_text_buffer_move_mark(buffer,BRACEFINDER(*brfinder)->mark_left , &tmpiter);
 				}else{
@@ -336,6 +335,8 @@ guint16 brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint l
 					BRACEFINDER(*brfinder)->mark_left = gtk_text_buffer_create_mark(buffer,NULL,&tmpiter,FALSE);
 				}
 				/* right matched */
+				tmp2iter = tmpiter;
+				gtk_text_iter_forward_char(&tmp2iter);
 				gtk_text_buffer_apply_tag(buffer,BRACEFINDER(*brfinder)->tag,&tmpiter, &tmp2iter);
 			}
 			if (!(retval & BR_RET_MISS_MID_BRACE)) {
@@ -350,7 +351,7 @@ guint16 brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint l
 				gtk_text_iter_forward_char(&tmp2iter);
 				gtk_text_buffer_apply_tag(buffer,BRACEFINDER(*brfinder)->tag,&tmpiter, &tmp2iter);
 			}
-			if ( (retval & BR_RET_FOUND_DOLLAR_EXTRA) || ( (retval & BR_RET_FOUND_LEFT_BRACE) ) ) {
+			if ( retval & ( BR_RET_FOUND_LEFT_DOLLAR | BR_RET_FOUND_LEFT_BRACE ) ) {
 				if (BRACEFINDER(*brfinder)->mark_right) {
 					gtk_text_buffer_move_mark(buffer,BRACEFINDER(*brfinder)->mark_right,&tmpiter_extra);
 				}else{
