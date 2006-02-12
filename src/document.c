@@ -352,7 +352,7 @@ gboolean doc_set_filetype( Tdocument *doc, Tfiletype *ft )
 		doc_remove_highlighting( doc );
 		doc->hl = ft;
 		doc->need_highlighting = TRUE;
-		doc->view_bars  = SET_BIT( doc->view_bars, MODE_AUTO_COMPLETE, ( ft->autoclosingtag > 0 ));
+		doc->view_bars  = SET_BIT( doc->view_bars, MODE_AUTO_COMPLETE, (main_v->props.view_bars & MODE_AUTO_COMPLETE) &&  ( ft->autoclosingtag > 0 ));
 		DEBUG_MSG("doc_set_filetype: autoclosingtag = %d, view_bar bitwise = %d\n", ft->autoclosingtag , GET_BIT(doc->view_bars, MODE_AUTO_COMPLETE));
 		gui_set_document_widgets( doc );
 		return TRUE;
@@ -2033,6 +2033,10 @@ static gboolean doc_view_key_press_lcb( GtkWidget *widget, GdkEventKey *kevent, 
 #endif
 	brace_finder(doc->buffer, &doc->brace_finder, 0, -1);
 
+	if (!(doc->view_bars & MODE_AUTO_COMPLETE)) {
+		return FALSE;
+	}
+
 	if (main_v->completion.show == COMPLETION_DELETE ) {
 		DEBUG_MSG("doc: delete item from popup\n");
 		/* delete stuff:
@@ -2203,102 +2207,103 @@ static gboolean doc_view_key_release_lcb( GtkWidget *widget, GdkEventKey *kevent
 #endif
 /* never reach: if ( (kevent->keyval == GDK_space) && (kevent->state & GDK_CONTROL_MASK ))*/
 	/* complete the word */
-	if (main_v->completion.show == COMPLETION_WINDOW_ACCEPT) {
-	
+	if (doc->view_bars & MODE_AUTO_COMPLETE) {
+		if (main_v->completion.show == COMPLETION_WINDOW_ACCEPT) {
 #ifdef SHOW_SNOOPER
-		g_print("...autotcompletion accepted\n");
-#endif
-		gtk_widget_hide_all( main_v->completion.window );
-		main_v->completion.show = COMPLETION_WINDOW_HIDE;
-
-		if ( main_v->completion.bfwin != BFWIN(doc->bfwin)->current_document ) {
-#ifdef SHOW_SNOOPER
-			/* TODO: hide the popup when window changed */
-			g_print("completion: accepted, but window changed. Ingore it.\n");
-#endif
-			return TRUE;
-		}
-
-		/* inserting staff */
-#ifdef SHOW_SNOOPER
-		g_print("completion: cached ='%s'\n", main_v->completion.cache);
-#endif
-		{
-			/* get user's selection */
-			/* get path and iter */
-			GtkTreePath *treepath = NULL;
-			GtkTreeModel *model;
-
-			model = gtk_tree_view_get_model(GTK_TREE_VIEW(main_v->completion.treeview));
-			/* lucky, model is*NOT* NULL -- we skip a check :) */
-
-			gtk_tree_view_get_cursor(GTK_TREE_VIEW(main_v->completion.treeview), &treepath, NULL);
-			if (treepath) {
-				GtkTreeIter iter;
-				gchar *user_selection = NULL;
-				GValue *val = NULL;
-				gint i, len, cache_len;
-
-				gtk_tree_model_get_iter(model, &iter, treepath);
-				gtk_tree_path_free(treepath);
-#ifdef HAVE_UNIKEY_GTK
-				GtkTextIter cursor_iter, tmp_iter;
-				GtkTextMark *imark;
-				gchar *test_buf;
-				imark = gtk_text_buffer_get_insert( doc->buffer );
-				gtk_text_buffer_get_iter_at_mark( doc->buffer, &cursor_iter, imark );
-				tmp_iter = cursor_iter;
-				gtk_text_iter_backward_chars(&tmp_iter, 1);
-				test_buf = gtk_text_buffer_get_text(doc->buffer, &tmp_iter, &cursor_iter, FALSE);
-				if (test_buf[0] == ' ') {
-					gtk_text_buffer_delete( doc->buffer, &tmp_iter, &cursor_iter);
-				}
-#endif
-				val = g_new0(GValue, 1);
-				gtk_tree_model_get_value(model, &iter, 0, val);
-				user_selection = g_strdup((gchar *) (g_value_peek_pointer(val)));
-				g_value_unset (val);
-				g_free (val);
-#ifdef SHOW_SNOOPER
-				g_print("completion: user selected '%s'\n", user_selection);
-#endif
-				/*
-				inserting
-				*/
-				cache_len = strlen(main_v->completion.cache);
-				len = strlen(user_selection);
-				if ( len == cache_len ) {
-					return TRUE;
-				} else if (len > cache_len ){
-					len = len - cache_len;
-					gchar *retval = g_malloc((len+1) * sizeof(char));
-					for (i=0; i< len; i++) {
-						retval[i] = user_selection[cache_len + i];
-					}
-					retval[len] = '\0';
-#ifdef SHOW_SNOOPER
-					g_print("completion: will add '%s' (%d chars)\n", retval, len);
-#endif
-					GtkTextIter iter;
-					GtkTextMark *imark;
-					imark = gtk_text_buffer_get_insert( doc->buffer );
-					gtk_text_buffer_get_iter_at_mark( doc->buffer, &iter, imark );
-					gtk_text_buffer_insert( doc->buffer, &iter, retval, -1 );
-					g_free(retval);
-				}
-				g_free(user_selection);
-			}
-		}
-		return TRUE;
-	} else if ( main_v->completion.show == COMPLETION_WINDOW_SHOW || main_v->completion.show == COMPLETION_AUTO_CALL ) {
-		if (!completion_popup_menu(widget, kevent, doc)) {
-#ifdef SHOW_SNOOPER
-			g_print("doc: completion returns NULL. popup willnot be shown\n");
+			g_print("...autotcompletion accepted\n");
 #endif
 			gtk_widget_hide_all( main_v->completion.window );
 			main_v->completion.show = COMPLETION_WINDOW_HIDE;
-		} else {
-			main_v->completion.show = COMPLETION_WINDOW_SHOW;
+	
+			if ( main_v->completion.bfwin != BFWIN(doc->bfwin)->current_document ) {
+#ifdef SHOW_SNOOPER
+				/* TODO: hide the popup when window changed */
+				g_print("completion: accepted, but window changed. Ingore it.\n");
+#endif
+				return TRUE;
+			}
+	
+			/* inserting staff */
+#ifdef SHOW_SNOOPER
+			g_print("completion: cached ='%s'\n", main_v->completion.cache);
+#endif
+			{
+				/* get user's selection */
+				/* get path and iter */
+				GtkTreePath *treepath = NULL;
+				GtkTreeModel *model;
+	
+				model = gtk_tree_view_get_model(GTK_TREE_VIEW(main_v->completion.treeview));
+				/* lucky, model is*NOT* NULL -- we skip a check :) */
+	
+				gtk_tree_view_get_cursor(GTK_TREE_VIEW(main_v->completion.treeview), &treepath, NULL);
+				if (treepath) {
+					GtkTreeIter iter;
+					gchar *user_selection = NULL;
+					GValue *val = NULL;
+					gint i, len, cache_len;
+	
+					gtk_tree_model_get_iter(model, &iter, treepath);
+					gtk_tree_path_free(treepath);
+#ifdef HAVE_UNIKEY_GTK
+					GtkTextIter cursor_iter, tmp_iter;
+					GtkTextMark *imark;
+					gchar *test_buf;
+					imark = gtk_text_buffer_get_insert( doc->buffer );
+					gtk_text_buffer_get_iter_at_mark( doc->buffer, &cursor_iter, imark );
+					tmp_iter = cursor_iter;
+					gtk_text_iter_backward_chars(&tmp_iter, 1);
+					test_buf = gtk_text_buffer_get_text(doc->buffer, &tmp_iter, &cursor_iter, FALSE);
+					if (test_buf[0] == ' ') {
+						gtk_text_buffer_delete( doc->buffer, &tmp_iter, &cursor_iter);
+					}
+#endif
+					val = g_new0(GValue, 1);
+					gtk_tree_model_get_value(model, &iter, 0, val);
+					user_selection = g_strdup((gchar *) (g_value_peek_pointer(val)));
+					g_value_unset (val);
+					g_free (val);
+#ifdef SHOW_SNOOPER
+					g_print("completion: user selected '%s'\n", user_selection);
+#endif
+					/*
+					inserting
+					*/
+					cache_len = strlen(main_v->completion.cache);
+					len = strlen(user_selection);
+					if ( len == cache_len ) {
+						return TRUE;
+					} else if (len > cache_len ){
+						len = len - cache_len;
+						gchar *retval = g_malloc((len+1) * sizeof(char));
+						for (i=0; i< len; i++) {
+							retval[i] = user_selection[cache_len + i];
+						}
+						retval[len] = '\0';
+#ifdef SHOW_SNOOPER
+						g_print("completion: will add '%s' (%d chars)\n", retval, len);
+#endif
+						GtkTextIter iter;
+						GtkTextMark *imark;
+						imark = gtk_text_buffer_get_insert( doc->buffer );
+						gtk_text_buffer_get_iter_at_mark( doc->buffer, &iter, imark );
+						gtk_text_buffer_insert( doc->buffer, &iter, retval, -1 );
+						g_free(retval);
+					}
+					g_free(user_selection);
+				}
+			}
+			return TRUE;
+		} else if ( main_v->completion.show == COMPLETION_WINDOW_SHOW || main_v->completion.show == COMPLETION_AUTO_CALL ) {
+			if (!completion_popup_menu(widget, kevent, doc)) {
+#ifdef SHOW_SNOOPER
+				g_print("doc: completion returns NULL. popup willnot be shown\n");
+#endif
+				gtk_widget_hide_all( main_v->completion.window );
+				main_v->completion.show = COMPLETION_WINDOW_HIDE;
+			} else {
+				main_v->completion.show = COMPLETION_WINDOW_SHOW;
+			}
 		}
 	}
 	gap_command( widget, kevent, doc);
@@ -3638,7 +3643,10 @@ Tdocument *doc_new( Tbfwin* bfwin, gboolean delay_activate )
 	/* so stupid ;) ~~~> BUG#81
 	newdoc->view_bars = SET_BIT(newdoc->view_bars, VIEW_COLORIZED, (main_v->props.view_bars & VIEW_COLORIZED ) && ( newdoc->hl->autoclosingtag > 0 ));
 	*/
-	newdoc->view_bars = SET_BIT(newdoc->view_bars, MODE_AUTO_COMPLETE, (main_v->props.view_bars & MODE_AUTO_COMPLETE ) && ( newdoc->hl->autoclosingtag > 0 ));
+	if ( (main_v->props.view_bars & MODE_AUTO_COMPLETE) && (newdoc->hl->autoclosingtag>0) ) {
+		newdoc->view_bars = SET_BIT(newdoc->view_bars, MODE_AUTO_COMPLETE, 1);
+	}
+	DEBUG_MSG("doc_new, autocompletion: main=%d, filetype=%d, current=%d\n", main_v->props.view_bars & MODE_AUTO_COMPLETE, (newdoc->hl->autoclosingtag > 0), newdoc->view_bars & MODE_AUTO_COMPLETE);
 
 	/* use project's settings if there's; otherwise use global properties */
 	newdoc->view_bars = SET_BIT(newdoc->view_bars, MODE_WRAP, ( bfwin->project ) ? GET_BIT(bfwin->project->view_bars,MODE_WRAP) : GET_BIT(main_v->props.view_bars,MODE_WRAP) );
@@ -3765,7 +3773,7 @@ Tdocument *doc_new( Tbfwin* bfwin, gboolean delay_activate )
 	if (newdoc->view_bars & MODE_AUTO_COMPLETE) {
 		setup_toggle_item( gtk_item_factory_from_widget( bfwin->menubar ), _( "/Document/AutoCompletion" ), TRUE );
 	}
-	
+	g_print( "doc_new, autocomplete =%d \n", newdoc->view_bars & MODE_AUTO_COMPLETE),
 	DEBUG_MSG( "doc_new, need_highlighting=%d, highlightstate=%d, global higlight = %d\n", newdoc->need_highlighting, GET_BIT(newdoc->view_bars,VIEW_COLORIZED), GET_BIT(main_v->props.view_bars,VIEW_COLORIZED) );
 #endif /* DONE_IN_GUI_SET_DOCUMENT_WIDGETS */
 	/*
