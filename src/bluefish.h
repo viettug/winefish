@@ -112,7 +112,7 @@ typedef struct {
 	GtkTextMark *mark_mid;
 	GtkTextMark *mark_right;
 	GtkTextTag *tag;
-	gint last_status;
+	guint16 last_status;
 } Tbracefinder;
 #define BRACEFINDER(var)((Tbracefinder *)(var))
 
@@ -142,13 +142,6 @@ typedef struct {
 	gint last_rbutton_event; /* index of last 3rd button click */
 	Tfiletype *hl; /* filetype & highlighting set to use for this document */
 	gint need_highlighting; /* if you open 10+ documents you don't need immediate highlighting, just set this var, and notebook_switch() will trigger the actual highlighting when needed */
-#ifdef STUFF
-	gboolean highlightstate; /* does this document use highlighting ? */
-	gboolean wrapstate; /* does this document use wrap?*/
-	gboolean linenumberstate; /* does this document use linenumbers? */
-	gboolean overwrite_mode; /* is document in overwrite mode */
-	gboolean autoclosingtag; /* does the document use autoclosing of tags */
-#endif /* STUFF */
 	guint32 view_bars;
 	gpointer floatingview; /* a 2nd textview widget that has its own window */
 	gpointer bfwin;
@@ -174,29 +167,21 @@ typedef struct {
 	GList *cmenu_insert; /* custom menu inserts */
 	GList *cmenu_replace; /* custom menu replaces */
 	gint highlight_num_lines_count; /* number of lines to highlight in continous highlighting */	
-	/* gint defaulthighlight; *//* highlight documents by default */
 	GList *filetypes; /* filetypes for highlighting and filtering */
 	gint numcharsforfiletype; /* maximum number of characters in the file to use to find the filetype */
 	GList *filefilters; /* filebrowser.c filtering */
 	gchar *last_filefilter;	/* last filelist filter type */
 	GList *highlight_patterns; /* the highlight patterns */
-	/* gint transient_htdialogs; */ /* set html dialogs transient ro the main window */
-	/* gint restore_dimensions; *//* use the dimensions as used the previous run */
 	gint left_panel_width; 	/* width of filelist */
 	gint left_panel_left; /* 1 = left, 0 = right */
 	gint max_recent_files;	/* length of Open Recent list */
 	gint max_dir_history;	/* length of directory history */
-	/* gint backup_file;*//* wheather to use a backup file */
 	gchar *backup_filestring;  /* the string to append to the backup file */
 	gint backup_abort_action;/* if the backup fails, continue save, abort save, or ask the user */
-	/*gint backup_cleanuponclose; *//* remove the backupfile after close ? */
-	/* gint allow_multi_instances; *//* allow multiple instances of the same file */
 	gint modified_check_type; /* 0=no check, 1=by mtime and size, 2=by mtime, 3=by size, 4,5,...not implemented (md5sum?) */
 	gint num_undo_levels; 	/* number of undo levels per document */
-	/*gint clear_undo_on_save;*//* clear all undo information on file save */
 	gchar *newfile_default_encoding; /* if you open a new file, what encoding will it use */
 	GList *encodings; /* all encodings you can choose from */
-	/* gint encoding_search_Nbytes; *//* number of bytes to look for the encoding meta tag */
 	GList *outputbox; /* all outputbox commands */
 	GList *reference_files; /* all reference files */
 	gint bookmarks_default_store; /* 0= temporary by default, 1= permanent by default */
@@ -208,12 +193,6 @@ typedef struct {
 #ifdef HAVE_LIBASPELL
 	gchar *spell_default_lang;
 #endif /* HAVE_LIBASPELL */
-	/* gint word_wrap;	*/			/* use wordwrap */
-	/* gint autoindent;*/			/* autoindent code */
-	/* gint drop_at_drop_pos; 	*//* drop at drop position instead of cursor position */
-	/* gint cont_highlight_update;	*//* update the syntax highlighting continuous */
-	/* key conversion */
-	/* gint open_in_running_bluefish; *//* open commandline documents in already running session*/
 	GCompletion *completion;
 	GCompletion *completion_s;
 	GHashTable *autotext_hashtable; /* a hash table with (key,form) = (string,integer) */
