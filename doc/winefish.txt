@@ -104,7 +104,7 @@ L(
 )
 
 If you donot move B($HOME/.winefish/rcfile_v2) to B($HOME/.winefish/rcfile),
-winefish will start with default set and of course ignore your old one.
+winefish will start with default setting and of course ignore your old one.
 
 2(#(HOTKEYS: EDITING))
 
