@@ -80,23 +80,22 @@ static gboolean dollar_predicate(gunichar ch, gpointer data) {
 /* kyanh, 20060128 */
 guint16 brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint limit) {
 	GtkTextIter iter_start, iter_start_new, iter_end;
-	GtkTextIter tmpiter/* LEFT */, tmp2iter /* RIGHT */, tmpiter_extra /* = `tmpiter' for dollar sign if opt & BR_HILIGHT_IF_FOUND */;
+	GtkTextIter tmpiter/* LEFT */, tmp2iter /* RIGHT */, tmpiter_extra /* = `tmpiter' for dollar sign if opt & BR_AUTO_FIND */;
 	guint16 retval;
 	if (brfinder) {
 		retval = BRACEFINDER(*brfinder)->last_status;
 	}else{
 		retval = 0;
 	}
+	g_print("brace_finder: opt=%d, limit=%d, last_status=%hd, moved_left=%hd, moved_right=%hd\n", opt, limit,retval, retval &BR_RET_MOVED_LEFT, retval & BR_RET_MOVED_RIGHT );
 	if ( retval & BR_RET_FOUND ) {
-		DEBUG_MSG("brace_finder: remove old hilight\n");
-		
 		if (retval & (BR_RET_FOUND_RIGHT_BRACE | BR_RET_FOUND_RIGHT_DOLLAR) ) {
 			gtk_text_buffer_get_iter_at_mark(buffer, &tmpiter, BRACEFINDER(*brfinder)->mark_left);
 			tmpiter_extra = tmpiter;
 			gtk_text_iter_forward_char(&tmpiter_extra);
 			gtk_text_buffer_remove_tag(buffer, BRACEFINDER(*brfinder)->tag, &tmpiter, &tmpiter_extra);
 		}
-		
+
 		if (!(retval & BR_RET_MISS_MID_BRACE)) {
 			gtk_text_buffer_get_iter_at_mark(buffer, &tmp2iter, BRACEFINDER(*brfinder)->mark_mid);
 			tmpiter_extra = tmp2iter;
@@ -110,11 +109,13 @@ guint16 brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint l
 			gtk_text_iter_forward_char(&tmpiter_extra);
 			gtk_text_buffer_remove_tag(buffer, BRACEFINDER(*brfinder)->tag, &tmpiter, &tmpiter_extra);
 		}
-		BRACEFINDER(*brfinder)->last_status = 0;
 	}
-	if (limit <0) {
+	if (limit <0 ) {
+		g_print("brace_finder: limit<0, received 'flash' signal. done and return now...\n");
 		return BR_RET_NOOP;
 	}
+
+	if (brfinder) { BRACEFINDER(*brfinder)->last_status = 0; }
 
 	GtkTextMark *insert, *select;
 	insert = gtk_text_buffer_get_insert(buffer);
@@ -127,13 +128,14 @@ guint16 brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint l
 	/* if there's selection, its length should be 1 */
 	if (tmpstr && (strlen(tmpstr) > 1) ){
 		g_free(tmpstr);
+		if (brfinder) { BRACEFINDER(*brfinder)->last_status  = BR_RET_IN_SELECTION; }
 		return BR_RET_IN_SELECTION;
 	}else{
 		g_free(tmpstr);
 	}
 
 	gunichar ch, Lch, Rch;
-	gint level, limit_idx;
+	gint level, limit_idx, char_idx;
 	retval = BR_RET_NOT_FOUND;
 
 	/* A:: check if we are inside comment line */
@@ -186,10 +188,6 @@ guint16 brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint l
 			DEBUG_MSG("%c", ch);
 			/* DEBUG_MSG("brace_finder: enter new loop... with char = %c\n", ch); */
 			if ((ch == 37) && is_true_char(&tmpiter)) {/* % */
-				limit_idx++;
-				if (limit && (limit_idx > limit)) {
-					break;
-				}
 				gtk_text_iter_forward_to_line_end(&tmpiter);
 				DEBUG_MSG("[%%]");
 			}else if( (ch == Lch)  && is_true_char(&tmpiter)) {/* { */
@@ -204,6 +202,9 @@ guint16 brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint l
 				}else if(level<0){
 					break;
 				}
+			}else if (limit && gtk_text_iter_ends_line(&tmpiter)) {
+				limit_idx++;
+				if (limit_idx > limit) { break; }
 			}
 		}
 	}
@@ -235,9 +236,9 @@ guint16 brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint l
 				DEBUG_MSG("[-%d]", level);
 			}else if (gtk_text_iter_ends_line(&tmpiter_extra)) {
 				DEBUG_MSG("[line end]");
-				limit_idx++;
-				if (limit && (limit_idx > limit)) {
-					break;
+				if (limit) {
+					limit_idx++;
+					if (limit_idx > limit) { break; }
 				}
 				tmp2iter = tmpiter_extra;
 				gtk_text_iter_set_line_offset(&tmp2iter,0);
@@ -253,32 +254,33 @@ guint16 brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint l
 		}
 	}
 	if ( Lch == 36 ) {
-		if ( (opt & BR_HILIGHT_IF_FOUND) || (opt & BR_FIND_FORWARD) ) {
+		if ( (opt & BR_AUTO_FIND) || (opt & BR_FIND_FORWARD) ) {
+			limit_idx=1;
 			while (gtk_text_iter_forward_char(&tmpiter)) {
 				ch = gtk_text_iter_get_char(&tmpiter);
 				if ((ch == 37) && is_true_char(&tmpiter)) {/* % */
-					limit_idx++;
-					if (limit && (limit_idx > limit)) {
-						break;
-					}
 					gtk_text_iter_forward_to_line_end(&tmpiter);
 				}else if( (ch == 36)  && is_true_char(&tmpiter)) {/* { */
 					retval = retval | BR_RET_FOUND | BR_RET_FOUND_RIGHT_DOLLAR;
 					break;
+				}else if (limit && gtk_text_iter_ends_line(&tmpiter)) {
+					limit_idx++;
+					if (limit_idx > limit) { break; }
 				}
 			}
 		}
-		if ( (opt & BR_HILIGHT_IF_FOUND) || (opt & BR_FIND_BACKWARD) ) {/* try to find backward */
+		if ( (opt & BR_AUTO_FIND) || (opt & BR_FIND_BACKWARD) ) {/* try to find backward */
 			tmpiter_extra = iter_start_new;
+			limit_idx=1;
 			while (gtk_text_iter_backward_char(&tmpiter_extra)) {
 				ch = gtk_text_iter_get_char(&tmpiter_extra);
 				if( (ch == 36)  && is_true_char(&tmpiter_extra)) {/* { */
 					retval = retval | BR_RET_FOUND | BR_RET_FOUND_LEFT_DOLLAR;
 					break;
 				} else if (gtk_text_iter_ends_line(&tmpiter_extra)) {
-					limit_idx++;
-					if (limit && (limit_idx > limit)) {
-						break;
+					if (limit) {
+						limit_idx++;
+						if (limit_idx > limit) { break; }
 					}
 					tmp2iter = tmpiter_extra;
 					gtk_text_iter_set_line_offset(&tmp2iter,0);
@@ -289,6 +291,9 @@ guint16 brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint l
 				}
 			}
 		}
+	}
+	if (limit==0) {
+		retval = retval | BR_RET_FOUND_WITH_LIMIT_O;
 	}
 	/* finished */
 	if (retval & BR_RET_FOUND ) {
@@ -321,30 +326,16 @@ guint16 brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint l
 				}
 			}
 		}
-		if ((opt & BR_HILIGHT_IF_FOUND) && brfinder) {
-
-			BRACEFINDER(*brfinder)->last_status = retval;
-
+		if (brfinder) {
 			if (retval & (BR_RET_FOUND_RIGHT_BRACE | BR_RET_FOUND_RIGHT_DOLLAR) ) {
-				if (BRACEFINDER(*brfinder)->mark_left) {
-					gtk_text_buffer_move_mark(buffer,BRACEFINDER(*brfinder)->mark_left , &tmpiter);
-				}else{
-					/* STORIES: i used TRUE (left_gravity), then when we put a slash before anymark,
-					the backslash will be hilighted :D Now i know the reason. Ready to fix BUG#82. with 
-					left_gravity, inserting will move the mark left.... ??? */
-					BRACEFINDER(*brfinder)->mark_left = gtk_text_buffer_create_mark(buffer,NULL,&tmpiter,FALSE);
-				}
+				gtk_text_buffer_move_mark(buffer,BRACEFINDER(*brfinder)->mark_left , &tmpiter);
 				/* right matched */
 				tmp2iter = tmpiter;
 				gtk_text_iter_forward_char(&tmp2iter);
 				gtk_text_buffer_apply_tag(buffer,BRACEFINDER(*brfinder)->tag,&tmpiter, &tmp2iter);
 			}
 			if (!(retval & BR_RET_MISS_MID_BRACE)) {
-				if (BRACEFINDER(*brfinder)->mark_mid) {
-					gtk_text_buffer_move_mark(buffer,BRACEFINDER(*brfinder)->mark_mid, &iter_start_new);
-				}else{
-					BRACEFINDER(*brfinder)->mark_mid = gtk_text_buffer_create_mark(buffer,NULL,&iter_start_new,FALSE);
-				}
+				gtk_text_buffer_move_mark(buffer,BRACEFINDER(*brfinder)->mark_mid, &iter_start_new);
 				/* mid matched or current cursor */
 				tmpiter = iter_start_new;
 				tmp2iter = tmpiter;
@@ -352,11 +343,7 @@ guint16 brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint l
 				gtk_text_buffer_apply_tag(buffer,BRACEFINDER(*brfinder)->tag,&tmpiter, &tmp2iter);
 			}
 			if ( retval & ( BR_RET_FOUND_LEFT_DOLLAR | BR_RET_FOUND_LEFT_BRACE ) ) {
-				if (BRACEFINDER(*brfinder)->mark_right) {
-					gtk_text_buffer_move_mark(buffer,BRACEFINDER(*brfinder)->mark_right,&tmpiter_extra);
-				}else{
-					BRACEFINDER(*brfinder)->mark_right = gtk_text_buffer_create_mark(buffer,NULL,&tmpiter_extra,FALSE);
-				}
+				gtk_text_buffer_move_mark(buffer,BRACEFINDER(*brfinder)->mark_right,&tmpiter_extra);
 				/* left matched or extra dollar */
 				tmp2iter = tmpiter_extra;
 				gtk_text_iter_forward_char(&tmp2iter);
@@ -366,5 +353,9 @@ guint16 brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint l
 	}else{
 		retval = BR_RET_NOT_FOUND;
 	}
+	if (brfinder) {
+		BRACEFINDER(*brfinder)->last_status = retval;
+	}
+	g_print("brace_finder: now_status=%d, moved_left=%d, moved_right=%d\n", retval, retval &BR_RET_MOVED_LEFT, retval & BR_RET_MOVED_RIGHT );
 	return retval;
 }
