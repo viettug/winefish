@@ -47,6 +47,9 @@
 
 #define BRACE_FINDER_MAX_LINES 30
 
+/* similitary but for chars */
+#define BRACE_FINDER_MAX_CHARS 100
+
 /*********************** winefish ***********************/
 
 #endif /* __CONFIG_SPEC_H_ */

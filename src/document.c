@@ -2031,7 +2031,9 @@ static gboolean doc_view_key_press_lcb( GtkWidget *widget, GdkEventKey *kevent, 
 #ifdef SHOW_SNOOPER
 	g_print("doc: got key pressed\n");
 #endif
-	brace_finder(doc->buffer, &doc->brace_finder, 0, -1);
+	if ( (kevent->keyval != GDK_Control_R) && (kevent->keyval != GDK_Control_L) && (kevent->keyval != GDK_bracketleft) && (kevent->keyval != GDK_bracketright) ) {
+		brace_finder(doc->buffer, &doc->brace_finder, 0, -1);
+	}
 
 	if (!(doc->view_bars & MODE_AUTO_COMPLETE)) {
 		return FALSE;
@@ -2310,8 +2312,9 @@ static gboolean doc_view_key_release_lcb( GtkWidget *widget, GdkEventKey *kevent
 	/* shift> = ]*/
 	/* if the shift key is released before the '>' key, we get a key release not for '>' but for '.'. We, therefore have set that in the key_press event, and check if the same hardware keycode was released */
 	/* complete environment */
-#define IS_MOVE_KEY(var) ((var == GDK_Left)||(var==GDK_Right)||(var==GDK_Up)||(var==GDK_Down)||(var==GDK_Home)||(var=GDK_End)||(var==GDK_BackSpace))
-	brace_finder(doc->buffer,&doc->brace_finder,BR_FIND_FORWARD |BR_HILIGHT_IF_FOUND, BRACE_FINDER_MAX_LINES);
+	if ( (kevent->keyval != GDK_Control_R) && (kevent->keyval != GDK_Control_L) && (kevent->keyval != GDK_bracketleft) && (kevent->keyval != GDK_bracketright) ) {
+		brace_finder(doc->buffer,&doc->brace_finder,BR_AUTO_FIND, BRACE_FINDER_MAX_LINES);
+	}
 
 	if ( ( kevent->keyval == GDK_braceright ) || ( kevent->hardware_keycode == ((GdkEventKey *)main_v->last_kevent)->hardware_keycode && ((GdkEventKey *)main_v->last_kevent)->keyval == GDK_braceright ) ) {
 		/* autoclose environment for LaTeX */
@@ -2683,7 +2686,7 @@ static gboolean doc_view_button_release_lcb( GtkWidget *widget, GdkEventButton *
 {
 	DEBUG_MSG( "doc_view_button_release_lcb, button %d\n", bevent->button );
 	if (bevent->button == 1) {
-		brace_finder(doc->buffer, &doc->brace_finder, BR_FIND_FORWARD | BR_HILIGHT_IF_FOUND, BRACE_FINDER_MAX_LINES);
+		brace_finder(doc->buffer, &doc->brace_finder, BR_AUTO_FIND, BRACE_FINDER_MAX_LINES);
 	}
 	if ( bevent->button == 2 ) {
 		/* end of paste */
@@ -3073,9 +3076,9 @@ void doc_destroy( Tdocument * doc, gboolean delay_activation )
 	gtk_text_buffer_delete(doc->buffer, &start, &end);
 	DEBUG_MSG("doc_destroy: destroyed text buffer\n");
 	/* >> */
-	
+
 	g_free(doc->brace_finder); /* free the brace finder */
-	
+
 	g_object_ref( doc->view->parent );
 	if ( doc->floatingview ) {
 		gtk_widget_destroy( FLOATINGVIEW( doc->floatingview ) ->window );
@@ -3663,9 +3666,11 @@ Tdocument *doc_new( Tbfwin* bfwin, gboolean delay_activate )
 	
 	newdoc->brace_finder =g_new0( Tbracefinder, 1);
 	BRACEFINDER(newdoc->brace_finder)->tag = gtk_text_buffer_create_tag (newdoc->buffer, NULL,"background", "yellow", "foreground", "black", NULL);
-	/*
-	BRACEFINDER(newdoc->brace_finder)->tag_extra = gtk_text_buffer_create_tag (newdoc->buffer, NULL,"background", "black", "foreground", "yellow", "weight","bold", NULL);
-	*/
+	GtkTextIter iter;
+	gtk_text_buffer_get_start_iter(newdoc->buffer,&iter);
+	BRACEFINDER(newdoc->brace_finder)->mark_left = gtk_text_buffer_create_mark(newdoc->buffer,NULL,&iter,FALSE);
+	BRACEFINDER(newdoc->brace_finder)->mark_mid = gtk_text_buffer_create_mark(newdoc->buffer,NULL,&iter,FALSE);
+	BRACEFINDER(newdoc->brace_finder)->mark_right = gtk_text_buffer_create_mark(newdoc->buffer,NULL,&iter,FALSE);
 
 	BRACEFINDER(newdoc->brace_finder)->last_status = 0;
 	
