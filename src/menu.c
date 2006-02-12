@@ -245,7 +245,7 @@ static void toggle_doc_property(Tbfwin *bfwin,guint callback_action, GtkWidget *
 
 static void brace_finder_cb( Tbfwin *bfwin, guint callback_action, GtkWidget *widget )
 {
-	gint find_brace;
+	guint16 find_brace;
 	find_brace = brace_finder(bfwin->current_document->buffer, NULL, BR_MOVE_IF_FOUND | callback_action, 0);
 	switch (find_brace) {
 	case BR_RET_NOT_FOUND:
