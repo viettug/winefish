@@ -263,8 +263,8 @@ You may press B(shift + Escape) to hide/show the Outputbox.
 Go to B(Preferences Pages / Miscellaneous) and specify the directory
 which contains your templates. By default, it is B($HOME/tex/templates).
 
-The template file is of type *.tex or *.sty.
-Each template *MUST* contains the  pattern B(\%\%wf=).
+The template file is of type B(*.tex) or B(*.sty).
+Each template *MUST* contain the  pattern B(\%\%wf=).
 This helps you writing description for templates. For e.g.,
 PRE(
 \%\%wf=this is template file
