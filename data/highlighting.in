@@ -21,29 +21,29 @@ patterns: xml:Tag Name:1:1::3:^Tag$:#005676::2:0:
 patterns: xml:Tag:1:<((/)?[a-z0-9\:]+):[^?-]?>:1::#000000::0:0:
 
 patterns: tex:macro-any:1:\\\\[a-zA-Z]+::2::navy::0:0:
-patterns: tex:macro-special:1:\\\\(item\\b|displaystyle\\b|\\\\(\\\\hline\\b)?)|&|#::2::red::0:0:
+patterns: tex:macro-special:1:\\\\(bibitem|item|displaystyle)\\b|\\\\\\\\(\\\\hline\\b)?|&|#::2::red::0:0:
 patterns: tex:macro-maths-symbol:1:\\\\(varepsilon|varpi|varrho|varsigma|alpha|beta|gamma|delta|chi|iota|kappa|lambda|mu|nu|phi|psi|pi|rho|tau|theta|upsilon|xi|zeta|omega|eta|epsilon|Sigma|sigma)\\b::2::brown::0:0:
 patterns: tex:macro-text:1:\\\\(centerline|rightline|leftline|bigskip|vskip|hskip|medskip|text[a-z]+|underline)\\b::2::navy::0:0:
-patterns: tex:include:1:\\\\in(put|clude)\\b::2::white:black:2:0:
-patterns: tex:char-special-b:1:\\\\(~|\\$|#|&|%|{|}|\\^|_|,|;|!|\:| |\\|)::2::#4e00aa::2:0:
+patterns: tex:include:1:\\\\in(put|clude|cludeonly|cludegraphics)\\b::2::white:black:2:0:
+patterns: tex:char-special-b:1:\\\\(~|\\$|#|&|%|{|}|\\^|_|,|;|!|\:| |\\|)::2::#4e00aa::0:0:
 patterns: tex:char-special-a:1:~|_|\\^|\\$|\\\\\\]|\\\\\\[|(\\\\left[.([])|\\\\left\\\\{|\\\\right\\\\}|(\\\\right[\\.)\\]])|[{}\\[\\]()]::2::#4ebdaa::0:0:
 patterns: tex:parameter:1:#[1-9]::2::#4e00aa::0:0:
 patterns: tex:number-units:0:[+-]?\\d+(\\.\\d+)?(pt|in|mm|cm|ex|em|pc)?::2::#541a9c::0:0:
 patterns: tex:labelref-type:1:2::3:^labelref$:blue::0:0:
 patterns: tex:labelref:0:\\\\(label|eqref|ref|vref|vpageref|pageref){([a-z]+)\:[^}]+}::2::brown:#e4d7e4:0:0:
-patterns: tex:macro-ams-a:0:\\\\(renewtheorem|newtheorem|newtheoremstyle|theoremstyle|DeclareMathOperator|tag|qquad|Big|Bigg|Biggl|Biggr|Bigl|Bigr|big|bigg|biggl|biggr|bigl|bigr|text|intertext)\\b::2::#00C4C4::0:0:
+patterns: tex:macro-ams-a:0:\\\\(renewtheorem|newtheorem|newtheoremstyle|theoremstyle|DeclareMathOperator|tag|qquad|Big|Bigg|Biggl|Biggr|Bigl|Bigr|big|bigg|biggl|biggr|bigl|bigr|text|intertext)\\b::2::#A16734::0:0:
 patterns: tex:argument-optional:0:\\[[^\\n\\]]+\\]::2::#008C00::0:0:
 patterns: tex:argument-mandatory:0:{[a-zA-Z]+}::2::#54b6b6::0:0:
 patterns: tex:environments-ams-mix:0:{(subarray|split|smallmatrix|([vVpb]?matrix))}::2::brown::0:0:
 patterns: tex:environments-ams:0:{((align|aligned|equation|gather|gathered|cases|multline)\\*?)}::2::brown::2:0:
-patterns: tex:environments-standard:0:{(list|document|quote|flushleft|flushright|center|minipage|quotation|tabular|figure|table|longtable|itemize|description|enumerate)}::2::navy::2:0:
+patterns: tex:environments-standard:0:{((list|document|quote|flushleft|flushright|center|minipage|quotation|tabular|figure|table|longtable|itemize|description|enumerate)\\*?)}::2::navy::2:0:
 patterns: tex:macro-latex-standard:0:\\\\(begin|end|operatorname|operatornamewithlimits|newcounter|LaTeX|title|maketitle|author|date|today|hyphenation|makeatletter|usepackage|renewcommand|newenvironment|newcommand|documentclass|providecommand|mathop)\\b::2::blue::2:0:
-patterns: tex:macro-tex:0:\\\\(the|footnote|TeX|uppercase|lowercase|expandafter|newif|if|fi|ifx|else|let|xdef|gdef|def|relax|chardef|countdef)\\b::2::brown::2:2:
+patterns: tex:macro-tex:0:\\\\(the|footnote|TeX|uppercase|lowercase|expandafter|newif|if|fi|ifx|else|let|xdef|gdef|def|relax|chardef|countdef)\\b::2::brown::2:0:
 patterns: tex:macro-sectioning:0:\\\\(tableofcontents|listoftables|section|subsection|chapter|part|subsubsection|paragraph|subparagraph)\\b::2::white:navy:2:0:
-patterns: tex:command-newdef:0:(?<=\\\\newcommand){\\\\[a-zA-Z]+}::2::#A16734::0:0:
+patterns: tex:command-newdef:0:(?<=\\\\newcommand){\\\\[a-zA-Z]+}::2::#A16734::2:0:
 patterns: tex:macro-newdef:0:(?<=\\\\def)\\\\[a-z@A-Z]+\\b::2::#A16734::2:0:
 patterns: tex:separator:1:^%[ %]*[-%=]{50,}?$::2:comment:#829cb7:#829cb7:0:0:
 patterns: tex:verb:1:\\\\verb("|#|\\||~|!).*?\\1::2::brown::2:0:
 patterns: tex:verbatim:1:\\\\begin{(verbatim\\*?)}.*?(\\\\end{\\1})::2::brown::0:0:
-patterns: tex:comment-url:1:http\://[a-z./]+::2:^comment$:blue::2:1:
+patterns: tex:comment-url:1:http\://[^ ]+::2:^comment$:blue::2:1:
 patterns: tex:comment:1:%.*?$::2::#829cb7::0:2:
