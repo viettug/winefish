@@ -49,7 +49,7 @@ L(
 * @[Templates Support](#TEMPLATES SUPPORT)
 * @[Brace Finder](#BRACE FINDER)
 * @[TIPS](#TIPS)
-* @[Local Support](#LOCAL SUPPORT)
+* @[Locale Support](#LOCALE SUPPORT)
 )
 
 2(#(FEATURES))
@@ -324,7 +324,7 @@ L(
 * Line which is quite long should be splitted into shorter lines.
 )
 
-2(#(LOCAL SUPPORT))
+2(#(LOCALE SUPPORT))
 
 There are English, French, Italian and Vietnamese. For e.g.,
 PRE(
