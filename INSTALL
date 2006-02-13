@@ -15,7 +15,7 @@ To install Winefish from source
 
    if you wanna use
 	--prefix=/home/myhome/apps/
-   (or something like that) please take care of following options which
+   (or something like that) please take care of options which
    relate to mime type, desktop icons, etc.
 
    Vietnamese TeX Users:
