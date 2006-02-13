@@ -47,8 +47,8 @@
 
 #define BRACE_FINDER_MAX_LINES 30
 
-/* similitary but for chars */
-#define BRACE_FINDER_MAX_CHARS 100
+/* 30*80 */
+#define BRACE_FINDER_MAX_CHARS 2400
 
 /*********************** winefish ***********************/
 
