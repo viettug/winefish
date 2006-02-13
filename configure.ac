@@ -611,9 +611,3 @@ AC_SUBST(MAKEMAIN)
 
 AC_CONFIG_FILES(Makefile icons/Makefile src/Makefile data/Makefile po/Makefile man/Makefile)
 AC_OUTPUT
-
-echo "-----------"
-echo ""
-echo "Feel free to comment! Thank you!"
-echo ""
-echo "-----------"
