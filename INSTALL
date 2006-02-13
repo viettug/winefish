@@ -7,7 +7,7 @@ To install Winefish from source
 	* libgtk2 (version >= 2.4.0)
 	* libpcre
 	* [ aspell ] (pptional; for spell checking)
-	* [ grep, find, [ sed, xargs ]] (optional; for `advance open' functions)
+	* [ grep, find, [ sed, xargs ]] (optional; for grep function)
 
 2) details about `configure'
 
@@ -31,7 +31,7 @@ To install Winefish from source
 
 5) configure and compile
 
-	$ sh ./configure [you-options]
+	$ sh ./configure [your-options]
 	$ make
 
 6) reduce filesize
