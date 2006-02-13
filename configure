@@ -9203,9 +9203,3 @@ if test "$no_create" != yes; then
   $ac_cs_success || { (exit 1); exit 1; }
 fi
 
-
-echo "-----------"
-echo ""
-echo "Feel free to comment! Thank you!"
-echo ""
-echo "-----------"
