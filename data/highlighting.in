@@ -39,7 +39,7 @@ patterns: tex:environments-ams:0:{((align|aligned|equation|gather|gathered|cases
 patterns: tex:environments-standard:0:{((list|document|quote|flushleft|flushright|center|minipage|quotation|tabular|figure|table|longtable|itemize|description|enumerate)\\*?)}::2::navy::2:0:
 patterns: tex:macro-latex-standard:0:\\\\(begin|end|operatorname|operatornamewithlimits|newcounter|LaTeX|title|maketitle|author|date|today|hyphenation|makeatletter|usepackage|renewcommand|newenvironment|newcommand|documentclass|providecommand|mathop)\\b::2::blue::2:0:
 patterns: tex:macro-tex:0:\\\\(the|footnote|TeX|uppercase|lowercase|expandafter|newif|if|fi|ifx|else|let|xdef|gdef|def|relax|chardef|countdef)\\b::2::brown::2:0:
-patterns: tex:macro-sectioning:0:\\\\(tableofcontents|listoftables|section|subsection|chapter|part|subsubsection|paragraph|subparagraph)\\b::2::white:navy:2:0:
+patterns: tex:macro-sectioning:0:\\\\(tableofcontents|listoffigures|listtheorems|listoftables|section|subsection|chapter|part|subsubsection|paragraph|subparagraph)\\b::2::white:navy:2:0:
 patterns: tex:command-newdef:0:(?<=\\\\newcommand){\\\\[a-zA-Z]+}::2::#A16734::2:0:
 patterns: tex:macro-newdef:0:(?<=\\\\def)\\\\[a-z@A-Z]+\\b::2::#A16734::2:0:
 patterns: tex:separator:1:^%[ %]*[-%=]{50,}?$::2:comment:#829cb7:#829cb7:0:0:
