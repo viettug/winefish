@@ -303,7 +303,7 @@ L(
 )
 )
 
-The brace finder also GREEN(U(starts it jobs automatically)) when you're editing:
+The brace finder also GREEN(U(starts its job automatically)) when you're editing:
 the matched brace(s) will be hilighted. For performance reason, the finder
 will search in a limited area. The maxium number of lines of this area
 is defined via BRACE_FINDER_MAX_LINES \(B(src/config_spec.h)\).
