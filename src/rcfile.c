@@ -492,11 +492,11 @@ void rcfile_parse_main(void)
 	if (main_v->props.browsers == NULL) {
 		/* if the user does not have browsers --> set them to defaults values */
 		gchar **arr;
- 		arr = array_from_arglist(_("DVI Viewer"), "xdvi -sourceposition %l%b.tex %B.dvi &",NULL);
+		arr = array_from_arglist(_("DVI Viewer"), OB_DVI_Viewer,NULL);
 		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
- 		arr = array_from_arglist(_("PDF Viewer"), "xpdf %B.pdf &",NULL);
+		arr = array_from_arglist(_("PDF Viewer"), OB_PDF_Viewer,NULL);
 		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
- 		arr = array_from_arglist(_("EPS Viewer"), "gv %B.ps &",NULL);
+		arr = array_from_arglist(_("EPS Viewer"), OB_EPS_Viewer,NULL);
 		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
 	}
 	{
