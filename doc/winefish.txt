@@ -107,6 +107,9 @@ L(
 If you donot move B($HOME/.winefish/rcfile_v2) to B($HOME/.winefish/rcfile),
 winefish will start with default setting and of course ignore your old one.
 
+There is also new color scheme for hilighting. Backup then remove your
+B($HOME/.winefish/highlighting) to enjoy the new one.
+
 2(#(HOTKEYS: EDITING))
 
 L(
