@@ -1070,7 +1070,7 @@ static void browser_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 }
 static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
  	gchar *secure_tempname = NULL, *secure_tempname2 = NULL;
- 	gboolean need_o=FALSE, need_f=FALSE, need_i=FALSE;
+ 	gboolean need_o, need_f, need_i, need_p;
 	gchar **arr = (gchar **)bdm->data;
 	/* now check if
 	 * %f - we need a filename 
@@ -1080,6 +1080,8 @@ static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 	need_o = (strstr(arr[1], "%o") != NULL); /* output file name */
 	need_f = (strstr(arr[1], "%f") != NULL); /* basefile name */
 	need_i = (strstr(arr[1], "%i") != NULL); /* input name */
+	need_p = (strstr(arr[1], "%p") != NULL);
+	gint num_needs = need_o + need_f + need_i + need_p;
 
 	if (need_f) {
 		file_save_cb(NULL, bdm->bfwin);
@@ -1095,10 +1097,10 @@ static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
  			g_free(tmpstring);
  		}
 	}
-	if (need_f || need_o || need_i) {
+	if (num_needs) {
 		gchar *command;
 		Tconvert_table *table, *tmpt;
-		table = tmpt = g_new(Tconvert_table, 4);
+		table = tmpt = g_new(Tconvert_table, num_needs +1);
 		if (need_f) {
 			DEBUG_MSG("adding 's' to table\n");
 			tmpt->my_int = 'f';
@@ -1126,7 +1128,11 @@ static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 			buffer_to_file(BFWIN(bdm->bfwin), buffer, secure_tempname2);
 			g_free(buffer);
 		}
-
+		if (need_p) {
+			tmpt->my_int = 'p';
+			tmpt->my_char = g_strdup("%");
+			tmpt++;
+		}
 		tmpt->my_char = NULL;
 		command = replace_string_printflike(arr[1], table);
 		free_convert_table(table);

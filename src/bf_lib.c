@@ -561,13 +561,10 @@ gchar *convert_command(Tbfwin *bfwin, const gchar *command) {
 	gchar *result;
 	if (bfwin->current_document->filename) {
 		gboolean
-				/*need_e=FALSE,*/
-			need_D=FALSE,
-			need_B=FALSE,
-			need_d=FALSE,
-			need_b=FALSE,
-			need_f=FALSE,
-			need_l=FALSE;
+			need_D, need_B, need_d, need_b,
+			need_f, need_l, need_p
+			;
+		gint num_needs;
 
 		need_D = (strstr(command, "%D") != NULL);
 		need_B = (strstr(command, "%B") != NULL);
@@ -575,11 +572,13 @@ gchar *convert_command(Tbfwin *bfwin, const gchar *command) {
 		need_b = (strstr(command, "%b") != NULL);
 		need_f = (strstr(command, "%f") != NULL);
 		need_l = (strstr(command, "%l") != NULL);
+		need_p = (strstr(command,"%p") != NULL);
 		/*need_e = (strstr(command, "%e") != NULL);*/
+		num_needs = need_D + need_B + need_d + need_b + need_f + need_l +need_p;
 
-		if (need_D || need_d || need_B || need_b || need_f || need_l) {
+		if (num_needs) {
 			Tconvert_table *table, *tmpt;
-			table = tmpt = g_new(Tconvert_table, 7);
+			table = tmpt = g_new(Tconvert_table, num_needs +1);
 			if (need_D) {
 				tmpt->my_int = 'D';
 				if (bfwin->project && (bfwin->project->view_bars & MODE_PROJECT) &&  g_file_test(bfwin->project->basedir, G_FILE_TEST_IS_DIR)) {
@@ -653,6 +652,12 @@ gchar *convert_command(Tbfwin *bfwin, const gchar *command) {
 					linenumber++; /* gkt_text_iter_get_line start numbering from 0 */
 					tmpt->my_char = g_strdup_printf("%d",linenumber);
 				}
+				tmpt++;
+			}
+
+			if (need_p) {
+				tmpt->my_int = 'p';
+				tmpt->my_char = g_strdup("%");
 				tmpt++;
 			}
 
