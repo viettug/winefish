@@ -87,6 +87,7 @@ L(
 * manage your templates easily with Grep Function. See @[TEMPLATES SUPPORT](#TEMPLATES SUPPORT)
 * TeX filter for spell checker
 * @[Brace Finder](#BRACE FINDER)
+* new syntax hilighting
 )
 
 2(#(IMPORTANT NOTES))
