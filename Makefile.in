@@ -107,7 +107,7 @@ uninstall:
 	rm -f $(pkgdatadir)/winefish_splash.png
 	rm -f $(iconpath)/winefish-icon.png
 	rm -f $(docdir)/winefish.html
-	rm -f $(docdir)/winefish.txt
+#	rm -f $(docdir)/winefish.txt
 	/bin/rmdir $(DESTDIR)$(pkgdatadir)
 
 strip:
