@@ -274,6 +274,7 @@ PRE(
 ...
 )
 To U(list all your template files), press B(control + meta + shift + F).
+You may also use the menu B(Edit/Find, Replace/Templates).
 Then press B(control + click) to create a clone file \(See @[OUTPUTBOX](#OUTPUTBOX)\)
 
 Winefish doesnot clean up the B(\%\%wf=) string automatically.
