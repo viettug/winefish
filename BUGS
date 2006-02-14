@@ -2,6 +2,15 @@ $Id$
 
 ============================================================== [200602]
 
+======== 1.3.2-RC1
+
+#90/fixed/kyanh/20060214/
+* winefish should preserve %l or %f... 
+	+ /home/users/kyanh/moss/winefish.bugs/bug_expander.html)
+	+ http://winefish.berlios.de/forum/comments.php?DiscussionID=2
+FIXED:
+	added %p (expands to percent sign)
+
 ======== 1.3.2.7a
 
 #89/fixed/kyanh/20060212/
