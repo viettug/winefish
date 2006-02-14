@@ -12,8 +12,14 @@
 #define OB_PDFLaTeX "pdflatex -file-line-error-style -src-specials '%B'"
 #define OB_DVIPS "dvips -o '%B.ps' '%B.dvi'"
 #define OB_DVIPDFM "dvipdfm -o '%B.pdf' '%B.dvi'"
+
 #define OB_ViewLog "cat '%B.log'"
 #define OB_SoftClean "rm -fv '%B.log' '%B.aux' '%B.toc'"
+
+#define OB_DVI_Viewer "xdvi -editor \"winefish -n0 -l%pl '%pf'\" -sourceposition %l%b.tex %B.dvi &"
+#define OB_PDF_Viewer "xpdf %B.pdf &"
+#define OB_EPS_Viewer "gv %B.ps &"
+
 #define OB_Dos2Unix "cat '%f' | dos2unix > '%o'"
 #define OB_Tidy "cat '%f' | tidy -utf8 -q >'%o' 2>/dev/null"
 
