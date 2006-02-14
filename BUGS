@@ -6,6 +6,7 @@ $Id$
 
 #90/fixed/kyanh/20060214/
 * winefish should preserve %l or %f... 
+	+ reported by bender02 (http://winefish.berlios.de/forum/account.php?u=4)
 	+ /home/users/kyanh/moss/winefish.bugs/bug_expander.html)
 	+ http://winefish.berlios.de/forum/comments.php?DiscussionID=2
 FIXED:
