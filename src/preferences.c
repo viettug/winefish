@@ -1421,12 +1421,6 @@ static void create_externals_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pd->ed.insertloc = -1;
 	g_signal_connect(G_OBJECT(pd->ed.lstore), "row-inserted", G_CALLBACK(listpref_row_inserted), &pd->ed);
 	g_signal_connect(G_OBJECT(pd->ed.lstore), "row-deleted", G_CALLBACK(listpref_row_deleted), &pd->ed);
-	gtk_box_pack_start(GTK_BOX(vbox1),gtk_label_new(
-_("%f for current filename (any command)\n\
-%i for input (filters)\n\
-%o for output filename (filters)\n\
-%% for percent sign\
-")), TRUE, TRUE, 2);
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1),hbox, TRUE, TRUE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_external_commands_lcb), pd);
@@ -2032,6 +2026,17 @@ static void preferences_dialog() {
 
 	create_externals_gui(pd, vbox2);
 
+	frame = gtk_frame_new(_("Information"));
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	vbox2 = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+	gtk_box_pack_start(GTK_BOX(vbox2),gtk_label_new(
+_("%f: current filename\n\
+%i: input (filters)\n\
+%o: output filename (filters)\n\
+%%: percent sign\
+")), TRUE, TRUE, 2);
+	
 	/* tab: TeXbox */
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("TeXbox"), 157,TRUE));
