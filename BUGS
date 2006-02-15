@@ -6,9 +6,9 @@ $Id$
 
 #90/fixed/kyanh/20060214/
 * winefish should preserve %l or %f... 
-	+ reported by bender02 (http://winefish.berlios.de/forum/account.php?u=4)
-	+ /home/users/kyanh/moss/winefish.bugs/bug_expander.html)
-	+ http://winefish.berlios.de/forum/comments.php?DiscussionID=2
++ reported by bender02 (http://winefish.berlios.de/forum/account.php?u=4)
++ /home/users/kyanh/moss/winefish.bugs/bug_expander.html)
++ http://winefish.berlios.de/forum/comments.php?DiscussionID=2
 FIXED:
 	added %p (expands to percent sign)
 
@@ -20,9 +20,9 @@ FIXED: to many things
 
 #88/fixed/kyanh/20060211/
 * copy/paste a brace: it is still hilighted
-FIXED: modify past_operation
-But... the bug dies itself... as an effect of removing
-tag when key/button press.
+FIXED:
+	modify paste_operation
+	But... the bug dies itself... as an effect of removing tag when key/button press.
 
 #87/fixed/kyanh/20060211/
 * bad STORIES, see brace_finder.c :(
@@ -55,7 +55,7 @@ FIXED:
 #83/fixed/kyanh/20060210/
 * brace_finder:
 	<any_code>{|%<end_of_line>
-(| is the cursor). start finding brace returns BR_RET_IN_COMMENT
+	(| is the cursor). start finding brace returns BR_RET_IN_COMMENT
 FIXED:
 	must detect `iter_start_new' before checking for BR_RET_IN_COMMENT status.
 
@@ -67,7 +67,7 @@ in outputbox_bf.c, but the result is the same. it's hard to handle!!!
 * FIXED:
 	use (g_locale_to_utf8) in outputbox_filter::outputbox_filter.c
 	(thanks to a member of winefish-devel. now i forget his name. update soon)
- (he is Claudio Polegato Junior <cpolegatojr_lsts@pop.com.br>)
+	(he is Claudio Polegato Junior <cpolegatojr_lsts@pop.com.br>)
 
 ============================================================== [200601]
 
