@@ -1041,10 +1041,11 @@ void rename_window_entry_in_all_windows(Tbfwin *tobfwin, gchar *newtitle) {
 
 static void view_in_browser(Tbfwin *bfwin, gchar *browser) {
 	if (bfwin->current_document->filename) {
-		gchar *command = convert_command(bfwin, browser);
+		gchar *command;
+		command = convert_command(bfwin, browser);
 		DEBUG_MSG("view_in_browser, should start command [%s] now\n", command);
 		system(command);
-		/* g_free(command); CANNOT BE FREED */
+		g_free(command); /*CANNOT BE FREED*/
 	} else {
 		warning_dialog(bfwin->main_window,_("Could not view file in browser, the file does not yet have a name\n"), NULL);
 	}
@@ -1080,7 +1081,7 @@ static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 	need_o = (strstr(arr[1], "%o") != NULL); /* output file name */
 	need_f = (strstr(arr[1], "%f") != NULL); /* basefile name */
 	need_i = (strstr(arr[1], "%i") != NULL); /* input name */
-	need_p = (strstr(arr[1], "%p") != NULL);
+	need_p = (strstr(arr[1], "%%") != NULL);
 	gint num_needs = need_o + need_f + need_i + need_p;
 
 	if (need_f) {
@@ -1101,6 +1102,11 @@ static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 		gchar *command;
 		Tconvert_table *table, *tmpt;
 		table = tmpt = g_new(Tconvert_table, num_needs +1);
+		if (need_p) {
+			tmpt->my_int = '%';
+			tmpt->my_char = g_strdup("%");
+			tmpt++;
+		}
 		if (need_f) {
 			DEBUG_MSG("adding 's' to table\n");
 			tmpt->my_int = 'f';
@@ -1128,11 +1134,13 @@ static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 			buffer_to_file(BFWIN(bdm->bfwin), buffer, secure_tempname2);
 			g_free(buffer);
 		}
+#ifdef OLD_IMPLEMENT
 		if (need_p) {
 			tmpt->my_int = 'p';
 			tmpt->my_char = g_strdup("%");
 			tmpt++;
 		}
+#endif /* OLD_IMPLEMENT */
 		tmpt->my_char = NULL;
 		command = replace_string_printflike(arr[1], table);
 		free_convert_table(table);
