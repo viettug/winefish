@@ -24,14 +24,16 @@ a:visited { color: green; }
 <UL>
 <li>Author: kyanh <<a href="kyanh_at_viettug_dot_org">kyanh_at_viettug_dot_org</a>>
 <li>This document is available for Winefish version <font color="GREEN"><U>1.3.2-RC1</U></font> or higher.
-<li><font color="RED">If you've used an older version of Winefish, you should read <a href="#NEWS">NEWS</a> and <a href="#IMPORTANT NOTES">IMPORTANT NOTES</a></font>
+<li><font color="RED">If you had been using an older version of Winefish, you should read <a href="#NEWS">NEWS</a> and <a href="#IMPORTANT NOTES">IMPORTANT NOTES</a></font>
 <li>For further help, visit <a href="http://winefish.berlios.de/forum/">http://winefish.berlios.de/forum/</a>
 <li>I'm sorry about my English :))<br>
-If you find any (spell) mistakes in this document feel free to let me know!</UL>
+If you find any (spell) mistakes in this document feel free to let me know!
+See <a href="#THANKS">THANKS</a>.</UL>
 
 <H2><a name="CONTENTS">CONTENTS <a href="#top">top</a></H2>
 
 <UL>
+<li><a href="#THANKS">THANKS</a>
 <li><a href="#NEWS">News</a>
 <li><a href="#FEATURES">Features</a>
 <li><a href="#INSTALLATION">Installation</a>
@@ -50,6 +52,10 @@ If you find any (spell) mistakes in this document feel free to let me know!</UL>
 <li><a href="#TIPS">TIPS</a>
 <li><a href="#LOCALE SUPPORT">Locale Support</a></UL>
 
+<H2><a name="THANKS">THANKS <a href="#top">top</a></H2>
+
+Special THANKS to <a href="michele.garoche/at/easyconnect/dot/fr">Michèle Garoche</a>
+for correcting some typo errors in previous version of this document.
 <H2><a name="FEATURES">FEATURES <a href="#top">top</a></H2>
 
 <UL>
@@ -88,7 +94,7 @@ Some new features:
 
 Winefish now uses <B>$HOME/.winefish/rcfile</B> to save configuration.
 Move the old one <B>$HOME/.winefish/rcfile_v2</B> to <B>$HOME/.winefish/rcfile</B>
-manually then reconfigure Winefish (use <B>Preferences Pages</B>.)
+manually, then reconfigure Winefish (use <B>Preferences Pages</B>.)
 Please take care of following properties:
 <UL>
 <li>Editor / Highlighting Syntax by Default
@@ -97,8 +103,8 @@ Please take care of following properties:
 <li>TeXbox / Save, Show
 <li>Miscellaneous / Templates Directory</UL>
 
-If you donot move <B>$HOME/.winefish/rcfile_v2</B> to <B>$HOME/.winefish/rcfile</B>,
-winefish will start with default setting and of course ignore your old one.
+If you do not move <B>$HOME/.winefish/rcfile_v2</B> to <B>$HOME/.winefish/rcfile</B>,
+winefish will start with default settings and of course ignore your old ones.
 <br><br>
 There is also new color scheme for hilighting. Backup then remove your
 <B>$HOME/.winefish/highlighting</B> to enjoy the new one.
@@ -127,7 +133,7 @@ There is also new color scheme for hilighting. Backup then remove your
 <H2><a name="HOTKEYS: COMPILING">HOTKEYS: COMPILING <a href="#top">top</a></H2>
 
 By default, Winefish requires LaTeX, xdvi and xpdf.
-You may changes these from <B>Preferences Page</B>.
+You may change these from <B>Preferences Page</B>.
 <UL>
 <li>Convert to DVI format: <B>F1</B>
 <li>View DVI document (with DVI SYNC): <B>control + F1</B>
@@ -139,7 +145,7 @@ If you are working in project mode, by default, the above tools
 will start in the base directory and file of the project.
 <br><br>
 If you want to compile the current document, <B>NOT</B> the
-base document of project, you may use <B>control + ESC</B>
+base document of the project, you may use <B>control + ESC</B>
 to turn project mode ON/OFF, *OR* select menu <B>External/Project Mode</B>
 <H2><a name="PROJECT MODE">PROJECT MODE <a href="#top">top</a></H2>
 
@@ -153,7 +159,7 @@ to turn project mode ON/OFF, *OR* select menu <B>External/Project Mode</B>
 In order to get the document structure, you may try this:
 <UL>
 <li>Press <B>control + F</B> to start the search engine
-<li>Type <B>exactly</B> the following string
+<li>Type <B>exactly</B> the following string:
 <PRE>^\\(sub){0,2}section.*?$</PRE>
 <li>Select PERL type as type (regular expression)
 <li>Select Bookmark Results
@@ -161,19 +167,21 @@ In order to get the document structure, you may try this:
 
 <H2><a name="AUTOTEXT">AUTOTEXT <a href="#top">top</a></H2>
 
-If <B>$HOME/.winefish/autotext</B> wasnot modified,
+If <B>$HOME/.winefish/autotext</B> has not been modified,
 you may try to open a new document, type the string
 <B>/tsta</B> then press <B>shift + Space</B>. Other tests are <B>/tstd</B>,
 <B>/tstc</B> and <B>/tstd</B>.
 <br><br>
 You may modify the file <B>$HOME/.winefish/autotext</B>.
-<font color="RED">Do not open it in Winefish as Winefish will override your modification when exiting.</font>
+<font color="RED">You should not try to modify it directly, as Winefish will override it when existing.
+But you could modify it from the <B>Preferences Page, Automation panel</B>.
+As long as you click on Apply after editing it, the changes will survive exiting.</font>
 The contents are similar to
 <PRE>att: /tsta:\\begin{foo\n:\n\\end{foo:
 att: /tstb:\\begin{this-is-b\n:\n\\end{this-is-b:
 att: /tstc:\\testofsomething::
 att: /tstd:: Can you see?:</PRE>
-Each line is of the from <PRE>att: /foo:begin:end:</PRE>
+Each line is of the form: <PRE>att: /foo:begin:end:</PRE>
 where <B>/foo</B> is the new definition which <B>must be started</B> by a slash <B>/</B>.
 The string begin will be inserted before the cursor,
 the string end will be inserted after the cursor.
@@ -182,7 +190,7 @@ Here are some rules:
 <UL>
 <li>Length of /foo should be at most AUTOTEXT_MAX_LENGTH
 (defined in <B>src/config_spec.h</B>)
-<li>one of the two strings `begin' and `end' is not NULL.
+<li>one of the two strings `begin' and `end' should not be NULL.
 <li>If foo is defined twice or more, for e.g.,
 <li>only the first one is used.
 <li><font color="RED"><U>some special characters must be escaped:</U></font>
@@ -191,8 +199,7 @@ Here are some rules:
 <li><B>\t</B> for a tab
 <li><B>\:</B> for a colon
 <li><B>\\</B> for the backslash</UL>
-
-<li>You must restart Winefish after modifying.</UL>
+</UL>
 
 <H2><a name="AUTO_COMPLETION">AUTO_COMPLETION <a href="#top">top</a></H2>
 
@@ -201,7 +208,9 @@ You may delete a word from popup menu press <B>Delete</B>,
 or from <B>Preferences</B> page.
 <br><br>
 The words are saved in <B>$HOME/.winefish/words</B>.
-<font color="RED">Do not open the file in Winefish as the contents will be overridden when Winefish exists.</font>
+<font color="RED">You should not try to modify it directly, as Winefish will override it when existing.
+But you could modify it from the <B>Preferences Page, Automation panel</B>.
+As long as you click on Apply after editing it, the changes will survive exiting.</font>
 <br><br>
 When you're typing, Winefish collects LaTeX commands and add them to
 list of known words. If there's a bad command, you may `<B>delete</B>'
@@ -214,7 +223,7 @@ A command will be added to completion list if its length is:
 
 You may add commands by using <B>Preferences Pages / AutoX</B> but this is <U>not recommended</U>
 as Winefish collects commands automatically and <B>Preferences Pages / AutoX</B> will be
-dropped some days;)
+dropped some day.)
 <H2><a name="COMMANDLINE OPTIONS">COMMANDLINE OPTIONS <a href="#top">top</a></H2>
 
 <PRE>$ winefish -h
@@ -225,13 +234,13 @@ Currently accepted options are:
 -v current version
 -n 0|1 open new window (1) or not (0)
 -p filename open project
--l <B>number</B> set line<B>number</B>. Negative value takes no effect.
+-l <B>number</B> set line <B>number</B>. Negative value takes no effect.
 -h this help screen</PRE>
 <H2><a name="OUTPUTBOX">OUTPUTBOX <a href="#top">top</a></H2>
 
 When you start a tool, start `Grep Function' (<B>control + meta + F</B>),
 or start listing your templates (<B>control + meta + shift + F</B>),
-the results will be shipped out to a Outputbox.
+the results are shipped out to a Outputbox.
 <br><br>
 There are some useful operations with Outputbox:
 <UL>
@@ -248,21 +257,21 @@ which contains your templates. By default, it is <B>$HOME/tex/templates</B>.
 The template file is of type <B>*.tex</B> or <B>*.sty</B>.
 Each template *MUST* contain the pattern <B>%%wf=</B>.
 This helps you writing description for templates. For e.g.,
-<PRE>%%wf=this is template file
-%%wf=this is the description of template
+<PRE>%%wf=this is a template file
+%%wf=this is the template's description
 \documentclass{article}
 ...</PRE>
 To <U>list all your template files</U>, press <B>control + meta + shift + F</B>.
 You may also use the menu <B>Edit/Find, Replace/Templates</B>.
 Then press <B>control + click</B> to create a clone file (See <a href="#OUTPUTBOX">OUTPUTBOX</a>)
 <br><br>
-Winefish doesnot clean up the <B>%%wf=</B> string automatically.
+Winefish does not clean up the <B>%%wf=</B> string automatically.
 <H2><a name="BRACE FINDER">BRACE FINDER <a href="#top">top</a></H2>
 
 If your editor cursor is placed beside a <font color="GREEN">brace</font>
 ( <B><font color="RED">$</font></B>, <B><font color="RED">(</font></B>, <B><font color="RED">)</font></B>, <B><font color="RED">{</font></B>, <B><font color="RED">}</font></B>, <B><font color="RED">[</font></B>, <B><font color="RED">]</font></B> ),
 you may want to find the matching one. Just press
-<B>control + ]</B> (forward) or <B>control + [</B> (backward). Below the rules:
+<B>control + ]</B> (forward) or <B>control + [</B> (backward). Here are the rules:
 <UL>
 <li>escaped characters will be ignored
 <li>characters in comment line will be ignored
@@ -270,7 +279,7 @@ you may want to find the matching one. Just press
 <li>for $, <B>control + [</B> starts <I>backward</I>-finding the matched $.
 <li>for other braces:
 <UL>
-<li><I>forward</I>: start finding the matching for current brace.
+<li><I>forward</I>: starts finding the matching for current brace.
 <li><I>backward</I>:
 <UL>
 <li>if the characters on the left hand is a brace too,
@@ -285,30 +294,40 @@ start finding the matching for it;
 </UL>
 
 The brace finder also <font color="GREEN"><U>starts its job automatically</U></font> when you're editing:
-the matched braces will be hilighted. For performance reason, the finder
-will search in a limited area. The maxium number of lines of this area
+the matched braces will be highlighted. For performance reason, the finder
+will search in a limited area. The maximum number of lines of this area
 is defined via BRACE_FINDER_MAX_LINES (<B>src/config_spec.h</B>).
 <br><br>
-<font color="RED"><U>NOTE:</U></font> when a key is pressed it isnot released yet, the color of
+<font color="RED"><U>NOTE:</U></font> when a key is pressed and is not released yet, the color of
 matching braces is dropped. This causes <font color="GREEN">FLASH</font> effect.
 This is an unwanted-effect which takes place naturally after fixing the BUG#87.
 I (kyanh) found this is quite nice stuff. Please give comment
 via forum (<a href="http://winefish.berlios.de/forum/">http://winefish.berlios.de/forum/</a>).
+<H2><a name="LOCALE SUPPORT">LOCALE SUPPORT <a href="#top">top</a></H2>
+
+There are English, French, Italian and Vietnamese translations. For e.g.,
+<PRE>$ LANG=vi_VN winefish # start winefish with Vietnamese frontend
+$ LANG=it_IT winefish # for Italian users
+$ LANG=fr_FR winefish # for French users</PRE>
 <H2><a name="TIPS">TIPS <a href="#top">top</a></H2>
 
 <UL>
 <li>Press <B>shift + control + Escape</B> to hide/show the Sidebar.
 <li>Press <B>shift + Escape</B> to hide/show the Outputbox.
 <li>Press <B>control + I</B> to insert an image.
-<li><B>Doubleclick</B> on an image in the file browsers.
-<li>Line which is quite long should be splitted into shorter lines.</UL>
+<li><B>Doubleclick</B> on an image in the file browser.
+<li>Long line should be split into shorter ones.
+<li>To open a file in existing running Winefish at specific line, try for e.g.
+<PRE>winefish -n0 -l 12 foobar.tex blablabla.tex</PRE>
+If you specify multiple files, all are opened at the same line numbered <num> :)
 
-<H2><a name="LOCALE SUPPORT">LOCALE SUPPORT <a href="#top">top</a></H2>
+<li>What does Winefish mean?
+<UL>
+<li>Winefish = Wine + fish = to be drunk (Oops, I can't drink)
+<li>Winefish = White fish (white not blue)
+<li>Winefish = Why fish? (i forget the reason)</UL>
+</UL>
 
-There are English, French, Italian and Vietnamese. For e.g.,
-<PRE>$ LANG=vi_VN winefish # start winefish with Vietnamese frontend
-$ LANG=it_IT winefish # for Italian users
-$ LANG=fr_FR winefish # for French users</PRE>
 <BR>
 <BR>
 <BR>
