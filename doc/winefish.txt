@@ -361,9 +361,6 @@ If you specify multiple files, all are opened at the same line numbered <num> :\
 * Winefish = White fish \(white not blue\)
 * Winefish = Why fish? \(i forget the reason\)
 ))
-
-<BR>
-<BR>
 <BR>
 <HR>
 This HTML file was generated from RED(winefish.txt) by RED(k2h) program.\\
