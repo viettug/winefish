@@ -4043,8 +4043,12 @@ void doc_reload( Tdocument *doc )
 		statusbar_message( BFWIN( doc->bfwin ), _( "unable to open file" ), 2000 );
 		return ;
 	}
+	gint lineindex;
 	{
-		GtkTextIter itstart, itend;
+		GtkTextIter itstart, itend, itercur;
+		gtk_text_buffer_get_selection_bounds(doc->buffer, &itercur, NULL);
+		lineindex = gtk_text_iter_get_line(&itercur);
+		DEBUG_MSG("doc_reload: current lineindex %d\n", lineindex);
 		gtk_text_buffer_get_bounds( doc->buffer, &itstart, &itend );
 		gtk_text_buffer_delete( doc->buffer, &itstart, &itend );
 	}
@@ -4053,6 +4057,7 @@ void doc_reload( Tdocument *doc )
 	doc_unre_clear_all( doc );
 	doc_set_modified( doc, 0 );
 	doc_set_stat_info( doc ); /* also sets mtime field */
+	doc_select_line(doc, lineindex, TRUE);
 }
 
 /**
