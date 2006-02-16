@@ -4,6 +4,11 @@ $Id$
 
 ======== 1.3.2.7
 
+#97/fixed/kyanh/20060216/
+* create_backup_on_save=1, remove_backup_on_save =1, witth suffix=NULL
+open file foobar.tex. its bakups it foobar.tex. THE SAME! now edit foobar.tex,
+save then close. You see that foobar.tex was delete completly
+
 #96/fixed/kyanh/20060216/
 * <stuff> \% % { <stuff>
 that brace is not considered as comment sign
@@ -58,9 +63,16 @@ FIXED:
 should: (save new name + delete old file)
 This bug is found via bluefish-dev list.
 
-#91
+#91/invalid/kyanh/20060216/
 * project backup file isnot deleted no matter the option 'remove backup on save' is ON
 (thanks to Michèle Garoche)
+* .wfproject is a rcfile. should we delete it when closing?
+I note that my current bluefish(dev) doesnot create backup file for rcfile when saving.
+WORKAROUND:
+* (rcfile_save_*) call to (stringlist.c::put_stringlist_limited) which puts a string to file.
+if you want to make a backup of rcfile before when saving, let's turn
+	BACKUP_RC_FILE_ON_SAVE
+on (src/config_spec.h). TODO: this shouldbe a runtime option
 
 #90/fixed/kyanh/20060214/
 * winefish should preserve %l or %f... 
