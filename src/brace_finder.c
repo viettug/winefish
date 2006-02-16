@@ -59,6 +59,7 @@ static gboolean is_true_char(GtkTextIter *iter)
 	return retval;
 }
 
+/*
 static gboolean percent_predicate(gunichar ch, gpointer data) {
 	if (ch == 37) {
 		return TRUE;
@@ -67,7 +68,6 @@ static gboolean percent_predicate(gunichar ch, gpointer data) {
 	}
 }
 
-/*
 static gboolean dollar_predicate(gunichar ch, gpointer data) {
 	if (ch == 36) {
 		return TRUE;
@@ -162,17 +162,25 @@ guint16 brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint l
 	gunichar ch, Lch, Rch;
 	gint level, limit_idx, char_idx;	
 	retval = BR_RET_NOT_FOUND;
+	gint found_comment_sign;
 
 	/* A:: check if we are inside comment line */
 	DEBUG_MSG("brace_finder: check for comment status:\n");
 	tmpiter = iter_start;
 	gtk_text_iter_set_line_offset(&tmpiter,0); /* move to start of line */
 	/* now forward to find next %. limit = iter_start_new */
-	if ( (gtk_text_iter_get_char(&tmpiter) == 37) || ( gtk_text_iter_forward_find_char(&tmpiter, percent_predicate, NULL, &iter_start) && is_true_char(&tmpiter) ) )  {
-		if (gtk_text_iter_compare(&tmpiter, &iter_start) <=0) {/* in comment */
-			DEBUG_MSG("brace_finder: in comment line\n");
-			iter_start = tmpiter;
+	found_comment_sign = FALSE;
+	while ( (gtk_text_iter_compare(&tmpiter, &iter_start) < 0) ) {
+		if ( ( gtk_text_iter_get_char(&tmpiter) == 37) && is_true_char(&tmpiter) ) {
+			found_comment_sign = TRUE;
+			break;
+		}else{
+			gtk_text_iter_forward_char(&tmpiter);
 		}
+	}
+	if ( found_comment_sign ) {/* in comment */
+		g_print("brace_finder: in comment line\n");
+		iter_start = tmpiter;
 	}
 
 	/* recaculate the iter_start */
@@ -276,9 +284,18 @@ guint16 brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint l
 				/* if we are in a comment line
 				search from the begining of line to the end == tmpiter;
 				*/
-				ch = gtk_text_iter_get_char(&tmp2iter);
-				if ((ch ==37) || ( gtk_text_iter_forward_find_char(&tmp2iter, percent_predicate, NULL, &tmpiter_extra) && is_true_char(&tmp2iter) ) ) {
+				found_comment_sign = FALSE;
+				while (gtk_text_iter_compare(&tmp2iter, &tmpiter_extra) < 0 ) {
+					if ( (gtk_text_iter_get_char(&tmp2iter) ==37) && is_true_char(&tmp2iter) ) {
+						found_comment_sign = TRUE;
+						break;
+					}else{
+						gtk_text_iter_forward_char(&tmp2iter);
+					}
+				}
+				if (found_comment_sign) {
 					tmpiter_extra = tmp2iter;
+					//gtk_text_iter_backward_char(&tmpiter_extra);
 				}
 			}
 		}
@@ -317,9 +334,18 @@ guint16 brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint l
 					}
 					tmp2iter = tmpiter_extra;
 					gtk_text_iter_set_line_offset(&tmp2iter,0);
-					ch = gtk_text_iter_get_char(&tmp2iter);
-					if ((ch ==37) || ( gtk_text_iter_forward_find_char(&tmp2iter, percent_predicate, NULL, &tmpiter_extra) && is_true_char(&tmp2iter) ) ) {
+					found_comment_sign = FALSE;
+					while (gtk_text_iter_compare(&tmp2iter, &tmpiter_extra) < 0 ) {
+						if ( (gtk_text_iter_get_char(&tmp2iter) ==37) && is_true_char(&tmp2iter) ) {
+							found_comment_sign = TRUE;
+							break;
+						}else{
+							gtk_text_iter_forward_char(&tmp2iter);
+						}
+					}
+					if (found_comment_sign) {
 						tmpiter_extra = tmp2iter;
+						//gtk_text_iter_backward_char(&tmpiter_extra);
 					}
 				}
 			}
