@@ -15,10 +15,12 @@ that brace is not considered as comment sign
 FIXED:
 	use a while-loop to detect the comment sign
 
-#95
+#95/fixed/kyanh/20060216/
 * project: editing options failed (basedir/basefiles doesnot exist) then there is:
 (winefish:1495): GLib-GObject-WARNING **: invalid cast from `GtkButton' to `GtkWindow'
 (winefish:1495): Gtk-CRITICAL **: gtk_window_set_transient_for: assertion `parent == NULL || GTK_IS_WINDOW (parent)' failed
+FIXED:
+	used wrong widget in (project.c::project_edit_ok_clicked_lcb)
 
 #93/fixed/kyanh/20060216/
 * $ winefish ~/tmp/foobar.tex
