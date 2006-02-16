@@ -3208,7 +3208,7 @@ gchar *ask_new_filename( Tbfwin *bfwin, gchar *oldfilename, const gchar *gui_nam
 	if ( !newfilename ) {
 		return NULL;
 	}else{
-		if (g_file_test(oldfilename, G_FILE_TEST_EXISTS) && g_file_test(newfilename, G_FILE_TEST_EXISTS)) {
+		if (/*g_file_test(oldfilename, G_FILE_TEST_EXISTS) && */g_file_test(newfilename, G_FILE_TEST_EXISTS)) {
 			struct stat statbuf;
 			gint inode;
 			gint l_retval =1;
