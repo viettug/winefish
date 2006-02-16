@@ -3205,10 +3205,31 @@ gchar *ask_new_filename( Tbfwin *bfwin, gchar *oldfilename, const gchar *gui_nam
 	g_free( ondisk );
 	g_free( dialogtext );
 
-	if ( !newfilename || ( oldfilename && strcmp( oldfilename, newfilename ) == 0 ) ) {
-		if ( newfilename )
-			g_free( newfilename );
+	if ( !newfilename ) {
 		return NULL;
+	}else{
+		if (g_file_test(oldfilename, G_FILE_TEST_EXISTS) && g_file_test(newfilename, G_FILE_TEST_EXISTS)) {
+			struct stat statbuf;
+			gint inode;
+			gint l_retval =1;
+			if ( stat(newfilename,&statbuf) != 0 ) {
+				DEBUG_MSG("ask_new_filename: stat [%s] failed\n", newfilename);
+				l_retval = 0;
+			}else{
+				inode = statbuf.st_ino;
+				if ( stat(oldfilename, &statbuf) !=0 ) {
+					DEBUG_MSG("ask_new_filename: stat [%s] failed\n", oldfilename);
+					l_retval = 0;
+				}else if (l_retval && (statbuf.st_ino == inode) ) {
+					l_retval = 0;
+				}
+			}
+			if (l_retval ==0) {
+				DEBUG_MSG("ask_new_filename: stat failed or new file == old file. return NULL\n");
+				g_free( newfilename );
+				return NULL;
+			}
+		}
 	}
 
 	/* make a full path, re-use the ondisk variable */
@@ -3276,11 +3297,22 @@ gchar *ask_new_filename( Tbfwin *bfwin, gchar *oldfilename, const gchar *gui_nam
 * -4: if there is no filename, after asking one from the user
 * -5: if another process modified the file, and the user chose cancel
 **/
+enum {
+	DOC_SAVE_RET_OK = 1,
+	DOC_SAVE_RET_OK_BUT_BACKUP = 2,
+	DOC_SAVE_RET_USER_ABORT = 3,
+	DOC_SAVE_RET_BACKUP_FAILED_SAVE_ABORT =-1,
+	DOC_SAVE_RET_COULD_NOT_OPEN_FILE =-2,
+	DOC_SAVE_RET_BACKUP_FAILED_SAVE_USER_ABORT =-3,
+	DOC_SAVE_RET_NO_FILENAME =-4,
+	DOC_SAVE_RET_FILE_MODIFIED_USER_ABORT =-5
+};
+
 gint doc_save( Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean window_closing )
 {
-	gint retval;
+	gint retval = 0;
+	gchar *old_name = NULL;
 #ifdef DEBUG
-
 	g_assert( doc );
 #endif
 
@@ -3290,6 +3322,9 @@ gint doc_save( Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean 
 	}
 	if ( do_move ) {
 		do_save_as = 1;
+		if ( doc->filename == NULL ) {
+			do_move = FALSE;
+		}
 	}
 
 	if ( do_save_as ) {
@@ -3298,16 +3333,21 @@ gint doc_save( Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean 
 			statusbar_message( BFWIN( doc->bfwin ), _( "save as..." ), 1 );
 		newfilename = ask_new_filename( BFWIN( doc->bfwin ), doc->filename, gtk_label_get_text( GTK_LABEL( doc->tab_label ) ), do_move );
 		if ( !newfilename ) {
-			return 3;
+			return DOC_SAVE_RET_USER_ABORT;
 		}
-		if ( doc->filename ) {
-			if ( do_move ) {
-				gchar * ondiskencoding = get_filename_on_disk_encoding( doc->filename );
-				unlink( ondiskencoding );
-				g_free( ondiskencoding );
-			}
-			g_free( doc->filename );
+#ifdef UNFIX_BUG_92
+		/*if ( doc->filename ) { */
+		if ( do_move ) {
+			gchar * ondiskencoding = get_filename_on_disk_encoding( doc->filename );
+			unlink( ondiskencoding );
+			g_free( ondiskencoding );
 		}
+#endif /* UNFIX_BUG_92 */
+		/*}*/
+		if (do_move) {
+			old_name = g_strdup(doc->filename);
+		}
+		g_free( doc->filename );
 		doc->filename = newfilename;
 		/* TODO: should feed the contents to the function too !! */
 		doc_reset_filetype( doc, doc->filename, NULL );
@@ -3334,11 +3374,11 @@ gint doc_save( Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean 
 			retval = multi_warning_dialog( BFWIN( doc->bfwin ) ->main_window, _( "File has been modified by another process." ), tmpstr, 1, 0, options );
 			g_free( tmpstr );
 			if ( retval == 0 ) {
-				return -5;
+				return DOC_SAVE_RET_FILE_MODIFIED_USER_ABORT;
 			}
 		}
 	}
-
+	
 	DEBUG_MSG( "doc_save, returned file %s\n", doc->filename );
 	/*	if (do_save_as && oldfilename && main_v->props.link_management) {
 			update_filenames_in_file(doc, oldfilename, doc->filename, 1);
@@ -3358,20 +3398,20 @@ gint doc_save( Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean 
 
 	switch ( retval ) {
 		gchar * errmessage;
-	case - 1:
+	case DOC_SAVE_RET_BACKUP_FAILED_SAVE_ABORT:
 		/* backup failed and aborted */
 		errmessage = g_strconcat( _( "Could not backup file:\n\"" ), doc->filename, "\"", NULL );
 		error_dialog( BFWIN( doc->bfwin ) ->main_window, _( "File save aborted.\n" ), errmessage );
 		g_free( errmessage );
 		break;
-	case - 2:
+	case DOC_SAVE_RET_COULD_NOT_OPEN_FILE:
 		/* could not open the file pointer */
 		errmessage = g_strconcat( _( "Could not write file:\n\"" ), doc->filename, "\"", NULL );
 		error_dialog( BFWIN( doc->bfwin ) ->main_window, _( "File save error" ), errmessage );
 		g_free( errmessage );
 		break;
-	case - 3:
-	case - 4:
+	case DOC_SAVE_RET_BACKUP_FAILED_SAVE_USER_ABORT:
+	case DOC_SAVE_RET_NO_FILENAME:
 		/* do nothing, the save is aborted by the user */
 		break;
 	default:
@@ -3380,6 +3420,14 @@ gint doc_save( Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean 
 			gchar *tmp = path_get_dirname_with_ending_slash( doc->filename );
 			bfwin_filebrowser_refresh_dir( BFWIN( doc->bfwin ), tmp );
 			g_free( tmp );
+			/* BUG#92. only move file after saving is okay. */
+			if ( do_move ) {
+				DEBUG_MSG("remove the old file =%s\n", old_name);
+				gchar * ondiskencoding = get_filename_on_disk_encoding( old_name );
+				unlink( ondiskencoding );
+				g_free( ondiskencoding );
+				g_free(old_name);
+			}
 		}
 
 		DEBUG_MSG( "doc_save, received return value %d from doc_textbox_to_file\n", retval );
