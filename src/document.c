@@ -3282,7 +3282,7 @@ gchar *ask_new_filename( Tbfwin *bfwin, gchar *oldfilename, const gchar *gui_nam
 			g_free( tmpstr );
 			if ( retval == 0 ) {
 				g_free( newfilename );
-				g_free( ondiskencoding );
+				/* g_free( ondiskencoding ); */
 				return NULL;
 			}
 		}
