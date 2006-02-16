@@ -295,7 +295,6 @@ guint16 brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint l
 				}
 				if (found_comment_sign) {
 					tmpiter_extra = tmp2iter;
-					//gtk_text_iter_backward_char(&tmpiter_extra);
 				}
 			}
 		}
@@ -345,7 +344,6 @@ guint16 brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint l
 					}
 					if (found_comment_sign) {
 						tmpiter_extra = tmp2iter;
-						//gtk_text_iter_backward_char(&tmpiter_extra);
 					}
 				}
 			}
