@@ -44,7 +44,7 @@
 #include <time.h> /* ctime_r() */
 #include <pcre.h>
 
-/* #define DEBUG */
+#define DEBUG
 
 #ifdef DEBUGPROFILING
 #include <sys/times.h>
@@ -461,6 +461,7 @@ Tfiletype *get_filetype_by_filename_and_content( gchar *filename, gchar *buf )
 **/
 void doc_reset_filetype( Tdocument * doc, gchar * newfilename, gchar *buf )
 {
+	DEBUG_MSG("doc_reset_filetype: entering...\n");
 	Tfiletype * ft;
 	if ( buf ) {
 		ft = get_filetype_by_filename_and_content( newfilename, buf );
@@ -1529,72 +1530,12 @@ gboolean doc_file_to_textbox( Tdocument * doc, gchar * filename, gboolean enable
 		gchar *encoding = NULL;
 		gchar *newbuf = NULL;
 		gsize wsize;
-#ifdef REMOVED
-		GError *error = NULL;
-#endif
 		gchar *buffer = get_buffer_from_filename( BFWIN( doc->bfwin ), filename, &document_size );
 		if ( !buffer )
 		{
 			DEBUG_MSG( "doc_file_to_textbox, buffer==NULL, returning\n" );
 			return FALSE;
 		}
-#ifdef REMOVED
-		/* the first try is if the encoding is set in the file */
-		{
-			regex_t preg;
-			regmatch_t pmatch[ 10 ];
-			gint retval;
-			gchar *pattern = "<meta[ \t\n]http-equiv[ \t\n]*=[ \t\n]*\"content-type\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"text/html;[ \t\n]*charset=([a-z0-9-]+)\"[ \t\n]*/?>";
-			retval = regcomp( &preg, pattern, REG_EXTENDED | REG_ICASE );
-#ifdef DEBUG
-			if ( retval )
-			{
-				g_print( "regcomp error!\n" );
-			}
-#endif
-			/* we do a nasty trick to make regexec search only in the first N bytes */
-			if ( document_size > main_v->props.encoding_search_Nbytes )
-			{
-				gchar tmp = buffer[ main_v->props.encoding_search_Nbytes ];
-				buffer[ main_v->props.encoding_search_Nbytes ] = '\0';
-				retval = regexec( &preg, buffer, 10, pmatch, 0 );
-				buffer[ main_v->props.encoding_search_Nbytes ] = tmp;
-			} else
-			{
-				retval = regexec( &preg, buffer, 10, pmatch, 0 );
-			}
-#ifdef DEBUG
-			if ( retval )
-			{
-				gchar errbuf[ 1024 ];
-				regerror( retval, &preg, errbuf, 1024 );
-				g_print( "regexec error! %s\n", errbuf );
-			}
-#endif
-			if ( retval == 0 && pmatch[ 0 ].rm_so != -1 && pmatch[ 1 ].rm_so != -1 )
-			{
-				/* we have a match */
-				DEBUG_MSG( "doc_file_to_textbox, match so=%d,eo=%d\n", pmatch[ 1 ].rm_so, pmatch[ 1 ].rm_eo );
-				encoding = g_strndup( &buffer[ pmatch[ 1 ].rm_so ], pmatch[ 1 ].rm_eo - pmatch[ 1 ].rm_so );
-				DEBUG_MSG( "doc_file_to_textbox, detected encoding %s\n", encoding );
-			}
-			regfree( &preg );
-#ifdef DEBUGPROFILING
-			times( &locals.tms1 );
-			print_time_diff( "encoding regex match", &locals.tms2, &locals.tms1 );
-#endif
-		}
-		if ( encoding )
-		{
-			DEBUG_MSG( "doc_file_to_textbox, try encoding %s from <meta>\n", encoding );
-			newbuf = g_convert( buffer, -1, "UTF-8", encoding, NULL, &wsize, &error );
-			if ( !newbuf || error ) {
-				DEBUG_MSG( "doc_file_to_textbox, cound not convert %s to UTF-8: \n", encoding );
-				g_free( encoding );
-				encoding = NULL;
-			}
-		}
-#endif /* REMOVED */
 		if ( !newbuf )
 		{
 			DEBUG_MSG( "doc_file_to_textbox, trying newfile default encoding %s\n", main_v->props.newfile_default_encoding );
@@ -2643,7 +2584,7 @@ static void doc_buffer_delete_range_lcb( GtkTextBuffer *textbuffer, GtkTextIter 
 	gchar * string;
 	gboolean do_highlighting = FALSE;
 	string = gtk_text_buffer_get_text( doc->buffer, itstart, itend, FALSE );
-	DEBUG_MSG( "doc_buffer_delete_range_lcb, string='%s'\n", string );
+	/*DEBUG_MSG( "doc_buffer_delete_range_lcb, string='%s'\n", string );*/
 	if ( string ) {
 		/* highlighting stuff */
 		if ( (doc->view_bars & VIEW_COLORIZED) && string && doc->hl ) {
@@ -2669,7 +2610,7 @@ static void doc_buffer_delete_range_lcb( GtkTextBuffer *textbuffer, GtkTextIter 
 			start = gtk_text_iter_get_offset( itstart );
 			end = gtk_text_iter_get_offset( itend );
 			len = end - start;
-			DEBUG_MSG( "doc_buffer_delete_range_lcb, start=%d, end=%d, len=%d, string='%s'\n", start, end, len, string );
+			/* DEBUG_MSG( "doc_buffer_delete_range_lcb, start=%d, end=%d, len=%d, string='%s'\n", start, end, len, string  ); */
 			if ( len == 1 )
 			{
 				if ( ( !doc_unre_test_last_entry( doc, UndoDelete, start, -1 )  /* delete */
@@ -2678,7 +2619,7 @@ static void doc_buffer_delete_range_lcb( GtkTextBuffer *textbuffer, GtkTextIter 
 					|| string[ 0 ] == '\n'
 					|| string[ 0 ] == '\t'
 					|| string[ 0 ] == '\r' ) {
-					DEBUG_MSG( "doc_buffer_delete_range_lcb, need a new undogroup\n" );
+					/* DEBUG_MSG( "doc_buffer_delete_range_lcb, need a new undogroup\n" ); */
 					doc_unre_new_group( doc );
 				}
 			} else
@@ -3894,6 +3835,10 @@ void doc_new_with_new_file( Tbfwin *bfwin, gchar * new_filename )
 		doc_file_to_textbox( doc, bfwin->project->template , FALSE, FALSE )
 		;
 	}
+	/* may be related to BUG#93
+	(doc_file_to_textbox) does the hilight if found ft->hilight;
+	why the have to check this after?
+	*/
 	ft = get_filetype_by_filename_and_content( doc->filename, NULL );
 	if ( ft ) doc->hl = ft;
 	/*	doc->modified = 1;*/
@@ -4012,6 +3957,7 @@ void docs_new_from_files( Tbfwin *bfwin, GList * file_list, gboolean move_to_thi
 	gboolean delay = ( g_list_length( file_list ) > 1 );
 	gpointer pbar = NULL;
 	gint i = 0;
+	gint num_files_opened=0;
 	DEBUG_MSG( "docs_new_from_files, lenght=%d\n", g_list_length( file_list ) );
 
 	/* Hide the notebook and show a progressbar while
@@ -4028,10 +3974,13 @@ void docs_new_from_files( Tbfwin *bfwin, GList * file_list, gboolean move_to_thi
 		tmpdoc = doc_new_with_file( bfwin, ( gchar * ) tmplist->data, delay, move_to_this_win );
 		if ( !tmpdoc ) {
 			errorlist = g_list_append( errorlist, g_strdup( ( gchar * ) tmplist->data ) );
-		} else if (linenumber >=0) {
-			doc_activate( tmpdoc );
-			doc_select_line( tmpdoc, linenumber, TRUE );
-			gtk_widget_grab_focus( GTK_WIDGET( tmpdoc->view ) );
+		} else {
+			num_files_opened ++;
+			if (linenumber >=0) {
+				doc_activate( tmpdoc );
+				doc_select_line( tmpdoc, linenumber, TRUE );
+				gtk_widget_grab_focus( GTK_WIDGET( tmpdoc->view ) );
+			}
 		}
 		if ( pbar ) {
 			progress_set( pbar, ++i );
@@ -4048,8 +3997,8 @@ void docs_new_from_files( Tbfwin *bfwin, GList * file_list, gboolean move_to_thi
 		g_free( message );
 	}
 	free_stringlist( errorlist );
-
-	if ( delay ) {
+	
+	if ( num_files_opened >= 1 /*delay */) {
 		DEBUG_MSG( "since we delayed the highlighting, we set the notebook and filebrowser page now\n" );
 
 		/* Destroy the progressbar and show the notebook when finished. */
@@ -4058,15 +4007,26 @@ void docs_new_from_files( Tbfwin *bfwin, GList * file_list, gboolean move_to_thi
 
 		gtk_notebook_set_page( GTK_NOTEBOOK( bfwin->notebook ), g_list_length( bfwin->documentlist ) - 1 );
 		notebook_changed( bfwin, -1 );
+		/* num_files_opened so we not not to check...
 		if ( bfwin->current_document && bfwin->current_document->filename ) {
+		*/
 			/*filebrowser_open_dir(bfwin,bfwin->current_document->filename); is called by doc_activate() */
-			doc_activate( bfwin->current_document );
+		doc_activate( bfwin->current_document );
+		/*}*/
+		gui_set_title( bfwin, bfwin->current_document );
+		if (num_files_opened ==1) {
+			DEBUG_MSG("docs_new_from_files: num_files_opened =%d\n", num_files_opened);
+			if (DOCUMENT(bfwin->current_document)->need_highlighting) {
+				doc_highlight_full(bfwin->current_document);
+			}
 		}
 	}
 	/* related to BUG#93 */
-	//if (bfwin->current_document) {
+#ifdef CODE_MOVED_UP
+	if (bfwin->current_document) {
 		gui_set_title( bfwin, bfwin->current_document );
-	//}
+	}
+#endif /* CODE_MOVED_UP */
 }
 
 /**
@@ -4348,6 +4308,7 @@ void file_insert_menucb( Tbfwin *bfwin, guint callback_action, GtkWidget *widget
 **/
 void file_new_cb( GtkWidget *widget, Tbfwin *bfwin )
 {
+	DEBUG_MSG("file_new_cb: hello world\n");
 	Tdocument * doc;
 	doc = doc_new( bfwin, FALSE );
 	switch_to_document_by_pointer( bfwin, doc );
