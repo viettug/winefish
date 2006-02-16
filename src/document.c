@@ -2972,7 +2972,7 @@ gint doc_textbox_to_file( Tdocument * doc, gchar * filename, gboolean window_clo
 		return -2;
 	}
 
-	if ( main_v->props.view_bars & MODE_REMOVE_BACKUP_ON_CLOSE ) {
+	if ( main_v->props.view_bars & MODE_CLEAR_UNDO_HISTORY_ON_SAVE ) {
 		doc_unre_clear_all( doc );
 	}
 	DEBUG_MSG( "doc_textbox_to_file, calling doc_set_modified(doc, 0)\n" );
