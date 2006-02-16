@@ -4,6 +4,8 @@ $Id$
 Winefish Documentation
 Format: KTML
 Convert: k2h winefish.txt > winefish.html
+
+This is a genereted file. !! DO NOT EDIT !!
 -->
 <HEAD>
 <TITLE>Winefish Documentation</TITLE>
@@ -52,6 +54,7 @@ L(
 * @[Brace Finder](#BRACE FINDER)
 * @[TIPS](#TIPS)
 * @[Locale Support](#LOCALE SUPPORT)
+* @[About](#ABOUT)
 )
 
 2(#(THANKS))
@@ -346,6 +349,10 @@ L(
 * Press B(control + I) to insert an image.
 * B(Doubleclick) on an image in the file browser.
 * Long line should be split into shorter ones.
+GRAY(\(I have a file with a very long line.
+I tried to open it in Emacs, KDE applications, Bluefish and Winefish. Only the \*fishes
+make me annoyed! The cursor moved very very slowly when it was inside that line.
+\(I do not know whether this problem occurs with other GTK applicatons\)\))
 * To open a file in existing running Winefish at specific line, try for e.g.
 PRE(winefish -n0 -l 12 foobar.tex blablabla.tex)
 If you specify multiple files, all are opened at the same line numbered <num> :\)
@@ -359,8 +366,13 @@ If you specify multiple files, all are opened at the same line numbered <num> :\
 * What does Winefish  mean? L(
 * Winefish = Wine + fish = to be drunk \(Oops, I can't drink\)
 * Winefish = White fish \(white not blue\)
-* Winefish = Why fish? \(i forget the reason\)
+* Winefish = Why fish? See @[About](#ABOUT)
 ))
+
+2(#(ABOUT))
+
+GRAY(I am a m0nster who loves maths, music and of course winefish ;\))
+
 <BR>
 <HR>
 This HTML file was generated from RED(winefish.txt) by RED(k2h) program.\\
