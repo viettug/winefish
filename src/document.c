@@ -1645,7 +1645,7 @@ static gint doc_check_backup( Tdocument *doc )
 {
 	gint res = 1;
 
-	if ( (main_v->props.view_bars & MODE_CREATE_BACKUP_ON_SAVE) && doc->filename && file_exists_and_readable( doc->filename ) ) {
+	if ( (main_v->props.view_bars & MODE_CREATE_BACKUP_ON_SAVE) && strlen(main_v->props.backup_filestring) && doc->filename && file_exists_and_readable( doc->filename ) ) {
 		gchar * backupfilename, *ondiskencoding;
 		backupfilename = g_strconcat( doc->filename, main_v->props.backup_filestring, NULL );
 		ondiskencoding = get_filename_on_disk_encoding( backupfilename );
@@ -3068,7 +3068,7 @@ void doc_destroy( Tdocument * doc, gboolean delay_activation )
 	BUG[200502]#7
 	*/
 	if ( doc->filename ) {
-		if ( main_v->props.view_bars & MODE_REMOVE_BACKUP_ON_CLOSE ) {
+		if ( (main_v->props.view_bars & MODE_REMOVE_BACKUP_ON_CLOSE) && strlen(main_v->props.backup_filestring) ) {
 			gchar * backupfile = g_strconcat( doc->filename, main_v->props.backup_filestring, NULL );
 			DEBUG_MSG( "unlinking %s, doc->filename=%s\n", backupfile, doc->filename );
 			unlink( backupfile );
