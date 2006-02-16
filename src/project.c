@@ -186,8 +186,9 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 			return FALSE;
 		}
 		if (save_as || bfwin->project->filename == NULL) {
-			gchar *ondiskencoding = get_filename_on_disk_encoding(filename);
-			if (g_file_test(ondiskencoding, G_FILE_TEST_EXISTS)) {
+			/* gchar *ondiskencoding = get_filename_on_disk_encoding(filename); */
+			/* we do not use ondiskencoding as (g_file_test) uses GLib encoding for filename */
+			if (g_file_test(filename, G_FILE_TEST_EXISTS)) {
 				gchar *tmpstr;
 				gint retval;
 				gchar *options[] = {_("_Cancel"), _("_Overwrite"), NULL};
@@ -197,11 +198,11 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 				g_free(tmpstr);
 				if (retval == 0) {
 					g_free(filename);
-					g_free(ondiskencoding);
+					/* g_free(ondiskencoding); */
 					return FALSE;
 				}
 			}
-			g_free(ondiskencoding);
+			/* g_free(ondiskencoding); */
 		}
 		suflen = strlen(main_v->props.project_suffix);
 		filen = strlen(filename);

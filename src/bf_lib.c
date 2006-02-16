@@ -586,7 +586,7 @@ gchar *convert_command(Tbfwin *bfwin, const gchar *command) {
 			}
 			if (need_D) {
 				tmpt->my_int = 'D';
-				if (bfwin->project && (bfwin->project->view_bars & MODE_PROJECT) &&  g_file_test(bfwin->project->basedir, G_FILE_TEST_IS_DIR)) {
+				if ( bfwin->project && (bfwin->project->view_bars & MODE_PROJECT) &&  g_file_test(bfwin->project->basedir, G_FILE_TEST_IS_DIR)) {
 					tmpt->my_char = g_strdup(bfwin->project->basedir);
 				}else{
 					tmpt->my_char = g_path_get_dirname(bfwin->current_document->filename);
@@ -597,8 +597,15 @@ gchar *convert_command(Tbfwin *bfwin, const gchar *command) {
 				tmpt->my_int = 'B';
 				{
 					gchar *tmpstring;
-					if (bfwin->project && (bfwin->project->view_bars & MODE_PROJECT) && g_file_test(bfwin->project->basedir,G_FILE_TEST_IS_DIR) && g_file_test(g_strconcat(bfwin->project->basedir,"/",bfwin->project->basefile,NULL),G_FILE_TEST_EXISTS)) {
-						tmpstring = g_strdup(bfwin->project->basefile);
+					if (bfwin->project && (bfwin->project->view_bars & MODE_PROJECT) && g_file_test(bfwin->project->basedir,G_FILE_TEST_IS_DIR) ) {
+						tmpstring = g_strconcat(bfwin->project->basedir,"/",bfwin->project->basefile,NULL); 
+						if ( g_file_test(tmpstring,G_FILE_TEST_EXISTS) ) {
+							g_free(tmpstring);
+							tmpstring = g_strdup(bfwin->project->basefile);
+						}else{
+							g_free(tmpstring);
+							tmpstring = g_path_get_basename(bfwin->current_document->filename);
+						}
 					}else{
 						tmpstring = g_path_get_basename(bfwin->current_document->filename);
 					}
