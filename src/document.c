@@ -249,28 +249,38 @@ Tdocument *documentlist_return_document_from_filename( GList *doclist, gchar *fi
 {
 	/* BUG#10 */
 	GList * tmplist;
+	gchar *ondiskencoding;
 	struct stat statbuf;
 	gint inode;
-	if (!filename || stat(filename,&statbuf) != 0 ) {
-		DEBUG_MSG( "documentlist_return_document_from_filename, no filename or error calling `stat'! returning\n" );
+	if (!filename) {
+		DEBUG_MSG( "documentlist_return_document_from_filename, no filename. returning\n" );
+		return NULL;
+	}
+	ondiskencoding = get_filename_on_disk_encoding(filename);
+	if ( stat(ondiskencoding,&statbuf) != 0 ) {
+		DEBUG_MSG( "documentlist_return_document_from_filename, error calling `stat'! returning\n" );
 		return NULL;
 	}
 	inode = statbuf.st_ino;
+	g_free(ondiskencoding);
 
 	DEBUG_MSG( "documentlist_return_document_from_filename, filename=%s\n", filename );
 	tmplist = g_list_first( doclist );
 	while ( tmplist ) {
 		DEBUG_MSG( "documentlist_return_document_from_filename, comparing with %s\n", filename );
+		ondiskencoding = get_filename_on_disk_encoding(DOCUMENT( tmplist->data ) ->filename);
 		if ( DOCUMENT( tmplist->data ) ->filename
-			&& ( (stat(DOCUMENT( tmplist->data ) ->filename, &statbuf) ==0) && (statbuf.st_ino == inode) )
+				   && ( (stat( ondiskencoding , &statbuf) ==0) && (statbuf.st_ino == inode) )
 				   /* && ( strcmp( filename, DOCUMENT( tmplist->data ) ->filename ) == 0 ) */
 		   )
 		{
+			g_free(ondiskencoding);
 			DEBUG_MSG( "documentlist_return_document_from_filename, found, returning %p\n", tmplist->data );
 			return DOCUMENT( tmplist->data );
 		}
 		/* g_print("check %s, inode1=%d, inode2=%d\n",DOCUMENT( tmplist->data ) ->filename, inode, statbuf.st_ino); */
 		tmplist = g_list_next( tmplist );
+		g_free(ondiskencoding);
 	}
 	DEBUG_MSG( "documentlist_return_document_from_filename, not found, returning NULL\n" );
 	return NULL;
@@ -3208,22 +3218,27 @@ gchar *ask_new_filename( Tbfwin *bfwin, gchar *oldfilename, const gchar *gui_nam
 	if ( !newfilename ) {
 		return NULL;
 	}else{
-		if (/*g_file_test(oldfilename, G_FILE_TEST_EXISTS) && */g_file_test(newfilename, G_FILE_TEST_EXISTS)) {
+		/* ondisk = get_filename_on_disk_encoding(newfilename); */
+		if (g_file_test(newfilename, G_FILE_TEST_EXISTS)) {
 			struct stat statbuf;
 			gint inode;
 			gint l_retval =1;
-			if ( stat(newfilename,&statbuf) != 0 ) {
+			ondisk = get_filename_on_disk_encoding(newfilename);
+			if ( stat(ondisk,&statbuf) != 0 ) {
 				DEBUG_MSG("ask_new_filename: stat [%s] failed\n", newfilename);
 				l_retval = 0;
 			}else{
 				inode = statbuf.st_ino;
-				if ( stat(oldfilename, &statbuf) !=0 ) {
+				g_free(ondisk);
+				ondisk = get_filename_on_disk_encoding(oldfilename);
+				if ( stat(ondisk, &statbuf) !=0 ) {
 					DEBUG_MSG("ask_new_filename: stat [%s] failed\n", oldfilename);
 					l_retval = 0;
 				}else if (l_retval && (statbuf.st_ino == inode) ) {
 					l_retval = 0;
 				}
 			}
+			g_free(ondisk);
 			if (l_retval ==0) {
 				DEBUG_MSG("ask_new_filename: stat failed or new file == old file. return NULL\n");
 				g_free( newfilename );
@@ -3256,8 +3271,8 @@ gchar *ask_new_filename( Tbfwin *bfwin, gchar *oldfilename, const gchar *gui_nam
 			document_unset_filename( exdoc );
 		}
 	} else {
-		gchar *ondiskencoding = get_filename_on_disk_encoding( newfilename );
-		if ( g_file_test( ondiskencoding, G_FILE_TEST_EXISTS ) ) {
+		/* gchar *ondiskencoding = get_filename_on_disk_encoding( newfilename ); */
+		if ( g_file_test( newfilename, G_FILE_TEST_EXISTS ) ) {
 			gchar * tmpstr;
 			gint retval;
 			gchar *options[] = {_( "_Cancel" ), _( "_Overwrite" ), NULL};
@@ -3271,7 +3286,7 @@ gchar *ask_new_filename( Tbfwin *bfwin, gchar *oldfilename, const gchar *gui_nam
 				return NULL;
 			}
 		}
-		g_free( ondiskencoding );
+		/* g_free( ondiskencoding ); */
 	}
 	return newfilename;
 }
@@ -4048,7 +4063,10 @@ void docs_new_from_files( Tbfwin *bfwin, GList * file_list, gboolean move_to_thi
 			doc_activate( bfwin->current_document );
 		}
 	}
-	gui_set_title( bfwin, bfwin->current_document );
+	/* related to BUG#93 */
+	//if (bfwin->current_document) {
+		gui_set_title( bfwin, bfwin->current_document );
+	//}
 }
 
 /**
