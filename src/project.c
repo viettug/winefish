@@ -493,7 +493,8 @@ static void project_edit_ok_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred)
 		project_save(pred->bfwin,FALSE);
 		gtk_widget_destroy(pred->win);
 	}else{/* added by kyanh */
-		warning_dialog(widget,_("The BaseDir must exist.\nThe BaseFile must be located in BaseDir."), NULL);
+		/* old: warning_dialog(widget,..). related to BUG#95 */
+		warning_dialog(pred->win,_("The BaseDir must exist.\nThe BaseFile must be located in BaseDir."), NULL);
 	}
 	g_free(tmpstr);
 }
