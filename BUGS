@@ -4,6 +4,60 @@ $Id$
 
 ======== 1.3.2.7
 
+#96/fixed/kyanh/20060216/
+* <stuff> \% % { <stuff>
+that brace is not considered as comment sign
+FIXED:
+	use a while-loop to detect the comment sign
+
+#95
+* project: editing options failed (basedir/basefiles doesnot exist) then there is:
+(winefish:1495): GLib-GObject-WARNING **: invalid cast from `GtkButton' to `GtkWindow'
+(winefish:1495): Gtk-CRITICAL **: gtk_window_set_transient_for: assertion `parent == NULL || GTK_IS_WINDOW (parent)' failed
+
+#93/fixed/kyanh/20060216/
+* $ winefish ~/tmp/foobar.tex
+if `foobar.tex' is not found, winefish crashes.
+*
+$ winefish ~/tmp/foobar.tex ./foobar.tex #bug
+$ winefish ./foobar.tex ~/tmp/foobar.tex #bug
+$ winefish none.tex exist.tex exist2.tex #good
+
+if `~/tmp/foobar.tex' is not found while `./foobar.tex' is found
+winefish doesnot crashes. but it opens the `./foobar.tex' with black-white hilighted
+status though the menu 'document/hilightstat' is ON. [no... it should be updated.
+the hilightstat still = OFF]
+
+Emacs:
+	emacs foobar/foobar/foobar.tex
+	emacs will prompt for create new directory (cu mx make-direcotory)
+	if the directory and its parent had not created yet, saving failed.
+
+FIXED:
+	(<: open one file. file exists)
+	(>: open two files. the first doesnot exist)
+		< docs_new_from_files, lenght=1
+		< docs_new_from_files, about to open /home/users/kyanh/moss/winefish/trunk/doc/test_brace_finder.tex, delay=0
+		---
+		> docs_new_from_files, lenght=2
+		> docs_new_from_files, about to open /home/users/kyanh/moss/winefish/trunk/src/testff, delay=1
+		> doc_new_with_file, called for /home/users/kyanh/moss/winefish/trunk/src/testff
+		> doc_new_with_file, file /home/users/kyanh/moss/winefish/trunk/src/testff !file_exists or readable
+		> docs_new_from_files, about to open /home/users/kyanh/moss/winefish/trunk/doc/test_brace_finder.tex, delay=1
+	(delay=1: not hilighted now)
+	when the first file is open and we failed, we should recaculate the delay value;)
+	delay = ( g_list_length( file_list ) > 1 ); ==> should be replace by numberer of opened files:(
+	we count the number of files opened. if this number >=1, we should set the notebook_page,
+	active the last document. if there is just one file (num_files_opened==1) and this doc needs hilight (doc->need_highlighting)
+	we should hilight it... this solve complete the bug.
+
+	there's nice dealing provided by bluefish (file.c, doc->status). take care of this [ future plan ]
+
+#92/fixed/kyanh/20050216/
+* rename a file: (delete old file + save new name)
+should: (save new name + delete old file)
+This bug is found via bluefish-dev list.
+
 #91
 * project backup file isnot deleted no matter the option 'remove backup on save' is ON
 (thanks to Michèle Garoche)
