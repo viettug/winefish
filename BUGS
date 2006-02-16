@@ -165,8 +165,9 @@ FIXED:
 FIXED:
 	document.c::doc_new():: we need set toogle menu=TRUE if hilightstat=1
 
-#76
-* reload a document should go the previous line
+#76a/kyanh/20060216/
+(a)* reload a document should go the previous line
+#76b
 * winefish knows file was changed by another process only when
 the document notebook/tab changed...
 
