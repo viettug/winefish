@@ -437,7 +437,7 @@ The reason is: we used \pdfoutput=1. Just remove this line from template.
 must use:
  \ifx\pdfoutput\undefined\relax\else\ifnum\pdfoutput=1\relax\pdftrue\fi\fi
 
-#29
+#29/invalid/kyanh/20060217/
 * New document doesnot update hilight :(( -- Must do it by hand.
 
 ============================================================== [200504]
