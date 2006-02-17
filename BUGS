@@ -4,6 +4,24 @@ $Id$
 
 ======== 1.3.2.7
 
+#98/fixed/kyanh/20060217/
+* directory is considered as an regular file
+	324-kyanh$ locate foobar
+	/home/users/kyanh/.gaim/logs/yahoo/foobar/foobar20052
+	/home/users/kyanh/.gaim/logs/yahoo/foobar/foobar20052/2005-12-08.090419.txt
+	/home/users/kyanh/.gaim/logs/yahoo/foobar/foobar20052/2006-02-17.095657.txt
+	314-kyanh$ winefish $(locate foobar)
+	==> failed ;)
+FIXED:
+	--- src/bf_lib.c        (revision 1924)
+	+++ src/bf_lib.c        (working copy)
+	gboolean file_exists_and_readable(const gchar * filename) {
+	....
+	+       if ( g_file_test(filename, G_FILE_TEST_IS_DIR) ) {
+	+               return FALSE;
+	+       }
+	+
+
 #97/fixed/kyanh/20060216/
 * create_backup_on_save=1, remove_backup_on_save =1, witth suffix=NULL
 open file foobar.tex. its bakups it foobar.tex. THE SAME! now edit foobar.tex,

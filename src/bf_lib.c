@@ -1243,6 +1243,12 @@ gboolean file_exists_and_readable(const gchar * filename) {
 		return FALSE;
 	}
 	DEBUG_MSG("file_exists_and_readable, filename(%p)=\"%s\", strlen(filename)=%d\n", filename, filename, strlen(filename));
+
+	/* BUG#98 */
+	if ( g_file_test(filename, G_FILE_TEST_IS_DIR) ) {
+		return FALSE;
+	}
+
 	ondiskencoding = get_filename_on_disk_encoding(filename);
 	DEBUG_MSG("file_exists_and_readable, ondiskencoding='%s'\n",ondiskencoding);
 #ifndef WIN32
