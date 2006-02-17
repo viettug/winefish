@@ -246,7 +246,7 @@ static void toggle_doc_property(Tbfwin *bfwin,guint callback_action, GtkWidget *
 static void brace_finder_cb( Tbfwin *bfwin, guint callback_action, GtkWidget *widget )
 {
 	guint16 retval;
-	retval = brace_finder(bfwin->current_document->buffer, &bfwin->current_document->brace_finder, BR_MOVE_IF_FOUND | callback_action, 0);
+	retval = brace_finder(bfwin->current_document->buffer, bfwin->current_document->brace_finder, BR_MOVE_IF_FOUND | callback_action, 0);
 	if (retval & (BR_RET_MOVED_LEFT | BR_RET_MOVED_RIGHT) ) {
 		GtkTextMark *mark;
 		mark = gtk_text_buffer_get_insert( bfwin->current_document->buffer );
