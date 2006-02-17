@@ -3388,15 +3388,6 @@ echo "$as_me: error: libgtk2.0-dev missing please install libgtk2.0-dev" >&2;}
    { (exit 1); exit 1; }; }
 fi
 
-#echo -n "checking for gtk+-2.0 >= 2.4... "
-#if pkg-config gtk+-2.0 --atleast-version=2.4 ; then
-#	AC_DEFINE(HAVE_ATLEAST_GTK_2_2)
-#	echo "yes"
-#else
-#	echo "no"
-#	AC_MSG_ERROR(libgtk2.0-dev missing please install libgtk2.0-dev)
-#fi
-
 echo -n "checking for gtk+-2.4... "
 if pkg-config gtk+-2.0 --atleast-version=2.4 ; then
 	cat >>confdefs.h <<\_ACEOF
@@ -7842,11 +7833,6 @@ fi
 
 # kyanh ################################
 
-#AC_ARG_WITH(vntex,
-#	AC_HELP_STRING([--with-vntex],[(Vietnamese) enable vntex support]),[
-#	AC_DEFINE(HAVE_VNTEX)
-#	],)
-
 
 # Check whether --with-unikey-gtk or --without-unikey-gtk was given.
 if test "${with_unikey_gtk+set}" = set; then
@@ -7858,6 +7844,19 @@ _ACEOF
 
 
 fi;
+
+#AC_ARG_WITH(vte-terminal,
+#	AC_HELP_STRING([--with-vte-terminal],[enable VTE terminal]),[
+#		echo -n "checking for vte... "
+#		if pkg-config --exists vte; then
+#			LIBS="$LIBS `pkg-config --libs vte`"
+#			CFLAGS="$CFLAGS `pkg-config --cflags vte`"
+#			AC_DEFINE(HAVE_VTE_TERMINAL)
+#			echo "yes"
+#		else
+#			echo "no"
+#		fi
+#	],)
 
 # kyanh ################################
 
