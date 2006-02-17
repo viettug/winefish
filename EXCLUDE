@@ -1,3 +1,4 @@
 doc/*.tex
 VERSIONS
 EXCLUDE
+winefish.txt
