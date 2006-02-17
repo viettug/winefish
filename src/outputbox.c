@@ -27,7 +27,10 @@
 
 #include <gtk/gtk.h>
 #include <string.h> /* strlen() */
+
+#ifdef HAVE_VTE_TERMINAL
 #include <vte/vte.h> /* vte */
+#endif /* HAVE_VTE_TERMINAL */
 
 #include "bluefish.h"
 #include "bf_lib.h"
@@ -308,26 +311,6 @@ static void ob_notebook_switch_page_lcb(GtkNotebook *notebook, GtkNotebookPage *
 	}
 }
 
-static void otuputbox_new_terminal_box ( Tbfwin *bfwin ) {
-	GtkWidget *terminal = vte_terminal_new ();
-
-	/* scrolling */
-	GtkWidget *scrolwin = gtk_scrolled_window_new( NULL, NULL );
-	gtk_scrolled_window_set_policy( GTK_SCROLLED_WINDOW( scrolwin ), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC );
-
-	/* vte terminal */
-	vte_terminal_fork_command (VTE_TERMINAL (terminal), "/bin/bash", NULL, NULL, g_get_home_dir (), FALSE, FALSE, FALSE);
-	vte_terminal_set_font_from_string (VTE_TERMINAL (terminal), "Monospace 9");
-	vte_terminal_set_scroll_on_output (VTE_TERMINAL (terminal), FALSE);
-	vte_terminal_set_scroll_on_keystroke (VTE_TERMINAL (terminal), TRUE);
-	vte_terminal_set_mouse_autohide (VTE_TERMINAL (terminal), TRUE);
-
-	gtk_container_add( GTK_CONTAINER( scrolwin ), terminal);
-
-	GtkWidget *label = gtk_label_new(_("term"));
-	gtk_notebook_append_page(GTK_NOTEBOOK(bfwin->ob_notebook), scrolwin, label);
-}
-
 /* prepare frontent for outputbox */
 static void outputbox_init_frontend(Tbfwin *bfwin) {
 #ifdef __KA_BACKEND__
@@ -358,8 +341,6 @@ static void outputbox_init_frontend(Tbfwin *bfwin) {
 	g_signal_connect(G_OBJECT(bfwin->ob_notebook),"switch-page",G_CALLBACK(ob_notebook_switch_page_lcb), bfwin);
 
 	setup_toggle_item_from_widget( bfwin->menubar, N_( "/View/View Outputbox" ), TRUE );
-	
-	otuputbox_new_terminal_box(bfwin);
 }
 
 /*
@@ -369,6 +350,34 @@ gboolean ob_lview_move_cursor_lcb(GtkTreeView *treeview,GtkMovementStep arg1,gin
 	return TRUE;
 }
 */
+
+#ifdef HAVE_VTE_TERMINAL
+GtkWidget *otuputbox_new_terminal_box ( Tbfwin *bfwin ) {
+	if (!bfwin->ob_hbox) {
+		outputbox_init_frontend(bfwin);
+	}
+
+	GtkWidget *terminal = vte_terminal_new ();
+
+	/* scrolling */
+	GtkWidget *scrolwin = gtk_scrolled_window_new( NULL, NULL );
+	gtk_scrolled_window_set_policy( GTK_SCROLLED_WINDOW( scrolwin ), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC );
+
+	/* vte terminal */
+	vte_terminal_fork_command (VTE_TERMINAL (terminal), "/bin/bash", NULL, NULL, g_get_home_dir (), FALSE, FALSE, FALSE);
+	vte_terminal_set_font_from_string (VTE_TERMINAL (terminal), "Monospace 11");
+	vte_terminal_set_scroll_on_output (VTE_TERMINAL (terminal), FALSE);
+	vte_terminal_set_scroll_on_keystroke (VTE_TERMINAL (terminal), TRUE);
+	vte_terminal_set_mouse_autohide (VTE_TERMINAL (terminal), TRUE);
+
+	gtk_container_add( GTK_CONTAINER( scrolwin ), terminal);
+
+	GtkWidget *label = gtk_label_new(_("term"));
+	gtk_notebook_append_page(GTK_NOTEBOOK(bfwin->ob_notebook), scrolwin, label);
+	
+	return terminal;
+}
+#endif /* HAVE_VTE_TERMINAL */
 
 static Toutputbox *outputbox_new_box( Tbfwin *bfwin, const gchar *title )
 {

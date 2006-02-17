@@ -1064,6 +1064,18 @@ void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 			setup_toggle_item_from_widget(bfwin->menubar, N_("/View/View Outputbox"), FALSE);
 		}
 	break;
+#ifdef HAVE_VTE_TERMINAL
+	case 6:
+		setup_toggle_item_from_widget(bfwin->menubar, N_("/View/View Terminal"), active);
+		if (active) {
+			if (!bfwin->terminal) {
+				bfwin->terminal = otuputbox_new_terminal_box(bfwin);
+			}
+			gtk_widget_show_all(bfwin->ob_hbox);
+			menuitem_set_sensitive(bfwin->menubar, N_("/View/View Terminal"), FALSE);
+		}
+	break;
+#endif /* HAVE_VTE_TERMINAL */
 	default:
 		DEBUG_MSG("gui_toggle_hidewidget_cb should NEVER be called with action %d\n", action);
 		exit(1);

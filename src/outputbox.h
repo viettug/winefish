@@ -123,7 +123,9 @@ void outputbox(
 	gchar *pattern, gint file_subpat, gint line_subpat, gint output_subpat, gchar *command, gint show_all_output );
 void outputbox_stop (Toutputbox *ob);
 void outputbox_message( Toutputbox *ob, const char *string, gint markup );
-
+#ifdef HAVE_VTE_TERMINAL
+GtkWidget * otuputbox_new_terminal_box ( Tbfwin *bfwin );
+#endif /* HAVE_VTE_TERMINAL */
 /* Toutputbox *outputbox_new_box( Tbfwin *bfwin, const gchar *title ); */
 Toutputbox *outputbox_get_box( Tbfwin *bfwin, guint page);
 void outputbox_set_status( Toutputbox *ob, gboolean status, gboolean force);
