@@ -5,7 +5,7 @@ Winefish Documentation
 Format: KTML
 Convert: k2h winefish.txt > winefish.html
 
-This is a genereted file. !! DO NOT EDIT !!
+This is a generated file. !! DO NOT EDIT !!
 -->
 <HEAD>
 <TITLE>Winefish Documentation</TITLE>
