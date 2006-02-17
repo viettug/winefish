@@ -260,7 +260,7 @@ int main(int argc, char *argv[])
 	if (projectfiles) {
 		GList *tmplist = g_list_first(projectfiles);
 		while (tmplist) {
-			project_open_from_file(firstbfwin, tmplist->data);
+			project_open_from_file(firstbfwin, tmplist->data, linenumber);
 			tmplist = g_list_next(tmplist);
 		}
 	}

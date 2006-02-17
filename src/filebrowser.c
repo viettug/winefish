@@ -1138,7 +1138,7 @@ static void handle_activate_on_file(Tfilebrowser *filebrowser, gchar *filename) 
 		image_insert_from_filename(filebrowser->bfwin,filename);
 		/* g_free(relfilename); */
 	} else if (strcmp(ft->type, "wfproject") == 0) {
-		project_open_from_file(filebrowser->bfwin, filename);
+		project_open_from_file(filebrowser->bfwin, filename, -1);
 	} else {
 		DEBUG_MSG("handle_activate_on_file, file %s is not-editable, do something special now?\n",filename);
 	}
