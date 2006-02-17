@@ -390,7 +390,7 @@ static void files_advanced_win( Tfiles_advanced *tfs)
 	bf_label_tad_with_markup( _( "<b>Advanced</b>" ), 0, 0.5, table, 0, 3, 11, 12 );
 
 	tfs->skipdir = checkbut_with_value( NULL, 1);
-	bf_mnemonic_label_tad_with_alignment( _( "Skip VCS dirs:" ), tfs->skipdir, 0, 0.5, table, 1, 2, 12, 13 );
+	bf_mnemonic_label_tad_with_alignment( _( "Skip _VCS dirs:" ), tfs->skipdir, 0, 0.5, table, 1, 2, 12, 13 );
 	gtk_table_attach_defaults( GTK_TABLE( table ), tfs->skipdir, 2, MAX_COLUMN-1, 12, 13 );
 	
 	/* buttons */
