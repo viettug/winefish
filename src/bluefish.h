@@ -306,6 +306,9 @@ typedef struct {
 	gpointer templatebox; /* box for templates */
 #endif /* EXTERNAL_FIND */
 #endif /* EXTERNAL_GREP */
+#ifdef HAVE_VTE_TERMINAL
+	GtkWidget *terminal;
+#endif /* HAVE_VTE_TERMINAL */
 	GtkWidget *ob_notebook; /* notebook of outputboxes */
 	GtkWidget *ob_hbox; /* hbox to save all ob_boxes */
 	gpointer bfspell;

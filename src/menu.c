@@ -558,6 +558,9 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/View/View _Custom Menu"), NULL, gui_toggle_hidewidget_cb, 3, "<ToggleItem>"},
 	{N_("/View/View _Sidebar"), "<Control><Shift>Escape", gui_toggle_hidewidget_cb, 4, "<ToggleItem>"},
 	{N_("/View/View _Outputbox"), "<Shift>Escape", gui_toggle_hidewidget_cb, 5, "<ToggleItem>"},
+#ifdef HAVE_VTE_TERMINAL
+	{N_("/View/View _Terminal"), NULL, gui_toggle_hidewidget_cb, 6, "<ToggleItem>"},
+#endif /* HAVE_VTE_TERMINAL */
 	{N_("/_?"), NULL, NULL, 0, "<Branch>"},
 	{N_("/?/_About..."), NULL, about_dialog_create, 0, "<Item>"},
 	{N_("/?/sep1"), NULL, NULL, 0, "<Separator>"},
