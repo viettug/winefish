@@ -24,7 +24,7 @@
 
 /* #define DEBUG */
 gboolean project_save_and_close(Tbfwin *bfwin);
-void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename);
+void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename, gint linenumber);
 void set_project_menu_widgets(Tbfwin *bfwin, gboolean win_has_project);
 void project_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
 

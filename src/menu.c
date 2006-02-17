@@ -829,7 +829,7 @@ static GtkWidget *remove_recent_entry(Tbfwin *bfwin, const gchar *filename, gboo
 static void open_recent_project_cb(GtkWidget *widget, Tbfwin *bfwin) {
 	gchar *filename = GTK_LABEL(GTK_BIN(widget)->child)->label;
 	DEBUG_MSG("open_recent_project_cb, started, filename is %s\n", filename);
-	project_open_from_file(bfwin, filename);
+	project_open_from_file(bfwin, filename, -1);
 	add_to_recent_list(bfwin,filename, 0, TRUE);
 }
 

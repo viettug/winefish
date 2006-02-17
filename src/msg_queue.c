@@ -251,7 +251,7 @@ static gboolean msg_queue_check(gint started_by_gtk_timeout)
 		} else if (msgp.mtype == MSG_QUEUE_OPENPROJECT) {
 			GList *lastlist = g_list_last(main_v->bfwinlist);
 			DEBUG_MSG("msg_queue_check, a project %s is received\n", msgp.mtext);
-			project_open_from_file(BFWIN(lastlist->data), msgp.mtext);
+			project_open_from_file(BFWIN(lastlist->data), msgp.mtext, msg_queue.linenumber);
 			msg_queue_check(0);	/* call myself again, there may have been multiple projects */
 		} else if (msgp.mtype == MSG_QUEUE_OPENNEWWIN) {
 			/* now check if this is indeed send by another process
