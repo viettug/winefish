@@ -588,18 +588,18 @@ AC_ARG_WITH(unikey-gtk,
 	AC_DEFINE(HAVE_UNIKEY_GTK)
 	],)
 
-AC_ARG_WITH(vte-terminal,
-	AC_HELP_STRING([--with-vte-terminal],[enable VTE terminal]),[
-		echo -n "checking for vte... "
-		if pkg-config --exists vte; then
-			LIBS="$LIBS `pkg-config --libs vte`"
-			CFLAGS="$CFLAGS `pkg-config --cflags vte`"
-			AC_DEFINE(HAVE_VTE_TERMINAL)
-			echo "yes"
-		else
-			echo "no"
-		fi
-	],)
+#AC_ARG_WITH(vte-terminal,
+#	AC_HELP_STRING([--with-vte-terminal],[enable VTE terminal]),[
+#		echo -n "checking for vte... "
+#		if pkg-config --exists vte; then
+#			LIBS="$LIBS `pkg-config --libs vte`"
+#			CFLAGS="$CFLAGS `pkg-config --cflags vte`"
+#			AC_DEFINE(HAVE_VTE_TERMINAL)
+#			echo "yes"
+#		else
+#			echo "no"
+#		fi
+#	],)
 
 # kyanh ################################
 
