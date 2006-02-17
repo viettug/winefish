@@ -347,7 +347,7 @@ gboolean ob_lview_move_cursor_lcb(GtkTreeView *treeview,GtkMovementStep arg1,gin
 }
 */
 
-Toutputbox *outputbox_new_box( Tbfwin *bfwin, const gchar *title )
+static Toutputbox *outputbox_new_box( Tbfwin *bfwin, const gchar *title )
 {
 	if (!bfwin->ob_hbox) {
 		outputbox_init_frontend(bfwin);
