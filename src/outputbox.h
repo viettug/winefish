@@ -124,7 +124,7 @@ void outputbox(
 void outputbox_stop (Toutputbox *ob);
 void outputbox_message( Toutputbox *ob, const char *string, gint markup );
 
-Toutputbox *outputbox_new_box( Tbfwin *bfwin, const gchar *title );
+/* Toutputbox *outputbox_new_box( Tbfwin *bfwin, const gchar *title ); */
 Toutputbox *outputbox_get_box( Tbfwin *bfwin, guint page);
 void outputbox_set_status( Toutputbox *ob, gboolean status, gboolean force);
 
