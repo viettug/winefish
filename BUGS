@@ -280,8 +280,9 @@ document.c::doc_new()
 * Closing a project [within new Winefish window] should close
 also the Winefish window
 
-#60
+#60/fixed/kyanh/20060217/
 * Cannot open project's files at specific linenumber
+* TODO: present an existing project at specific linenumber
 
 #59/fixed/kyanh/20050719/
 * See project with files A, B, C (A is the first one)
