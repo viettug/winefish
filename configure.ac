@@ -235,15 +235,6 @@ else
 	AC_MSG_ERROR(libgtk2.0-dev missing please install libgtk2.0-dev)
 fi
 
-#echo -n "checking for gtk+-2.0 >= 2.4... "
-#if pkg-config gtk+-2.0 --atleast-version=2.4 ; then
-#	AC_DEFINE(HAVE_ATLEAST_GTK_2_2)
-#	echo "yes"
-#else
-#	echo "no"
-#	AC_MSG_ERROR(libgtk2.0-dev missing please install libgtk2.0-dev)
-#fi
-
 echo -n "checking for gtk+-2.4... "
 if pkg-config gtk+-2.0 --atleast-version=2.4 ; then
 	AC_DEFINE(HAVE_ATLEAST_GTK_2_4)
@@ -592,14 +583,22 @@ fi
 
 # kyanh ################################
 
-#AC_ARG_WITH(vntex,
-#	AC_HELP_STRING([--with-vntex],[(Vietnamese) enable vntex support]),[
-#	AC_DEFINE(HAVE_VNTEX)
-#	],)
-
 AC_ARG_WITH(unikey-gtk,
 	AC_HELP_STRING([--with-unikey-gtk],[(Vietnamese) fix a BUG related to UniKeyGTK]),[
 	AC_DEFINE(HAVE_UNIKEY_GTK)
+	],)
+
+AC_ARG_WITH(vte-terminal,
+	AC_HELP_STRING([--with-vte-terminal],[enable VTE terminal]),[
+		echo -n "checking for vte... "
+		if pkg-config --exists vte; then
+			LIBS="$LIBS `pkg-config --libs vte`"
+			CFLAGS="$CFLAGS `pkg-config --cflags vte`"
+			AC_DEFINE(HAVE_VTE_TERMINAL)
+			echo "yes"
+		else
+			echo "no"
+		fi
 	],)
 
 # kyanh ################################
