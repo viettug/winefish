@@ -24,7 +24,7 @@ BR_RET_MOVED_RIGHT =1<<11,
 BR_RET_FOUND_WITH_LIMIT_O =1<<12
 };
 
-guint16 brace_finder(GtkTextBuffer *buffer, gpointer *brfinder, gint opt, gint limit);
+guint16 brace_finder(GtkTextBuffer *buffer, Tbracefinder *brfinder, gint opt, gint limit);
 
 #define VALID_LEFT_BRACE(Lch) ( (Lch == 123) || (Lch == 91) || (Lch==40) )
 #define VALID_RIGHT_BRACE(Lch) ( (Lch == 125) || (Lch==93) || (Lch==41) )

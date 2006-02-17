@@ -1983,7 +1983,7 @@ static gboolean doc_view_key_press_lcb( GtkWidget *widget, GdkEventKey *kevent, 
 	g_print("doc: got key pressed\n");
 #endif
 	if ( ! ( (kevent->state & GDK_CONTROL_MASK) && ( (kevent->keyval == GDK_bracketleft) || (kevent->keyval == GDK_bracketright) ) ) ) {
-		brace_finder(doc->buffer, &doc->brace_finder, 0, -1);
+		brace_finder(doc->buffer, doc->brace_finder, 0, -1);
 	}
 
 	if (!(doc->view_bars & MODE_AUTO_COMPLETE)) {
@@ -2264,7 +2264,7 @@ static gboolean doc_view_key_release_lcb( GtkWidget *widget, GdkEventKey *kevent
 	/* if the shift key is released before the '>' key, we get a key release not for '>' but for '.'. We, therefore have set that in the key_press event, and check if the same hardware keycode was released */
 	/* complete environment */
 	if ( ! ( (kevent->state & GDK_CONTROL_MASK) && ( (kevent->keyval == GDK_bracketleft) || (kevent->keyval == GDK_bracketright) ) ) ) {
-		brace_finder(doc->buffer,&doc->brace_finder,BR_AUTO_FIND, BRACE_FINDER_MAX_LINES);
+		brace_finder(doc->buffer,doc->brace_finder,BR_AUTO_FIND, BRACE_FINDER_MAX_LINES);
 	}
 
 	if ( ( kevent->keyval == GDK_braceright ) || ( kevent->hardware_keycode == ((GdkEventKey *)main_v->last_kevent)->hardware_keycode && ((GdkEventKey *)main_v->last_kevent)->keyval == GDK_braceright ) ) {
@@ -2637,7 +2637,7 @@ static gboolean doc_view_button_release_lcb( GtkWidget *widget, GdkEventButton *
 {
 	DEBUG_MSG( "doc_view_button_release_lcb, button %d\n", bevent->button );
 	if (bevent->button == 1) {
-		brace_finder(doc->buffer, &doc->brace_finder, BR_AUTO_FIND, BRACE_FINDER_MAX_LINES);
+		brace_finder(doc->buffer, doc->brace_finder, BR_AUTO_FIND, BRACE_FINDER_MAX_LINES);
 	}
 	if ( bevent->button == 2 ) {
 		/* end of paste */
@@ -2698,7 +2698,7 @@ static gboolean doc_view_button_press_lcb( GtkWidget *widget, GdkEventButton *be
 {
 	DEBUG_MSG( "doc_view_button_press_lcb, button %d\n", bevent->button );
 	if (bevent->button==1) {
-		brace_finder(doc->buffer, &doc->brace_finder, 0, -1);
+		brace_finder(doc->buffer, doc->brace_finder, 0, -1);
 	}
 	if ( bevent->button == 2 && !doc->paste_operation ) {
 		doc->paste_operation = g_new( Tpasteoperation, 1 );
