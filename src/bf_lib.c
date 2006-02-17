@@ -1248,10 +1248,9 @@ gboolean file_exists_and_readable(const gchar * filename) {
 	if ( g_file_test(filename, G_FILE_TEST_IS_DIR) ) {
 		return FALSE;
 	}
-
+#ifndef WIN32
 	ondiskencoding = get_filename_on_disk_encoding(filename);
 	DEBUG_MSG("file_exists_and_readable, ondiskencoding='%s'\n",ondiskencoding);
-#ifndef WIN32
 	{
 		struct stat naamstat;
 		errno = 0;
