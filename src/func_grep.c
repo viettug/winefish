@@ -376,10 +376,12 @@ static void files_advanced_win_set_sensitive (Tfiles_advanced *tfs) {
 		gtk_widget_set_sensitive(tfs->basedir, FALSE);
 		gtk_widget_set_sensitive(tfs->open_files, FALSE);
 		gtk_widget_set_sensitive(tfs->recursive, FALSE);
+		gtk_widget_set_sensitive(tfs->skipdir, FALSE);
 	}else{
 		gtk_widget_set_sensitive(tfs->basedir, TRUE);
 		gtk_widget_set_sensitive(tfs->open_files, TRUE);
 		gtk_widget_set_sensitive(tfs->recursive, TRUE);
+		gtk_widget_set_sensitive(tfs->skipdir, TRUE);
 	}
 	g_free(c_find_pattern);
 }
