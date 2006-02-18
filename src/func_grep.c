@@ -158,25 +158,7 @@ static void files_advanced_win_ok_clicked( GtkWidget * widget, Tfiles_advanced *
 	c_grep_pattern =/* gtk_editable_get_chars( GTK_EDITABLE( tfs->grep_pattern ), 0, -1 ); */
 			gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(tfs->grep_pattern)->entry),0,-1);
 	type = (!c_grep_pattern || strlen(c_grep_pattern)==0);
-#ifdef OLD_CODE
-	if ( open_files-100 ) {
-		c_is_regex = "l"; /* list matched files */
-	}else{
-		if (type) {
-			c_is_regex = "l"; /* list matched files */
-		}else{
-			c_is_regex = "nH"; /* H: --with-filename; n: --line-number */
-		}
-	}
-	
-	if ( gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( tfs->is_regex ) ) ) {
-		c_is_regex = g_strconcat("E", c_is_regex, NULL);
-	}
-	if ( !gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( tfs->case_sensitive ) ) ) {
-		c_is_regex = g_strconcat("i", c_is_regex, NULL);
-	}
-	c_is_regex = g_strconcat("-", c_is_regex, NULL);
-#endif /* OLD_CODE */
+
 	c_is_regex = g_strdup_printf( "-%s%s%s", (open_files-100)?"l":(type?"l":"nH"), gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( tfs->is_regex ) ) ? "E": "",  gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( tfs->case_sensitive ) ) ? "" : "i" );
 
 	if ( gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( tfs->skipdir ) ) ) {
@@ -260,28 +242,13 @@ static void files_advanced_win_select_basedir_lcb( GtkWidget * widget, Tfiles_ad
 	*/
 	gchar *tmpdir = g_strconcat( olddir, "/", NULL );
 	gchar *newdir = NULL;
-#ifdef HAVE_ATLEAST_GTK_2_4
-
-{
 	GtkWidget *dialog;
-		/*dialog = gtk_file_chooser_dialog_new (_("Select basedir"),NULL,
-	GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
-	GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-	GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
-	NULL);
-	gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(dialog),TRUE);
-	gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(dialog),tmpdir);*/
 	dialog = file_chooser_dialog( tfs->bfwin, _( "Select basedir" ), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER, NULL, TRUE, FALSE, NULL );
 	if ( gtk_dialog_run ( GTK_DIALOG ( dialog ) ) == GTK_RESPONSE_ACCEPT )
 	{
 		newdir = gtk_file_chooser_get_filename( GTK_FILE_CHOOSER( dialog ) );
 	}
 	gtk_widget_destroy( dialog );
-}
-#else
-	newdir = return_dir( tmpdir, _( "Select basedir" ) );
-#endif
-
 	g_free( tmpdir );
 	if ( newdir ) {
 		/* gtk_entry_set_text( GTK_ENTRY( tfs->basedir ), newdir ); */
@@ -333,15 +300,18 @@ static void files_advanced_win( Tfiles_advanced *tfs)
 	gtk_table_attach_defaults( GTK_TABLE( table ), tfs->basedir, 2, MAX_COLUMN-1, 3, 4 );
 	gtk_table_attach( GTK_TABLE( table ), bf_allbuttons_backend( _( "_Browse..." ), TRUE, 112, G_CALLBACK( files_advanced_win_select_basedir_lcb ), tfs ), MAX_COLUMN-1, MAX_COLUMN, 3, 4, GTK_SHRINK, GTK_SHRINK, 0, 0 );
 
-	list = g_list_append( NULL, "*.tex" );
+	list = NULL;
+	list = g_list_append( list, "<current file>" );
+	list = g_list_append( list, "<all opened files>" );
+	list = g_list_append( list, "*.tex" );
 	list = g_list_append( list, "*.cls,*.dtx,*.sty,*.ins" );
 	list = g_list_append( list, "*.ind,*.bbl" );
 	list = g_list_append( list, "*.log,*.aux,*.idx,*.ilg,*.blg" );
 	list = g_list_append( list, "*.toc,*.lof,*.lot,*.thm" );
 	list = g_list_append( list, "*" );
 
-	tfs->find_pattern = combo_with_popdown( "*.tex", list, 1 );
-	bf_mnemonic_label_tad_with_alignment( _( "_File Type:" ), tfs->find_pattern, 0, 0.5, table, 1, 2, 4, 5 );
+	tfs->find_pattern = combo_with_popdown( "<all opened files>", list, 1 );
+	bf_mnemonic_label_tad_with_alignment( _( "_File:" ), tfs->find_pattern, 0, 0.5, table, 1, 2, 4, 5 );
 	gtk_table_attach_defaults( GTK_TABLE( table ), tfs->find_pattern, 2, MAX_COLUMN-1, 4, 5 );
 
 	g_list_free( list );
