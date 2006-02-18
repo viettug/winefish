@@ -396,7 +396,7 @@ static void files_advanced_win( Tfiles_advanced *tfs)
 	if ( !tfs->basedir ) {
 		gchar * curdir = g_get_current_dir();
 		/* tfs->basedir = entry_with_text( curdir, 255 ); */
-		tfs->basedir = combo_with_popdown(curdir, tfs->bfwin->session->recent_dirs, TRUE/*editable*/);
+		tfs->basedir = combo_with_popdown(curdir,tfs->bfwin->project ?  tfs->bfwin->project->session->recent_dirs : tfs->bfwin->session->recent_dirs, TRUE/*editable*/);
 		g_free ( curdir );
 	}
 	
@@ -472,7 +472,7 @@ static void files_advanced_win( Tfiles_advanced *tfs)
 			buffer = NULL;
 		}
 		/* put the selected text in the pattern textfield */
-		tfs->grep_pattern = combo_with_popdown(buffer?buffer:"", tfs->bfwin->session->searchlist, TRUE/*editable*/);
+		tfs->grep_pattern = combo_with_popdown(buffer?buffer:"", tfs->bfwin->project? tfs->bfwin->project->session->searchlist : tfs->bfwin->session->searchlist, TRUE/*editable*/);
 		if (buffer) g_free(buffer);
 	}
 	
