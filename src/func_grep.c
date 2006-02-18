@@ -268,8 +268,13 @@ static void files_advanced_win_ok_clicked( GtkWidget * widget, Tfiles_advanced *
 			/* add directory to history */
 			{
 				gchar *tmpstr = gtk_editable_get_chars(GTK_EDITABLE( GTK_COMBO( tfs->basedir ) ->entry),0,-1);
-				tfs->bfwin->session->recent_dirs = add_to_history_stringlist(tfs->bfwin->session->recent_dirs,  tmpstr, TRUE, TRUE);
+				if (tfs->bfwin->project) {
+					tfs->bfwin->project->session->recent_dirs = add_to_history_stringlist(tfs->bfwin->project->session->recent_dirs,  tmpstr, TRUE, TRUE);
+				}else{
+					tfs->bfwin->session->recent_dirs = add_to_history_stringlist(tfs->bfwin->session->recent_dirs,  tmpstr, TRUE, TRUE);
+				}
 				g_free(tmpstr);
+				
 			}
 		}else{
 			DEBUG_MSG("func_grep:  start finding in opened file(s)...\n");
@@ -285,7 +290,11 @@ static void files_advanced_win_ok_clicked( GtkWidget * widget, Tfiles_advanced *
 		}
 		/* add pattern to history. only if found success ? */
 		if (! ( type & FIND_WITHOUT_PATTERN )  && ! (tfs->retval && FIND_RET_FAILED) ) {
-			tfs->bfwin->session->searchlist = add_to_history_stringlist(tfs->bfwin->session->searchlist,c_grep_pattern,TRUE/*top*/,TRUE/*move if exists */);
+			if (tfs->bfwin->project) {
+				tfs->bfwin->project->session->searchlist = add_to_history_stringlist(tfs->bfwin->project->session->searchlist,c_grep_pattern,TRUE,TRUE);
+			}else{
+				tfs->bfwin->session->searchlist = add_to_history_stringlist(tfs->bfwin->session->searchlist,c_grep_pattern,TRUE/*top*/,TRUE/*move if exists */);
+			}
 		}
 	}
 
