@@ -3006,7 +3006,8 @@ msgstr "-p filename  mở dự án\n"
 
 #: ../src/winefish.c:112
 msgid "-l number    set line<number>. Negative value takes no effect.\n"
-msgstr "-l number    đặt con trỏ vào dòng '<number>'. Số âm không có tác dụng.\n"
+msgstr ""
+"-l number    đặt con trỏ vào dòng '<number>'. Số âm không có tác dụng.\n"
 
 #: ../src/winefish.c:113
 msgid "-h           this help screen\n"
@@ -3161,4 +3162,3 @@ msgstr "_Hàng:"
 #: ../src/wizards.c:646
 msgid "Type (_Environment):"
 msgstr "Kiểu (_Môi trường):"
-
