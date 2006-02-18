@@ -72,149 +72,223 @@ typedef struct
 	GtkWidget *is_regex;
 	GtkWidget *case_sensitive;
 	Tbfwin *bfwin;
+	gint retval;
 }
 Tfiles_advanced;
 
 static int open_files;
 
+enum {
+	FIND_WITHOUT_PATTERN = 1<<0,
+	FIND_IN_CURRENT_FILE = 1<<1,
+	FIND_IN_ALL_OPENED_FILES = 1<<2,
+	FIND_IN_DIRECTORY = 1<<3
+};
+
+/*
+	FIND_IN_CURRENT_FILE
+	FIND_IN_ALL_OPENED_FILES
+	=> FIND_WITHOUT_PATTERN == 0
+*/
+
+enum {
+	FIND_RET_FAILED=1<<0,
+	FIND_RET_OK=1<<1,
+	FIND_RET_FIND_IN_OPENED_FILE_HAS_NOT_FILENAME_YET=1<<2,
+	FIND_RET_FIND_IN_OPENED_FILE_BUT_NOT_PATTERN_SPECIFIED=1<<3,
+	FIND_RET_CANNOT_CREATE_SECURE_TEMP_FILE=1<<4,
+	FIND_RET_EMPTY_FILE_LIST=1<<5,
+	FIND_RET_NO_DIRECTORY_SPECIFIED=1<<6
+};
+
 static void files_advanced_win_destroy( GtkWidget * widget, Tfiles_advanced *tfs )
 {
-	DEBUG_MSG( "files_advanced_win_destroy, started\n" );
+	DEBUG_MSG( "func_grep: destroy the dialog: start\n" );
 	gtk_main_quit();
-	DEBUG_MSG( "files_advanced_win_destroy, gtk_main_quit called\n" );
+	DEBUG_MSG( "func_grep: call gtk_main_quit called\n" );
 	window_destroy( tfs->win );
 	open_files = 0;
 }
 
 static void files_advanced_win_ok_clicked( GtkWidget * widget, Tfiles_advanced *tfs )
 {
-	/* create list here */
-	gchar * command, *temp_file=NULL;
-	gchar *c_basedir, *c_find_pattern, *c_recursive, *c_grep_pattern, *c_is_regex, *c_skipdir;
-	gchar *c_grep_pattern_escaped=NULL;
-	gint type = 0;
-	
-	c_basedir = gtk_editable_get_chars( GTK_EDITABLE( GTK_COMBO(tfs->basedir)->entry ), 0, -1 );
-	
-	if (!c_basedir || strlen(c_basedir)==0) {
-		tfs->filenames_to_return =  NULL;
-		g_free(c_basedir);
-		files_advanced_win_destroy( widget, tfs );
-		statusbar_message(tfs->bfwin, _("no directory specified"), 2000);
-		return;
+	gchar * command =NULL,
+		*temp_file=NULL,
+		*c_basedir =NULL,
+		*c_find_pattern =NULL,
+		*c_recursive =NULL,
+		*c_grep_pattern =NULL,
+		*c_is_regex =NULL,
+		*c_skipdir =NULL,
+		*c_grep_pattern_escaped=NULL
+		;
+
+	gint type = FIND_IN_DIRECTORY;
+	tfs->retval = FIND_RET_OK;
+
+	/* get type, get c_find_pattern ***********************************************/
+
+	c_find_pattern = gtk_editable_get_chars( GTK_EDITABLE( GTK_COMBO( tfs->find_pattern ) ->entry ), 0, -1 );
+
+	if (!c_find_pattern || strlen(c_find_pattern) == 0) {
+		c_find_pattern = g_strdup("*");
+	}else if (g_str_has_prefix(c_find_pattern, "<0: ") ) {
+		type =  FIND_IN_CURRENT_FILE;
+	}else if ( g_str_has_prefix(c_find_pattern, "<1: ") ) {
+		type = FIND_IN_ALL_OPENED_FILES;
 	}
-	
-	open_files = 100 + gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( tfs->open_files ) );
-	if (open_files-100) {
-		temp_file = create_secure_dir_return_filename();
-		if ( !temp_file ) {
-			files_advanced_win_destroy( widget, tfs );
-			DEBUG_MSG( "files_advanced_win_ok_clicked, can't get a secure temp filename ?????\n" );
-			return ;
+
+	if (type & FIND_IN_DIRECTORY ) {
+		open_files = 100 + gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( tfs->open_files ) );
+		if (open_files-100) {
+			temp_file = create_secure_dir_return_filename();
+			if ( !temp_file ) {
+				tfs->retval = tfs->retval | FIND_RET_CANNOT_CREATE_SECURE_TEMP_FILE | FIND_RET_FAILED;
+				DEBUG_MSG( "func_grep: can't get a secure temp filename ?????\n" );
+			}
+			DEBUG_MSG( "func_grep: temp_file=%s\n", temp_file );
 		}
-		DEBUG_MSG( "files_advanced_win_ok_clicked, temp_file=%s\n", temp_file );
-	}
 
-	{
-		gchar ** tmparray;
-		c_find_pattern = gtk_editable_get_chars( GTK_EDITABLE( GTK_COMBO( tfs->find_pattern ) ->entry ), 0, -1 );
-		if (!c_find_pattern || strlen(c_find_pattern) == 0) {
-			c_find_pattern = g_strdup("*");
+		if (! (tfs->retval & FIND_RET_FAILED) ) {
+			c_basedir = gtk_editable_get_chars( GTK_EDITABLE( GTK_COMBO(tfs->basedir)->entry ), 0, -1 );
+			if (!c_basedir || strlen(c_basedir)==0) {
+				tfs->retval = tfs->retval | FIND_RET_NO_DIRECTORY_SPECIFIED | FIND_RET_FAILED ;
+				DEBUG_MSG("func_grep: basedir is not specified\n");
+			}
 		}
-		/* TODO: escape the string:
-		replace any ' by \'
-		DEBUG_MSG("func_grep: escape_string = %s\n", g_strescape(c_find_pattern, "\""));
-		*/
-		tmparray = g_strsplit(c_find_pattern,",",0);
-		gchar **tmp2array = tmparray;
-		gint newsize = 1; /* include terminator */
-		c_find_pattern = g_realloc(c_find_pattern,newsize); /* for new string: g_malloc0 */
-		c_find_pattern[0] = '\0';
-		/* TODO: use g_strconcat is easier (for coding?) */
-		while (*tmp2array) {
-			newsize += strlen(*tmp2array) + 12; /* __'x' -name -o __ */
-			c_find_pattern = g_realloc(c_find_pattern,newsize);
-			strcat(c_find_pattern,"-name '");
-			strcat(c_find_pattern,*tmp2array);
-			strcat(c_find_pattern,"' -o ");
-			tmp2array++;
+
+		/* create c_find_pattern ***********************************************/
+		if ( !( tfs->retval & FIND_RET_FAILED ) ){
+			gchar ** tmparray;
+			/* TODO: escape the string: replace any ' by \' */
+			tmparray = g_strsplit(c_find_pattern,",",0);
+			gchar **tmp2array = tmparray;
+			gint newsize = 1; /* include terminator */
+			c_find_pattern = g_realloc(c_find_pattern,newsize); /* for new string: g_malloc0 */
+			c_find_pattern[0] = '\0';
+			/* TODO: use g_strconcat is easier (for coding?) */
+			while (*tmp2array) {
+				newsize += strlen(*tmp2array) + 12; /* __'x' -name -o __ */
+				c_find_pattern = g_realloc(c_find_pattern,newsize);
+				strcat(c_find_pattern,"-name '");
+				strcat(c_find_pattern,*tmp2array);
+				strcat(c_find_pattern,"' -o ");
+				tmp2array++;
+			}
+			DEBUG_MSG("func_grep: finalstring = %s\n", c_find_pattern);
+			/* finalstring is of the form __X -o __ */
+			newsize -= 4;
+			c_find_pattern = g_realloc(c_find_pattern, newsize);
+			c_find_pattern[newsize-1] = '\0';
+			DEBUG_MSG("func_grep: truncated finalstring = %s\n", c_find_pattern);
+			c_find_pattern = g_strconcat("\\( ",c_find_pattern, " \\)", NULL);
+			g_strfreev(tmparray);
 		}
-		DEBUG_MSG("func_grep: finalstring = %s\n", c_find_pattern);
-		/* finalstring is of the form __X -o __ */
-		newsize -= 4;
-		c_find_pattern = g_realloc(c_find_pattern, newsize);
-		c_find_pattern[newsize-1] = '\0';
-		DEBUG_MSG("func_grep: truncated finalstring = %s\n", c_find_pattern);
-		c_find_pattern = g_strconcat("\\( ",c_find_pattern, " \\)", NULL);
-		g_strfreev(tmparray);
-	}
-	
-	if ( gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( tfs->recursive ) ) ) {
-		c_recursive = FUNC_GREP_RECURSIVE_MAX_DEPTH;
-	} else {
-		c_recursive = "-maxdepth 1";
-	}
-
-	c_grep_pattern =/* gtk_editable_get_chars( GTK_EDITABLE( tfs->grep_pattern ), 0, -1 ); */
-			gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(tfs->grep_pattern)->entry),0,-1);
-	type = (!c_grep_pattern || strlen(c_grep_pattern)==0);
-
-	c_is_regex = g_strdup_printf( "-%s%s%s", (open_files-100)?"l":(type?"l":"nH"), gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( tfs->is_regex ) ) ? "E": "",  gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( tfs->case_sensitive ) ) ? "" : "i" );
-
-	if ( gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( tfs->skipdir ) ) ) {
-		c_skipdir = g_strdup("| grep -v SCCS/ | grep -v CVS/ | grep -v .svn/");
 	}else{
-		c_skipdir = g_strdup("");
-	}
-
-	/*
-	command = `find c_basedir -name c_find_pattern c_recursive`
-	command = `grep -E 'c_grep_pattern' `find c_basedir -name c_find_pattern c_recursive``
-	*/
-	if ( type ) {
-		command = /* g_strconcat( EXTERNAL_FIND, " '", c_basedir, "' -type f",c_find_pattern, c_recursive, NULL ); */
-				g_strdup_printf("%s '%s' -type f %s %s %s", EXTERNAL_FIND, c_basedir, c_find_pattern, c_recursive, c_skipdir);
-	} else {
-#ifdef HAVE_SED_XARGS
-		c_grep_pattern_escaped = g_strescape(c_grep_pattern,"\"");
-		/* TODO: escape \" */
-
-		DEBUG_MSG("func_grep: use xargs and sed\n");
-		command = /* g_strconcat(EXTERNAL_FIND, " '",c_basedir, "' -type f", c_find_pattern, c_recursive, "| ", EXTERNAL_SED, " -e 's/ /\\\\\\ /g' | ", EXTERNAL_XARGS, " ", EXTERNAL_GREP, c_is_regex, " '", c_grep_pattern_escaped,"'", NULL); */
-				g_strdup_printf("%s '%s' -type f %s %s %s | %s -e 's/ /\\\\\\ /g' | %s %s %s '%s'", EXTERNAL_FIND, c_basedir, c_find_pattern, c_recursive, c_skipdir, EXTERNAL_SED, EXTERNAL_XARGS, EXTERNAL_GREP, c_is_regex, c_grep_pattern_escaped);
-#else
-		/* TODO: have find, have grep, but donot have sed/xargs. why???? */
-		command = /* g_strconcat( EXTERNAL_GREP, c_is_regex, " '", c_grep_pattern_escaped, "' `", EXTERNAL_FIND, " '", c_basedir, "' -type f", c_find_pattern, c_recursive, "`", NULL ); */
-			g_strdup_printf("%s %s '%s' `%s '%s' -type f %s %s %s`",EXTERNAL_GREP, c_is_regex, c_grep_pattern_escaped, EXTERNAL_FIND, c_basedir, c_find_pattern, c_recursive, c_skipdir);
-#endif /* SED_XARGS */
-	}
-	DEBUG_MSG( "files_advanced_win_ok_clicked, command=%s\n", command );
-	statusbar_message( tfs->bfwin, _( "searching files..." ), 1000 );
-	flush_queue();
-	if (open_files-100) {
-		DEBUG_MSG("files_advanced_win_ok_clicked, redirect to %s\n", temp_file);
-		command = g_strconcat(command, " > ", temp_file,NULL);
-		system( command ); /* may halt !!! system call !!! */
-		tfs->filenames_to_return = get_stringlist( temp_file, tfs->filenames_to_return );
-		remove_secure_dir_and_filename( temp_file ); /* BUG#64, g_free( temp_file ); */
-	}else{
-		tfs->filenames_to_return =  NULL;
-		if (type ) {
-			outputbox(tfs->bfwin,&tfs->bfwin->grepbox,_("grep"), ".*", 0, -1, 0, command, 0);
+		/* find in current file or all opened files */
+		if (type & FIND_IN_CURRENT_FILE) {
+			if (! tfs->bfwin->current_document->filename ) {
+				tfs->retval = tfs->retval | FIND_RET_FIND_IN_OPENED_FILE_HAS_NOT_FILENAME_YET | FIND_RET_FAILED;
+				DEBUG_MSG("func_grep: find in current file but it hasnot filename yet\n");
+			} else {
+				c_find_pattern = g_strdup_printf("'%s'", tfs->bfwin->current_document->filename);
+			}
 		}else{
-			/* the output maynot be captured completely. why? a line may be cut...*/
-			outputbox(tfs->bfwin,&tfs->bfwin->grepbox,_("grep"), "^([^:]+):([0-9]+):(.*)", 1, 2, 3, command, 0);
+			GList *tmplist;
+			tmplist = g_list_first(tfs->bfwin->documentlist);
+			c_find_pattern = g_strdup("");
+			while (tmplist) {
+				if (DOCUMENT(tmplist->data)->filename) {
+					c_find_pattern = g_strdup_printf("%s '%s'", c_find_pattern, DOCUMENT(tmplist->data)->filename);
+				}
+				tmplist = g_list_next(tmplist);
+			}
+			if (!strlen(c_find_pattern)) {
+				tfs->retval = tfs->retval | FIND_RET_FIND_IN_OPENED_FILE_HAS_NOT_FILENAME_YET | FIND_RET_FAILED;
+				DEBUG_MSG("func_grep: find in current files but they havenot filename yet\n");
+			}
 		}
 	}
-	/* history dealing */
-	if (!type) {
-		tfs->bfwin->session->searchlist = add_to_history_stringlist(tfs->bfwin->session->searchlist,c_grep_pattern,TRUE/*top*/,TRUE/*move if exists */);
+
+	if ( !(tfs->retval & FIND_RET_FAILED) ) {
+		c_grep_pattern = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(tfs->grep_pattern)->entry),0,-1);
+		type = SET_BIT(type, FIND_WITHOUT_PATTERN, (!c_grep_pattern || strlen(c_grep_pattern)==0) ); /* without patterns */
+	
+		if ( type & FIND_IN_DIRECTORY ) {
+			c_is_regex = g_strdup_printf( "-%s%s%s", (open_files-100)?"l":( type & FIND_WITHOUT_PATTERN ?"l":"nH"), gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( tfs->is_regex ) ) ? "E": "",  gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( tfs->case_sensitive ) ) ? "" : "i" );
+	
+			if ( gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( tfs->recursive ) ) ) {
+				c_recursive = FUNC_GREP_RECURSIVE_MAX_DEPTH;
+			} else {
+				c_recursive = "-maxdepth 1";
+			}
+	
+			if ( gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( tfs->skipdir ) ) ) {
+				c_skipdir = g_strdup("| grep -v SCCS/ | grep -v CVS/ | grep -v .svn/");
+			}else{
+				c_skipdir = g_strdup("");
+			}
+	
+			/*
+			command = `find c_basedir -name c_find_pattern c_recursive`
+			command = `grep -E 'c_grep_pattern' `find c_basedir -name c_find_pattern c_recursive``
+			*/
+			if ( type & FIND_WITHOUT_PATTERN ) {
+				command = g_strdup_printf("%s '%s' -type f %s %s %s", EXTERNAL_FIND, c_basedir, c_find_pattern, c_recursive, c_skipdir);
+			} else {
+				c_grep_pattern_escaped = g_strescape(c_grep_pattern,"\""); /* TODO: escape \" */
+	#ifdef HAVE_SED_XARGS
+				DEBUG_MSG("func_grep: use xargs and sed\n");
+				command = g_strdup_printf("%s '%s' -type f %s %s %s | %s -e 's/ /\\\\\\ /g' | %s %s %s '%s'", EXTERNAL_FIND, c_basedir, c_find_pattern, c_recursive, c_skipdir, EXTERNAL_SED, EXTERNAL_XARGS, EXTERNAL_GREP, c_is_regex, c_grep_pattern_escaped);
+	#else
+				/* TODO: have find, have grep, but donot have sed/xargs. why???? */
+				command = g_strdup_printf("%s %s '%s' `%s '%s' -type f %s %s %s`",EXTERNAL_GREP, c_is_regex, c_grep_pattern_escaped, EXTERNAL_FIND, c_basedir, c_find_pattern, c_recursive, c_skipdir);
+	#endif /* SED_XARGS */
+			}
+			DEBUG_MSG( "func_grep: command=%s\n", command );
+			statusbar_message( tfs->bfwin, _( "searching files..." ), 1000 );
+			flush_queue();
+			if (open_files-100) {
+				DEBUG_MSG("func_grep: redirect to %s\n", temp_file);
+				command = g_strconcat(command, " > ", temp_file,NULL);
+				system( command ); /* may halt !!! system call !!! */
+				tfs->filenames_to_return = get_stringlist( temp_file, tfs->filenames_to_return );
+				remove_secure_dir_and_filename( temp_file ); /* BUG#64, g_free( temp_file ); */
+				if (!tfs->filenames_to_return) {
+					tfs->retval = tfs->retval | FIND_RET_EMPTY_FILE_LIST;
+				}
+			}else{
+				if (type & FIND_WITHOUT_PATTERN) {
+					outputbox(tfs->bfwin,&tfs->bfwin->grepbox,_("grep"),  ".*", 0, -1, 0, command, 0);
+				}else{
+					/* the output maynot be captured completely. why? a line may be cut...*/
+					outputbox(tfs->bfwin,&tfs->bfwin->grepbox,_("grep"),  "^([^:]+):([0-9]+):(.*)", 1, 2, 3, command, 0);
+				}
+			}
+			/* add directory to history */
+			{
+				gchar *tmpstr = gtk_editable_get_chars(GTK_EDITABLE( GTK_COMBO( tfs->basedir ) ->entry),0,-1);
+				tfs->bfwin->session->recent_dirs = add_to_history_stringlist(tfs->bfwin->session->recent_dirs,  tmpstr, TRUE, TRUE);
+				g_free(tmpstr);
+			}
+		}else{
+			DEBUG_MSG("func_grep:  start finding in opened file(s)...\n");
+			if ( type & FIND_WITHOUT_PATTERN ) {
+				tfs->retval = tfs->retval |FIND_RET_FIND_IN_OPENED_FILE_BUT_NOT_PATTERN_SPECIFIED | FIND_RET_FAILED;
+				DEBUG_MSG("func_grep: find in open files but no pattern was specified\n");
+			}else{
+				c_is_regex = g_strdup_printf( "-nH%s%s", gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( tfs->is_regex ) ) ? "E": "",  gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( tfs->case_sensitive ) ) ? "" : "i" );
+				c_grep_pattern_escaped = g_strescape(c_grep_pattern,"\""); /* TODO: escape \" */
+				command = g_strdup_printf("%s %s '%s' %s", EXTERNAL_GREP, c_is_regex, c_grep_pattern_escaped,c_find_pattern);
+				outputbox(tfs->bfwin,&tfs->bfwin->grepbox,_("grep"),  "^([^:]+):([0-9]+):(.*)", 1, 2, 3, command, 0);
+			}
+		}
+		/* add pattern to history. only if found success ? */
+		if (! ( type & FIND_WITHOUT_PATTERN )  && ! (tfs->retval && FIND_RET_FAILED) ) {
+			tfs->bfwin->session->searchlist = add_to_history_stringlist(tfs->bfwin->session->searchlist,c_grep_pattern,TRUE/*top*/,TRUE/*move if exists */);
+		}
 	}
-	{
-		gchar *tmpstr = gtk_editable_get_chars(GTK_EDITABLE( GTK_COMBO( tfs->basedir ) ->entry),0,-1);
-		tfs->bfwin->session->recent_dirs = add_to_history_stringlist(tfs->bfwin->session->recent_dirs,  tmpstr, TRUE, TRUE);
-		g_free(tmpstr);
-	}
+
 	g_free( c_basedir );
 	g_free( c_find_pattern );
 	g_free( c_grep_pattern );
@@ -222,7 +296,24 @@ static void files_advanced_win_ok_clicked( GtkWidget * widget, Tfiles_advanced *
 	g_free( c_is_regex );
 	g_free( c_skipdir);
 	g_free( command );
-	files_advanced_win_destroy( widget, tfs );
+
+	gboolean destroy_win = TRUE;
+	if (tfs->retval &FIND_RET_FIND_IN_OPENED_FILE_HAS_NOT_FILENAME_YET) {
+		statusbar_message(tfs->bfwin, _("func_grep: file(s) without filename"), 2000);
+	}else if (tfs->retval &FIND_RET_FIND_IN_OPENED_FILE_BUT_NOT_PATTERN_SPECIFIED) {
+		warning_dialog(tfs->win, _("please specify the pattern!"), NULL);
+		gtk_widget_grab_focus(tfs->find_pattern);
+		destroy_win = FALSE;
+	} else if (tfs->retval &FIND_RET_CANNOT_CREATE_SECURE_TEMP_FILE) {
+		statusbar_message(tfs->bfwin, _("func_grep: cannot create secure file"), 2000);
+	} else if (tfs->retval &FIND_RET_EMPTY_FILE_LIST) {
+		statusbar_message(tfs->bfwin, _( "no matching files found" ), 2000);
+	} else if (tfs->retval & FIND_RET_NO_DIRECTORY_SPECIFIED) {
+		statusbar_message(tfs->bfwin, _( "no directory specified" ), 2000);
+	}
+	if (destroy_win) {
+		files_advanced_win_destroy(widget, tfs);
+	}
 }
 static void files_advanced_win_cancel_clicked( GtkWidget * widget, Tfiles_advanced *tfs )
 {
@@ -261,8 +352,36 @@ static void files_advanced_win_select_basedir_lcb( GtkWidget * widget, Tfiles_ad
 	g_free( olddir );
 }
 
+static void files_advanced_win_set_sensitive (Tfiles_advanced *tfs) {
+	gint type;
+	gchar * c_find_pattern;
+	c_find_pattern = gtk_editable_get_chars( GTK_EDITABLE( GTK_COMBO( tfs->find_pattern ) ->entry ), 0, -1 );
+	if (g_str_has_prefix(c_find_pattern, "<0: ") ) {
+		type =  FIND_IN_CURRENT_FILE;
+	}else if ( g_str_has_prefix(c_find_pattern, "<1: ") ) {
+		type = FIND_IN_ALL_OPENED_FILES;
+	}else{
+		type = FIND_IN_DIRECTORY;
+	}
+	if ( !(type & FIND_IN_DIRECTORY) ) {
+		gtk_widget_set_sensitive(tfs->basedir, FALSE);
+		gtk_widget_set_sensitive(tfs->open_files, FALSE);
+		gtk_widget_set_sensitive(tfs->recursive, FALSE);
+	}else{
+		gtk_widget_set_sensitive(tfs->basedir, TRUE);
+		gtk_widget_set_sensitive(tfs->open_files, TRUE);
+		gtk_widget_set_sensitive(tfs->recursive, TRUE);
+	}
+	g_free(c_find_pattern);
+}
+
+static void find_pattern_changed_lcb(GtkWidget *widget, Tfiles_advanced *tfs) {
+	files_advanced_win_set_sensitive(tfs);
+}
+
 static void files_advanced_win( Tfiles_advanced *tfs)
 {
+	
 	GtkWidget * vbox, *hbox, *but, *table;
 	GList *list;
 	if ( !tfs->basedir ) {
@@ -275,7 +394,7 @@ static void files_advanced_win( Tfiles_advanced *tfs)
 	gtk_widget_set_size_request(tfs->basedir, 270,-1);
 
 	tfs->win = window_full2( _( "Grep Function" ), GTK_WIN_POS_MOUSE, 12, G_CALLBACK( files_advanced_win_destroy ), tfs, TRUE, tfs->bfwin->main_window );
-	DEBUG_MSG( "files_advanced_win, tfs->win=%p\n", tfs->win );
+	DEBUG_MSG( "func_grep: tfs->win=%p\n", tfs->win );
 	tfs->filenames_to_return = NULL;
 	vbox = gtk_vbox_new( FALSE, 0 );
 	gtk_container_add( GTK_CONTAINER( tfs->win ), vbox );
@@ -301,18 +420,22 @@ static void files_advanced_win( Tfiles_advanced *tfs)
 	gtk_table_attach( GTK_TABLE( table ), bf_allbuttons_backend( _( "_Browse..." ), TRUE, 112, G_CALLBACK( files_advanced_win_select_basedir_lcb ), tfs ), MAX_COLUMN-1, MAX_COLUMN, 3, 4, GTK_SHRINK, GTK_SHRINK, 0, 0 );
 
 	list = NULL;
-	list = g_list_append( list, "<current file>" );
-	list = g_list_append( list, "<all opened files>" );
+	list = g_list_append( list, _("<0: current file>") );
+	list = g_list_append( list, _("<1: all opened files>") );
 	list = g_list_append( list, "*.tex" );
 	list = g_list_append( list, "*.cls,*.dtx,*.sty,*.ins" );
 	list = g_list_append( list, "*.ind,*.bbl" );
 	list = g_list_append( list, "*.log,*.aux,*.idx,*.ilg,*.blg" );
 	list = g_list_append( list, "*.toc,*.lof,*.lot,*.thm" );
 	list = g_list_append( list, "*" );
-
-	tfs->find_pattern = combo_with_popdown( "<all opened files>", list, 1 );
+	if (open_files - 100) {
+		tfs->find_pattern = combo_with_popdown("*.tex", list, 1 );
+	}else{
+		tfs->find_pattern = combo_with_popdown( _("<1: all opened files>"), list, 1 );
+	}
 	bf_mnemonic_label_tad_with_alignment( _( "_File:" ), tfs->find_pattern, 0, 0.5, table, 1, 2, 4, 5 );
 	gtk_table_attach_defaults( GTK_TABLE( table ), tfs->find_pattern, 2, MAX_COLUMN-1, 4, 5 );
+	g_signal_connect(G_OBJECT( GTK_ENTRY( GTK_COMBO( tfs->find_pattern )->entry) ), "changed", G_CALLBACK(find_pattern_changed_lcb), tfs);
 
 	g_list_free( list );
 
@@ -351,7 +474,7 @@ static void files_advanced_win( Tfiles_advanced *tfs)
 	tfs->case_sensitive = checkbut_with_value( NULL, 1 );
 	bf_mnemonic_label_tad_with_alignment( _( "_Case sensitive:" ), tfs->case_sensitive, 0, 0.5, table, 1, 2, 9, 10 );
 	gtk_table_attach_defaults( GTK_TABLE( table ), tfs->case_sensitive, 2, MAX_COLUMN-1, 9, 10 );
-	
+
 	tfs->is_regex = checkbut_with_value( NULL, 0 );
 	bf_mnemonic_label_tad_with_alignment( _( "Is rege_x:" ), tfs->is_regex, 0, 0.5, table, 1, 2, 10, 11 );
 	gtk_table_attach_defaults( GTK_TABLE( table ), tfs->is_regex, 2, MAX_COLUMN-1, 10, 11 );
@@ -362,7 +485,7 @@ static void files_advanced_win( Tfiles_advanced *tfs)
 	tfs->skipdir = checkbut_with_value( NULL, 1);
 	bf_mnemonic_label_tad_with_alignment( _( "Skip _VCS dirs:" ), tfs->skipdir, 0, 0.5, table, 1, 2, 12, 13 );
 	gtk_table_attach_defaults( GTK_TABLE( table ), tfs->skipdir, 2, MAX_COLUMN-1, 12, 13 );
-	
+
 	/* buttons */
 	hbox = gtk_hbox_new( FALSE, 0 );
 	gtk_box_pack_start( GTK_BOX( hbox ), gtk_hseparator_new(), TRUE, TRUE, 0 );
@@ -377,6 +500,7 @@ static void files_advanced_win( Tfiles_advanced *tfs)
 	gtk_window_set_default( GTK_WINDOW( tfs->win ), but );
 	gtk_box_pack_start( GTK_BOX( vbox ), hbox, FALSE, FALSE, 0 );
 	
+	files_advanced_win_set_sensitive ( tfs );
 	gtk_widget_show_all( GTK_WIDGET( tfs->win ) );
 
 	/*	gtk_grab_add(GTK_WIDGET(tfs->win));
@@ -387,14 +511,22 @@ static void files_advanced_win( Tfiles_advanced *tfs)
 
 static GList *return_files_advanced( Tbfwin *bfwin, gchar *tmppath)
 {
-	Tfiles_advanced tfs = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, bfwin};
+	Tfiles_advanced tfs = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, bfwin, FIND_RET_OK};
+
+	/* Tfiles_advanced *tfs;
+	tfs = g_new0(Tfiles_advanced, 1);
+
+	tfs->bfwin = bfwin;
+	tfs->retval = FIND_RET_OK;
+	*/
+
 	if ( tmppath ) {
 		GtkWidget * curdir = entry_with_text( tmppath, 255 );
 		tfs.basedir = curdir;
 	}
 	/* this is probably called different!! */
 	files_advanced_win( &tfs );
-	DEBUG_MSG( "return_files_advanced, calling gtk_main()\n" );
+	DEBUG_MSG( "func_grep: calling gtk_main()\n" );
 	gtk_main();
 	return tfs.filenames_to_return;
 }
@@ -413,10 +545,9 @@ void file_open_advanced_cb( Tbfwin *bfwin, gboolean v_open_files )
 	open_files = 100 + v_open_files;
 
 	tmplist = return_files_advanced( bfwin , NULL);
+
 	if (open_files - 100) {
 		if ( !tmplist ) {
-			/* info_dialog( bfwin->main_window, _( "No matching files found" ), NULL ); */
-			statusbar_message(bfwin, _( "no matching files found" ), 1000);
 			return ;
 		}
 		{
@@ -435,7 +566,7 @@ void file_open_advanced_cb( Tbfwin *bfwin, gboolean v_open_files )
 void open_advanced_from_filebrowser( Tbfwin *bfwin, gchar *path )
 {
 	GList * tmplist;
-	tmplist = return_files_advanced ( bfwin, path );
+	tmplist = return_files_advanced ( bfwin, path);
 	if ( !tmplist ) {
 		return ;
 	}
@@ -464,7 +595,7 @@ void template_rescan_cb(Tbfwin *bfwin) {
 #else
 	command = g_strdup_printf("%s -EnH '%%%%wf=' `%s '%s' -type f \\( -name '*.tex' -o -name '*.sty' \\) %s | grep -v SCCS/ | grep -v CVS/ | grep -v .svn/`",EXTERNAL_GREP, EXTERNAL_FIND, c_basedir, FUNC_GREP_RECURSIVE_MAX_DEPTH);
 #endif /* SED_XARGS */	
-	outputbox(bfwin, &bfwin->templatebox,_("template"), "^([^:]+):([0-9]+):(.*)", 1, 2, 3, command, 0);
+	outputbox(bfwin, &bfwin->templatebox,_("template"),  "^([^:]+):([0-9]+):(.*)", 1, 2, 3, command, 0);
 	g_free(command);
 	g_free(c_basedir);
 }
