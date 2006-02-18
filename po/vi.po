@@ -13,6 +13,7 @@
 # translation of vi.po to
 # translation of vi.po to
 # translation of vi.po to
+# translation of vi.po to
 # translation of vi.po to Vietnamese
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
@@ -23,7 +24,7 @@ msgstr ""
 "Project-Id-Version: vi\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-18 14:42+0700\n"
-"PO-Revision-Date: 2006-02-18 14:47+0700\n"
+"PO-Revision-Date: 2006-02-18 14:49+0700\n"
 "Last-Translator: kyanh <kyanh@o2.pl>\n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -790,11 +791,11 @@ msgstr "tìm"
 
 #: ../src/func_grep.c:302
 msgid "func_grep: file(s) without filename"
-msgstr ""
+msgstr "func_grep: các tập tin chưa có tên"
 
 #: ../src/func_grep.c:304
 msgid "please specify the pattern!"
-msgstr ""
+msgstr "vui lòng chỉ ra pattern tìm kiếm!"
 
 #: ../src/func_grep.c:308
 msgid "func_grep: cannot create secure file"
@@ -3005,8 +3006,7 @@ msgstr "-p filename  mở dự án\n"
 
 #: ../src/winefish.c:112
 msgid "-l number    set line<number>. Negative value takes no effect.\n"
-msgstr ""
-"-l number    đặt con trỏ vào dòng '<number>'. Số âm không có tác dụng.\n"
+msgstr "-l number    đặt con trỏ vào dòng '<number>'. Số âm không có tác dụng.\n"
 
 #: ../src/winefish.c:113
 msgid "-h           this help screen\n"
@@ -3161,3 +3161,4 @@ msgstr "_Hàng:"
 #: ../src/wizards.c:646
 msgid "Type (_Environment):"
 msgstr "Kiểu (_Môi trường):"
+
