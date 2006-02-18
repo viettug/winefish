@@ -302,7 +302,7 @@ static void files_advanced_win_ok_clicked( GtkWidget * widget, Tfiles_advanced *
 		statusbar_message(tfs->bfwin, _("func_grep: file(s) without filename"), 2000);
 	}else if (tfs->retval &FIND_RET_FIND_IN_OPENED_FILE_BUT_NOT_PATTERN_SPECIFIED) {
 		warning_dialog(tfs->win, _("please specify the pattern!"), NULL);
-		gtk_widget_grab_focus(tfs->find_pattern);
+		/* gtk_widget_grab_focus(tfs->find_pattern); */
 		destroy_win = FALSE;
 	} else if (tfs->retval &FIND_RET_CANNOT_CREATE_SECURE_TEMP_FILE) {
 		statusbar_message(tfs->bfwin, _("func_grep: cannot create secure file"), 2000);
