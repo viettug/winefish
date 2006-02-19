@@ -3491,8 +3491,60 @@ static gboolean doc_textview_expose_event_lcb( GtkWidget * widget, GdkEventExpos
 	gint text_width;
 
 	win = gtk_text_view_get_window( view, GTK_TEXT_WINDOW_LEFT );
-	if ( win != event->window )
+	if ( win != event->window ) {
+#ifndef STUPID	
+		if ( event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT) )
+		{
+			GdkRectangle visible_rect;
+			GdkRectangle redraw_rect;
+		
+			gchar *tab_string;
+			tab_string = g_strnfill (60, '_');
+			gint tab_width = widget_get_string_size(widget, tab_string);
+			g_free(tab_string);
+		
+			gtk_text_view_get_visible_rect (view, &visible_rect);
+			gtk_text_view_buffer_to_window_coords (view,
+							GTK_TEXT_WINDOW_TEXT,
+							visible_rect.x,
+							visible_rect.y,
+							&redraw_rect.x,
+							&redraw_rect.y);
+		
+			redraw_rect.width = visible_rect.width;
+			redraw_rect.height = visible_rect.height;
+		
+				/*
+			GtkStyle *marker_style;
+			marker_style = gtk_style_new();
+			gint i=0;
+			for (i=0;i<5;i++) {
+			marker_style->fg_gc[i] = widget->style->fg_gc[i];
+			marker_style->bg_gc[i] = widget->style->bg_gc[i];
+			marker_style->light_gc[i] = widget->style->light_gc[i];
+			marker_style->dark_gc[i] = widget->style->dark_gc[i];
+			marker_style->mid_gc[i] = widget->style->mid_gc[i];
+			marker_style->base_gc[i] = widget->style->base_gc[i];
+			marker_style->text_aa_gc[i] = widget->style->text_aa_gc[i];
+		}
+			GdkColor red = {0,65535,0,0};
+			gdk_gc_set_background(marker_style->fg_gc[3], &red);
+				*/
+		
+			gtk_paint_vline(
+					widget->style,
+			event->window,
+			GTK_WIDGET_STATE (widget), 
+			&redraw_rect,
+			widget,
+			"marker",
+			redraw_rect.y, 
+			redraw_rect.y + redraw_rect.height,
+			tab_width - visible_rect.x + redraw_rect.x + gtk_text_view_get_left_margin (view));
+		}
+#endif		
 		return FALSE;
+	}
 
 	gtk_text_view_get_visible_rect( view, &rect );
 	gtk_text_view_get_line_at_y( view, &l_start, rect.y, &l_top1 );
@@ -3533,56 +3585,6 @@ static gboolean doc_textview_expose_event_lcb( GtkWidget * widget, GdkEventExpos
 	g_object_unref( G_OBJECT( l ) );
 	if ( temp_tab )
 		g_hash_table_destroy( temp_tab );
-#ifdef STUPID	
-	{
-		GdkRectangle visible_rect;
-		GdkRectangle redraw_rect;
-
-		gchar *tab_string;
-		tab_string = g_strnfill (20, '_');
-		gint tab_width = widget_get_string_size(widget, tab_string);
-		g_free(tab_string);
-			
-		gtk_text_view_get_visible_rect (view, &visible_rect);
-		gtk_text_view_buffer_to_window_coords (view,
-				GTK_TEXT_WINDOW_TEXT,
-				visible_rect.x,
-				visible_rect.y,
-				&redraw_rect.x,
-				&redraw_rect.y);
-
-		redraw_rect.width = visible_rect.width;
-		redraw_rect.height = visible_rect.height;
-
-		/*
-		GtkStyle *marker_style;
-		marker_style = gtk_style_new();
-		gint i=0;
-		for (i=0;i<5;i++) {
-			marker_style->fg_gc[i] = widget->style->fg_gc[i];
-			marker_style->bg_gc[i] = widget->style->bg_gc[i];
-			marker_style->light_gc[i] = widget->style->light_gc[i];
-			marker_style->dark_gc[i] = widget->style->dark_gc[i];
-			marker_style->mid_gc[i] = widget->style->mid_gc[i];
-			marker_style->base_gc[i] = widget->style->base_gc[i];
-			marker_style->text_aa_gc[i] = widget->style->text_aa_gc[i];
-		}
-		GdkColor red = {0,65535,0,0};
-		gdk_gc_set_background(marker_style->fg_gc[3], &red);
-		*/
-
-		gtk_paint_vline(
-			widget->style,
-			event->window,
-			GTK_WIDGET_STATE (widget), 
-			&redraw_rect,
-			widget,
-			"marker",
-			redraw_rect.y, 
-			redraw_rect.y + redraw_rect.height,
-			tab_width - visible_rect.x + redraw_rect.x + gtk_text_view_get_left_margin (view));
-	}
-#endif
 	return TRUE;
 }
 
