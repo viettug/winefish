@@ -1042,9 +1042,10 @@ void doc_select_region( Tdocument *doc, gint start, gint end, gboolean do_scroll
 **/
 void doc_select_line( Tdocument *doc, gint line, gboolean do_scroll )
 {
-	GtkTextIter itstart, itend;
+	GtkTextIter itstart;
 	gtk_text_buffer_get_iter_at_line( doc->buffer, &itstart, line - 1 );
-	itend = itstart;
+#ifdef SELECT_LINE
+	GtkTextIter itend = itstart;
 	/* do the section */
 	gtk_text_iter_forward_to_line_end( &itend );
 	gtk_text_buffer_move_mark_by_name( doc->buffer, "insert", &itstart );
@@ -1056,6 +1057,13 @@ void doc_select_line( Tdocument *doc, gint line, gboolean do_scroll )
 		gtk_text_view_scroll_to_mark(GTK_TEXT_VIEW( doc->view ), tmpmark, 0.25, FALSE, 0.5, 0.5 );
 		*/
 	}
+#else
+	gtk_text_buffer_move_mark_by_name( doc->buffer, "insert", &itstart );
+	gtk_text_buffer_move_mark_by_name( doc->buffer, "selection_bound", &itstart );
+	if ( do_scroll ) {
+		gtk_text_view_scroll_to_iter( GTK_TEXT_VIEW( doc->view ), &itstart, 0.25, FALSE, 0.5, 0.5 );
+	}
+#endif /* SELECT_LINE */
 }
 
 /**
@@ -3493,54 +3501,48 @@ static gboolean doc_textview_expose_event_lcb( GtkWidget * widget, GdkEventExpos
 	win = gtk_text_view_get_window( view, GTK_TEXT_WINDOW_LEFT );
 	if ( win != event->window ) {
 #ifndef STUPID	
-		if ( event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT) )
+		if ( event->window == gtk_text_view_get_window(view, GTK_TEXT_WINDOW_TEXT) )
 		{
-			GdkRectangle visible_rect;
-			GdkRectangle redraw_rect;
-		
-			gchar *tab_string;
-			tab_string = g_strnfill (60, '_');
-			gint tab_width = widget_get_string_size(widget, tab_string);
-			g_free(tab_string);
-		
-			gtk_text_view_get_visible_rect (view, &visible_rect);
-			gtk_text_view_buffer_to_window_coords (view,
-							GTK_TEXT_WINDOW_TEXT,
-							visible_rect.x,
-							visible_rect.y,
-							&redraw_rect.x,
-							&redraw_rect.y);
-		
-			redraw_rect.width = visible_rect.width;
-			redraw_rect.height = visible_rect.height;
-		
-				/*
-			GtkStyle *marker_style;
-			marker_style = gtk_style_new();
-			gint i=0;
-			for (i=0;i<5;i++) {
-			marker_style->fg_gc[i] = widget->style->fg_gc[i];
-			marker_style->bg_gc[i] = widget->style->bg_gc[i];
-			marker_style->light_gc[i] = widget->style->light_gc[i];
-			marker_style->dark_gc[i] = widget->style->dark_gc[i];
-			marker_style->mid_gc[i] = widget->style->mid_gc[i];
-			marker_style->base_gc[i] = widget->style->base_gc[i];
-			marker_style->text_aa_gc[i] = widget->style->text_aa_gc[i];
-		}
-			GdkColor red = {0,65535,0,0};
-			gdk_gc_set_background(marker_style->fg_gc[3], &red);
-				*/
-		
-			gtk_paint_vline(
-					widget->style,
-			event->window,
-			GTK_WIDGET_STATE (widget), 
-			&redraw_rect,
-			widget,
-			"marker",
-			redraw_rect.y, 
-			redraw_rect.y + redraw_rect.height,
-			tab_width - visible_rect.x + redraw_rect.x + gtk_text_view_get_left_margin (view));
+			{/* current line hilighting */
+#ifdef STUPID_A_
+				gint w2;
+				GtkTextBuffer *buf = gtk_text_view_get_buffer(view);
+				gtk_text_buffer_get_iter_at_mark(buf, &it, gtk_text_buffer_get_insert(buf));
+				gtk_text_view_get_visible_rect(view, &rect);
+				gtk_text_view_get_line_yrange(view, &it, &w, &w2);
+				gtk_text_view_buffer_to_window_coords(view, GTK_TEXT_WINDOW_TEXT, rect.x, rect.y, &rect.x, &rect.y);
+				gtk_text_view_buffer_to_window_coords(view, GTK_TEXT_WINDOW_TEXT, 0, w, NULL, &w);
+				gdk_draw_rectangle(event->window, widget->style->bg_gc[GTK_WIDGET_STATE(widget)], TRUE,rect.x, w, rect.width, w2);
+#else	
+				GdkRectangle iter_rect;
+
+				GtkTextBuffer *buf = gtk_text_view_get_buffer(view);
+				gtk_text_buffer_get_iter_at_mark(buf, &it, gtk_text_buffer_get_insert(buf));
+
+				gtk_text_view_get_visible_rect(view, &rect);
+				gtk_text_view_get_iter_location(view, &it, &iter_rect);
+
+				gtk_text_view_buffer_to_window_coords(view, GTK_TEXT_WINDOW_TEXT, rect.x, rect.y, &rect.x, &rect.y);
+				gtk_text_view_buffer_to_window_coords(view, GTK_TEXT_WINDOW_TEXT, 0, iter_rect.y, NULL, &iter_rect.y);
+
+				gdk_draw_rectangle(event->window, widget->style->bg_gc[GTK_WIDGET_STATE(widget)], TRUE,rect.x, iter_rect.y, rect.width, iter_rect.height);
+#endif /* STUPID_A_ */
+			}
+			{/* column marker */
+				GdkRectangle visible_rect;
+				GdkRectangle redraw_rect;
+			
+				gchar *tab_string;
+				tab_string = g_strnfill (60, '_');
+				gint tab_width = widget_get_string_size(widget, tab_string);
+				g_free(tab_string);
+			
+				gtk_text_view_get_visible_rect (view, &visible_rect);
+				gtk_text_view_buffer_to_window_coords (view,GTK_TEXT_WINDOW_TEXT, visible_rect.x,visible_rect.y,	&redraw_rect.x,&redraw_rect.y);
+				redraw_rect.width = visible_rect.width;
+				redraw_rect.height = visible_rect.height;
+				gtk_paint_vline(widget->style,event->window,GTK_WIDGET_STATE (widget), &redraw_rect,widget,"marker", redraw_rect.y, redraw_rect.y + redraw_rect.height, tab_width - visible_rect.x + redraw_rect.x + gtk_text_view_get_left_margin (view));
+			}
 		}
 #endif		
 		return FALSE;
