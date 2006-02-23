@@ -511,10 +511,35 @@ void outputbox(Tbfwin *bfwin, gpointer *ob, const gchar *title, gchar *pattern, 
 	OUTPUTBOX(*ob)->def->line_subpat = line_subpat;
 	OUTPUTBOX(*ob)->def->output_subpat = output_subpat;
 	OUTPUTBOX(*ob)->def->show_all_output = show_all_output;
-	regcomp( &OUTPUTBOX(*ob)->def->preg, OUTPUTBOX(*ob)->def->pattern, REG_EXTENDED );
-	/* TODO  : check for valid preg */
 	OUTPUTBOX(*ob)->def->command = g_strdup( command );
 	DEBUG_MSG("outputbox: starting command: %s\n", command);
+#ifdef __BF_BACKEND__
+	const char *errptr;
+	gint erroffset;
+	OUTPUTBOX(*ob)->def->pcre_c = pcre_compile(OUTPUTBOX(*ob)->def->pattern, PCRE_UTF8,&errptr,&erroffset,NULL);
+	if (OUTPUTBOX(*ob)->def->pcre_c == NULL) {
+		{
+			gchar *tmpstr;
+			tmpstr = g_strdup_printf(_("failed to compile pattern %s"), OUTPUTBOX(*ob)->def->pattern);
+			outputbox_message(*ob, tmpstr, OB_MESSAGE_RED);
+			g_free(tmpstr);
+		}
+		/* free ob stuff */
+		OUTPUTBOX(*ob)->basepath_cached_color = FALSE;
+		g_free( OUTPUTBOX(*ob)->basepath_cached );
+		g_free( OUTPUTBOX(*ob)->def->pattern );
+		pcre_free(OUTPUTBOX(*ob)->def->pcre_c);
+		pcre_free(OUTPUTBOX(*ob)->def->pcre_s);
+		g_free( OUTPUTBOX(*ob)->def->command );
+		g_free( OUTPUTBOX(*ob)->def );
+		OUTPUTBOX(*ob)->OB_FETCHING = OB_IS_READY;
+		return;
+	}
+	OUTPUTBOX(*ob)->def->pcre_s = pcre_study(OUTPUTBOX(*ob)->def->pcre_c, 0,&errptr);
+#endif /* __BF_BACKEND__ */
+#ifdef __KA_BACKEND__
+	regcomp( &OUTPUTBOX(*ob)->def->preg, OUTPUTBOX(*ob)->def->pattern, REG_EXTENDED );
+#endif /* __BF_BACKEND__ */
 #ifdef __KA_BACKEND__
 	/* kyanh */
 	OUTPUTBOX(*ob)->retfile = NULL;
