@@ -346,7 +346,8 @@ void run_command(Toutputbox *ob) {
 		if (!ep->commandstring) {
 			/**/
 			g_free( ob->def->pattern );
-			regfree( &ob->def->preg );
+			pcre_free(ob->def->pcre_c);
+			pcre_free(ob->def->pcre_s);
 			g_free( ob->def->command );
 			g_free( ob->def );
 			/**/
@@ -398,7 +399,8 @@ void finish_execute( Toutputbox *ob ) {
 	ob->basepath_cached_color = FALSE;
 	g_free( ob->basepath_cached );
 	g_free( ob->def->pattern );
-	regfree( &ob->def->preg );
+	pcre_free(ob->def->pcre_c);
+	pcre_free(ob->def->pcre_s);
 	g_free( ob->def->command );
 	g_free( ob->def );
 	/**/

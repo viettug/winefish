@@ -50,7 +50,13 @@ typedef struct
 	gint output_subpat;
 	gint show_all_output;
 	regmatch_t pmatch[ NUM_MATCH ];
+#ifdef __KA_BACKEND__
 	regex_t preg;
+#endif /* __KA_BACKEND__ */
+#ifdef __BF_BACKEND__
+	pcre *pcre_c;
+	pcre_extra *pcre_s;
+#endif /* __BF_BACKEND__ */
 }
 Toutput_def;
 
