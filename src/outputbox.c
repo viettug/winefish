@@ -248,7 +248,9 @@ void outputbox_message( Toutputbox *ob, const char *string, gint markup )
 {
 	DEBUG_MSG("outputbox_message: %s\n", string);
 	GtkTreeIter iter;
-	gchar *tmpstr = g_markup_escape_text(string,-1);
+	gchar *tmpstr;
+#ifdef USE_MARKUP
+	tmpstr = g_markup_escape_text(string,-1);
 	if (markup) {
 		if (markup  & OB_MESSAGE_BLUE ) {
 			tmpstr = g_strdup_printf("<span foreground=\"blue\">%s</span>", tmpstr);
@@ -262,7 +264,8 @@ void outputbox_message( Toutputbox *ob, const char *string, gint markup )
 			tmpstr = g_strdup_printf("<i>%s</i>", tmpstr);
 		}
 	}
-	tmpstr = g_strdup_printf("&gt; %s", tmpstr);
+#endif
+	tmpstr = g_strdup_printf("* %s", string);
 	gtk_list_store_append( GTK_LIST_STORE( ob->lstore ), &iter );
 	gtk_list_store_set( GTK_LIST_STORE( ob->lstore ), &iter, 2, tmpstr, -1 );
 	g_free(tmpstr);
@@ -415,7 +418,7 @@ static Toutputbox *outputbox_new_box( Tbfwin *bfwin, const gchar *title )
 	gtk_tree_view_append_column ( GTK_TREE_VIEW( ob->lview ), column );
 	column = gtk_tree_view_column_new_with_attributes ( NULL, renderer, "text", 1, NULL );
 	gtk_tree_view_append_column ( GTK_TREE_VIEW( ob->lview ), column );
-	column = gtk_tree_view_column_new_with_attributes ( NULL, renderer, "markup", 2, NULL );
+	column = gtk_tree_view_column_new_with_attributes ( NULL, renderer, "text", 2, NULL );
 	gtk_tree_view_append_column ( GTK_TREE_VIEW( ob->lview ), column );
 
 	/* g_signal_connect( G_OBJECT( ob->lview ), "row-activated", G_CALLBACK( ob_lview_row_activated_lcb ), ob ); */
