@@ -248,27 +248,28 @@ void outputbox_message( Toutputbox *ob, const char *string, gint markup )
 {
 	DEBUG_MSG("outputbox_message: %s\n", string);
 	GtkTreeIter iter;
-	gchar *tmpstr;
-#ifdef USE_MARKUP
-	tmpstr = g_markup_escape_text(string,-1);
+
+	gtk_list_store_append( GTK_LIST_STORE( ob->lstore ), &iter );
+	gtk_list_store_set( GTK_LIST_STORE( ob->lstore ), &iter, 2, string, -1 );
 	if (markup) {
+		gchar *tmpstr=g_strdup("");
 		if (markup  & OB_MESSAGE_BLUE ) {
-			tmpstr = g_strdup_printf("<span foreground=\"blue\">%s</span>", tmpstr);
+			tmpstr = g_strdup_printf("<span foreground=\"blue\">*****</span>");
 		}else if (markup & OB_MESSAGE_RED) {
-			tmpstr = g_strdup_printf("<span foreground=\"red\">%s</span>", tmpstr);
+			tmpstr = g_strdup_printf("<span foreground=\"red\">*****</span>");
+		}else {
+			tmpstr = g_strdup_printf("*****");
 		}
+			
 		if (markup & OB_MESSAGE_BOLD) {
 			tmpstr = g_strdup_printf("<b>%s</b>", tmpstr);
 		}
 		if (markup & OB_MESSAGE_ITALIC) {
 			tmpstr = g_strdup_printf("<i>%s</i>", tmpstr);
 		}
+		gtk_list_store_set( GTK_LIST_STORE( ob->lstore ), &iter, 0, tmpstr, -1 );
+		g_free(tmpstr);
 	}
-#endif
-	tmpstr = g_strdup_printf("* %s", string);
-	gtk_list_store_append( GTK_LIST_STORE( ob->lstore ), &iter );
-	gtk_list_store_set( GTK_LIST_STORE( ob->lstore ), &iter, 2, tmpstr, -1 );
-	g_free(tmpstr);
 
 	/* TODO: Scroll as an Optional */
 	/* The Outputbox may *NOT* be shown before scrolling :) */
