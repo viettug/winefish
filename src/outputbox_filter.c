@@ -141,13 +141,14 @@ void outputbox_filter_line( Toutputbox *ob, const gchar *source_orig )
 				scroll=TRUE;
 			}
 			if ( output ) {
-				tmp_src = g_markup_escape_text(output,-1);
+				/* tmp_src = g_markup_escape_text(output,-1); */
+				/*
 				if (!ob->basepath_cached_color ) {
 					tmp_src = g_strdup_printf("<span foreground=\"blue\">%s</span>", tmp_src);
-				}
-				gtk_list_store_set( GTK_LIST_STORE( ob->lstore ), &iter, 2, tmp_src, -1 );
+				}*/
+				gtk_list_store_set( GTK_LIST_STORE( ob->lstore ), &iter, 2, output, -1 );
 				g_free( (gchar *)output );
-				g_free(tmp_src);
+				/* g_free(tmp_src); */
 				scroll=TRUE;
 			}
 			/* TODO: filter function */	
