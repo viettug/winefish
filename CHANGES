@@ -11,6 +11,12 @@ Winefish 1.3.2.7
 	- hilight current line
 	- column mark (testing)
 
+* improved:
+	- outputbox_filter (use PCRE for filter)
+
+* dropped:
+	- markup for messages of outputbox
+
 Winefish 1.3.2-RC1
 ==================
 
