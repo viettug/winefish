@@ -51,7 +51,7 @@ void outputbox_filter_line( Toutputbox *ob, const gchar *source_orig )
 
 	DEBUG_MSG("outputbox_filter_line: starting filter %s\n", source_orig);
 	GtkTreeIter iter;
-	gchar *tmp_src = NULL;
+	/* gchar *tmp_src = NULL; */
 	gboolean scroll= FALSE;
 	int nummatches;
 
@@ -61,10 +61,10 @@ void outputbox_filter_line( Toutputbox *ob, const gchar *source_orig )
 
 	if ( ob->def->show_all_output & OB_SHOW_ALL_OUTPUT ) {
 		DEBUG_MSG("outputbox_filter: show_all_output =1. show line...\n");
-		tmp_src = g_markup_escape_text(source,-1);
+		/* tmp_src = g_markup_escape_text(source,-1); */
 		gtk_list_store_append( GTK_LIST_STORE( ob->lstore ), &iter );
-		gtk_list_store_set( GTK_LIST_STORE( ob->lstore ), &iter, 2, tmp_src, -1 );
-		g_free(tmp_src);
+		gtk_list_store_set( GTK_LIST_STORE( ob->lstore ), &iter, 2, source, -1 );
+		/* g_free(tmp_src); */
 	} else {
 #ifdef __KA_BACKEND__
 		nummatches = regexec( &ob->def->preg, source, NUM_MATCH, ob->def->pmatch, 0 );
@@ -161,9 +161,9 @@ void outputbox_filter_line( Toutputbox *ob, const gchar *source_orig )
 				gtk_list_store_set( GTK_LIST_STORE( ob->lstore ), &iter, 1, line, -1 );
 				g_free( line );
 				DEBUG_MSG("outputbox_filter_line, line number = %s\n", line);
-				gchar *tmp_src = g_markup_escape_text(source,-1);
-				gtk_list_store_set( GTK_LIST_STORE( ob->lstore ), &iter, 2, tmp_src, -1 );
-				g_free(tmp_src);
+				/* gchar *tmp_src = g_markup_escape_text(source,-1); */
+				gtk_list_store_set( GTK_LIST_STORE( ob->lstore ), &iter, 2, source, -1 );
+				/*g_free(tmp_src);*/
 				scroll=TRUE;
 			}
 		} else if ( strstr( source, "LaTeX Error" ) || strstr( source, "Output written on") || strstr( source, "Warning") || strstr( source, "Overfull") ) {
@@ -172,10 +172,10 @@ void outputbox_filter_line( Toutputbox *ob, const gchar *source_orig )
 			this happens for e.g. when a Package not found (! LaTeX Error: .... )
 			*/
 			DEBUG_MSG("outputbox_filter_line: extra filtered...\n");
-			tmp_src = g_markup_escape_text(source,-1);
+			/* tmp_src = g_markup_escape_text(source,-1); */
 			gtk_list_store_append( GTK_LIST_STORE( ob->lstore ), &iter );
-			gtk_list_store_set( GTK_LIST_STORE( ob->lstore ), &iter, 2, tmp_src, -1 );
-			g_free(tmp_src);
+			gtk_list_store_set( GTK_LIST_STORE( ob->lstore ), &iter, 2, source, -1 );
+			/*g_free(tmp_src);*/
 			scroll=TRUE;
 		}
 	}
