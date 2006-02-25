@@ -4,6 +4,9 @@ $Id$
 
 ======== 1.3.2.7
 
+#100/fixed/kyanh/20060225/1.3.2.7{c-d}
+* after searching (func_grep) the pattern wasnot added to history list
+
 #99
 * project_mode=1, current_file=NULL
 => the command isnot converted. see bf_lib.c::convert_command
