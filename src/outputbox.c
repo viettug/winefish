@@ -260,13 +260,14 @@ void outputbox_message( Toutputbox *ob, const char *string, gint markup )
 		}else {
 			tmpstr = g_strdup_printf("*****");
 		}
-			
+#ifdef BOLD_ITALIC_TAKE_NO_EFFECTS	
 		if (markup & OB_MESSAGE_BOLD) {
 			tmpstr = g_strdup_printf("<b>%s</b>", tmpstr);
 		}
 		if (markup & OB_MESSAGE_ITALIC) {
 			tmpstr = g_strdup_printf("<i>%s</i>", tmpstr);
 		}
+#endif /* BOLD_ITALIC_TAKE_NO_EFFECTS */
 		gtk_list_store_set( GTK_LIST_STORE( ob->lstore ), &iter, 0, tmpstr, -1 );
 		g_free(tmpstr);
 	}
@@ -493,7 +494,7 @@ void outputbox(Tbfwin *bfwin, gpointer *ob, const gchar *title, gchar *pattern, 
 		} else {
 			format_str = g_strdup_printf(_("%s # project mode: OFF"), command);
 		}
-		outputbox_message( *ob, format_str, OB_MESSAGE_BLUE );
+		outputbox_message( *ob, format_str, OB_MESSAGE_DEFAULTL );
 		g_free( format_str );
 		flush_queue();
 	}
