@@ -237,13 +237,13 @@ static void files_advanced_win_ok_clicked( GtkWidget * widget, Tfiles_advanced *
 				command = g_strdup_printf("%s '%s' -type f %s %s %s", EXTERNAL_FIND, c_basedir, c_find_pattern, c_recursive, c_skipdir);
 			} else {
 				c_grep_pattern_escaped = g_strescape(c_grep_pattern,"\""); /* TODO: escape \" */
-	#ifdef HAVE_SED_XARGS
+#ifdef HAVE_SED_XARGS
 				DEBUG_MSG("func_grep: use xargs and sed\n");
 				command = g_strdup_printf("%s '%s' -type f %s %s %s | %s -e 's/ /\\\\\\ /g' | %s %s %s '%s'", EXTERNAL_FIND, c_basedir, c_find_pattern, c_recursive, c_skipdir, EXTERNAL_SED, EXTERNAL_XARGS, EXTERNAL_GREP, c_is_regex, c_grep_pattern_escaped);
-	#else
+#else
 				/* TODO: have find, have grep, but donot have sed/xargs. why???? */
 				command = g_strdup_printf("%s %s '%s' `%s '%s' -type f %s %s %s`",EXTERNAL_GREP, c_is_regex, c_grep_pattern_escaped, EXTERNAL_FIND, c_basedir, c_find_pattern, c_recursive, c_skipdir);
-	#endif /* SED_XARGS */
+#endif /* SED_XARGS */
 			}
 			DEBUG_MSG( "func_grep: command=%s\n", command );
 			statusbar_message( tfs->bfwin, _( "searching files..." ), 1000 );
@@ -269,15 +269,17 @@ static void files_advanced_win_ok_clicked( GtkWidget * widget, Tfiles_advanced *
 			{
 				gchar *tmpstr = gtk_editable_get_chars(GTK_EDITABLE( GTK_COMBO( tfs->basedir ) ->entry),0,-1);
 				if (tfs->bfwin->project) {
+					DEBUG_MSG("func_grep: add directory %s to history of project\n",tmpstr);
 					tfs->bfwin->project->session->recent_dirs = add_to_history_stringlist(tfs->bfwin->project->session->recent_dirs,  tmpstr, TRUE, TRUE);
 				}else{
+					DEBUG_MSG("func_grep: add directory %s to history of global session\n",tmpstr);
 					tfs->bfwin->session->recent_dirs = add_to_history_stringlist(tfs->bfwin->session->recent_dirs,  tmpstr, TRUE, TRUE);
 				}
 				g_free(tmpstr);
 				
 			}
 		}else{
-			DEBUG_MSG("func_grep:  start finding in opened file(s)...\n");
+			DEBUG_MSG("func_grep: start finding in opened file(s)...\n");
 			if ( type & FIND_WITHOUT_PATTERN ) {
 				tfs->retval = tfs->retval |FIND_RET_FIND_IN_OPENED_FILE_BUT_NOT_PATTERN_SPECIFIED | FIND_RET_FAILED;
 				DEBUG_MSG("func_grep: find in open files but no pattern was specified\n");
@@ -289,10 +291,12 @@ static void files_advanced_win_ok_clicked( GtkWidget * widget, Tfiles_advanced *
 			}
 		}
 		/* add pattern to history. only if found success ? */
-		if (! ( type & FIND_WITHOUT_PATTERN )  && ! (tfs->retval && FIND_RET_FAILED) ) {
+		if (! ( type & FIND_WITHOUT_PATTERN )  && ! (tfs->retval & FIND_RET_FAILED) ) {
 			if (tfs->bfwin->project) {
+				DEBUG_MSG("func_grep: add grep_pattern %s to history of project\n",c_grep_pattern);
 				tfs->bfwin->project->session->searchlist = add_to_history_stringlist(tfs->bfwin->project->session->searchlist,c_grep_pattern,TRUE,TRUE);
 			}else{
+				DEBUG_MSG("func_grep: add grep_pattern %s to history of global session\n",c_grep_pattern);
 				tfs->bfwin->session->searchlist = add_to_history_stringlist(tfs->bfwin->session->searchlist,c_grep_pattern,TRUE/*top*/,TRUE/*move if exists */);
 			}
 		}
