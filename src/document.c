@@ -3528,20 +3528,45 @@ static gboolean doc_textview_expose_event_lcb( GtkWidget * widget, GdkEventExpos
 				gdk_draw_rectangle(event->window, widget->style->bg_gc[GTK_WIDGET_STATE(widget)], TRUE,rect.x, iter_rect.y, rect.width, iter_rect.height);
 #endif /* STUPID_A_ */
 			}
-			{/* column marker */
+			if (main_v->props.marker_ii || main_v->props.marker_iii || main_v->props.marker_i) {/* column marker */
 				GdkRectangle visible_rect;
 				GdkRectangle redraw_rect;
-			
+				gint tab_width_i=0, tab_width_ii=0, tab_width_iii=0;
+
 				gchar *tab_string;
-				tab_string = g_strnfill (60, '_');
-				gint tab_width = widget_get_string_size(widget, tab_string);
-				g_free(tab_string);
+				if (main_v->props.marker_i) {
+					tab_string = g_strnfill (main_v->props.marker_i, '_');
+					tab_width_i = widget_get_string_size(widget, tab_string);
+					g_free(tab_string);
+				}
+				
+				if (main_v->props.marker_ii && (main_v->props.marker_ii != main_v->props.marker_i)) {
+					tab_string = g_strnfill (main_v->props.marker_ii, '_');
+					tab_width_ii = widget_get_string_size(widget, tab_string);
+					g_free(tab_string);
+				}
+				
+				if (main_v->props.marker_iii && (main_v->props.marker_iii != main_v->props.marker_i) && (main_v->props.marker_iii != main_v->props.marker_ii)) {
+					tab_string = g_strnfill (main_v->props.marker_iii, '_');
+					tab_width_iii = widget_get_string_size(widget, tab_string);
+					g_free(tab_string);
+				}
 			
 				gtk_text_view_get_visible_rect (view, &visible_rect);
 				gtk_text_view_buffer_to_window_coords (view,GTK_TEXT_WINDOW_TEXT, visible_rect.x,visible_rect.y,	&redraw_rect.x,&redraw_rect.y);
 				redraw_rect.width = visible_rect.width;
 				redraw_rect.height = visible_rect.height;
-				gtk_paint_vline(widget->style,event->window,GTK_WIDGET_STATE (widget), &redraw_rect,widget,"marker", redraw_rect.y, redraw_rect.y + redraw_rect.height, tab_width - visible_rect.x + redraw_rect.x + gtk_text_view_get_left_margin (view));
+				
+				if (tab_width_i) {
+					gtk_paint_vline(widget->style,event->window,GTK_WIDGET_STATE (widget), &redraw_rect,widget,"marker", redraw_rect.y, redraw_rect.y + redraw_rect.height, tab_width_i - visible_rect.x + redraw_rect.x + gtk_text_view_get_left_margin (view));
+				}
+				if (tab_width_ii) {
+					gtk_paint_vline(widget->style,event->window,GTK_WIDGET_STATE (widget), &redraw_rect,widget,"marker", redraw_rect.y, redraw_rect.y + redraw_rect.height, tab_width_ii - visible_rect.x + redraw_rect.x + gtk_text_view_get_left_margin (view));
+				}
+				if (tab_width_iii) {
+					gtk_paint_vline(widget->style,event->window,GTK_WIDGET_STATE (widget), &redraw_rect,widget,"marker", redraw_rect.y, redraw_rect.y + redraw_rect.height, tab_width_iii - visible_rect.x + redraw_rect.x + gtk_text_view_get_left_margin (view));
+				}
+				
 			}
 		}
 #endif		

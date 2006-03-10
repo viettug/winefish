@@ -102,6 +102,9 @@ enum {
 	templates_dir, /* directory for templates */
 #endif /* EXTERNAL_FIND */
 #endif /* EXTERNAL_GREP */
+	marker_i, /* column marker, the first one */
+	marker_ii,
+	marker_iii,
 	property_num_max
 };
 
@@ -1668,6 +1671,9 @@ static void preferences_apply(Tprefdialog *pd) {
 	string_apply(&main_v->props.templates_dir, pd->prefs[templates_dir]);
 #endif
 #endif
+	integer_apply(&main_v->props.marker_i, pd->prefs[marker_i], FALSE);
+	integer_apply(&main_v->props.marker_ii, pd->prefs[marker_ii], FALSE);
+	integer_apply(&main_v->props.marker_iii, pd->prefs[marker_iii], FALSE);
 	/* integer_apply(&main_v->props.filebrowser_two_pane_view, pd->prefs[filebrowser_two_pane_view], TRUE); */
 	string_apply(&main_v->props.filebrowser_unknown_icon, pd->prefs[filebrowser_unknown_icon]);
 	string_apply(&main_v->props.filebrowser_dir_icon, pd->prefs[filebrowser_dir_icon]);
@@ -2088,7 +2094,17 @@ _("%f: current filename\n\
 	pd->prefs[templates_dir] = prefs_string(NULL, main_v->props.templates_dir, vbox2, pd, string_none);
 #endif /* EXTERNAL_FIND */
 #endif /* EXTERNAL_GREP */
+	frame = gtk_frame_new(_("Column Markers"));
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	vbox2 = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 
+	pd->prefs[marker_i] = prefs_integer(_("Marker 1"), main_v->props.marker_i, vbox2, pd, 0, 100);
+	pd->prefs[marker_ii] = prefs_integer(_("Marker 2"), main_v->props.marker_ii, vbox2, pd, 0, 100);
+	pd->prefs[marker_iii] = prefs_integer(_("Marker 3"), main_v->props.marker_iii, vbox2, pd, 0, 100);
+
+	/* end tab: misc. TODO: move to static function ;) */
+	
 	/* end, create buttons for dialog now */
 	{
 		GtkWidget *ahbox, *but;

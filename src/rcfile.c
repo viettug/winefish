@@ -396,6 +396,9 @@ static GList *props_init_main(GList * config_rc)
 	g_free(tmpstr);
 #endif
 #endif
+	init_prop_integer   (&config_rc, &main_v->props.marker_i,"marker_i:",80, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.marker_ii,"marker_ii:",4, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.marker_iii,"marker_iii:",8, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.project_suffix,"project_suffix:",".wfproject");
 #ifdef HAVE_LIBASPELL
 	init_prop_string(&config_rc, &main_v->props.spell_default_lang, "spell_default_lang:", "en");
