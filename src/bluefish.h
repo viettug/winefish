@@ -203,6 +203,9 @@ typedef struct {
 	gchar *templates_dir;
 #endif /* EXTERNAL_FIND */
 #endif /* EXTERNAL_GREP */
+	gint marker_i;
+	gint marker_ii;
+	gint marker_iii;
 } Tproperties;
 
 /* the Tglobalsession contains all settings that can change 
