@@ -8,7 +8,7 @@ Winefish 1.3.2.7
 
 * new features:
 	- column markers (at most 3 markers)
-	- grep_function: fine from files (current file or all opened files)
+	- grep_function: find from files (current file or all opened files)
 	- hilight current line
 	- column mark (testing)
 
