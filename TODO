@@ -5,17 +5,17 @@ $Id$
 * Optimize usage of GET_BIT
 * implement message box (not statusbar_message);
 * windows/close all others
-* add option: save file before run tool (outputbox)
+	/done/* add option: save file before run tool (outputbox)
 * gtk2.4: gtk_combo_* => gtk_combo_box_*
 	/done/kyanh/200507/19/* add '~', '\~'
-* add line number in lines of table
+	/done/* add line number in lines of table
 	/done/kyanh/200601xx/* Document: HTML version (tex4ht: bad!)
 * Optimized document.c::(gap_command)
-* Use VTE to emulate the console
+	/none/* Use VTE to emulate the console
 * capture: \usepackage{foobar}
 	/done/kyanh/200507xx/* Move 'project_mode' from main_v to project's properties
 * increase the length of command recognized by collector
-* add vertical rule [ col 79 ] [ ~ EditPlus, column marker ]
+	/done/* add vertical rule [ col 79 ] [ ~ EditPlus, column marker ]
 	/done/kyanh/2005071x/* reformat: table, split, array,...
 * (Outputbox) scroll the output as option.
 For 'cat', scrolling will slow down Winefish.
@@ -24,26 +24,26 @@ For 'cat', scrolling will slow down Winefish.
 * optmized the use of GtkTextIter
 	/none/kyanh/20050718/* show Sidebar as default
 * Backspace doesnot start autocompletion
-* smooth the Fish (splash, logo)
+	/done/* smooth the Fish (splash, logo)
 * project: various main files support
 * update chars: should add 'backspace'
 	/done/kyanh/20050714/* tex hilight: add special chars: \;, \,, \!, etc.
 * autocompletion: customizable 'start/stop' regular expresion
-* option to turn autocompletion on/off
+	/done/* option to turn autocompletion on/off
 * code folding
-* outputbox: popup menu
+	/done/* outputbox: popup menu
 	/done/kyanh/20050703/* colorize the outputbox [ the 3rd column ]
 * bookmarks by name/groups
-* brace recognize
+	/done/* brace recognize
 * import/export hilight configuration
-* merge user/system configuration: words, autotext,
+	/none/* merge user/system configuration: words, autotext,
 * bookmarks moveup/do
 	/none/* natural table for context
-* outputbox: use g_spawn_async_with_pipes() to start command
+	/done/* outputbox: use g_spawn_async_with_pipes() to start command
 * dropdown autotext list
 * dropdown menu should have the background color customizeable.
-* hilight current line
-* new document from template
+	/done/* hilight current line
+	/done/* new document from template
 * color scheme
 * TOOLS
 	- latex
@@ -62,7 +62,7 @@ For 'cat', scrolling will slow down Winefish.
 	... on input line 117
 	... at lines 302 -- 303
 	/done/kyanh/20050614/* vntex support as an optional [configure]
-* template support
+	/done/* template support
 * date format support
 	/done/kyanh/20050613/* indent latex code
 * creating a new project should create the new files too. Currently,
@@ -76,9 +76,9 @@ we cannot enter the new basefile for the new project
 	/done/kyanh/200506xx/* Version numbering needs change
 	/done/kyanh/20050606/* Re-setup the Home page
 * METAPOST support
-* Autoclose the OutputBox (require timeout)
-* Upgrade to winefish-1.0.1 (filebrowsers, func-ref).
-Then modify the func-ref [for package commands, for example]
+	/none/* Autoclose the OutputBox (require timeout)
+	/unknown/* Upgrade to winefish-1.0.1 (filebrowsers, func-ref).
+	Then modify the func-ref [for package commands, for example]
 	/done/kyanh/20050323/* Completion Window: Down Key should not move to top of popup window
 	/done/kyanh/20050323/* PageUp/PageDown in completion popup window
 * Add autotext to completion [see KDevelop]
@@ -95,17 +95,17 @@ Then modify the func-ref [for package commands, for example]
 * win32 port [but i hate win32]
 * Hyperref support for *label* and *ref*
 * Image for preference page of `autox'
-* Added timeout/autoclose the outputbox
+	/none/* Added timeout/autoclose the outputbox
 	/done/kyanh/20050317/* Preferences/Autotext: sort, lookup
 	/done/* Get position of cursors [not the mouse]
 * File Types: dtx, cls, context (+detection)
 	/done/kyanh/20050317/* Autotext Lookup (in preferences page)
-* ./configure: check for xdvi, xpdf, latex, /bin/sh
+	/none/* ./configure: check for xdvi, xpdf, latex, /bin/sh
 	/done/kyanh/20050315/22:54/* Added preferences for Autotext
 	/done/kyanh/20050313/* Remove C++ comment style (//) [GTK recommended]
 	/none/kyanh/20050614/* Implement "Ctrl+K" as Emacs does [delete to the end of line]
 	I wonder if i could implement an Emacs keyboard layout?
-* ConTeXT support
+	/none/* ConTeXT support
 	/done/kyanh/20050314/* add about.c::THANKS
 	/done/kyanh/20050302/* Using g_io_channel() NOT gdk_input_* for outputbox.c
 	/done/kyanh/20050316/* Add Cleanning-Tools
@@ -136,7 +136,7 @@ Then modify the func-ref [for package commands, for example]
 	/none/kyanh/20050309/* expandsion: add %e OR NOT? [file extension, useless in many case]
 	/done/kyanh/200507xx/* open file at a specified line
 	Do this in Winefish 1.2.1 :)
-* add toolbars
+	/none/* add toolbars
 * intelligent syntax highlight for latex [special design]
 	/done/kyanh/200503xx/* documentation
 	/done/kyanh/20050228/* setup home page
@@ -145,9 +145,9 @@ Then modify the func-ref [for package commands, for example]
 	/done/kyanh/20050225/* setup sf.net account
 	/done/kyanh/20050228/* setup lists for users
 	/done/kyanh/20050220/* logos
-* images, 15x15 toolbar images
+	/none/* images, 15x15 toolbar images
 	/done/kyanh/20050226/* THANKS Bluefish's AUTHORS
-* debian, slackware, redhat support
+	/none/* debian, slackware, redhat support
 	/done/kyanh/200507xx/* VI- translation. Download kabael
 	/failed/kyanh/20050222/* fixbug:
 		Insert/New Document [compare two version of doc_insert_two_strings]
@@ -158,8 +158,8 @@ Then modify the func-ref [for package commands, for example]
 * fixbug: UNDO/REDO for autoclosingtag()
 * latex/custom menus
 	/done/kyanh/20050223/* copyright notices (for ./src/*.{c,h})
-* multiple/single instance of winefish
-* icons
+	/unknown/* multiple/single instance of winefish
+	/unknown/* icons
 	/done/kyanh/20050228/NOT_A_BUG/* fixbug: autoclosingtag still works although we turn it off
 * syntax: for sty, for tex (differs?)
 	/done/kyanh/20050223/* xdvi: source browsers: [xdvi -sourceposition <line>filename ]
@@ -169,7 +169,7 @@ Then modify the func-ref [for package commands, for example]
 	/done/kyanh/20050303/* remove: cap.c and cap.h (completely unused)
 	/done/kyanh/20050222/* expandsion: %c: currentline
 	/failed/kyanh/20050223/* use <mkstemp> instead of <tempnam> in <bf_lib.c>
-* add "STOP TOOLS" (require IOChannel; study code from SciTE)
+	/done/* add "STOP TOOLS" (require IOChannel; study code from SciTE)
 	/done/kyanh/20050221/* add <ToggleItem>: Project/Single File MODE
 	/done/kyanh/20050220/THANKS SciTE/* HOWTO stop LaTeX? Sometimes LaTeX needs to be feed...
 	/done/kyanh/20050223/* remove unusefull g_print() :)
@@ -196,8 +196,8 @@ functions: view_in_browsers(menu.c), (...)outputbox.c
 starting xdvi. DONOT use [latex && xdvi] in Viewers... ref.: Scite/ExcuteNext()
 	/done/kyanh/20050223/* LOGO: change \author{VietTUG} to \author{KyAnh\and...}
 	/done/kyanh/20050222/* External Commands: Hotkeys
-* Outputbox: shouldNOT be show if running tools was canceled.
-* Show TOOL progress (easy, but lower performance)
+	/none/* Outputbox: shouldNOT be show if running tools was canceled.
+	/none/* Show TOOL progress (easy, but lower performance)
 * add: set file in READONLY MODE
 * syntax problem: [currently NOT implement this feature]
 if we define "group-single"="{[^{}]+}"
@@ -226,6 +226,6 @@ should implement this in some minor version
 	/done/kyanh/200506xx/* Study ConTeXt
 	/done/kyanh/200507xx/* Check for running instances
 	/done/kyanh/20050227* Capture the ExitStatus, ExitSignal of External Command
-* hotkey to toggle Bookmark
+* hotkey to to5Aggle Bookmark
 
 ============================================================== [EOF]
