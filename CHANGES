@@ -1,5 +1,24 @@
 $Id$
 
+Winefish 1.3.2.8
+================
+
+* fixed
+	- BUG#{102-105}
+
+* stuff:
+	- updated french po file
+	- updated french custom menu
+
+Winefish 1.3.2-RC2
+==================
+
+* fixed minor bugs
+* new features:
+	- 3 customizable column markers
+
+* some changes was reported in Winefish 1.3.2.7
+
 Winefish 1.3.2.7
 ================
 
