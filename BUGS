@@ -1,6 +1,31 @@
 $Id$
 
-============================================================== [200602]
+============================================================== [200603]
+
+======== 1.3.2-RC2
+
+#105/fixed/kyanh/20060317/
+* open a file : if there is 1 documents and the current == EMPTY, open in current tab
+if there are at least 2 documents and the current == EMTPY, open new tab
+* FIXED:
+	should be: if (current_document is EMPTY) then <open in this tab>
+
+#104/fixed/kyanh/20060317/
+* template listing: sometime find for %wf=, sometime for %%wf=
+WHY?
+	bf_lib.c::convert_command expands the command only
+	when current_document != NULL
+FIXED:
+	redesign convert_command
+
+#103/fixed/kyanh/20060317/
+* you cannot "Save As" for Untitled Document. others works
+* save as operation: if there's already a file with the same inode, the save
+operation returns without prompting :( there's of course a bug ;)
+
+#102/fixed/kyanh/20060317/
+* clone operation: if there's an untitled document, the operation
+will also create another new untitled document. should be one :(
 
 ======== 1.3.2.7
 
@@ -12,6 +37,8 @@ FIXED:
 
 #100/fixed/kyanh/20060225/1.3.2.7{c-d}
 * after searching (func_grep) the pattern wasnot added to history list
+
+============================================================== [200602]
 
 #99
 * project_mode=1, current_file=NULL
