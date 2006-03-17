@@ -85,8 +85,12 @@ static void ob_lview_current_cursor_open_file(GtkTreePath *path, Toutputbox *ob,
 		if ( filepath && strlen( filepath ) ) {
 			if (clone_file) {
 				Tdocument * doc;
-				doc = doc_new( ob->bfwin, FALSE );
-				switch_to_document_by_pointer( ob->bfwin, doc );
+				if (doc_is_empty_non_modified_and_nameless( ob->bfwin->current_document )) {
+					doc = ob->bfwin->current_document ;
+				}else{
+					doc = doc_new( ob->bfwin, FALSE );
+					switch_to_document_by_pointer( ob->bfwin, doc );
+				}
 				doc_file_to_textbox( doc, filepath , FALSE, FALSE );
 				doc_activate( doc );
 			}else{
