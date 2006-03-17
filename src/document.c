@@ -3935,7 +3935,7 @@ Tdocument * doc_new_with_file( Tbfwin *bfwin, gchar * filename, gboolean delay_a
 	DEBUG_MSG( "doc_new_with_file, fullfilename=%s, filename=%s\n", fullfilename, filename );
 	add_filename_to_history( bfwin, fullfilename );
 
-	if ( g_list_length( bfwin->documentlist ) == 1 && doc_is_empty_non_modified_and_nameless( bfwin->current_document ) ) {
+	if ( /*g_list_length( bfwin->documentlist ) == 1 && */doc_is_empty_non_modified_and_nameless( bfwin->current_document ) ) {
 		doc = bfwin->current_document;
 		opening_in_existing_doc = TRUE;
 		bfwin->last_activated_doc = NULL;
