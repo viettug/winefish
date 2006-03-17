@@ -16,7 +16,7 @@
 #define OB_ViewLog "cat '%B.log'"
 #define OB_SoftClean "rm -fv '%B.log' '%B.aux' '%B.toc'"
 
-#define OB_DVI_Viewer "xdvi -editor \"winefish -n0 -l%%l '%%f'\" -sourceposition %l%b.tex %B.dvi &"
+#define OB_DVI_Viewer "xdvi -editor \"winefish -n0 -l%%l '%%f'\" -sourceposition '%l%b.tex' '%B.dvi' &"
 #define OB_PDF_Viewer "xpdf %B.pdf &"
 #define OB_EPS_Viewer "gv %B.ps &"
 
