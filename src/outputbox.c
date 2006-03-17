@@ -92,6 +92,7 @@ static void ob_lview_current_cursor_open_file(GtkTreePath *path, Toutputbox *ob,
 					switch_to_document_by_pointer( ob->bfwin, doc );
 				}
 				doc_file_to_textbox( doc, filepath , FALSE, FALSE );
+				doc_set_modified(doc, TRUE);
 				doc_activate( doc );
 			}else{
 				doc_new_with_file( ob->bfwin, filepath, FALSE, FALSE );
