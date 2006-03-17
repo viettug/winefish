@@ -44,7 +44,7 @@
 #include <time.h> /* ctime_r() */
 #include <pcre.h>
 
-/* #define DEBUG */
+#define DEBUG 
 
 #ifdef DEBUGPROFILING
 #include <sys/times.h>
@@ -3174,14 +3174,14 @@ gchar *ask_new_filename( Tbfwin *bfwin, gchar *oldfilename, const gchar *gui_nam
 			gint l_retval =1;
 			ondisk = get_filename_on_disk_encoding(newfilename);
 			if ( stat(ondisk,&statbuf) != 0 ) {
-				DEBUG_MSG("ask_new_filename: stat [%s] failed\n", newfilename);
+				DEBUG_MSG("ask_new_filename: stat newfile [%s] failed\n", newfilename);
 				l_retval = 0;
-			}else{
+			}else if (oldfilename) {
 				inode = statbuf.st_ino;
 				g_free(ondisk);
 				ondisk = get_filename_on_disk_encoding(oldfilename);
 				if ( stat(ondisk, &statbuf) !=0 ) {
-					DEBUG_MSG("ask_new_filename: stat [%s] failed\n", oldfilename);
+					DEBUG_MSG("ask_new_filename: stat oldfile [%s] failed\n", oldfilename);
 					l_retval = 0;
 				}else if (l_retval && (statbuf.st_ino == inode) ) {
 					l_retval = 0;
@@ -3211,7 +3211,7 @@ gchar *ask_new_filename( Tbfwin *bfwin, gchar *oldfilename, const gchar *gui_nam
 		gint retval;
 		gchar *options[] = {_( "_Cancel" ), _( "_Overwrite" ), NULL};
 		tmpstr = g_strdup_printf( _( "File %s exists and is opened, overwrite?" ), newfilename );
-		retval = multi_warning_dialog( bfwin->main_window, tmpstr, _( "The file you have selected is being edited in Bluefish." ), 1, 0, options );
+		retval = multi_warning_dialog( bfwin->main_window, tmpstr, _( "The file you have selected is being edited in Winefish." ), 1, 0, options );
 		g_free( tmpstr );
 		if ( retval == 0 ) {
 			g_free( newfilename );
@@ -3292,11 +3292,13 @@ gint doc_save( Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean 
 	}
 
 	if ( do_save_as ) {
+		DEBUG_MSG("doc_save: do save as...\n");
 		gchar * newfilename = NULL;
 		if ( !window_closing )
 			statusbar_message( BFWIN( doc->bfwin ), _( "save as..." ), 1 );
 		newfilename = ask_new_filename( BFWIN( doc->bfwin ), doc->filename, gtk_label_get_text( GTK_LABEL( doc->tab_label ) ), do_move );
 		if ( !newfilename ) {
+			DEBUG_MSG("doc_save: user abort\n");
 			return DOC_SAVE_RET_USER_ABORT;
 		}
 #ifdef UNFIX_BUG_92
