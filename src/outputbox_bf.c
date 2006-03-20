@@ -389,7 +389,11 @@ void finish_execute( Toutputbox *ob ) {
 		g_io_channel_unref( ob->handle->channel_out );
 		if ( child_pid_exit_code > -1 ) {
 			gchar *str_status = g_strdup_printf(_("exit code: %d"), child_pid_exit_code);
-			outputbox_message( ob, str_status, OB_MESSAGE_RED );
+			if (child_pid_exit_code) {
+				outputbox_message( ob, str_status, OB_MESSAGE_RED );
+			}else{
+				outputbox_message( ob, str_status, OB_MESSAGE_BLUE );
+			}
 			g_free( str_status );
 		} else {
 			outputbox_message( ob, _("the child process exited abnormally"), OB_MESSAGE_RED);
