@@ -2206,7 +2206,7 @@ static gboolean doc_view_key_release_lcb( GtkWidget *widget, GdkEventKey *kevent
 	
 					gtk_tree_model_get_iter(model, &iter, treepath);
 					gtk_tree_path_free(treepath);
-#ifdef HAVE_UNIKEY_GTK
+#ifdef ENABLE_FIX_UNIKEY_GTK
 					GtkTextIter cursor_iter, tmp_iter;
 					GtkTextMark *imark;
 					gchar *test_buf;
@@ -2218,7 +2218,7 @@ static gboolean doc_view_key_release_lcb( GtkWidget *widget, GdkEventKey *kevent
 					if (test_buf[0] == ' ') {
 						gtk_text_buffer_delete( doc->buffer, &tmp_iter, &cursor_iter);
 					}
-#endif
+#endif /* ENABLE_FIX_UNIKEY_GTK */
 					val = g_new0(GValue, 1);
 					gtk_tree_model_get_value(model, &iter, 0, val);
 					user_selection = g_strdup((gchar *) (g_value_peek_pointer(val)));
@@ -3530,6 +3530,7 @@ static gboolean doc_textview_expose_event_lcb( GtkWidget * widget, GdkEventExpos
 				gdk_draw_rectangle(event->window, widget->style->bg_gc[GTK_WIDGET_STATE(widget)], TRUE,rect.x, iter_rect.y, rect.width, iter_rect.height);
 #endif /* STUPID_A_ */
 			}
+#ifdef ENABLE_COLUMN_MARKER
 			if (main_v->props.marker_ii || main_v->props.marker_iii || main_v->props.marker_i) {/* column marker */
 				GdkRectangle visible_rect;
 				GdkRectangle redraw_rect;
@@ -3570,6 +3571,7 @@ static gboolean doc_textview_expose_event_lcb( GtkWidget * widget, GdkEventExpos
 				}
 				
 			}
+#endif /* ENABLE_COLUMN_MARKER */
 		}
 #endif		
 		return FALSE;

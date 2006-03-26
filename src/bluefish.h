@@ -203,9 +203,11 @@ typedef struct {
 	gchar *templates_dir;
 #endif /* EXTERNAL_FIND */
 #endif /* EXTERNAL_GREP */
+#ifdef ENABLE_COLUMN_MARKER
 	gint marker_i;
 	gint marker_ii;
 	gint marker_iii;
+#endif /* ENABLE_COLUMN_MARKER */
 } Tproperties;
 
 /* the Tglobalsession contains all settings that can change 
