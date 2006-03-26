@@ -420,7 +420,6 @@ msgid "File %s exists and is opened, overwrite?"
 msgstr "Tập tin %s đã có và đang được mở. Ghi đè lên?"
 
 #: ../src/document.c:3214
-#, fuzzy
 msgid "The file you have selected is being edited in Winefish."
 msgstr "Tập tin bạn vừa chọn đang được mở trong Winefish."
 

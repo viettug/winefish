@@ -404,9 +404,8 @@ msgid "File %s exists and is opened, overwrite?"
 msgstr "Il file %s esiste ed è aperto, sovrascrivo?"
 
 #: ../src/document.c:3214
-#, fuzzy
 msgid "The file you have selected is being edited in Winefish."
-msgstr "Il file selezionato è stato modificato in Bluefish."
+msgstr "Il file selezionato è stato modificato in Winefish."
 
 #: ../src/document.c:3228 ../src/project.c:195
 #, c-format
@@ -767,9 +766,8 @@ msgid "please specify the pattern!"
 msgstr ""
 
 #: ../src/func_grep.c:321
-#, fuzzy
 msgid "func_grep: cannot create secure file"
-msgstr "errore: non è possibile creare un file PIPE."
+msgstr ""
 
 #: ../src/func_grep.c:323
 msgid "no matching files found"
@@ -800,19 +798,16 @@ msgid "_Browse..."
 msgstr "_Scegli..."
 
 #: ../src/func_grep.c:438
-#, fuzzy
 msgid "<0: current file>"
-msgstr "vai alla linea %s, file corrente"
+msgstr ""
 
 #: ../src/func_grep.c:439 ../src/func_grep.c:449
-#, fuzzy
 msgid "<1: all opened files>"
-msgstr "non è possibile caricare il file"
+msgstr ""
 
 #: ../src/func_grep.c:451
-#, fuzzy
 msgid "_File:"
-msgstr "/_File"
+msgstr "_File:"
 
 #: ../src/func_grep.c:458
 msgid "_Recursive:"
@@ -843,9 +838,8 @@ msgid "<b>Advanced</b>"
 msgstr "<b>Avanzate</b>"
 
 #: ../src/func_grep.c:501
-#, fuzzy
 msgid "Skip _VCS dirs:"
-msgstr "Salta directory VCS:"
+msgstr "Salta directory _VCS:"
 
 #: ../src/func_grep.c:570 ../src/func_grep.c:590
 #, c-format
@@ -919,7 +913,6 @@ msgid "/View/View Outputbox"
 msgstr "/Visualizza/Visualizza area esterna"
 
 #: ../src/gui.c:1069 ../src/gui.c:1075
-#, fuzzy
 msgid "/View/View Terminal"
 msgstr "/Visualizza/Visualizza barra laterale"
 
@@ -1818,7 +1811,6 @@ msgid "/View/View _Outputbox"
 msgstr "/Visualizza/Visualizza are_a risultati"
 
 #: ../src/menu.c:562
-#, fuzzy
 msgid "/View/View _Terminal"
 msgstr "/Visualizza/Visualizza barra l_aterale"
 
@@ -2091,7 +2083,6 @@ msgid "noop"
 msgstr ""
 
 #: ../src/outputbox.c:385
-#, fuzzy
 msgid "term"
 msgstr "elemento"
 
