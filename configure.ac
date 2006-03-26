@@ -23,7 +23,7 @@ AC_CONFIG_SRCDIR(src/winefish.c)
 AC_CONFIG_HEADER(src/config.h)
 
 PACKAGE=winefish
-VERSION=1.3.2.8a
+VERSION=1.3.2
 AC_SUBST(PACKAGE)
 AC_SUBST(VERSION)
 AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
@@ -583,9 +583,14 @@ fi
 
 # kyanh ################################
 
-AC_ARG_WITH(unikey-gtk,
-	AC_HELP_STRING([--with-unikey-gtk],[(Vietnamese) fix a BUG related to UniKeyGTK]),[
-	AC_DEFINE(HAVE_UNIKEY_GTK)
+AC_ARG_ENABLE(unikey-fix-gtk,
+	AC_HELP_STRING([--enable-fix-unikey-gtk],[(Vietnamese) fix a BUG related to UniKeyGTK]),[
+	AC_DEFINE(ENABLE_FIX_UNIKEY_GTK)
+	],)
+
+AC_ARG_ENABLE(column-marker,
+	AC_HELP_STRING([--enable-column-marker],[enable column markers]),[
+	AC_DEFINE(ENABLE_COLUMN_MARKER)
 	],)
 
 #AC_ARG_WITH(vte-terminal,
