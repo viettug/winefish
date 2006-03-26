@@ -1,7 +1,14 @@
 $Id$
 
-Winefish 1.3.2.8
-================
+Winefish 1.3.2.8b
+=================
+
+* stuff:
+	- `column marker' is enabled via `configure' option (--enable-column-marker)
+	- fr.po updated
+
+Winefish 1.3.2.8a
+=================
 
 * fixed
 	- BUG#{102-105}
