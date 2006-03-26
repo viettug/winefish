@@ -102,7 +102,8 @@
  *
  *********************** winefish ***********************/
 
-#undef HAVE_UNIKEY_GTK
+#undef ENABLE_UNIKEY_GTK
+#undef ENABLE_COLUMN_MARKER
 #undef HAVE_VNTEX
 #undef HAVE_CONTEXT
 
