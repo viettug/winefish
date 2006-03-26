@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: winefish-1.3.2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-12 07:13+0100\n"
+"POT-Creation-Date: 2006-03-27 00:20+0700\n"
 "PO-Revision-Date: 2006-03-12 07:14+0100\n"
 "Last-Translator: Michèle Garoche <michele.garoche@easyconnect.fr>\n"
 "Language-Team: français <fr@li.org>\n"
@@ -262,7 +262,7 @@ msgstr ""
 "La position des signets est peut-être incorrecte. Voulez-vous supprimer les "
 "signets ?"
 
-#: ../src/document.c:322 ../src/document.c:3806
+#: ../src/document.c:322 ../src/document.c:3810
 msgid "/Document/Highlight Syntax"
 msgstr "/Document/Colorer le code"
 
@@ -409,12 +409,12 @@ msgstr "Déplacer (vers)/renommer (en) %s"
 msgid "Save %s as"
 msgstr "Enregistrer %s sous"
 
-#: ../src/document.c:3212 ../src/document.c:3227 ../src/document.c:3333
-#: ../src/document.c:4382 ../src/project.c:194
+#: ../src/document.c:3212 ../src/document.c:3227 ../src/document.c:3335
+#: ../src/document.c:4386 ../src/project.c:194
 msgid "_Cancel"
 msgstr "An_nuler"
 
-#: ../src/document.c:3212 ../src/document.c:3227 ../src/document.c:3333
+#: ../src/document.c:3212 ../src/document.c:3227 ../src/document.c:3335
 #: ../src/project.c:194
 msgid "_Overwrite"
 msgstr "_Écraser"
@@ -425,8 +425,8 @@ msgid "File %s exists and is opened, overwrite?"
 msgstr "Le fichier %s est déjà ouvert, voulez-vous vraiment l'écraser ?"
 
 #: ../src/document.c:3214
-msgid "The file you have selected is being edited in Bluefish."
-msgstr "Le fichier sélectionné est en cours d'édition dans Bluefish."
+msgid "The file you have selected is being edited in Winefish."
+msgstr "Le fichier sélectionné est en cours d'édition dans Winefish."
 
 #: ../src/document.c:3228 ../src/project.c:195
 #, c-format
@@ -437,11 +437,11 @@ msgstr "Un fichier nommé \"%s\" existe déjà."
 msgid "Do you want to replace the existing file?"
 msgstr "Désirez-vous remplacer le fichier existant ?"
 
-#: ../src/document.c:3297
+#: ../src/document.c:3298
 msgid "save as..."
 msgstr "Enregistrer sous..."
 
-#: ../src/document.c:3337
+#: ../src/document.c:3339
 #, c-format
 msgid ""
 "File: %s\n"
@@ -454,16 +454,16 @@ msgstr ""
 "Heure de la nouvelle modification : %s\n"
 "Heure de l'ancienne modification : %s"
 
-#: ../src/document.c:3338
+#: ../src/document.c:3340
 msgid "File has been modified by another process."
 msgstr "Le fichier a été modifié par un autre processus."
 
-#: ../src/document.c:3351
+#: ../src/document.c:3353
 #, c-format
 msgid "Saving %s"
 msgstr "Enregistrement de %s"
 
-#: ../src/document.c:3367
+#: ../src/document.c:3369
 msgid ""
 "Could not backup file:\n"
 "\""
@@ -471,11 +471,11 @@ msgstr ""
 "Impossible de sauvegarder le fichier :\n"
 "\""
 
-#: ../src/document.c:3368
+#: ../src/document.c:3370
 msgid "File save aborted.\n"
 msgstr "Sauvegarde du fichier annulée.\n"
 
-#: ../src/document.c:3373
+#: ../src/document.c:3375
 msgid ""
 "Could not write file:\n"
 "\""
@@ -483,42 +483,42 @@ msgstr ""
 "Impossible d'écrire le fichier sur le disque :\n"
 "\""
 
-#: ../src/document.c:3374
+#: ../src/document.c:3376
 msgid "File save error"
 msgstr "Erreur d'enregistrement de fichier"
 
-#: ../src/document.c:3433
+#: ../src/document.c:3435
 #, c-format
 msgid "Save changes to \"%s\" before closing?."
 msgstr ""
 "Voulez-vous enregistrer les modifications apportées à \"%s\" avant de le "
 "fermer ?"
 
-#: ../src/document.c:3440 ../src/project.c:362
+#: ../src/document.c:3442 ../src/project.c:362
 msgid "Do_n't save"
 msgstr "Ne pas enre_gistrer"
 
-#: ../src/document.c:3442 ../src/document.c:4384 ../src/project.c:371
+#: ../src/document.c:3444 ../src/document.c:4388 ../src/project.c:371
 msgid "If you don't save your changes they will be lost."
 msgstr "Si vous n'enregistrez pas les modifications, elles seront perdues."
 
-#: ../src/document.c:3809
+#: ../src/document.c:3813
 msgid "/Document/Line Numbers"
 msgstr "/Document/Numéros de ligne"
 
-#: ../src/document.c:3812
+#: ../src/document.c:3816
 msgid "/Document/AutoCompletion"
 msgstr "/Document/Terminaison automatique"
 
-#: ../src/document.c:3848
+#: ../src/document.c:3852
 msgid "No filename"
 msgstr "Aucun nom de fichier"
 
-#: ../src/document.c:3996
+#: ../src/document.c:4000
 msgid "Loading files..."
 msgstr "Chargement des fichiers..."
 
-#: ../src/document.c:4023
+#: ../src/document.c:4027
 msgid ""
 "These files could not opened:\n"
 "\n"
@@ -526,23 +526,23 @@ msgstr ""
 "Ces fichiers n'ont pas pu être ouverts :\n"
 "\n"
 
-#: ../src/document.c:4025 ../src/msg_queue.c:245
+#: ../src/document.c:4029 ../src/msg_queue.c:245
 msgid "Unable to open file(s)\n"
 msgstr "Impossible d'ouvrir le(s) fichier(s)\n"
 
-#: ../src/document.c:4072
+#: ../src/document.c:4076
 msgid "unable to open file"
 msgstr "Impossible d'ouvrir le fichier"
 
-#: ../src/document.c:4128
+#: ../src/document.c:4132
 msgid "_Reload"
 msgstr "_Recharger"
 
-#: ../src/document.c:4128
+#: ../src/document.c:4132
 msgid "_Ignore"
 msgstr "_Ignorer"
 
-#: ../src/document.c:4132
+#: ../src/document.c:4136
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -555,44 +555,44 @@ msgstr ""
 "Heure de la nouvelle modification : %s\n"
 "Heure de l'ancienne modification : %s"
 
-#: ../src/document.c:4133
+#: ../src/document.c:4137
 msgid "File has been modified by another process\n"
 msgstr "Le fichier a été modifié par un autre processus.\n"
 
-#: ../src/document.c:4267 ../src/gtk_easy.c:1629
+#: ../src/document.c:4271 ../src/gtk_easy.c:1629
 msgid "Select files"
 msgstr "Sélectionner des fichiers"
 
-#: ../src/document.c:4285
+#: ../src/document.c:4289
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "Chargement de %d fichier(s)..."
 
-#: ../src/document.c:4312 ../src/document.c:4320
+#: ../src/document.c:4316 ../src/document.c:4324
 msgid "Select file to insert"
 msgstr "Sélectionner le fichier à insérer"
 
-#: ../src/document.c:4324
+#: ../src/document.c:4328
 msgid "no file to insert"
 msgstr "Aucun fichier à insérer"
 
-#: ../src/document.c:4382
+#: ../src/document.c:4386
 msgid "_Save All"
 msgstr "Tout enregi_strer"
 
-#: ../src/document.c:4382
+#: ../src/document.c:4386
 msgid "Close _All"
 msgstr "Tout fermer"
 
-#: ../src/document.c:4382
+#: ../src/document.c:4386
 msgid "Choose per _File"
 msgstr "Choisir par _fichier"
 
-#: ../src/document.c:4383
+#: ../src/document.c:4387
 msgid "Multiple open files have been changed."
 msgstr "Certains fichiers ont été modifiés."
 
-#: ../src/document.c:4662
+#: ../src/document.c:4666
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "Statistiques : %d lignes, %d mots, %d caractères"
@@ -828,7 +828,7 @@ msgstr "<0 : fichier actif>"
 
 #: ../src/func_grep.c:439 ../src/func_grep.c:449
 msgid "<1: all opened files>"
-msgstr "<1 : tous les fichiers ouverts>"
+msgstr "<1: tous les fichiers ouverts>"
 
 #: ../src/func_grep.c:451
 msgid "_File:"
@@ -932,8 +932,8 @@ msgstr "Laisser la boîte de _dialogue ouverte"
 msgid "starting winefish"
 msgstr "Démarrage de Winefish"
 
-#: ../src/gui.c:1055 ../src/gui.c:1064 ../src/outputbox.c:122
-#: ../src/outputbox.c:348 ../src/outputbox.c:465
+#: ../src/gui.c:1055 ../src/gui.c:1064 ../src/outputbox.c:127
+#: ../src/outputbox.c:353 ../src/outputbox.c:470
 msgid "/View/View Outputbox"
 msgstr "/Afficher/Afficher la boîte de sortie"
 
@@ -1722,8 +1722,8 @@ msgstr "/E_xterne"
 msgid "/External/tearoff1"
 msgstr "/Externe/tearoff1"
 
-#: ../src/menu.c:528 ../src/menu.c:768 ../src/outputbox.c:622
-#: ../src/outputbox.c:625
+#: ../src/menu.c:528 ../src/menu.c:768 ../src/outputbox.c:627
+#: ../src/outputbox.c:630
 msgid "/External/Stop..."
 msgstr "/Externe/Arrêter..."
 
@@ -2075,72 +2075,72 @@ msgstr "Se_nsible à la casse"
 msgid "These files were not opened:\n"
 msgstr "Ces fichiers n'ont pas été ouverts :\n"
 
-#: ../src/outputbox.c:161
+#: ../src/outputbox.c:166
 msgid "hide this box"
 msgstr "Masquer la boîte"
 
-#: ../src/outputbox.c:167
+#: ../src/outputbox.c:172
 msgid "copy this line"
 msgstr "Copier la ligne"
 
-#: ../src/outputbox.c:187
+#: ../src/outputbox.c:192
 #, c-format
 msgid "goto line %s, file = %s"
 msgstr "Aller à la ligne %s du fichier %s"
 
-#: ../src/outputbox.c:189
+#: ../src/outputbox.c:194
 #, c-format
 msgid "goto file = %s"
 msgstr "Aller dans le fichier %s"
 
-#: ../src/outputbox.c:193
+#: ../src/outputbox.c:198
 #, c-format
 msgid "goto line %s, current file"
 msgstr "Aller à la ligne %s du fichier actif"
 
-#: ../src/outputbox.c:198
+#: ../src/outputbox.c:203
 #, c-format
 msgid "file: %s"
 msgstr "Fichier : %s"
 
-#: ../src/outputbox.c:219
+#: ../src/outputbox.c:224
 msgid "noop"
 msgstr "Néant"
 
-#: ../src/outputbox.c:380
+#: ../src/outputbox.c:385
 msgid "term"
 msgstr "Élément"
 
-#: ../src/outputbox.c:477
+#: ../src/outputbox.c:482
 msgid "tool is running. press Escape to stop it first."
 msgstr ""
 "La commande est en cours d'exécution. Appuyez d'abord sur la touche Escape "
 "pour arrêter son exécution."
 
-#: ../src/outputbox.c:487
+#: ../src/outputbox.c:492
 msgid "empty command"
 msgstr "Rafraîchir la ligne de commande"
 
-#: ../src/outputbox.c:493
+#: ../src/outputbox.c:498
 #, c-format
 msgid "%s # project mode: ON"
 msgstr "%s # mode projet: ACTIF"
 
-#: ../src/outputbox.c:495
+#: ../src/outputbox.c:500
 #, c-format
 msgid "%s # project mode: OFF"
 msgstr "%s # mode projet: INACTIF"
 
-#: ../src/outputbox.c:504
+#: ../src/outputbox.c:509
 msgid "file wasnot saved. tool canceled"
 msgstr "Le fichier n'a pas été enregistré. La commande a été annulée."
 
-#: ../src/outputbox.c:528
+#: ../src/outputbox.c:533
 #, c-format
 msgid "failed to compile pattern %s"
 msgstr "Échec de la compilation du modèle %s"
 
-#: ../src/outputbox.c:581
+#: ../src/outputbox.c:586
 msgid "stop request. stopping tool..."
 msgstr "Demande d'arrêt d'exécution. Commande en cours d'arrêt..."
 
@@ -2154,7 +2154,7 @@ msgstr "Une erreur s'est produite lors de la création du fifo %s"
 msgid "exit code: %d"
 msgstr "Code de sortie : %d"
 
-#: ../src/outputbox_bf.c:395 ../src/outputbox_ka.c:97
+#: ../src/outputbox_bf.c:399 ../src/outputbox_ka.c:97
 msgid "the child process exited abnormally"
 msgstr "Le processus enfant s'est terminé anormalement"
 
@@ -2189,137 +2189,137 @@ msgstr "Erreur : impossible de créer le fichier tube."
 msgid "error: cannot create temporarily file."
 msgstr "Erreur : impossible de créer le fichier temporaire."
 
-#: ../src/preferences.c:269
+#: ../src/preferences.c:271
 msgid "Untitled"
 msgstr "Sans titre"
 
-#: ../src/preferences.c:369
+#: ../src/preferences.c:371
 msgid "Select font"
 msgstr "Sélection de police"
 
-#: ../src/preferences.c:495 ../src/preferences.c:583 ../src/preferences.c:1068
-#: ../src/preferences.c:1405
+#: ../src/preferences.c:497 ../src/preferences.c:585 ../src/preferences.c:1070
+#: ../src/preferences.c:1407
 msgid "Label"
 msgstr "Étiquette"
 
-#: ../src/preferences.c:496
+#: ../src/preferences.c:498
 msgid "Extensions"
 msgstr "Extensions"
 
-#: ../src/preferences.c:497
+#: ../src/preferences.c:499
 msgid "Update chars"
 msgstr "Mise à jour des caractères"
 
-#: ../src/preferences.c:498
+#: ../src/preferences.c:500
 msgid "Icon"
 msgstr "Icône"
 
-#: ../src/preferences.c:499
+#: ../src/preferences.c:501
 msgid "Editable"
 msgstr "Modifiable"
 
-#: ../src/preferences.c:500
+#: ../src/preferences.c:502
 msgid "Content regex"
 msgstr "Contenu de l'expression régulière"
 
-#: ../src/preferences.c:501
+#: ../src/preferences.c:503
 msgid "AutoCompletion"
 msgstr "Terminaison automatique"
 
-#: ../src/preferences.c:584
+#: ../src/preferences.c:586
 msgid "Inverse filter"
 msgstr "Inverser le filtre"
 
-#: ../src/preferences.c:585
+#: ../src/preferences.c:587
 msgid "Filetypes in filter"
 msgstr "Types de fichier dans le filtre"
 
-#: ../src/preferences.c:939
+#: ../src/preferences.c:941
 msgid "filetype"
 msgstr "Type de fichier"
 
-#: ../src/preferences.c:944
+#: ../src/preferences.c:946
 msgid "Reset"
 msgstr "Revenir aux valeurs par défaut"
 
-#: ../src/preferences.c:950
+#: ../src/preferences.c:952
 msgid "Pattern name"
 msgstr "Nom du modèle"
 
-#: ../src/preferences.c:968 ../src/preferences.c:1495
+#: ../src/preferences.c:970 ../src/preferences.c:1497
 msgid "Pattern"
 msgstr "Modèle"
 
-#: ../src/preferences.c:991
+#: ../src/preferences.c:993
 msgid "Start pattern and end pattern"
 msgstr "Le modèle comporte un début et une fin"
 
-#: ../src/preferences.c:993
+#: ../src/preferences.c:995
 msgid "Only start pattern"
 msgstr "Le modèle ne comporte pas de fin"
 
-#: ../src/preferences.c:995
+#: ../src/preferences.c:997
 msgid "Subpattern from parent"
 msgstr "Modèle enfant"
 
-#: ../src/preferences.c:1001
+#: ../src/preferences.c:1003
 msgid "Start pattern"
 msgstr "Début du modèle"
 
-#: ../src/preferences.c:1002
+#: ../src/preferences.c:1004
 msgid "End pattern"
 msgstr "Fin du modèle"
 
-#: ../src/preferences.c:1003
+#: ../src/preferences.c:1005
 msgid "Case sensitive matching"
 msgstr "Respecter la casse"
 
-#: ../src/preferences.c:1004
+#: ../src/preferences.c:1006
 msgid "Parentmatch"
 msgstr "Modèle parent"
 
-#: ../src/preferences.c:1005
+#: ../src/preferences.c:1007
 msgid "Foreground color"
 msgstr "Couleur du premier plan"
 
-#: ../src/preferences.c:1006
+#: ../src/preferences.c:1008
 msgid "Background color"
 msgstr "Couleur d'arrière-plan"
 
-#: ../src/preferences.c:1014
+#: ../src/preferences.c:1016
 msgid "don't change weight"
 msgstr "Ne pas changer la graisse"
 
-#: ../src/preferences.c:1016
+#: ../src/preferences.c:1018
 msgid "force non-bold weight"
 msgstr "Non-gras"
 
-#: ../src/preferences.c:1018
+#: ../src/preferences.c:1020
 msgid "force bold weight"
 msgstr "Gras"
 
-#: ../src/preferences.c:1024
+#: ../src/preferences.c:1026
 msgid "don't change style"
 msgstr "Ne pas changer le style"
 
-#: ../src/preferences.c:1026
+#: ../src/preferences.c:1028
 msgid "force non-italic style"
 msgstr "Non-italique"
 
-#: ../src/preferences.c:1028
+#: ../src/preferences.c:1030
 msgid "force italic style"
 msgstr "Italique"
 
-#: ../src/preferences.c:1069 ../src/preferences.c:1325
-#: ../src/preferences.c:1406 ../src/preferences.c:1499
+#: ../src/preferences.c:1071 ../src/preferences.c:1327
+#: ../src/preferences.c:1408 ../src/preferences.c:1501
 msgid "Command"
 msgstr "Commande"
 
-#: ../src/preferences.c:1173 ../src/preferences.c:1203
+#: ../src/preferences.c:1175 ../src/preferences.c:1205
 msgid "Warning:"
 msgstr "Important :"
 
-#: ../src/preferences.c:1173
+#: ../src/preferences.c:1175
 msgid ""
 "Please refresh the list before adding any item!\n"
 "\n"
@@ -2333,7 +2333,7 @@ msgstr ""
 "texte automatique. Vous pouvez le faire manuellement en cliquant sur 'Mettre "
 "à jour maintenant'. *Notez* que cela peut prendre un certain temps."
 
-#: ../src/preferences.c:1203
+#: ../src/preferences.c:1205
 msgid ""
 "Please refresh the list before adding any item!\n"
 "\n"
@@ -2347,19 +2347,19 @@ msgstr ""
 "fichier 'liste de mots'. Vous pouvez le faire manuellement en cliquant sur "
 "'Mettre à jour maintenant'. *Notez* que cela peut prendre un certain temps."
 
-#: ../src/preferences.c:1272
+#: ../src/preferences.c:1274
 msgid "Definition"
 msgstr "Définition de terme"
 
-#: ../src/preferences.c:1273
+#: ../src/preferences.c:1275
 msgid "Before"
 msgstr "Avant"
 
-#: ../src/preferences.c:1274
+#: ../src/preferences.c:1276
 msgid "After"
 msgstr "Après"
 
-#: ../src/preferences.c:1312
+#: ../src/preferences.c:1314
 msgid ""
 "Add new autotext definition.\n"
 "Start finding the old one by pressing CTRL+F."
@@ -2367,7 +2367,7 @@ msgstr ""
 "Ajoute une nouvelle définition de texte automatique.\n"
 "Commencez par rechercher l'ancienne en appuyant sur CTRL+F."
 
-#: ../src/preferences.c:1364
+#: ../src/preferences.c:1366
 msgid ""
 "Add new word which should be started by '\\'.\n"
 "Start finding the old one by pressing CTRL+F."
@@ -2375,27 +2375,27 @@ msgstr ""
 "Ajoute un nouveau mot - il doit commencer par '\\'.\n"
 "Commencez par rechercher l'ancien en appuyant sur CTRL+F."
 
-#: ../src/preferences.c:1494
+#: ../src/preferences.c:1496
 msgid "Name"
 msgstr "Nom"
 
-#: ../src/preferences.c:1496
+#: ../src/preferences.c:1498
 msgid "File #"
 msgstr "Fichier #"
 
-#: ../src/preferences.c:1497
+#: ../src/preferences.c:1499
 msgid "Line #"
 msgstr "Ligne #"
 
-#: ../src/preferences.c:1498
+#: ../src/preferences.c:1500
 msgid "Output #"
 msgstr "Résultat à l'écran #"
 
-#: ../src/preferences.c:1500
+#: ../src/preferences.c:1502
 msgid "Save,Show"
 msgstr "Enregistrement, Affichage"
 
-#: ../src/preferences.c:1539
+#: ../src/preferences.c:1541
 msgid ""
 "%D: basedir of project\n"
 "%B: basefile (without extension) of project\n"
@@ -2431,275 +2431,275 @@ msgstr ""
 "\tLes deux : 1+2 =3\n"
 "\tAucun des deux: 0"
 
-#: ../src/preferences.c:1852 ../src/preferences.c:1853
+#: ../src/preferences.c:1856 ../src/preferences.c:1857
 msgid "left"
 msgstr "à gauche"
 
-#: ../src/preferences.c:1852 ../src/preferences.c:1853
+#: ../src/preferences.c:1856 ../src/preferences.c:1857
 msgid "right"
 msgstr "à droite"
 
-#: ../src/preferences.c:1852
+#: ../src/preferences.c:1856
 msgid "top"
 msgstr "en haut"
 
-#: ../src/preferences.c:1852
+#: ../src/preferences.c:1856
 msgid "bottom"
 msgstr "en bas"
 
-#: ../src/preferences.c:1854
+#: ../src/preferences.c:1858
 msgid "no check"
 msgstr "Aucune vérification"
 
-#: ../src/preferences.c:1854
+#: ../src/preferences.c:1858
 msgid "check mtime and size"
 msgstr "Vérifier la date de modification et la taille du fichier"
 
-#: ../src/preferences.c:1854
+#: ../src/preferences.c:1858
 msgid "check mtime"
 msgstr "Vérifier la date de modification"
 
-#: ../src/preferences.c:1854
+#: ../src/preferences.c:1858
 msgid "check size"
 msgstr "Vérifier la taille"
 
-#: ../src/preferences.c:1857
+#: ../src/preferences.c:1861
 msgid "Edit preferences"
 msgstr "Éditer les préférences"
 
-#: ../src/preferences.c:1869
+#: ../src/preferences.c:1873
 msgid "Editor"
 msgstr "Éditeur"
 
-#: ../src/preferences.c:1871
+#: ../src/preferences.c:1875
 msgid "Editor options"
 msgstr "Options de l'éditeur"
 
-#: ../src/preferences.c:1876
+#: ../src/preferences.c:1880
 msgid "Font"
 msgstr "Police"
 
-#: ../src/preferences.c:1877
+#: ../src/preferences.c:1881
 msgid "Tab width"
 msgstr "Largeur de tabulation"
 
-#: ../src/preferences.c:1878
+#: ../src/preferences.c:1882
 msgid "Use spaces to indent, not tabs"
 msgstr "Utiliser des espaces pour indenter plutôt que des tabulations"
 
-#: ../src/preferences.c:1879
+#: ../src/preferences.c:1883
 msgid "Word wrap default"
 msgstr "Césure par défaut"
 
-#: ../src/preferences.c:1881
+#: ../src/preferences.c:1885
 msgid "Highlight syntax by default"
 msgstr "Coloration syntaxique par défaut"
 
-#: ../src/preferences.c:1882
+#: ../src/preferences.c:1886
 msgid "Highlight # lines"
 msgstr "Coloration nombre de lignes"
 
-#: ../src/preferences.c:1884
+#: ../src/preferences.c:1888
 msgid "Undo"
 msgstr "Annuler"
 
-#: ../src/preferences.c:1889
+#: ../src/preferences.c:1893
 msgid "Undo history size"
 msgstr "Nombre de niveaux d'annulation"
 
-#: ../src/preferences.c:1890
+#: ../src/preferences.c:1894
 msgid "Clear undo history on save"
 msgstr "Effacer les niveaux d'annulation lors de l'enregistrement"
 
-#: ../src/preferences.c:1892
+#: ../src/preferences.c:1896
 msgid "Bookmark options"
 msgstr "Options des signets"
 
-#: ../src/preferences.c:1897
+#: ../src/preferences.c:1901
 msgid "Make permanent by default"
 msgstr "Rendre permanent par défaut"
 
-#: ../src/preferences.c:1899
+#: ../src/preferences.c:1903
 msgid "full path"
 msgstr "Chemin complet"
 
-#: ../src/preferences.c:1899
+#: ../src/preferences.c:1903
 msgid "path from basedir"
 msgstr "Chemin à partir du répertoire de travail"
 
-#: ../src/preferences.c:1899
+#: ../src/preferences.c:1903
 msgid "filename"
 msgstr "Nom de fichier"
 
-#: ../src/preferences.c:1900
+#: ../src/preferences.c:1904
 msgid "Bookmarks filename display"
 msgstr "Affichage du nom de fichier du signet"
 
-#: ../src/preferences.c:1905
+#: ../src/preferences.c:1909
 msgid "Files"
 msgstr "Fichiers"
 
-#: ../src/preferences.c:1907
+#: ../src/preferences.c:1911
 msgid "Encoding"
 msgstr "Encodage"
 
-#: ../src/preferences.c:1919
+#: ../src/preferences.c:1923
 msgid "Default character set"
 msgstr "Jeu de caractères par défaut"
 
-#: ../src/preferences.c:1925
+#: ../src/preferences.c:1929
 msgid "Backup"
 msgstr "Sauvegarder"
 
-#: ../src/preferences.c:1929
+#: ../src/preferences.c:1933
 msgid "Create backup on save"
 msgstr "Créer une sauvegarde à l'enregistrement"
 
-#: ../src/preferences.c:1930
+#: ../src/preferences.c:1934
 msgid "Backup file suffix"
 msgstr "Extension du fichier de sauvegarde"
 
-#: ../src/preferences.c:1932
+#: ../src/preferences.c:1936
 msgid "save"
 msgstr "Enregistrer"
 
-#: ../src/preferences.c:1932
+#: ../src/preferences.c:1936
 msgid "abort"
 msgstr "Abandonner"
 
-#: ../src/preferences.c:1932
+#: ../src/preferences.c:1936
 msgid "ask"
 msgstr "Demander"
 
-#: ../src/preferences.c:1933
+#: ../src/preferences.c:1937
 msgid "Action on backup failure"
 msgstr "Action en cas d'échec de la sauvegarde"
 
-#: ../src/preferences.c:1935
+#: ../src/preferences.c:1939
 msgid "Remove backupfile on close"
 msgstr "Supprimer la sauvegarde à la fermeture"
 
-#: ../src/preferences.c:1939
+#: ../src/preferences.c:1943
 msgid "Misc"
 msgstr "Divers"
 
-#: ../src/preferences.c:1944
+#: ../src/preferences.c:1948
 msgid "Allow multi instances of a file"
 msgstr "Autoriser plusieurs instances d'un même fichier"
 
-#: ../src/preferences.c:1946
+#: ../src/preferences.c:1950
 msgid "Open files in already running winefish window"
 msgstr "Ouvrir les fichiers dans la fenêtre active de Winefish"
 
-#: ../src/preferences.c:1948
+#: ../src/preferences.c:1952
 msgid "File modified on disk check "
 msgstr "Fichier modifié sur le disque"
 
-#: ../src/preferences.c:1949
+#: ../src/preferences.c:1953
 msgid "Number of files in 'Open recent'"
 msgstr "Nombre de fichiers dans 'Récemment ouvert'"
 
-#: ../src/preferences.c:1951
+#: ../src/preferences.c:1955
 msgid "File browser"
 msgstr "Navigateur de fichiers"
 
-#: ../src/preferences.c:1955
+#: ../src/preferences.c:1959
 msgid "Default basedir"
 msgstr "Répertoire de travail par défaut"
 
-#: ../src/preferences.c:1956
+#: ../src/preferences.c:1960
 msgid "Use separate file and directory view"
 msgstr "Utiliser une vue scindée répertoires/fichiers"
 
-#: ../src/preferences.c:1957
+#: ../src/preferences.c:1961
 msgid "Unknown icon"
 msgstr "Icône de type inconnu"
 
-#: ../src/preferences.c:1958
+#: ../src/preferences.c:1962
 msgid "Directory icon"
 msgstr "Icône de répertoire"
 
-#: ../src/preferences.c:1962
+#: ../src/preferences.c:1966
 msgid "User interface"
 msgstr "Interface utilisateur"
 
-#: ../src/preferences.c:1964
+#: ../src/preferences.c:1968
 msgid "Dimensions"
 msgstr "Dimensions"
 
-#: ../src/preferences.c:1968
+#: ../src/preferences.c:1972
 msgid "Restore last used dimensions"
 msgstr "Restaurer les dernières dimensions utilisées"
 
-#: ../src/preferences.c:1969
+#: ../src/preferences.c:1973
 msgid "Initial sidebar width"
 msgstr "Largeur initiale du panneau latéral"
 
-#: ../src/preferences.c:1970
+#: ../src/preferences.c:1974
 msgid "Initial window height"
 msgstr "Hauteur initiale de la fenêtre"
 
-#: ../src/preferences.c:1971
+#: ../src/preferences.c:1975
 msgid "Initial window width"
 msgstr "Largeur initiale de la fenêtre"
 
-#: ../src/preferences.c:1975
+#: ../src/preferences.c:1979
 msgid "General"
 msgstr "Général"
 
-#: ../src/preferences.c:1980
+#: ../src/preferences.c:1984
 msgid "Make LaTeX dialogs transient"
 msgstr "Garder les boîtes de dialogue LaTeX au premier plan"
 
-#: ../src/preferences.c:1982
+#: ../src/preferences.c:1986
 msgid "Notebook tab font (leave empty for gtk default)"
 msgstr "Police des onglets Notebook (ne pas remplir pour le GTK par défaut)"
 
-#: ../src/preferences.c:1984
+#: ../src/preferences.c:1988
 msgid "Document notebook tab position"
 msgstr "Position de l'onglet"
 
-#: ../src/preferences.c:1985
+#: ../src/preferences.c:1989
 msgid "Sidebar notebook tab position"
 msgstr "Position de l'onglet du panneau latéral"
 
-#: ../src/preferences.c:1986
+#: ../src/preferences.c:1990
 msgid "Sidebar location"
 msgstr "Emplacement du panneau latéral"
 
-#: ../src/preferences.c:1990 ../src/preferences.c:1992
+#: ../src/preferences.c:1994 ../src/preferences.c:1996
 msgid "Filetypes"
 msgstr "Types de fichiers"
 
-#: ../src/preferences.c:1999
+#: ../src/preferences.c:2003
 msgid "Filefilters"
 msgstr "Filtres de fichiers"
 
-#: ../src/preferences.c:2008
+#: ../src/preferences.c:2012
 msgid "Highlighting"
 msgstr "Coloration syntaxique"
 
-#: ../src/preferences.c:2010
+#: ../src/preferences.c:2014
 msgid "Patterns"
 msgstr "Modèles"
 
-#: ../src/preferences.c:2019
+#: ../src/preferences.c:2023
 msgid "Viewers, Filters"
 msgstr "Visionneurs, filtres"
 
-#: ../src/preferences.c:2021
+#: ../src/preferences.c:2025
 msgid "Viewers"
 msgstr "Visionneurs"
 
-#: ../src/preferences.c:2028
+#: ../src/preferences.c:2032
 msgid "Utilities and Filters"
 msgstr "Utilitaires et Filtres"
 
-#: ../src/preferences.c:2035 ../src/preferences.c:2058
+#: ../src/preferences.c:2039 ../src/preferences.c:2062
 msgid "Information"
 msgstr "Information"
 
-#: ../src/preferences.c:2040
+#: ../src/preferences.c:2044
 #, c-format
 msgid ""
 "%f: current filename\n"
@@ -2712,43 +2712,43 @@ msgstr ""
 "%o : nom du fichier de sortie (filtres)\n"
 "%%: signe pourcentage"
 
-#: ../src/preferences.c:2048 ../src/preferences.c:2050
+#: ../src/preferences.c:2052 ../src/preferences.c:2054
 msgid "TeXbox"
 msgstr "Boîte TeX"
 
-#: ../src/preferences.c:2067
+#: ../src/preferences.c:2071
 msgid "AutoX"
 msgstr "Automation"
 
-#: ../src/preferences.c:2069
+#: ../src/preferences.c:2073
 msgid "Autotext"
 msgstr "Texte automatique"
 
-#: ../src/preferences.c:2076
+#: ../src/preferences.c:2080
 msgid "Word List (for Autocompletion)"
 msgstr "Liste de mots (pour la terminaison automatique)"
 
-#: ../src/preferences.c:2085
+#: ../src/preferences.c:2089
 msgid "Miscellaneous"
 msgstr "Divers"
 
-#: ../src/preferences.c:2089
+#: ../src/preferences.c:2093
 msgid "Templates Directory"
 msgstr "Répertoire des modèles"
 
-#: ../src/preferences.c:2097
+#: ../src/preferences.c:2102
 msgid "Column Markers"
 msgstr "Marqueurs de colonnes"
 
-#: ../src/preferences.c:2102
+#: ../src/preferences.c:2107
 msgid "Marker 1"
 msgstr "Marqueur 1"
 
-#: ../src/preferences.c:2103
+#: ../src/preferences.c:2108
 msgid "Marker 2"
 msgstr "Marqueur 2"
 
-#: ../src/preferences.c:2104
+#: ../src/preferences.c:2109
 msgid "Marker 3"
 msgstr "Marqueur 3"
 
@@ -2841,31 +2841,31 @@ msgstr "Créer un projet avec les documents ouverts"
 msgid "Create empty project"
 msgstr "Créer un projet vide"
 
-#: ../src/rcfile.c:498
+#: ../src/rcfile.c:500
 msgid "DVI Viewer"
 msgstr "Visionneur DVI"
 
-#: ../src/rcfile.c:500
+#: ../src/rcfile.c:502
 msgid "PDF Viewer"
 msgstr "Visionneur PDF"
 
-#: ../src/rcfile.c:502
+#: ../src/rcfile.c:504
 msgid "EPS Viewer"
 msgstr "Visionneur EPS"
 
-#: ../src/rcfile.c:576
+#: ../src/rcfile.c:578
 msgid "LaTeX"
 msgstr "LaTeX"
 
-#: ../src/rcfile.c:578
+#: ../src/rcfile.c:580
 msgid "XML"
 msgstr "XML"
 
-#: ../src/rcfile.c:580
+#: ../src/rcfile.c:582
 msgid "Images"
 msgstr "Images"
 
-#: ../src/rcfile.c:944
+#: ../src/rcfile.c:946
 msgid "Untitled Project"
 msgstr "Projet sans titre"
 
@@ -3182,4 +3182,3 @@ msgstr "_Lignes :"
 #: ../src/wizards.c:646
 msgid "Type (_Environment):"
 msgstr "Type (_Environnement) :"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
