@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-27 15:12+0700\n"
+"POT-Creation-Date: 2006-03-27 22:28+0700\n"
 "PO-Revision-Date: 2006-02-18 14:49+0700\n"
 "Last-Translator: kyanh <kyanh@o2.pl>\n"
 "Language-Team:  <en@li.org>\n"
@@ -260,7 +260,7 @@ msgstr "Cỡ tập tin đã thay đổi\n"
 msgid "Bookmarks positions could be incorrect. Delete bookmarks?"
 msgstr "Các đánh dấu có thể bị sai. Xóa các đánh dấu?"
 
-#: ../src/document.c:322 ../src/document.c:3810
+#: ../src/document.c:322 ../src/document.c:3811
 msgid "/Document/Highlight Syntax"
 msgstr "/Tài liệu/Tô màu"
 
@@ -404,7 +404,7 @@ msgid "Save %s as"
 msgstr "Lưu %s với tên khác là"
 
 #: ../src/document.c:3212 ../src/document.c:3227 ../src/document.c:3335
-#: ../src/document.c:4386 ../src/project.c:194
+#: ../src/document.c:4387 ../src/project.c:194
 msgid "_Cancel"
 msgstr "_Bỏ qua"
 
@@ -490,27 +490,27 @@ msgstr "Lưu tập tin vào \"%s\" trước khi thoát?."
 msgid "Do_n't save"
 msgstr "Không lưu"
 
-#: ../src/document.c:3444 ../src/document.c:4388 ../src/project.c:371
+#: ../src/document.c:3444 ../src/document.c:4389 ../src/project.c:371
 msgid "If you don't save your changes they will be lost."
 msgstr "Nếu bạn không lưu, những thay đổi với tập tin sẽ bị mất."
 
-#: ../src/document.c:3813
+#: ../src/document.c:3814
 msgid "/Document/Line Numbers"
 msgstr "/Tài liệu/Số chỉ dòng"
 
-#: ../src/document.c:3816
+#: ../src/document.c:3817
 msgid "/Document/AutoCompletion"
 msgstr "/Tài liệu/Hoàn thành lệnh"
 
-#: ../src/document.c:3852
+#: ../src/document.c:3853
 msgid "No filename"
 msgstr "Chưa có tên"
 
-#: ../src/document.c:4000
+#: ../src/document.c:4001
 msgid "Loading files..."
 msgstr "Đang nạp tận tin..."
 
-#: ../src/document.c:4027
+#: ../src/document.c:4028
 msgid ""
 "These files could not opened:\n"
 "\n"
@@ -518,23 +518,23 @@ msgstr ""
 "Các tập tin sau không thể mở:\n"
 "\n"
 
-#: ../src/document.c:4029 ../src/msg_queue.c:245
+#: ../src/document.c:4030 ../src/msg_queue.c:245
 msgid "Unable to open file(s)\n"
 msgstr "Không thể mở các tập tin sau\n"
 
-#: ../src/document.c:4076
+#: ../src/document.c:4077
 msgid "unable to open file"
 msgstr "không thể mở tập tin"
 
-#: ../src/document.c:4132
+#: ../src/document.c:4133
 msgid "_Reload"
 msgstr "Đọc lại nội dung tập tin trên đĩa"
 
-#: ../src/document.c:4132
+#: ../src/document.c:4133
 msgid "_Ignore"
 msgstr "_Bỏ qua"
 
-#: ../src/document.c:4136
+#: ../src/document.c:4137
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -547,44 +547,44 @@ msgstr ""
 "Giờ thay đổi mới: %s\n"
 "Giời thay đổi cũ: %s"
 
-#: ../src/document.c:4137
+#: ../src/document.c:4138
 msgid "File has been modified by another process\n"
 msgstr "Tập tin vừa được thay đổi bởi tiến trình nào đó\n"
 
-#: ../src/document.c:4271 ../src/gtk_easy.c:1629
+#: ../src/document.c:4272 ../src/gtk_easy.c:1629
 msgid "Select files"
 msgstr "Chọn tập tin"
 
-#: ../src/document.c:4289
+#: ../src/document.c:4290
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "Đang nạp %d tập tin..."
 
-#: ../src/document.c:4316 ../src/document.c:4324
+#: ../src/document.c:4317 ../src/document.c:4325
 msgid "Select file to insert"
 msgstr "Chọn tập tin để chèn"
 
-#: ../src/document.c:4328
+#: ../src/document.c:4329
 msgid "no file to insert"
 msgstr "không có tập tin nào"
 
-#: ../src/document.c:4386
+#: ../src/document.c:4387
 msgid "_Save All"
 msgstr "Lưu tất cả"
 
-#: ../src/document.c:4386
+#: ../src/document.c:4387
 msgid "Close _All"
 msgstr "Đóng tất cả"
 
-#: ../src/document.c:4386
+#: ../src/document.c:4387
 msgid "Choose per _File"
 msgstr "Hỏi từng tập tin"
 
-#: ../src/document.c:4387
+#: ../src/document.c:4388
 msgid "Multiple open files have been changed."
 msgstr "Nhiều tập tin đang mở đã thay đổi nội dung."
 
-#: ../src/document.c:4666
+#: ../src/document.c:4667
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "Thống kê: %d dòng, %d từ, %d ký tự"
@@ -894,40 +894,40 @@ msgstr "hàm"
 msgid "marks"
 msgstr "đánh dấu"
 
-#: ../src/gui.c:613
+#: ../src/gui.c:617
 msgid "New Winefish Window"
 msgstr "Cửa sổ mới"
 
-#: ../src/gui.c:677
+#: ../src/gui.c:681
 msgid "Stand by..."
 msgstr "Đang treo..."
 
-#: ../src/gui.c:873
+#: ../src/gui.c:877
 msgid "Goto line"
 msgstr "Đi đến dòng"
 
-#: ../src/gui.c:881
+#: ../src/gui.c:885
 msgid "_Line number:"
 msgstr "Số _dòng:"
 
-#: ../src/gui.c:887
+#: ../src/gui.c:891
 msgid "From _selection"
 msgstr "Từ phần đang chọn"
 
-#: ../src/gui.c:890
+#: ../src/gui.c:894
 msgid "Keep _dialog"
 msgstr "Giữ hộp thoại này"
 
-#: ../src/gui.c:956
+#: ../src/gui.c:960
 msgid "starting winefish"
 msgstr "bắt đầu chạy Winefish"
 
-#: ../src/gui.c:1055 ../src/gui.c:1064 ../src/outputbox.c:127
+#: ../src/gui.c:1059 ../src/gui.c:1068 ../src/outputbox.c:127
 #: ../src/outputbox.c:353 ../src/outputbox.c:470
 msgid "/View/View Outputbox"
 msgstr "/Xem/Kết quả xuất"
 
-#: ../src/gui.c:1069 ../src/gui.c:1075
+#: ../src/gui.c:1073 ../src/gui.c:1079
 msgid "/View/View Terminal"
 msgstr "/Xem/Xem Terminal"
 

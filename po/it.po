@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Winefish 1.3.2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-27 15:12+0700\n"
+"POT-Creation-Date: 2006-03-27 22:28+0700\n"
 "PO-Revision-Date: 2006-02-14 07:53+0100\n"
 "Last-Translator: Daniele Medri <daniele@medri.org>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -246,7 +246,7 @@ msgid "Bookmarks positions could be incorrect. Delete bookmarks?"
 msgstr ""
 "La posizione dei segnalibri potrebbe essere errata. Eliminare i segnalibri?"
 
-#: ../src/document.c:322 ../src/document.c:3810
+#: ../src/document.c:322 ../src/document.c:3811
 msgid "/Document/Highlight Syntax"
 msgstr "/Documento/Evidenzia sintassi"
 
@@ -389,7 +389,7 @@ msgid "Save %s as"
 msgstr "Salva %s come"
 
 #: ../src/document.c:3212 ../src/document.c:3227 ../src/document.c:3335
-#: ../src/document.c:4386 ../src/project.c:194
+#: ../src/document.c:4387 ../src/project.c:194
 msgid "_Cancel"
 msgstr "_Cancella"
 
@@ -475,27 +475,27 @@ msgstr "Salva cambiamenti in \"%s\" prima di chiudere?."
 msgid "Do_n't save"
 msgstr "No_n salvare"
 
-#: ../src/document.c:3444 ../src/document.c:4388 ../src/project.c:371
+#: ../src/document.c:3444 ../src/document.c:4389 ../src/project.c:371
 msgid "If you don't save your changes they will be lost."
 msgstr "Se non salvi i cambiamenti andranno persi."
 
-#: ../src/document.c:3813
+#: ../src/document.c:3814
 msgid "/Document/Line Numbers"
 msgstr "/Documento/Numeri di linea"
 
-#: ../src/document.c:3816
+#: ../src/document.c:3817
 msgid "/Document/AutoCompletion"
 msgstr "/Documento/Completamento automatico"
 
-#: ../src/document.c:3852
+#: ../src/document.c:3853
 msgid "No filename"
 msgstr "Nessun nome file"
 
-#: ../src/document.c:4000
+#: ../src/document.c:4001
 msgid "Loading files..."
 msgstr "Caricamento file..."
 
-#: ../src/document.c:4027
+#: ../src/document.c:4028
 msgid ""
 "These files could not opened:\n"
 "\n"
@@ -503,23 +503,23 @@ msgstr ""
 "Questi file non possono essere aperti:\n"
 "\n"
 
-#: ../src/document.c:4029 ../src/msg_queue.c:245
+#: ../src/document.c:4030 ../src/msg_queue.c:245
 msgid "Unable to open file(s)\n"
 msgstr "Non è possibile aprire il file\n"
 
-#: ../src/document.c:4076
+#: ../src/document.c:4077
 msgid "unable to open file"
 msgstr "non è possibile caricare il file"
 
-#: ../src/document.c:4132
+#: ../src/document.c:4133
 msgid "_Reload"
 msgstr "_Ricarica"
 
-#: ../src/document.c:4132
+#: ../src/document.c:4133
 msgid "_Ignore"
 msgstr "_Ignora"
 
-#: ../src/document.c:4136
+#: ../src/document.c:4137
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -532,44 +532,44 @@ msgstr ""
 "Orario ultima modifica: %s\n"
 "Orario precedente modifica: %s"
 
-#: ../src/document.c:4137
+#: ../src/document.c:4138
 msgid "File has been modified by another process\n"
 msgstr "Il file è stato modificato da un altro processo\n"
 
-#: ../src/document.c:4271 ../src/gtk_easy.c:1629
+#: ../src/document.c:4272 ../src/gtk_easy.c:1629
 msgid "Select files"
 msgstr "Seleziona file"
 
-#: ../src/document.c:4289
+#: ../src/document.c:4290
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "Apertura di %d file..."
 
-#: ../src/document.c:4316 ../src/document.c:4324
+#: ../src/document.c:4317 ../src/document.c:4325
 msgid "Select file to insert"
 msgstr "Scegli file da inserire"
 
-#: ../src/document.c:4328
+#: ../src/document.c:4329
 msgid "no file to insert"
 msgstr "nessun file da inserire"
 
-#: ../src/document.c:4386
+#: ../src/document.c:4387
 msgid "_Save All"
 msgstr "_Salva tutto"
 
-#: ../src/document.c:4386
+#: ../src/document.c:4387
 msgid "Close _All"
 msgstr "Chiudi _tutto"
 
-#: ../src/document.c:4386
+#: ../src/document.c:4387
 msgid "Choose per _File"
 msgstr "Scegli il _file"
 
-#: ../src/document.c:4387
+#: ../src/document.c:4388
 msgid "Multiple open files have been changed."
 msgstr "Molteplici file aperti sono stati modificati."
 
-#: ../src/document.c:4666
+#: ../src/document.c:4667
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "Statistiche: %d linee, %d parole, %d caratteri"
@@ -879,40 +879,40 @@ msgstr "definizione"
 msgid "marks"
 msgstr "segnalibri"
 
-#: ../src/gui.c:613
+#: ../src/gui.c:617
 msgid "New Winefish Window"
 msgstr "Nuova finestra Winefish"
 
-#: ../src/gui.c:677
+#: ../src/gui.c:681
 msgid "Stand by..."
 msgstr "Attendere prego..."
 
-#: ../src/gui.c:873
+#: ../src/gui.c:877
 msgid "Goto line"
 msgstr "Vai alla linea"
 
-#: ../src/gui.c:881
+#: ../src/gui.c:885
 msgid "_Line number:"
 msgstr "Numero _linea:"
 
-#: ../src/gui.c:887
+#: ../src/gui.c:891
 msgid "From _selection"
 msgstr "Dalla _selezione"
 
-#: ../src/gui.c:890
+#: ../src/gui.c:894
 msgid "Keep _dialog"
 msgstr ""
 
-#: ../src/gui.c:956
+#: ../src/gui.c:960
 msgid "starting winefish"
 msgstr "avvio di winefish"
 
-#: ../src/gui.c:1055 ../src/gui.c:1064 ../src/outputbox.c:127
+#: ../src/gui.c:1059 ../src/gui.c:1068 ../src/outputbox.c:127
 #: ../src/outputbox.c:353 ../src/outputbox.c:470
 msgid "/View/View Outputbox"
 msgstr "/Visualizza/Visualizza area esterna"
 
-#: ../src/gui.c:1069 ../src/gui.c:1075
+#: ../src/gui.c:1073 ../src/gui.c:1079
 msgid "/View/View Terminal"
 msgstr "/Visualizza/Visualizza barra laterale"
 
