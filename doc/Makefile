@@ -4,6 +4,8 @@
 #
 # Copyright (C) 2005 Ky Anh <kyanh@o2.pl>
 
+default: html
+
 all: winefish winefish-en
 
 winefish winefish-en:
