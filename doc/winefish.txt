@@ -9,6 +9,9 @@ This is a generated file. !! DO NOT EDIT !!
 -->
 <HEAD>
 <TITLE>Winefish Documentation</TITLE>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="Keywords" content="tex,latex,vietnam,winefish,editor,kyanh">
+<META name="Copyright" content="Copyright \(c\) 2005-2006 kyanh">
 <STYLE>
 <!--
 body { margin: 30px; font-size: 13px; margin-right: 100px; }
@@ -21,24 +24,22 @@ a:visited { color: green; }
 </STYLE>
 </HEAD>
 <BODY>
-1(@[Winefish Documentation](http://winefish.berlios.de/))
+1(@[Winefish 1.3.2 Documentation](http://winefish.berlios.de/))
 
 L(
 * Author: kyanh <@(kyanh_at_viettug_dot_org)>
-* This document is available for Winefish version GREEN(U(1.3.2)).
 * RED(If you had been using an older version of Winefish,
 you should read @[NEWS](#NEWS) and @[IMPORTANT NOTES](#IMPORTANT NOTES) )
 * For further help, visit @(http://winefish.berlios.de/forum/)
-* I'm sorry about my English :\)\)\\
+* I'm sorry about my English :\)\)
 If you find any \(spell\) mistakes in this document feel free to let me know!
-See @[THANKS](#THANKS).
 )
 
 2(#(CONTENTS))
 
 L(
 * @[THANKS](#THANKS)
-* @[News](#NEWS)
+* @[NEWS](#NEWS)
 * @[Features](#FEATURES)
 * @[Installation](#INSTALLATION)
 * @[Important Notes](#IMPORTANT NOTES)
@@ -103,6 +104,7 @@ B(single-click) and B(control + single-click). See @[OUTPUTBOX](#OUTPUTBOX)
 * @[Column Marker](#COLUMN MARKER)
 * new syntax hilighting
 )
+any many more. See B(NEWS) and B(CHANGES) for details.
 
 2(#(IMPORTANT NOTES))
 %
