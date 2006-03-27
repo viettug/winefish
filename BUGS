@@ -2,6 +2,14 @@ $Id$
 
 ============================================================== [200603]
 
+======== 1.3.2.8a
+
+#107/fixed-partial/kyanh/20060327/
+* func_grep: unicode string is escaped => func_grep returns with errors. we used the function
+(g_strescape) to escape the character \ -- but the non ASCII characters are escaped too --
+as mentioned in (g_strescape) document.
+* use (func_grep_escape_string) instead. TODO: a' ==> search for 'a\'' => failed
+
 ======== 1.3.2-RC2
 
 #106/fixed/kyanh/20060317/
