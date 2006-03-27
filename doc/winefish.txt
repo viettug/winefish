@@ -384,7 +384,11 @@ The zero value is equivalent to B(disabled).
 
 2(#(ABOUT))
 
-GRAY(I am a m0nster who loves maths, music and of course winefish ;\))
+GRAY(I am a vietnamese who loves maths, music and of course winefish ;\)
+
+Please write my name with lowercase characters -- B(kyanh) -- as it is
+my *nix* name... the correct one \(in vietnamese\) is hard to write down !!!
+)
 
 <BR>
 <HR>
