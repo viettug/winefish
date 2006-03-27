@@ -314,7 +314,7 @@ static void ob_notebook_switch_page_lcb(GtkNotebook *notebook, GtkNotebookPage *
 	}else{
 #ifdef DEBUG
 		if(ob) {
-			DEBUG_MSG("ob_notebook_switch_page_lcb: Strop FALSE, ob_fetching = %d\n", ob->OB_FETCHING);
+			DEBUG_MSG("ob_notebook_switch_page_lcb: Stop FALSE, ob_fetching = %d\n", ob->OB_FETCHING);
 		}
 #endif
 		outputbox_set_status(ob, FALSE, TRUE);
