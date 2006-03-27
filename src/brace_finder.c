@@ -230,7 +230,7 @@ guint16 brace_finder(GtkTextBuffer *buffer, Tbracefinder *brfinder, gint opt, gi
 		while (gtk_text_iter_forward_char(&tmpiter)) {
 			if (limit) { char_idx++; if (char_idx > BRACE_FINDER_MAX_CHARS) { break; } }
 			ch = gtk_text_iter_get_char(&tmpiter);
-			DEBUG_MSG("[%c]",ch);
+			DEBUG_MSG("%c",ch);
 			if ((ch == 37) && is_true_char(&tmpiter)) {/* % */
 				gtk_text_iter_forward_to_line_end(&tmpiter);
 			}else if( (ch == Lch)  && is_true_char(&tmpiter)) {/* { */
@@ -274,7 +274,7 @@ guint16 brace_finder(GtkTextBuffer *buffer, Tbracefinder *brfinder, gint opt, gi
 			}else if((ch==Lch) && is_true_char(&tmpiter_extra)) {/* } */
 				level ++;
 			}else if (gtk_text_iter_ends_line(&tmpiter_extra)) {
-				DEBUG_MSG("brace_finder: end of line. check for comment status\n ");
+				DEBUG_MSG("brace_finder: end of line. check for comment status\n");
 				if (limit) {
 					limit_idx++;
 					if (limit_idx > limit) { break; }
