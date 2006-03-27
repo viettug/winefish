@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Winefish 1.3.2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-27 00:20+0700\n"
+"POT-Creation-Date: 2006-03-27 15:12+0700\n"
 "PO-Revision-Date: 2006-02-14 07:53+0100\n"
 "Last-Translator: Daniele Medri <daniele@medri.org>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -749,104 +749,104 @@ msgstr "maschera"
 msgid "search"
 msgstr "cerca"
 
-#: ../src/func_grep.c:249
+#: ../src/func_grep.c:270
 msgid "searching files..."
 msgstr "ricerca file..."
 
-#: ../src/func_grep.c:262 ../src/func_grep.c:265 ../src/func_grep.c:290
+#: ../src/func_grep.c:283 ../src/func_grep.c:286 ../src/func_grep.c:313
 msgid "grep"
 msgstr "grep"
 
-#: ../src/func_grep.c:315
+#: ../src/func_grep.c:338
 msgid "func_grep: file(s) without filename"
 msgstr ""
 
-#: ../src/func_grep.c:317
+#: ../src/func_grep.c:340
 msgid "please specify the pattern!"
 msgstr ""
 
-#: ../src/func_grep.c:321
+#: ../src/func_grep.c:344
 msgid "func_grep: cannot create secure file"
 msgstr ""
 
-#: ../src/func_grep.c:323
+#: ../src/func_grep.c:346
 msgid "no matching files found"
 msgstr "nessun file corrispondente trovato"
 
-#: ../src/func_grep.c:325
+#: ../src/func_grep.c:348
 msgid "no directory specified"
 msgstr "dimensione cronologia di annulla"
 
-#: ../src/func_grep.c:350 ../src/project.c:445 ../src/project.c:452
+#: ../src/func_grep.c:373 ../src/project.c:445 ../src/project.c:452
 msgid "Select basedir"
 msgstr "Seleziona directory base"
 
-#: ../src/func_grep.c:411
+#: ../src/func_grep.c:434
 msgid "Grep Function"
 msgstr "Grep della funzione"
 
-#: ../src/func_grep.c:431
+#: ../src/func_grep.c:454
 msgid "<b>General</b>"
 msgstr "<b>Generale</b>"
 
-#: ../src/func_grep.c:433
+#: ../src/func_grep.c:456
 msgid "Base_dir:"
 msgstr "_Directory base:"
 
-#: ../src/func_grep.c:435 ../src/gtk_easy.c:1342
+#: ../src/func_grep.c:458 ../src/gtk_easy.c:1342
 msgid "_Browse..."
 msgstr "_Scegli..."
 
-#: ../src/func_grep.c:438
+#: ../src/func_grep.c:461
 msgid "<0: current file>"
 msgstr ""
 
-#: ../src/func_grep.c:439 ../src/func_grep.c:449
+#: ../src/func_grep.c:462 ../src/func_grep.c:472
 msgid "<1: all opened files>"
 msgstr ""
 
-#: ../src/func_grep.c:451
+#: ../src/func_grep.c:474
 msgid "_File:"
 msgstr "_File:"
 
-#: ../src/func_grep.c:458
+#: ../src/func_grep.c:481
 msgid "_Recursive:"
 msgstr "_Ricorsivo:"
 
-#: ../src/func_grep.c:462
+#: ../src/func_grep.c:485
 msgid "_Open files:"
 msgstr "_Apri file:"
 
-#: ../src/func_grep.c:467
+#: ../src/func_grep.c:490
 msgid "<b>Contains</b>"
 msgstr "<b>Contiene</b>"
 
-#: ../src/func_grep.c:485
-msgid "Pa_ttern:"
-msgstr "Pa_ttern:"
+#: ../src/func_grep.c:508
+msgid "_Pattern:"
+msgstr ""
 
-#: ../src/func_grep.c:490
+#: ../src/func_grep.c:513
 msgid "_Case sensitive:"
 msgstr "Maius_colo/minuscolo"
 
-#: ../src/func_grep.c:494
+#: ../src/func_grep.c:517
 msgid "Is rege_x:"
 msgstr "E' rege_x:"
 
-#: ../src/func_grep.c:498
+#: ../src/func_grep.c:521
 msgid "<b>Advanced</b>"
 msgstr "<b>Avanzate</b>"
 
-#: ../src/func_grep.c:501
+#: ../src/func_grep.c:524
 msgid "Skip _VCS dirs:"
 msgstr "Salta directory _VCS:"
 
-#: ../src/func_grep.c:570 ../src/func_grep.c:590
+#: ../src/func_grep.c:593 ../src/func_grep.c:613
 #, c-format
 msgid "loading %d file(s)..."
 msgstr "apertura di %d file..."
 
-#: ../src/func_grep.c:613
+#: ../src/func_grep.c:636
 msgid "template"
 msgstr "modello"
 
