@@ -73,7 +73,7 @@ FIXED:
 
 ============================================================== [200602]
 
-#99
+#99/fixed/kyanh/200603xx/
 * project_mode=1, current_file=NULL
 => the command isnot converted. see bf_lib.c::convert_command
 current implement: return *command* if current_document->filename is NULL.
