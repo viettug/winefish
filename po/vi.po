@@ -1,13 +1,12 @@
 # translation of vi.po to Vietnamese
 # This file is distributed under the same license as the PACKAGE package.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-# kyanh <kyanh@o2.pl>, 2005, 2006.
+# Copyright (C) 2005-2006 kyanh <kyanh@02.pl>.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: vi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-27 00:20+0700\n"
+"POT-Creation-Date: 2006-03-27 15:12+0700\n"
 "PO-Revision-Date: 2006-02-18 14:49+0700\n"
 "Last-Translator: kyanh <kyanh@o2.pl>\n"
 "Language-Team:  <en@li.org>\n"
@@ -765,104 +764,104 @@ msgstr "hộp thoại"
 msgid "search"
 msgstr "tìm kiếm"
 
-#: ../src/func_grep.c:249
+#: ../src/func_grep.c:270
 msgid "searching files..."
 msgstr "đang tìm kiếm tập tin..."
 
-#: ../src/func_grep.c:262 ../src/func_grep.c:265 ../src/func_grep.c:290
+#: ../src/func_grep.c:283 ../src/func_grep.c:286 ../src/func_grep.c:313
 msgid "grep"
 msgstr "tìm"
 
-#: ../src/func_grep.c:315
+#: ../src/func_grep.c:338
 msgid "func_grep: file(s) without filename"
 msgstr "func_grep: các tập tin chưa có tên"
 
-#: ../src/func_grep.c:317
+#: ../src/func_grep.c:340
 msgid "please specify the pattern!"
 msgstr "vui lòng chỉ ra pattern tìm kiếm!"
 
-#: ../src/func_grep.c:321
+#: ../src/func_grep.c:344
 msgid "func_grep: cannot create secure file"
 msgstr "func_grep: không thể tạo tập tin tạm"
 
-#: ../src/func_grep.c:323
+#: ../src/func_grep.c:346
 msgid "no matching files found"
 msgstr "không có tập tin nào"
 
-#: ../src/func_grep.c:325
+#: ../src/func_grep.c:348
 msgid "no directory specified"
 msgstr "không có thư mục nào được chỉ ra"
 
-#: ../src/func_grep.c:350 ../src/project.c:445 ../src/project.c:452
+#: ../src/func_grep.c:373 ../src/project.c:445 ../src/project.c:452
 msgid "Select basedir"
 msgstr "Chọn thư mục chính"
 
-#: ../src/func_grep.c:411
+#: ../src/func_grep.c:434
 msgid "Grep Function"
 msgstr "Tìm kiếm trong tập tin"
 
-#: ../src/func_grep.c:431
+#: ../src/func_grep.c:454
 msgid "<b>General</b>"
 msgstr "<b>Tổng quát</b>"
 
-#: ../src/func_grep.c:433
+#: ../src/func_grep.c:456
 msgid "Base_dir:"
 msgstr "thư _mục chính:"
 
-#: ../src/func_grep.c:435 ../src/gtk_easy.c:1342
+#: ../src/func_grep.c:458 ../src/gtk_easy.c:1342
 msgid "_Browse..."
 msgstr "_Thư mục..."
 
-#: ../src/func_grep.c:438
+#: ../src/func_grep.c:461
 msgid "<0: current file>"
 msgstr "<0: tập tin đang mở>"
 
-#: ../src/func_grep.c:439 ../src/func_grep.c:449
+#: ../src/func_grep.c:462 ../src/func_grep.c:472
 msgid "<1: all opened files>"
 msgstr "<1: mọi tập tin đang mở>"
 
-#: ../src/func_grep.c:451
+#: ../src/func_grep.c:474
 msgid "_File:"
 msgstr "_Tập tin:"
 
-#: ../src/func_grep.c:458
+#: ../src/func_grep.c:481
 msgid "_Recursive:"
 msgstr "đệ qu_y:"
 
-#: ../src/func_grep.c:462
+#: ../src/func_grep.c:485
 msgid "_Open files:"
 msgstr "_mở tập tin"
 
-#: ../src/func_grep.c:467
+#: ../src/func_grep.c:490
 msgid "<b>Contains</b>"
 msgstr "<b>Chứa</b>"
 
-#: ../src/func_grep.c:485
-msgid "Pa_ttern:"
+#: ../src/func_grep.c:508
+msgid "_Pattern:"
 msgstr "_mẫu tìm:"
 
-#: ../src/func_grep.c:490
+#: ../src/func_grep.c:513
 msgid "_Case sensitive:"
 msgstr "phân biệt hoa thường"
 
-#: ../src/func_grep.c:494
+#: ../src/func_grep.c:517
 msgid "Is rege_x:"
 msgstr "chính _quy:"
 
-#: ../src/func_grep.c:498
+#: ../src/func_grep.c:521
 msgid "<b>Advanced</b>"
 msgstr "<b>Nâng cao</b>"
 
-#: ../src/func_grep.c:501
+#: ../src/func_grep.c:524
 msgid "Skip _VCS dirs:"
 msgstr "bỏ qua thư mục _VCS:"
 
-#: ../src/func_grep.c:570 ../src/func_grep.c:590
+#: ../src/func_grep.c:593 ../src/func_grep.c:613
 #, c-format
 msgid "loading %d file(s)..."
 msgstr "đang nạp %d tập tin..."
 
-#: ../src/func_grep.c:613
+#: ../src/func_grep.c:636
 msgid "template"
 msgstr "mẫu"
 
