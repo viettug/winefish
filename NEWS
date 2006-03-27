@@ -1,0 +1,22 @@
+1.3.2 vs 1.2.1
+
+* brace finder
+* grep funtion (file in files)
+* improved outputbox with clone operation
+* template support
+* TeX filter for spell checker
+* column marker (--enable-column-marker when `configure')
+
+* delete latex command directly from popup menu
+* resource file: <homedir>/.winefish/rcfile
+
+* hilight current line
+* new color scheme for syntax hilighting
+* HTML version of documentation (doc/winefish.html)
+* translation: English, French, Italian, Vietnamese
+
+* menu reordered
+* toolbars dropped
+* many bugs fixed
+
+* ROADMAP changed
