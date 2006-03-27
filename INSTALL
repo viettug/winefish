@@ -6,7 +6,7 @@ To install Winefish from source
  	* glib-2.0 (version >= 2.2.2)
 	* libgtk2 (version >= 2.4.0)
 	* libpcre
-	* [ aspell ] (pptional; for spell checking)
+	* [ aspell ] (optional; for spell checking)
 	* [ grep, find, [ sed, xargs ]] (optional; for grep function)
 
 2) details about `configure'
