@@ -3,6 +3,9 @@ $Id$
 Winefish 1.3.2.8b
 =================
 
+* fixed:
+	- BUG#106, BUG#107 (partially;)
+
 * stuff:
 	- `column marker' is enabled via `configure' option (--enable-column-marker)
 	- fr.po updated
