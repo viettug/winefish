@@ -101,6 +101,25 @@ enum {
 	FIND_RET_NO_DIRECTORY_SPECIFIED=1<<6
 };
 
+static Tconvert_table func_grep_escape_table [] = {
+	{'n', "\n"},
+	{'t', "\t"},
+	{'\\', "\\"},
+	{'r', "\r"},
+	{'a', "\a"},
+	{'b', "\b"},
+	{'v', "\v"},
+	{0, NULL}
+};
+
+static gchar *func_grep_escape_string(const gchar *original) {
+	gchar *string;
+	DEBUG_MSG("func_grep: escape_string, started with %s\n", original);
+	string = unexpand_string(original,'\\',func_grep_escape_table);
+	DEBUG_MSG("func_grep: escape_string, finished with %s\n", string);
+	return string;
+}
+
 static void files_advanced_win_destroy( GtkWidget * widget, Tfiles_advanced *tfs )
 {
 	DEBUG_MSG( "func_grep: destroy the dialog: start\n" );
@@ -236,7 +255,9 @@ static void files_advanced_win_ok_clicked( GtkWidget * widget, Tfiles_advanced *
 			if ( type & FIND_WITHOUT_PATTERN ) {
 				command = g_strdup_printf("%s '%s' -type f %s %s %s", EXTERNAL_FIND, c_basedir, c_find_pattern, c_recursive, c_skipdir);
 			} else {
-				c_grep_pattern_escaped = g_strescape(c_grep_pattern,"\""); /* TODO: escape \" */
+				/* c_grep_pattern_escaped = g_strescape(c_grep_pattern,"\""); *//* TODO: escape \" */
+				c_grep_pattern_escaped = func_grep_escape_string(c_grep_pattern);
+				DEBUG_MSG("func_grep: original: %s; escaped : %s\n", c_grep_pattern, c_grep_pattern_escaped);
 #ifdef HAVE_SED_XARGS
 				DEBUG_MSG("func_grep: use xargs and sed\n");
 				command = g_strdup_printf("%s '%s' -type f %s %s %s | %s -e 's/ /\\\\\\ /g' | %s %s %s '%s'", EXTERNAL_FIND, c_basedir, c_find_pattern, c_recursive, c_skipdir, EXTERNAL_SED, EXTERNAL_XARGS, EXTERNAL_GREP, c_is_regex, c_grep_pattern_escaped);
@@ -285,7 +306,9 @@ static void files_advanced_win_ok_clicked( GtkWidget * widget, Tfiles_advanced *
 				DEBUG_MSG("func_grep: find in open files but no pattern was specified\n");
 			}else{
 				c_is_regex = g_strdup_printf( "-nH%s%s", gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( tfs->is_regex ) ) ? "E": "",  gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( tfs->case_sensitive ) ) ? "" : "i" );
-				c_grep_pattern_escaped = g_strescape(c_grep_pattern,"\""); /* TODO: escape \" */
+				/* c_grep_pattern_escaped = g_strescape(c_grep_pattern,"\""); *//* TODO: escape \" */
+				c_grep_pattern_escaped = func_grep_escape_string(c_grep_pattern);
+				DEBUG_MSG("func_grep: original: %s; escaped : %s\n", c_grep_pattern, c_grep_pattern_escaped);
 				command = g_strdup_printf("%s %s '%s' %s", EXTERNAL_GREP, c_is_regex, c_grep_pattern_escaped,c_find_pattern);
 				outputbox(tfs->bfwin,&tfs->bfwin->grepbox,_("grep"),  "^([^:]+):([0-9]+):(.*)", 1, 2, 3, command, 0);
 			}
