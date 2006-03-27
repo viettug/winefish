@@ -26,7 +26,8 @@ a:visited { color: green; }
 L(
 * Author: kyanh <@(kyanh_at_viettug_dot_org)>
 * This document is available for Winefish version GREEN(U(1.3.2)).
-* RED(If you had been using an older version of Winefish, you should read @[NEWS](#NEWS) and @[IMPORTANT NOTES](#IMPORTANT NOTES) )
+* RED(If you had been using an older version of Winefish,
+you should read @[NEWS](#NEWS) and @[IMPORTANT NOTES](#IMPORTANT NOTES) )
 * For further help, visit @(http://winefish.berlios.de/forum/)
 * I'm sorry about my English :\)\)\\
 If you find any \(spell\) mistakes in this document feel free to let me know!
@@ -94,7 +95,8 @@ system, not provided by Winefish.
 Some new features:
 L(
 * delete directly any command from PopUp menu. See @[AUTO_COMPLETION](#AUTO_COMPLETION)
-* outputbox with two useful operations: B(single-click) and B(control + single-click). See @[OUTPUTBOX](#OUTPUTBOX)
+* outputbox with two useful operations:
+B(single-click) and B(control + single-click). See @[OUTPUTBOX](#OUTPUTBOX)
 * manage your templates easily with Grep Function. See @[TEMPLATES SUPPORT](#TEMPLATES SUPPORT)
 * TeX filter for spell checker
 * @[Brace Finder](#BRACE FINDER)
@@ -103,14 +105,14 @@ L(
 )
 
 2(#(IMPORTANT NOTES))
-
-RED(Though Winefish 1.3.2 was released
-it may still expose a CRASH when running on GREEN(MacOSX).
-Please visit the project page at
-@[berlios](https://developer.berlios.de/projects/winefish/)
-for details. GRAY(I almost cannot fix this BUG; GREEN(I need someone could help me!))
-)
-
+%
+%RED(Though Winefish 1.3.2 was released
+%it may still expose a CRASH when running on GREEN(MacOSX).
+%Please visit the project page at
+%@[berlios](https://developer.berlios.de/projects/winefish/)
+%for details. GRAY(I almost cannot fix this BUG; GREEN(I need someone could help me!))
+%)
+%
 Winefish now uses B($HOME/.winefish/rcfile) to save configuration.
 Move the old one B($HOME/.winefish/rcfile_v2) to B($HOME/.winefish/rcfile)
 manually, then reconfigure Winefish (\(use B(Preferences Pages).\)
