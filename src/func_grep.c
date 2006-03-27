@@ -629,9 +629,9 @@ void template_rescan_cb(Tbfwin *bfwin) {
 	}
 	/* c_basedir = g_strdup("/home/users/kyanh/tex/templates/"); */
 #ifdef HAVE_SED_XARGS
-	command = g_strdup_printf("%s '%s' -type f \\( -name '*.tex' -o -name '*.sty' \\) %s | grep -v SCCS/ | grep -v CVS/ | grep -v .svn/ | %s -e 's/ /\\\\\\ /g' | %s %s -EnH  '%%%%wf='", EXTERNAL_FIND, c_basedir, FUNC_GREP_RECURSIVE_MAX_DEPTH, EXTERNAL_SED, EXTERNAL_XARGS, EXTERNAL_GREP);
+	command = g_strdup_printf("%s '%s' -type f \\( -name '*.tex' -o -name '*.sty' \\) %s | grep -v SCCS/ | grep -v CVS/ | grep -v .svn/ | %s -e 's/ /\\\\\\ /g' | %s %s -EnH  '%%%%%%%%wf='", EXTERNAL_FIND, c_basedir, FUNC_GREP_RECURSIVE_MAX_DEPTH, EXTERNAL_SED, EXTERNAL_XARGS, EXTERNAL_GREP);
 #else
-	command = g_strdup_printf("%s -EnH '%%%%wf=' `%s '%s' -type f \\( -name '*.tex' -o -name '*.sty' \\) %s | grep -v SCCS/ | grep -v CVS/ | grep -v .svn/`",EXTERNAL_GREP, EXTERNAL_FIND, c_basedir, FUNC_GREP_RECURSIVE_MAX_DEPTH);
+	command = g_strdup_printf("%s -EnH '%%%%%%%%wf=' `%s '%s' -type f \\( -name '*.tex' -o -name '*.sty' \\) %s | grep -v SCCS/ | grep -v CVS/ | grep -v .svn/`",EXTERNAL_GREP, EXTERNAL_FIND, c_basedir, FUNC_GREP_RECURSIVE_MAX_DEPTH);
 #endif /* SED_XARGS */	
 	outputbox(bfwin, &bfwin->templatebox,_("template"),  "^([^:]+):([0-9]+):(.*)", 1, 2, 3, command, 0);
 	g_free(command);
