@@ -505,7 +505,7 @@ static void files_advanced_win( Tfiles_advanced *tfs)
 		if (buffer) g_free(buffer);
 	}
 	
-	bf_mnemonic_label_tad_with_alignment( _( "Pa_ttern:" ), tfs->grep_pattern, 0, 0.5, table, 1, 2, 8, 9 );
+	bf_mnemonic_label_tad_with_alignment( _( "_Pattern:" ), tfs->grep_pattern, 0, 0.5, table, 1, 2, 8, 9 );
 	gtk_table_attach_defaults( GTK_TABLE( table ), tfs->grep_pattern, 2, MAX_COLUMN-1, 8, 9 );
 	/* failed: gtk_tooltips_set_tip(main_v->tooltips, tfs->grep_pattern, _("left pattern blank == file listing..."),NULL); */
 
