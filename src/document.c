@@ -3502,11 +3502,10 @@ static gboolean doc_textview_expose_event_lcb( GtkWidget * widget, GdkEventExpos
 
 	win = gtk_text_view_get_window( view, GTK_TEXT_WINDOW_LEFT );
 	if ( win != event->window ) {
-#ifndef STUPID	
 		if ( event->window == gtk_text_view_get_window(view, GTK_TEXT_WINDOW_TEXT) )
 		{
 			{/* current line hilighting */
-#ifdef STUPID_A_
+#ifdef HILIGHT_THE_WHOLE_LINE_IN_WRAP_MODE
 				gint w2;
 				GtkTextBuffer *buf = gtk_text_view_get_buffer(view);
 				gtk_text_buffer_get_iter_at_mark(buf, &it, gtk_text_buffer_get_insert(buf));
@@ -3515,7 +3514,7 @@ static gboolean doc_textview_expose_event_lcb( GtkWidget * widget, GdkEventExpos
 				gtk_text_view_buffer_to_window_coords(view, GTK_TEXT_WINDOW_TEXT, rect.x, rect.y, &rect.x, &rect.y);
 				gtk_text_view_buffer_to_window_coords(view, GTK_TEXT_WINDOW_TEXT, 0, w, NULL, &w);
 				gdk_draw_rectangle(event->window, widget->style->bg_gc[GTK_WIDGET_STATE(widget)], TRUE,rect.x, w, rect.width, w2);
-#else	
+#else
 				GdkRectangle iter_rect;
 
 				GtkTextBuffer *buf = gtk_text_view_get_buffer(view);
@@ -3528,7 +3527,7 @@ static gboolean doc_textview_expose_event_lcb( GtkWidget * widget, GdkEventExpos
 				gtk_text_view_buffer_to_window_coords(view, GTK_TEXT_WINDOW_TEXT, 0, iter_rect.y, NULL, &iter_rect.y);
 
 				gdk_draw_rectangle(event->window, widget->style->bg_gc[GTK_WIDGET_STATE(widget)], TRUE,rect.x, iter_rect.y, rect.width, iter_rect.height);
-#endif /* STUPID_A_ */
+#endif /* HILIGHT_THE_WHOLE_LINE_IN_WRAP_MODE */
 			}
 #ifdef ENABLE_COLUMN_MARKER
 			if (main_v->props.marker_ii || main_v->props.marker_iii || main_v->props.marker_i) {/* column marker */
@@ -3540,6 +3539,9 @@ static gboolean doc_textview_expose_event_lcb( GtkWidget * widget, GdkEventExpos
 				if (main_v->props.marker_i) {
 					tab_string = g_strnfill (main_v->props.marker_i, '_');
 					tab_width_i = widget_get_string_size(widget, tab_string);
+					/* use tab_size ;(
+					tab_width_i = 2 * textview_calculate_real_tab_width( GTK_WIDGET( ( ( Tdocument * ) doc ) ->view ), main_v->props.editor_tab_width );
+					*/
 					g_free(tab_string);
 				}
 				
@@ -3573,7 +3575,6 @@ static gboolean doc_textview_expose_event_lcb( GtkWidget * widget, GdkEventExpos
 			}
 #endif /* ENABLE_COLUMN_MARKER */
 		}
-#endif		
 		return FALSE;
 	}
 
