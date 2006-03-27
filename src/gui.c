@@ -405,13 +405,10 @@ void gui_notebook_bind_signals(Tbfwin *bfwin) {
 
 void gui_notebook_unbind_signals(Tbfwin *bfwin) {
 	DEBUG_MSG("gui_notebook_unbind_signals: started\n");
-	if (bfwin->notebook_switch_signal != 0) {
-		DEBUG_MSG("gui_notebook_unbind_signals: call (g_signal_handler_disconnect)\n");
-		/* BUG#6408 */
-		if (g_signal_handler_is_connected (G_OBJECT(bfwin->notebook),bfwin->notebook_switch_signal))
-			g_signal_handler_disconnect(G_OBJECT(bfwin->notebook),bfwin->notebook_switch_signal);
-		bfwin->notebook_switch_signal = 0;
-	}
+	if (g_signal_handler_is_connected (G_OBJECT(bfwin->notebook),bfwin->notebook_switch_signal))
+		g_signal_handler_disconnect(G_OBJECT(bfwin->notebook),bfwin->notebook_switch_signal);
+	bfwin->notebook_switch_signal = 0;
+	DEBUG_MSG("gui_notebook_unbind_signals: finished\n");
 }
 
 static gboolean gui_main_window_configure_event_lcb(GtkWidget *widget,GdkEvent *revent,Tbfwin *bfwin) {
