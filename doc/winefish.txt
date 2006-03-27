@@ -104,6 +104,13 @@ L(
 
 2(#(IMPORTANT NOTES))
 
+RED(Though Winefish 1.3.2 was released
+it may still expose a CRASH when running on GREEN(MacOSX).
+Please visit the project page at
+@[berlios](https://developer.berlios.de/projects/winefish/)
+for details. GRAY(I almost cannot fix this BUG; GREEN(I need someone could help me!))
+)
+
 Winefish now uses B($HOME/.winefish/rcfile) to save configuration.
 Move the old one B($HOME/.winefish/rcfile_v2) to B($HOME/.winefish/rcfile)
 manually, then reconfigure Winefish (\(use B(Preferences Pages).\)
@@ -387,7 +394,7 @@ The zero value is equivalent to B(disabled).
 GRAY(I am a vietnamese who loves maths, music and of course winefish ;\)
 
 Please write my name with lowercase characters -- B(kyanh) -- as it is
-my *nix* name... the correct one \(in vietnamese\) is hard to write down !!!
+my *nix* name... and it's very hard to write the vietnamese one ;\(
 )
 
 <BR>
