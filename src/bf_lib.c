@@ -558,46 +558,72 @@ void free_convert_table(Tconvert_table *tct) {
 
 /* kyanh, added, 20050223 */
 gchar *convert_command(Tbfwin *bfwin, const gchar *command) {
+	
+	if (! bfwin->current_document) {
+		return g_strdup(command);
+	}
+
 	gchar *result;
-	if (bfwin->current_document->filename) {
-		gboolean
-				/*need_e=FALSE,*/
-			need_D=FALSE,
-			need_B=FALSE,
-			need_d=FALSE,
-			need_b=FALSE,
-			need_f=FALSE,
-			need_l=FALSE;
+	gboolean
+		need_D, need_B, need_d, need_b,
+		need_f, need_l, need_p
+		;
+	gint num_needs;
 
-		need_D = (strstr(command, "%D") != NULL);
-		need_B = (strstr(command, "%B") != NULL);
-		need_d = (strstr(command, "%d") != NULL);
-		need_b = (strstr(command, "%b") != NULL);
-		need_f = (strstr(command, "%f") != NULL);
-		need_l = (strstr(command, "%l") != NULL);
-		/*need_e = (strstr(command, "%e") != NULL);*/
+	need_D = (strstr(command, "%D") != NULL);
+	need_B = (strstr(command, "%B") != NULL);
+	need_d = (strstr(command, "%d") != NULL);
+	need_b = (strstr(command, "%b") != NULL);
+	need_f = (strstr(command, "%f") != NULL);
+	need_l = (strstr(command, "%l") != NULL);
+	need_p = (strstr(command,"%%") != NULL);
+	/*need_e = (strstr(command, "%e") != NULL);*/
+	num_needs = need_D + need_B + need_d + need_b + need_f + need_l +need_p;
 
-		if (need_D || need_d || need_B || need_b || need_f || need_l) {
-			Tconvert_table *table, *tmpt;
-			table = tmpt = g_new(Tconvert_table, 7);
-			if (need_D) {
-				tmpt->my_int = 'D';
-				if (bfwin->project && (bfwin->project->view_bars & MODE_PROJECT) &&  g_file_test(bfwin->project->basedir, G_FILE_TEST_IS_DIR)) {
-					tmpt->my_char = g_strdup(bfwin->project->basedir);
-				}else{
+	if (num_needs) {
+		Tconvert_table *table, *tmpt;
+		table = tmpt = g_new(Tconvert_table, num_needs +1);
+		if (need_p) {
+			tmpt->my_int = '%';
+			tmpt->my_char = g_strdup("%");
+			tmpt++;
+		}
+		if (need_D) {
+			tmpt->my_int = 'D';
+			if ( bfwin->project && (bfwin->project->view_bars & MODE_PROJECT) &&  g_file_test(bfwin->project->basedir, G_FILE_TEST_IS_DIR)) {
+				tmpt->my_char = g_strdup(bfwin->project->basedir);
+			}else{
+				if (bfwin->current_document->filename) {
 					tmpt->my_char = g_path_get_dirname(bfwin->current_document->filename);
+				}else{
+					tmpt->my_char = g_strdup("?D");
 				}
-				tmpt++;
 			}
-			if (need_B) {
-				tmpt->my_int = 'B';
-				{
-					gchar *tmpstring;
-					if (bfwin->project && (bfwin->project->view_bars & MODE_PROJECT) && g_file_test(bfwin->project->basedir,G_FILE_TEST_IS_DIR) && g_file_test(g_strconcat(bfwin->project->basedir,"/",bfwin->project->basefile,NULL),G_FILE_TEST_EXISTS)) {
+			tmpt++;
+		}
+		if (need_B) {
+			tmpt->my_int = 'B';
+			{
+				gchar *tmpstring=NULL;
+				if (bfwin->project && (bfwin->project->view_bars & MODE_PROJECT) && g_file_test(bfwin->project->basedir,G_FILE_TEST_IS_DIR) ) {
+					tmpstring = g_strconcat(bfwin->project->basedir,"/",bfwin->project->basefile,NULL); 
+					if ( g_file_test(tmpstring,G_FILE_TEST_EXISTS) ) {
+						g_free(tmpstring);
 						tmpstring = g_strdup(bfwin->project->basefile);
 					}else{
+						g_free(tmpstring);
+						if (bfwin->current_document->filename) {
+							tmpstring = g_path_get_basename(bfwin->current_document->filename);
+						}else{
+							tmpstring = NULL;
+						}
+					}
+				}else{
+					if (bfwin->current_document->filename) {
 						tmpstring = g_path_get_basename(bfwin->current_document->filename);
 					}
+				}
+				if (tmpstring) {
 					/* remove extension */
 					gchar *ext = g_strrstr(tmpstring,".");
 					if (ext) {
@@ -605,64 +631,65 @@ gchar *convert_command(Tbfwin *bfwin, const gchar *command) {
 					}
 					tmpt->my_char = g_strdup(tmpstring);
 					g_free(tmpstring);
-					/* kyanh, 200550301,
-					We should not free *ext -- the result of g_strrstr().
-					See glib/string documentation.
-					*/
-					/* if (ext) {
-						g_free(ext);
-					}
-					*/
+				}else{
+					tmpt->my_char = g_strdup("?B");
 				}
-				tmpt++;
-			}
-			if (need_d) {
-				tmpt->my_int = 'd';
-				tmpt->my_char = g_path_get_dirname(bfwin->current_document->filename);
-				tmpt++;
-			}
-			
-			if (need_f) {
-				tmpt->my_int = 'f';
-				tmpt->my_char = g_strdup(bfwin->current_document->filename);
-				tmpt++;
-			}
-			
-			if (need_b) {
-				tmpt->my_int = 'b';
-				{
-					gchar *tmpstring;
-					tmpstring = g_path_get_basename(bfwin->current_document->filename);
-					gchar *ext = g_strrstr(tmpstring,".");
-					if (ext) {
-						tmpstring = g_strndup(tmpstring,strlen(tmpstring)-strlen(ext));
-					}
-					tmpt->my_char = g_strdup(tmpstring);
-					g_free(tmpstring);
+				/* kyanh, 200550301,
+				We should not free *ext -- the result of g_strrstr().
+				See glib/string documentation.
+				*/
+				/* if (ext) {
+					g_free(ext);
 				}
-				tmpt++;
+				*/
 			}
-	
-			if (need_l) {
-				tmpt->my_int = 'l';
-				{	
-					gint linenumber;
-					GtkTextIter iter;
-					gtk_text_buffer_get_iter_at_mark(bfwin->current_document->buffer,&iter,gtk_text_buffer_get_insert(bfwin->current_document->buffer));
-					linenumber = gtk_text_iter_get_line(&iter);
-					linenumber++; /* gkt_text_iter_get_line start numbering from 0 */
-					tmpt->my_char = g_strdup_printf("%d",linenumber);
-				}
-				tmpt++;
-			}
-
-			tmpt->my_char = NULL;
-	
-			result = replace_string_printflike(command, table);
-			free_convert_table(table);
-		}else{
-			result = g_strdup(command);
+			tmpt++;
 		}
+		if (need_d) {
+			tmpt->my_int = 'd';
+			tmpt->my_char = bfwin->current_document->filename ? g_path_get_dirname(bfwin->current_document->filename) : g_strdup("?d");
+			tmpt++;
+		}
+		
+		if (need_f) {
+			tmpt->my_int = 'f';
+			/* should we check for filename ? */
+			tmpt->my_char = bfwin->current_document->filename ? g_strdup(bfwin->current_document->filename) : g_strdup("?f");
+			tmpt++;
+		}
+		
+		if (need_b) {
+			tmpt->my_int = 'b';
+			if (bfwin->current_document->filename) {
+				gchar *tmpstring;
+				tmpstring = g_path_get_basename(bfwin->current_document->filename);
+				gchar *ext = g_strrstr(tmpstring,".");
+				if (ext) {
+					tmpstring = g_strndup(tmpstring,strlen(tmpstring)-strlen(ext));
+				}
+				tmpt->my_char = g_strdup(tmpstring);
+				g_free(tmpstring);
+			}else{
+				tmpt->my_char = g_strdup("?b");
+			}
+			tmpt++;
+		}
+
+		if (need_l) {
+			tmpt->my_int = 'l';
+			{	
+				gint linenumber;
+				GtkTextIter iter;
+				gtk_text_buffer_get_iter_at_mark(bfwin->current_document->buffer,&iter,gtk_text_buffer_get_insert(bfwin->current_document->buffer));
+				linenumber = gtk_text_iter_get_line(&iter);
+				linenumber++; /* gkt_text_iter_get_line start numbering from 0 */
+				tmpt->my_char = g_strdup_printf("%d",linenumber);
+			}
+			tmpt++;
+		}
+		tmpt->my_char = NULL;
+		result = replace_string_printflike(command, table);
+		free_convert_table(table);
 	}else{
 		result = g_strdup(command);
 	}
@@ -1225,9 +1252,14 @@ gboolean file_exists_and_readable(const gchar * filename) {
 		return FALSE;
 	}
 	DEBUG_MSG("file_exists_and_readable, filename(%p)=\"%s\", strlen(filename)=%d\n", filename, filename, strlen(filename));
+
+	/* BUG#98 */
+	if ( g_file_test(filename, G_FILE_TEST_IS_DIR) ) {
+		return FALSE;
+	}
+#ifndef WIN32
 	ondiskencoding = get_filename_on_disk_encoding(filename);
 	DEBUG_MSG("file_exists_and_readable, ondiskencoding='%s'\n",ondiskencoding);
-#ifndef WIN32
 	{
 		struct stat naamstat;
 		errno = 0;

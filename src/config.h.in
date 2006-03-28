@@ -23,25 +23,25 @@
 
 /* header files */
 #ifndef HAVE_STDLIB_H /* supress warning when jconfig.h is included */
-#undef HAVE_STDLIB_H 
+#undef HAVE_STDLIB_H
 #endif /* HAVE_STDLIB_H */
 
-#undef HAVE_UNISTD_H 
-#undef HAVE_STRING_H 
-#undef HAVE_STRINGS_H 
-#undef HAVE_ERRNO_H 
-#undef HAVE_STDIO_H 
-#undef HAVE_SYS_STAT_H 
-#undef HAVE_CTYPE_H 
-#undef HAVE_GETOPT_H 
-#undef HAVE_MATH_H 
-#undef HAVE_TIME_H 
-#undef HAVE_SYS_TYPES_H 
-#undef HAVE_FCNTL_H 
-#undef HAVE_NETDB_H 
-#undef HAVE_NETINET_IN_H 
-#undef HAVE_SYS_SOCKET_H 
-#undef HAVE_ARPA_INET_H 
+#undef HAVE_UNISTD_H
+#undef HAVE_STRING_H
+#undef HAVE_STRINGS_H
+#undef HAVE_ERRNO_H
+#undef HAVE_STDIO_H
+#undef HAVE_SYS_STAT_H
+#undef HAVE_CTYPE_H
+#undef HAVE_GETOPT_H
+#undef HAVE_MATH_H
+#undef HAVE_TIME_H
+#undef HAVE_SYS_TYPES_H
+#undef HAVE_FCNTL_H
+#undef HAVE_NETDB_H
+#undef HAVE_NETINET_IN_H
+#undef HAVE_SYS_SOCKET_H
+#undef HAVE_ARPA_INET_H
 #undef HAVE_DIRENT_H
 #undef HAVE_SYS_SELECT_H
 
@@ -91,6 +91,9 @@
 #undef HAVE_ATLEAST_GTK_2_2
 #undef HAVE_ATLEAST_GTK_2_4
 #undef HAVE_ATLEAST_GNOMEUI_2_6
+
+#undef HAVE_VTE_TERMINAL
+
 #undef PLATFORM_DARWIN
 
 /*********************** winefish ***********************
@@ -99,7 +102,8 @@
  *
  *********************** winefish ***********************/
 
-#undef HAVE_UNIKEY_GTK
+#undef ENABLE_UNIKEY_GTK
+#undef ENABLE_COLUMN_MARKER
 #undef HAVE_VNTEX
 #undef HAVE_CONTEXT
 

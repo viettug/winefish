@@ -346,7 +346,8 @@ void run_command(Toutputbox *ob) {
 		if (!ep->commandstring) {
 			/**/
 			g_free( ob->def->pattern );
-			regfree( &ob->def->preg );
+			pcre_free(ob->def->pcre_c);
+			pcre_free(ob->def->pcre_s);
 			g_free( ob->def->command );
 			g_free( ob->def );
 			/**/
@@ -354,7 +355,7 @@ void run_command(Toutputbox *ob) {
 			/* BUG: is the user notified of the error ?*/
 			return;
 		}
-		outputbox_message( ob, ep->commandstring, OB_MESSAGE_BOLD);
+		outputbox_message( ob, ep->commandstring, OB_MESSAGE_BLUE);
 		ep->pipe_out = TRUE;
 		ep->include_stderr = TRUE;
 		ep->channel_out_lcb = outputbox_io_watch_lcb;
@@ -388,7 +389,11 @@ void finish_execute( Toutputbox *ob ) {
 		g_io_channel_unref( ob->handle->channel_out );
 		if ( child_pid_exit_code > -1 ) {
 			gchar *str_status = g_strdup_printf(_("exit code: %d"), child_pid_exit_code);
-			outputbox_message( ob, str_status, OB_MESSAGE_BOLD );
+			if (child_pid_exit_code) {
+				outputbox_message( ob, str_status, OB_MESSAGE_RED );
+			}else{
+				outputbox_message( ob, str_status, OB_MESSAGE_BLUE );
+			}
 			g_free( str_status );
 		} else {
 			outputbox_message( ob, _("the child process exited abnormally"), OB_MESSAGE_RED);
@@ -398,7 +403,8 @@ void finish_execute( Toutputbox *ob ) {
 	ob->basepath_cached_color = FALSE;
 	g_free( ob->basepath_cached );
 	g_free( ob->def->pattern );
-	regfree( &ob->def->preg );
+	pcre_free(ob->def->pcre_c);
+	pcre_free(ob->def->pcre_s);
 	g_free( ob->def->command );
 	g_free( ob->def );
 	/**/

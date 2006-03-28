@@ -245,29 +245,24 @@ static void toggle_doc_property(Tbfwin *bfwin,guint callback_action, GtkWidget *
 
 static void brace_finder_cb( Tbfwin *bfwin, guint callback_action, GtkWidget *widget )
 {
-	gint find_brace;
-	find_brace = brace_finder(bfwin->current_document->buffer, NULL, BR_MOVE_IF_FOUND | callback_action, 0);
-	switch (find_brace) {
-	case BR_RET_NOT_FOUND:
+	guint16 retval;
+	retval = brace_finder(bfwin->current_document->buffer, bfwin->current_document->brace_finder, BR_MOVE_IF_FOUND | callback_action, 0);
+	if (retval & (BR_RET_MOVED_LEFT | BR_RET_MOVED_RIGHT) ) {
+		GtkTextMark *mark;
+		mark = gtk_text_buffer_get_insert( bfwin->current_document->buffer );
+		gtk_text_view_scroll_mark_onscreen( GTK_TEXT_VIEW( bfwin->current_document->view ), mark );
+	}else if ( retval & BR_RET_NOT_FOUND) {
 		statusbar_message(bfwin, _("brace_finder: matching not found"), 1000);
-		break;
-	case BR_RET_IN_COMMENT:
+	}else if (retval & BR_RET_IN_COMMENT) {
 		statusbar_message(bfwin, _("brace_finder: inside a commented line"), 1000);
-		break;
-	case BR_RET_IN_SELECTION:
+	}else if (retval & BR_RET_IN_SELECTION) {
 		statusbar_message(bfwin, _("brace_finder: inside the selection"), 1000);
-		break;
-	case BR_RET_WRONG_OPERATION:
-		statusbar_message(bfwin, _("brace_finder: wrong operation or brace escaped"), 1000);
-		break;
-	default:
-		if (find_brace & BR_RET_FOUND) {
-			GtkTextMark *mark;
-			mark = gtk_text_buffer_get_insert( bfwin->current_document->buffer );
-			gtk_text_view_scroll_mark_onscreen( GTK_TEXT_VIEW( bfwin->current_document->view ), mark );
-		}/* else? unknown status :((( */
-		break;
 	}
+/*
+	else if (retval & BR_RET_WRONG_OPERATION) {
+		statusbar_message(bfwin, _("brace_finder: wrong operation or brace escaped"), 1000);
+	}
+*/	
 }
 
 /* extern const guint8 []; */
@@ -563,6 +558,9 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/View/View _Custom Menu"), NULL, gui_toggle_hidewidget_cb, 3, "<ToggleItem>"},
 	{N_("/View/View _Sidebar"), "<Control><Shift>Escape", gui_toggle_hidewidget_cb, 4, "<ToggleItem>"},
 	{N_("/View/View _Outputbox"), "<Shift>Escape", gui_toggle_hidewidget_cb, 5, "<ToggleItem>"},
+#ifdef HAVE_VTE_TERMINAL
+	{N_("/View/View _Terminal"), NULL, gui_toggle_hidewidget_cb, 6, "<ToggleItem>"},
+#endif /* HAVE_VTE_TERMINAL */
 	{N_("/_?"), NULL, NULL, 0, "<Branch>"},
 	{N_("/?/_About..."), NULL, about_dialog_create, 0, "<Item>"},
 	{N_("/?/sep1"), NULL, NULL, 0, "<Separator>"},
@@ -831,7 +829,7 @@ static GtkWidget *remove_recent_entry(Tbfwin *bfwin, const gchar *filename, gboo
 static void open_recent_project_cb(GtkWidget *widget, Tbfwin *bfwin) {
 	gchar *filename = GTK_LABEL(GTK_BIN(widget)->child)->label;
 	DEBUG_MSG("open_recent_project_cb, started, filename is %s\n", filename);
-	project_open_from_file(bfwin, filename);
+	project_open_from_file(bfwin, filename, -1);
 	add_to_recent_list(bfwin,filename, 0, TRUE);
 }
 
@@ -1046,10 +1044,11 @@ void rename_window_entry_in_all_windows(Tbfwin *tobfwin, gchar *newtitle) {
 
 static void view_in_browser(Tbfwin *bfwin, gchar *browser) {
 	if (bfwin->current_document->filename) {
-		gchar *command = convert_command(bfwin, browser);
+		gchar *command;
+		command = convert_command(bfwin, browser);
 		DEBUG_MSG("view_in_browser, should start command [%s] now\n", command);
 		system(command);
-		/* g_free(command); CANNOT BE FREED */
+		g_free(command); /*CANNOT BE FREED*/
 	} else {
 		warning_dialog(bfwin->main_window,_("Could not view file in browser, the file does not yet have a name\n"), NULL);
 	}
@@ -1075,7 +1074,7 @@ static void browser_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 }
 static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
  	gchar *secure_tempname = NULL, *secure_tempname2 = NULL;
- 	gboolean need_o=FALSE, need_f=FALSE, need_i=FALSE;
+ 	gboolean need_o, need_f, need_i, need_p;
 	gchar **arr = (gchar **)bdm->data;
 	/* now check if
 	 * %f - we need a filename 
@@ -1085,6 +1084,8 @@ static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 	need_o = (strstr(arr[1], "%o") != NULL); /* output file name */
 	need_f = (strstr(arr[1], "%f") != NULL); /* basefile name */
 	need_i = (strstr(arr[1], "%i") != NULL); /* input name */
+	need_p = (strstr(arr[1], "%%") != NULL);
+	gint num_needs = need_o + need_f + need_i + need_p;
 
 	if (need_f) {
 		file_save_cb(NULL, bdm->bfwin);
@@ -1100,10 +1101,15 @@ static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
  			g_free(tmpstring);
  		}
 	}
-	if (need_f || need_o || need_i) {
+	if (num_needs) {
 		gchar *command;
 		Tconvert_table *table, *tmpt;
-		table = tmpt = g_new(Tconvert_table, 4);
+		table = tmpt = g_new(Tconvert_table, num_needs +1);
+		if (need_p) {
+			tmpt->my_int = '%';
+			tmpt->my_char = g_strdup("%");
+			tmpt++;
+		}
 		if (need_f) {
 			DEBUG_MSG("adding 's' to table\n");
 			tmpt->my_int = 'f';
@@ -1131,7 +1137,13 @@ static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 			buffer_to_file(BFWIN(bdm->bfwin), buffer, secure_tempname2);
 			g_free(buffer);
 		}
-
+#ifdef OLD_IMPLEMENT
+		if (need_p) {
+			tmpt->my_int = 'p';
+			tmpt->my_char = g_strdup("%");
+			tmpt++;
+		}
+#endif /* OLD_IMPLEMENT */
 		tmpt->my_char = NULL;
 		command = replace_string_printflike(arr[1], table);
 		free_convert_table(table);

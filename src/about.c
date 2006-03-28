@@ -55,7 +55,7 @@ void about_dialog_create(gpointer * data, guint * callback_action, GtkWidget * w
 	GtkWidget *vbox, *vbox2, *hbox;
 	GtkWidget *notebook;
 	GtkWidget *info_ok_button;
-	GdkColor color;
+	/* GdkColor color; */
 	
 	gchar *INFO =g_strdup_printf( _(\
 "Winefish LaTeX Editor (based on Bluefish)\n\
@@ -89,11 +89,12 @@ THANKS to all who helped making this software available.\n\
 			,G_CALLBACK(about_dialog_close_lcb),NULL, TRUE, NULL);
 	gtk_window_set_resizable(GTK_WINDOW(info), FALSE);
 	gtk_widget_set_size_request(GTK_WIDGET(info), 345, -1);
+	/*
 	color.red = 65535;
 	color.blue = 65535;
 	color.green = 65535;
 	gtk_widget_modify_bg(info, GTK_STATE_NORMAL,&color);
-
+	*/
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(info), vbox2);
 	{

@@ -23,7 +23,7 @@ AC_CONFIG_SRCDIR(src/winefish.c)
 AC_CONFIG_HEADER(src/config.h)
 
 PACKAGE=winefish
-VERSION=1.3.2.6
+VERSION=1.3.2
 AC_SUBST(PACKAGE)
 AC_SUBST(VERSION)
 AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
@@ -234,15 +234,6 @@ else
 	echo "no"
 	AC_MSG_ERROR(libgtk2.0-dev missing please install libgtk2.0-dev)
 fi
-
-#echo -n "checking for gtk+-2.0 >= 2.4... "
-#if pkg-config gtk+-2.0 --atleast-version=2.4 ; then
-#	AC_DEFINE(HAVE_ATLEAST_GTK_2_2)
-#	echo "yes"
-#else
-#	echo "no"
-#	AC_MSG_ERROR(libgtk2.0-dev missing please install libgtk2.0-dev)
-#fi
 
 echo -n "checking for gtk+-2.4... "
 if pkg-config gtk+-2.0 --atleast-version=2.4 ; then
@@ -592,15 +583,28 @@ fi
 
 # kyanh ################################
 
-#AC_ARG_WITH(vntex,
-#	AC_HELP_STRING([--with-vntex],[(Vietnamese) enable vntex support]),[
-#	AC_DEFINE(HAVE_VNTEX)
-#	],)
-
-AC_ARG_WITH(unikey-gtk,
-	AC_HELP_STRING([--with-unikey-gtk],[(Vietnamese) fix a BUG related to UniKeyGTK]),[
-	AC_DEFINE(HAVE_UNIKEY_GTK)
+AC_ARG_ENABLE(unikey-fix-gtk,
+	AC_HELP_STRING([--enable-fix-unikey-gtk],[(Vietnamese) fix a BUG related to UniKeyGTK]),[
+	AC_DEFINE(ENABLE_FIX_UNIKEY_GTK)
 	],)
+
+AC_ARG_ENABLE(column-marker,
+	AC_HELP_STRING([--enable-column-marker],[enable column markers]),[
+	AC_DEFINE(ENABLE_COLUMN_MARKER)
+	],)
+
+#AC_ARG_WITH(vte-terminal,
+#	AC_HELP_STRING([--with-vte-terminal],[enable VTE terminal]),[
+#		echo -n "checking for vte... "
+#		if pkg-config --exists vte; then
+#			LIBS="$LIBS `pkg-config --libs vte`"
+#			CFLAGS="$CFLAGS `pkg-config --cflags vte`"
+#			AC_DEFINE(HAVE_VTE_TERMINAL)
+#			echo "yes"
+#		else
+#			echo "no"
+#		fi
+#	],)
 
 # kyanh ################################
 
@@ -611,12 +615,3 @@ AC_SUBST(MAKEMAIN)
 
 AC_CONFIG_FILES(Makefile icons/Makefile src/Makefile data/Makefile po/Makefile man/Makefile)
 AC_OUTPUT
-
-echo "-----------"
-echo ""
-echo "* Configure extra features in 'src/config_spec.h' before running 'make'"
-echo "* Read CHANGES or 'doc/winefish.html' before using this version."
-echo ""
-echo "* Feel free to comment! Thank you!"
-echo ""
-echo "-----------"

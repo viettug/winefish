@@ -28,6 +28,10 @@
 #include <gtk/gtk.h>
 #include <string.h> /* strlen() */
 
+#ifdef HAVE_VTE_TERMINAL
+#include <vte/vte.h> /* vte */
+#endif /* HAVE_VTE_TERMINAL */
+
 #include "bluefish.h"
 #include "bf_lib.h"
 #include "document.h"
@@ -81,9 +85,14 @@ static void ob_lview_current_cursor_open_file(GtkTreePath *path, Toutputbox *ob,
 		if ( filepath && strlen( filepath ) ) {
 			if (clone_file) {
 				Tdocument * doc;
-				doc = doc_new( ob->bfwin, FALSE );
-				switch_to_document_by_pointer( ob->bfwin, doc );
+				if (doc_is_empty_non_modified_and_nameless( ob->bfwin->current_document )) {
+					doc = ob->bfwin->current_document ;
+				}else{
+					doc = doc_new( ob->bfwin, FALSE );
+					switch_to_document_by_pointer( ob->bfwin, doc );
+				}
 				doc_file_to_textbox( doc, filepath , FALSE, FALSE );
+				doc_set_modified(doc, TRUE);
 				doc_activate( doc );
 			}else{
 				doc_new_with_file( ob->bfwin, filepath, FALSE, FALSE );
@@ -244,24 +253,29 @@ void outputbox_message( Toutputbox *ob, const char *string, gint markup )
 {
 	DEBUG_MSG("outputbox_message: %s\n", string);
 	GtkTreeIter iter;
-	gchar *tmpstr = g_markup_escape_text(string,-1);
+
+	gtk_list_store_append( GTK_LIST_STORE( ob->lstore ), &iter );
+	gtk_list_store_set( GTK_LIST_STORE( ob->lstore ), &iter, 2, string, -1 );
 	if (markup) {
+		gchar *tmpstr=g_strdup("");
 		if (markup  & OB_MESSAGE_BLUE ) {
-			tmpstr = g_strdup_printf("<span foreground=\"blue\">%s</span>", tmpstr);
+			tmpstr = g_strdup_printf("<span foreground=\"blue\">*****</span>");
 		}else if (markup & OB_MESSAGE_RED) {
-			tmpstr = g_strdup_printf("<span foreground=\"red\">%s</span>", tmpstr);
+			tmpstr = g_strdup_printf("<span foreground=\"red\">*****</span>");
+		}else {
+			tmpstr = g_strdup_printf("*****");
 		}
+#ifdef BOLD_ITALIC_TAKE_NO_EFFECTS	
 		if (markup & OB_MESSAGE_BOLD) {
 			tmpstr = g_strdup_printf("<b>%s</b>", tmpstr);
 		}
 		if (markup & OB_MESSAGE_ITALIC) {
 			tmpstr = g_strdup_printf("<i>%s</i>", tmpstr);
 		}
+#endif /* BOLD_ITALIC_TAKE_NO_EFFECTS */
+		gtk_list_store_set( GTK_LIST_STORE( ob->lstore ), &iter, 0, tmpstr, -1 );
+		g_free(tmpstr);
 	}
-	tmpstr = g_strdup_printf("&gt; %s", tmpstr);
-	gtk_list_store_append( GTK_LIST_STORE( ob->lstore ), &iter );
-	gtk_list_store_set( GTK_LIST_STORE( ob->lstore ), &iter, 2, tmpstr, -1 );
-	g_free(tmpstr);
 
 	/* TODO: Scroll as an Optional */
 	/* The Outputbox may *NOT* be shown before scrolling :) */
@@ -300,7 +314,7 @@ static void ob_notebook_switch_page_lcb(GtkNotebook *notebook, GtkNotebookPage *
 	}else{
 #ifdef DEBUG
 		if(ob) {
-			DEBUG_MSG("ob_notebook_switch_page_lcb: Strop FALSE, ob_fetching = %d\n", ob->OB_FETCHING);
+			DEBUG_MSG("ob_notebook_switch_page_lcb: Stop FALSE, ob_fetching = %d\n", ob->OB_FETCHING);
 		}
 #endif
 		outputbox_set_status(ob, FALSE, TRUE);
@@ -347,7 +361,35 @@ gboolean ob_lview_move_cursor_lcb(GtkTreeView *treeview,GtkMovementStep arg1,gin
 }
 */
 
-Toutputbox *outputbox_new_box( Tbfwin *bfwin, const gchar *title )
+#ifdef HAVE_VTE_TERMINAL
+GtkWidget *otuputbox_new_terminal_box ( Tbfwin *bfwin ) {
+	if (!bfwin->ob_hbox) {
+		outputbox_init_frontend(bfwin);
+	}
+
+	GtkWidget *terminal = vte_terminal_new ();
+
+	/* scrolling */
+	GtkWidget *scrolwin = gtk_scrolled_window_new( NULL, NULL );
+	gtk_scrolled_window_set_policy( GTK_SCROLLED_WINDOW( scrolwin ), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC );
+
+	/* vte terminal */
+	vte_terminal_fork_command (VTE_TERMINAL (terminal), "/bin/bash", NULL, NULL, g_get_home_dir (), FALSE, FALSE, FALSE);
+	vte_terminal_set_font_from_string (VTE_TERMINAL (terminal), "Monospace 11");
+	vte_terminal_set_scroll_on_output (VTE_TERMINAL (terminal), FALSE);
+	vte_terminal_set_scroll_on_keystroke (VTE_TERMINAL (terminal), TRUE);
+	vte_terminal_set_mouse_autohide (VTE_TERMINAL (terminal), TRUE);
+
+	gtk_container_add( GTK_CONTAINER( scrolwin ), terminal);
+
+	GtkWidget *label = gtk_label_new(_("term"));
+	gtk_notebook_append_page(GTK_NOTEBOOK(bfwin->ob_notebook), scrolwin, label);
+	
+	return terminal;
+}
+#endif /* HAVE_VTE_TERMINAL */
+
+static Toutputbox *outputbox_new_box( Tbfwin *bfwin, const gchar *title )
 {
 	if (!bfwin->ob_hbox) {
 		outputbox_init_frontend(bfwin);
@@ -383,7 +425,7 @@ Toutputbox *outputbox_new_box( Tbfwin *bfwin, const gchar *title )
 	gtk_tree_view_append_column ( GTK_TREE_VIEW( ob->lview ), column );
 	column = gtk_tree_view_column_new_with_attributes ( NULL, renderer, "text", 1, NULL );
 	gtk_tree_view_append_column ( GTK_TREE_VIEW( ob->lview ), column );
-	column = gtk_tree_view_column_new_with_attributes ( NULL, renderer, "markup", 2, NULL );
+	column = gtk_tree_view_column_new_with_attributes ( NULL, renderer, "text", 2, NULL );
 	gtk_tree_view_append_column ( GTK_TREE_VIEW( ob->lview ), column );
 
 	/* g_signal_connect( G_OBJECT( ob->lview ), "row-activated", G_CALLBACK( ob_lview_row_activated_lcb ), ob ); */
@@ -457,7 +499,7 @@ void outputbox(Tbfwin *bfwin, gpointer *ob, const gchar *title, gchar *pattern, 
 		} else {
 			format_str = g_strdup_printf(_("%s # project mode: OFF"), command);
 		}
-		outputbox_message( *ob, format_str, OB_MESSAGE_BLUE );
+		outputbox_message( *ob, format_str, OB_MESSAGE_DEFAULTL );
 		g_free( format_str );
 		flush_queue();
 	}
@@ -479,10 +521,35 @@ void outputbox(Tbfwin *bfwin, gpointer *ob, const gchar *title, gchar *pattern, 
 	OUTPUTBOX(*ob)->def->line_subpat = line_subpat;
 	OUTPUTBOX(*ob)->def->output_subpat = output_subpat;
 	OUTPUTBOX(*ob)->def->show_all_output = show_all_output;
-	regcomp( &OUTPUTBOX(*ob)->def->preg, OUTPUTBOX(*ob)->def->pattern, REG_EXTENDED );
-	/* TODO  : check for valid preg */
 	OUTPUTBOX(*ob)->def->command = g_strdup( command );
 	DEBUG_MSG("outputbox: starting command: %s\n", command);
+#ifdef __BF_BACKEND__
+	const char *errptr;
+	gint erroffset;
+	OUTPUTBOX(*ob)->def->pcre_c = pcre_compile(OUTPUTBOX(*ob)->def->pattern, PCRE_UTF8,&errptr,&erroffset,NULL);
+	if (OUTPUTBOX(*ob)->def->pcre_c == NULL) {
+		{
+			gchar *tmpstr;
+			tmpstr = g_strdup_printf(_("failed to compile pattern %s"), OUTPUTBOX(*ob)->def->pattern);
+			outputbox_message(*ob, tmpstr, OB_MESSAGE_RED);
+			g_free(tmpstr);
+		}
+		/* free ob stuff */
+		OUTPUTBOX(*ob)->basepath_cached_color = FALSE;
+		g_free( OUTPUTBOX(*ob)->basepath_cached );
+		g_free( OUTPUTBOX(*ob)->def->pattern );
+		pcre_free(OUTPUTBOX(*ob)->def->pcre_c);
+		pcre_free(OUTPUTBOX(*ob)->def->pcre_s);
+		g_free( OUTPUTBOX(*ob)->def->command );
+		g_free( OUTPUTBOX(*ob)->def );
+		OUTPUTBOX(*ob)->OB_FETCHING = OB_IS_READY;
+		return;
+	}
+	OUTPUTBOX(*ob)->def->pcre_s = pcre_study(OUTPUTBOX(*ob)->def->pcre_c, 0,&errptr);
+#endif /* __BF_BACKEND__ */
+#ifdef __KA_BACKEND__
+	regcomp( &OUTPUTBOX(*ob)->def->preg, OUTPUTBOX(*ob)->def->pattern, REG_EXTENDED );
+#endif /* __BF_BACKEND__ */
 #ifdef __KA_BACKEND__
 	/* kyanh */
 	OUTPUTBOX(*ob)->retfile = NULL;

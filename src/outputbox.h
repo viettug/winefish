@@ -38,7 +38,8 @@ enum {
 	OB_MESSAGE_BOLD=1<<0,
 	OB_MESSAGE_ITALIC=1<<1,
 	OB_MESSAGE_RED=1<<2,
-	OB_MESSAGE_BLUE=1<<3
+	OB_MESSAGE_BLUE=1<<3,
+	OB_MESSAGE_DEFAULTL=1<<4
 };
 
 typedef struct
@@ -50,7 +51,13 @@ typedef struct
 	gint output_subpat;
 	gint show_all_output;
 	regmatch_t pmatch[ NUM_MATCH ];
+#ifdef __KA_BACKEND__
 	regex_t preg;
+#endif /* __KA_BACKEND__ */
+#ifdef __BF_BACKEND__
+	pcre *pcre_c;
+	pcre_extra *pcre_s;
+#endif /* __BF_BACKEND__ */
 }
 Toutput_def;
 
@@ -123,8 +130,10 @@ void outputbox(
 	gchar *pattern, gint file_subpat, gint line_subpat, gint output_subpat, gchar *command, gint show_all_output );
 void outputbox_stop (Toutputbox *ob);
 void outputbox_message( Toutputbox *ob, const char *string, gint markup );
-
-Toutputbox *outputbox_new_box( Tbfwin *bfwin, const gchar *title );
+#ifdef HAVE_VTE_TERMINAL
+GtkWidget * otuputbox_new_terminal_box ( Tbfwin *bfwin );
+#endif /* HAVE_VTE_TERMINAL */
+/* Toutputbox *outputbox_new_box( Tbfwin *bfwin, const gchar *title ); */
 Toutputbox *outputbox_get_box( Tbfwin *bfwin, guint page);
 void outputbox_set_status( Toutputbox *ob, gboolean status, gboolean force);
 

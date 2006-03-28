@@ -394,7 +394,7 @@ void gui_set_document_widgets(Tdocument *doc) {
 	gui_set_undo_redo_widgets(doc->bfwin, doc_has_undo_list(doc), doc_has_redo_list(doc));
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Wrap", GET_BIT(doc->view_bars,MODE_WRAP));
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Line Numbers", GET_BIT(doc->view_bars, VIEW_LINE_NUMBER));
-	doc->view_bars  = SET_BIT( doc->view_bars, MODE_AUTO_COMPLETE, ( doc->hl->autoclosingtag > 0 ));	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/AutoCompletion", GET_BIT(doc->view_bars, MODE_AUTO_COMPLETE));
+	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/AutoCompletion", GET_BIT(doc->view_bars, MODE_AUTO_COMPLETE));
 	menu_current_document_set_toggle_wo_activate(BFWIN(doc->bfwin),doc->hl, doc->encoding);
 	DEBUG_MSG("gui_set_document_widgets: autocompletion =%d\n", GET_BIT(doc->view_bars, MODE_AUTO_COMPLETE));
 }
@@ -404,10 +404,11 @@ void gui_notebook_bind_signals(Tbfwin *bfwin) {
 }
 
 void gui_notebook_unbind_signals(Tbfwin *bfwin) {
-if (bfwin->notebook_switch_signal != 0) {
+	DEBUG_MSG("gui_notebook_unbind_signals: started\n");
+	if (g_signal_handler_is_connected (G_OBJECT(bfwin->notebook),bfwin->notebook_switch_signal))
 		g_signal_handler_disconnect(G_OBJECT(bfwin->notebook),bfwin->notebook_switch_signal);
-		bfwin->notebook_switch_signal = 0;
-	}
+	bfwin->notebook_switch_signal = 0;
+	DEBUG_MSG("gui_notebook_unbind_signals: finished\n");
 }
 
 static gboolean gui_main_window_configure_event_lcb(GtkWidget *widget,GdkEvent *revent,Tbfwin *bfwin) {
@@ -1064,6 +1065,18 @@ void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 			setup_toggle_item_from_widget(bfwin->menubar, N_("/View/View Outputbox"), FALSE);
 		}
 	break;
+#ifdef HAVE_VTE_TERMINAL
+	case 6:
+		setup_toggle_item_from_widget(bfwin->menubar, N_("/View/View Terminal"), active);
+		if (active) {
+			if (!bfwin->terminal) {
+				bfwin->terminal = otuputbox_new_terminal_box(bfwin);
+			}
+			gtk_widget_show_all(bfwin->ob_hbox);
+			menuitem_set_sensitive(bfwin->menubar, N_("/View/View Terminal"), FALSE);
+		}
+	break;
+#endif /* HAVE_VTE_TERMINAL */
 	default:
 		DEBUG_MSG("gui_toggle_hidewidget_cb should NEVER be called with action %d\n", action);
 		exit(1);

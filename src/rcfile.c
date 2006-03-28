@@ -360,7 +360,7 @@ static GList *props_init_main(GList * config_rc)
 	xinit_prop_integer   (&config_rc, &main_v->props.view_bars, "view_bars:", MODE_DEFAULT, TRUE);
 	/* old type filetypes have a different count, they are converted below */
 	init_prop_arraylist (&config_rc, &main_v->props.filetypes, "filetypes:", 0, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.numcharsforfiletype, "numcharsforfiletype:", 200, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.numcharsforfiletype, "numcharsforfiletype:", 30, TRUE);
 	init_prop_arraylist (&config_rc, &main_v->props.filefilters, "filefilters:", 3, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.last_filefilter, "last_filefilter:", "");
 	/* init_prop_integer   (&config_rc, &main_v->props.transient_htdialogs, "transient_htdialogs:", 1, TRUE); */
@@ -396,6 +396,11 @@ static GList *props_init_main(GList * config_rc)
 	g_free(tmpstr);
 #endif
 #endif
+#ifdef ENABLE_COLUMN_MARKER
+	init_prop_integer   (&config_rc, &main_v->props.marker_i,"marker_i:",80, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.marker_ii,"marker_ii:",0, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.marker_iii,"marker_iii:",0, TRUE);
+#endif /* ENABLE_COLUMN_MARKER */
 	init_prop_string    (&config_rc, &main_v->props.project_suffix,"project_suffix:",".wfproject");
 #ifdef HAVE_LIBASPELL
 	init_prop_string(&config_rc, &main_v->props.spell_default_lang, "spell_default_lang:", "en");
@@ -492,11 +497,11 @@ void rcfile_parse_main(void)
 	if (main_v->props.browsers == NULL) {
 		/* if the user does not have browsers --> set them to defaults values */
 		gchar **arr;
- 		arr = array_from_arglist(_("DVI Viewer"), "xdvi -sourceposition %l%b.tex %B.dvi &",NULL);
+		arr = array_from_arglist(_("DVI Viewer"), OB_DVI_Viewer,NULL);
 		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
- 		arr = array_from_arglist(_("PDF Viewer"), "xpdf %B.pdf &",NULL);
+		arr = array_from_arglist(_("PDF Viewer"), OB_PDF_Viewer,NULL);
 		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
- 		arr = array_from_arglist(_("EPS Viewer"), "gv %B.ps &",NULL);
+		arr = array_from_arglist(_("EPS Viewer"), OB_EPS_Viewer,NULL);
 		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
 	}
 	{

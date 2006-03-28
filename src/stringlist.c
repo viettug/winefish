@@ -1,4 +1,4 @@
-/* $Id: stringlist.c,v 1.1.1.1 2005/06/29 11:03:35 kyanh Exp $ */
+/* $Id$ */
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * stringlist.c - functions that deal with stringlists
  *
@@ -456,12 +456,13 @@ gboolean put_stringlist_limited(gchar * filename, GList * which_list, gint maxen
 	GList *tmplist;
 
 	DEBUG_MSG("put_stringlist_limited, started with filename=%s\n", filename);
-	{
+#ifdef BACKUP_RC_FILE_ON_SAVE
+	if ( (main_v->props.viewbars && MODE_CREATE_BACKUP_ON_SAVE) && strlen(main_v->props.backup_filestring) ) {
 		gchar *backupfilename = g_strconcat(filename, main_v->props.backup_filestring,NULL);
 		file_copy(filename, backupfilename);
 		g_free(backupfilename);
 	}
-
+#endif /* BACKUP_RC_FILE_ON_SAVE */
 	DEBUG_MSG("put_stringlist_limited, opening %s for saving list(%p)\n", filename, which_list);
 	fd = fopen(filename, "w");
 	if (fd == NULL) {

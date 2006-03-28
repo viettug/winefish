@@ -186,8 +186,9 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 			return FALSE;
 		}
 		if (save_as || bfwin->project->filename == NULL) {
-			gchar *ondiskencoding = get_filename_on_disk_encoding(filename);
-			if (g_file_test(ondiskencoding, G_FILE_TEST_EXISTS)) {
+			/* gchar *ondiskencoding = get_filename_on_disk_encoding(filename); */
+			/* we do not use ondiskencoding as (g_file_test) uses GLib encoding for filename */
+			if (g_file_test(filename, G_FILE_TEST_EXISTS)) {
 				gchar *tmpstr;
 				gint retval;
 				gchar *options[] = {_("_Cancel"), _("_Overwrite"), NULL};
@@ -197,11 +198,11 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 				g_free(tmpstr);
 				if (retval == 0) {
 					g_free(filename);
-					g_free(ondiskencoding);
+					/* g_free(ondiskencoding); */
 					return FALSE;
 				}
 			}
-			g_free(ondiskencoding);
+			/* g_free(ondiskencoding); */
 		}
 		suflen = strlen(main_v->props.project_suffix);
 		filen = strlen(filename);
@@ -233,7 +234,7 @@ void set_project_menu_widgets(Tbfwin *bfwin, gboolean win_has_project) {
 	}
 }
 
-void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
+void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename, gint linenumber) {
 	Tbfwin *prwin;
 	Tproject *prj;
 	gboolean retval;
@@ -243,6 +244,7 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 	if (prwin != NULL) {
 		DEBUG_MSG("project_open_from_file, project is open in bfwin=%p\n",prwin);
 		gtk_window_present(GTK_WINDOW(prwin->main_window));
+		/* TODO: select line for all documents in project ;) */
 		return;
 	}
 	
@@ -269,7 +271,7 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 		/* FIXED: BUG#26. Moved stuff downwards */
 		filebrowser_set_basedir(prwin, prj->basedir);
 		DEBUG_MSG("project_open_from_file, calling docs_new_from_files for existing bfwin=%p\n",prwin);
-		docs_new_from_files(prwin, prj->files, TRUE, -1);
+		docs_new_from_files(prwin, prj->files, TRUE, linenumber);
 	} else {
 		/* we will open a new Winefish window for this project */
 		DEBUG_MSG("project_open_from_file, we need a new window\n");
@@ -310,7 +312,7 @@ static void project_open(Tbfwin *bfwin) {
 #endif
 	if (filename) {
 		DEBUG_MSG("project_open, for filename %s\n",filename);
-		project_open_from_file(bfwin,filename);
+		project_open_from_file(bfwin,filename,-1);
 		g_free(filename);
 	} else {
 		DEBUG_MSG("project_open, no filename.., returning\n");
@@ -492,7 +494,8 @@ static void project_edit_ok_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred)
 		project_save(pred->bfwin,FALSE);
 		gtk_widget_destroy(pred->win);
 	}else{/* added by kyanh */
-		warning_dialog(widget,_("The BaseDir must exist.\nThe BaseFile must be located in BaseDir."), NULL);
+		/* old: warning_dialog(widget,..). related to BUG#95 */
+		warning_dialog(pred->win,_("The BaseDir must exist.\nThe BaseFile must be located in BaseDir."), NULL);
 	}
 	g_free(tmpstr);
 }

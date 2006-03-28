@@ -249,28 +249,38 @@ Tdocument *documentlist_return_document_from_filename( GList *doclist, gchar *fi
 {
 	/* BUG#10 */
 	GList * tmplist;
+	gchar *ondiskencoding;
 	struct stat statbuf;
 	gint inode;
-	if (!filename || stat(filename,&statbuf) != 0 ) {
-		DEBUG_MSG( "documentlist_return_document_from_filename, no filename or error calling `stat'! returning\n" );
+	if (!filename) {
+		DEBUG_MSG( "documentlist_return_document_from_filename, no filename. returning\n" );
+		return NULL;
+	}
+	ondiskencoding = get_filename_on_disk_encoding(filename);
+	if ( stat(ondiskencoding,&statbuf) != 0 ) {
+		DEBUG_MSG( "documentlist_return_document_from_filename, error calling `stat'! returning\n" );
 		return NULL;
 	}
 	inode = statbuf.st_ino;
+	g_free(ondiskencoding);
 
 	DEBUG_MSG( "documentlist_return_document_from_filename, filename=%s\n", filename );
 	tmplist = g_list_first( doclist );
 	while ( tmplist ) {
 		DEBUG_MSG( "documentlist_return_document_from_filename, comparing with %s\n", filename );
+		ondiskencoding = get_filename_on_disk_encoding(DOCUMENT( tmplist->data ) ->filename);
 		if ( DOCUMENT( tmplist->data ) ->filename
-			&& ( (stat(DOCUMENT( tmplist->data ) ->filename, &statbuf) ==0) && (statbuf.st_ino == inode) )
+				   && ( (stat( ondiskencoding , &statbuf) ==0) && (statbuf.st_ino == inode) )
 				   /* && ( strcmp( filename, DOCUMENT( tmplist->data ) ->filename ) == 0 ) */
 		   )
 		{
+			g_free(ondiskencoding);
 			DEBUG_MSG( "documentlist_return_document_from_filename, found, returning %p\n", tmplist->data );
 			return DOCUMENT( tmplist->data );
 		}
 		/* g_print("check %s, inode1=%d, inode2=%d\n",DOCUMENT( tmplist->data ) ->filename, inode, statbuf.st_ino); */
 		tmplist = g_list_next( tmplist );
+		g_free(ondiskencoding);
 	}
 	DEBUG_MSG( "documentlist_return_document_from_filename, not found, returning NULL\n" );
 	return NULL;
@@ -352,7 +362,7 @@ gboolean doc_set_filetype( Tdocument *doc, Tfiletype *ft )
 		doc_remove_highlighting( doc );
 		doc->hl = ft;
 		doc->need_highlighting = TRUE;
-		doc->view_bars  = SET_BIT( doc->view_bars, MODE_AUTO_COMPLETE, ( ft->autoclosingtag > 0 ));
+		doc->view_bars  = SET_BIT( doc->view_bars, MODE_AUTO_COMPLETE, (main_v->props.view_bars & MODE_AUTO_COMPLETE) &&  ( ft->autoclosingtag > 0 ));
 		DEBUG_MSG("doc_set_filetype: autoclosingtag = %d, view_bar bitwise = %d\n", ft->autoclosingtag , GET_BIT(doc->view_bars, MODE_AUTO_COMPLETE));
 		gui_set_document_widgets( doc );
 		return TRUE;
@@ -451,6 +461,7 @@ Tfiletype *get_filetype_by_filename_and_content( gchar *filename, gchar *buf )
 **/
 void doc_reset_filetype( Tdocument * doc, gchar * newfilename, gchar *buf )
 {
+	DEBUG_MSG("doc_reset_filetype: entering...\n");
 	Tfiletype * ft;
 	if ( buf ) {
 		ft = get_filetype_by_filename_and_content( newfilename, buf );
@@ -1031,9 +1042,10 @@ void doc_select_region( Tdocument *doc, gint start, gint end, gboolean do_scroll
 **/
 void doc_select_line( Tdocument *doc, gint line, gboolean do_scroll )
 {
-	GtkTextIter itstart, itend;
+	GtkTextIter itstart;
 	gtk_text_buffer_get_iter_at_line( doc->buffer, &itstart, line - 1 );
-	itend = itstart;
+#ifdef SELECT_LINE
+	GtkTextIter itend = itstart;
 	/* do the section */
 	gtk_text_iter_forward_to_line_end( &itend );
 	gtk_text_buffer_move_mark_by_name( doc->buffer, "insert", &itstart );
@@ -1045,6 +1057,13 @@ void doc_select_line( Tdocument *doc, gint line, gboolean do_scroll )
 		gtk_text_view_scroll_to_mark(GTK_TEXT_VIEW( doc->view ), tmpmark, 0.25, FALSE, 0.5, 0.5 );
 		*/
 	}
+#else
+	gtk_text_buffer_move_mark_by_name( doc->buffer, "insert", &itstart );
+	gtk_text_buffer_move_mark_by_name( doc->buffer, "selection_bound", &itstart );
+	if ( do_scroll ) {
+		gtk_text_view_scroll_to_iter( GTK_TEXT_VIEW( doc->view ), &itstart, 0.25, FALSE, 0.5, 0.5 );
+	}
+#endif /* SELECT_LINE */
 }
 
 /**
@@ -1519,72 +1538,12 @@ gboolean doc_file_to_textbox( Tdocument * doc, gchar * filename, gboolean enable
 		gchar *encoding = NULL;
 		gchar *newbuf = NULL;
 		gsize wsize;
-#ifdef REMOVED
-		GError *error = NULL;
-#endif
 		gchar *buffer = get_buffer_from_filename( BFWIN( doc->bfwin ), filename, &document_size );
 		if ( !buffer )
 		{
 			DEBUG_MSG( "doc_file_to_textbox, buffer==NULL, returning\n" );
 			return FALSE;
 		}
-#ifdef REMOVED
-		/* the first try is if the encoding is set in the file */
-		{
-			regex_t preg;
-			regmatch_t pmatch[ 10 ];
-			gint retval;
-			gchar *pattern = "<meta[ \t\n]http-equiv[ \t\n]*=[ \t\n]*\"content-type\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"text/html;[ \t\n]*charset=([a-z0-9-]+)\"[ \t\n]*/?>";
-			retval = regcomp( &preg, pattern, REG_EXTENDED | REG_ICASE );
-#ifdef DEBUG
-			if ( retval )
-			{
-				g_print( "regcomp error!\n" );
-			}
-#endif
-			/* we do a nasty trick to make regexec search only in the first N bytes */
-			if ( document_size > main_v->props.encoding_search_Nbytes )
-			{
-				gchar tmp = buffer[ main_v->props.encoding_search_Nbytes ];
-				buffer[ main_v->props.encoding_search_Nbytes ] = '\0';
-				retval = regexec( &preg, buffer, 10, pmatch, 0 );
-				buffer[ main_v->props.encoding_search_Nbytes ] = tmp;
-			} else
-			{
-				retval = regexec( &preg, buffer, 10, pmatch, 0 );
-			}
-#ifdef DEBUG
-			if ( retval )
-			{
-				gchar errbuf[ 1024 ];
-				regerror( retval, &preg, errbuf, 1024 );
-				g_print( "regexec error! %s\n", errbuf );
-			}
-#endif
-			if ( retval == 0 && pmatch[ 0 ].rm_so != -1 && pmatch[ 1 ].rm_so != -1 )
-			{
-				/* we have a match */
-				DEBUG_MSG( "doc_file_to_textbox, match so=%d,eo=%d\n", pmatch[ 1 ].rm_so, pmatch[ 1 ].rm_eo );
-				encoding = g_strndup( &buffer[ pmatch[ 1 ].rm_so ], pmatch[ 1 ].rm_eo - pmatch[ 1 ].rm_so );
-				DEBUG_MSG( "doc_file_to_textbox, detected encoding %s\n", encoding );
-			}
-			regfree( &preg );
-#ifdef DEBUGPROFILING
-			times( &locals.tms1 );
-			print_time_diff( "encoding regex match", &locals.tms2, &locals.tms1 );
-#endif
-		}
-		if ( encoding )
-		{
-			DEBUG_MSG( "doc_file_to_textbox, try encoding %s from <meta>\n", encoding );
-			newbuf = g_convert( buffer, -1, "UTF-8", encoding, NULL, &wsize, &error );
-			if ( !newbuf || error ) {
-				DEBUG_MSG( "doc_file_to_textbox, cound not convert %s to UTF-8: \n", encoding );
-				g_free( encoding );
-				encoding = NULL;
-			}
-		}
-#endif /* REMOVED */
 		if ( !newbuf )
 		{
 			DEBUG_MSG( "doc_file_to_textbox, trying newfile default encoding %s\n", main_v->props.newfile_default_encoding );
@@ -1694,7 +1653,7 @@ static gint doc_check_backup( Tdocument *doc )
 {
 	gint res = 1;
 
-	if ( (main_v->props.view_bars & MODE_CREATE_BACKUP_ON_SAVE) && doc->filename && file_exists_and_readable( doc->filename ) ) {
+	if ( (main_v->props.view_bars & MODE_CREATE_BACKUP_ON_SAVE) && strlen(main_v->props.backup_filestring) && doc->filename && file_exists_and_readable( doc->filename ) ) {
 		gchar * backupfilename, *ondiskencoding;
 		backupfilename = g_strconcat( doc->filename, main_v->props.backup_filestring, NULL );
 		ondiskencoding = get_filename_on_disk_encoding( backupfilename );
@@ -2031,7 +1990,13 @@ static gboolean doc_view_key_press_lcb( GtkWidget *widget, GdkEventKey *kevent, 
 #ifdef SHOW_SNOOPER
 	g_print("doc: got key pressed\n");
 #endif
-	brace_finder(doc->buffer, &doc->brace_finder, 0, -1);
+	if ( ! ( (kevent->state & GDK_CONTROL_MASK) && ( (kevent->keyval == GDK_bracketleft) || (kevent->keyval == GDK_bracketright) ) ) ) {
+		brace_finder(doc->buffer, doc->brace_finder, 0, -1);
+	}
+
+	if (!(doc->view_bars & MODE_AUTO_COMPLETE)) {
+		return FALSE;
+	}
 
 	if (main_v->completion.show == COMPLETION_DELETE ) {
 		DEBUG_MSG("doc: delete item from popup\n");
@@ -2203,112 +2168,114 @@ static gboolean doc_view_key_release_lcb( GtkWidget *widget, GdkEventKey *kevent
 #endif
 /* never reach: if ( (kevent->keyval == GDK_space) && (kevent->state & GDK_CONTROL_MASK ))*/
 	/* complete the word */
-	if (main_v->completion.show == COMPLETION_WINDOW_ACCEPT) {
-	
+	if (doc->view_bars & MODE_AUTO_COMPLETE) {
+		if (main_v->completion.show == COMPLETION_WINDOW_ACCEPT) {
 #ifdef SHOW_SNOOPER
-		g_print("...autotcompletion accepted\n");
-#endif
-		gtk_widget_hide_all( main_v->completion.window );
-		main_v->completion.show = COMPLETION_WINDOW_HIDE;
-
-		if ( main_v->completion.bfwin != BFWIN(doc->bfwin)->current_document ) {
-#ifdef SHOW_SNOOPER
-			/* TODO: hide the popup when window changed */
-			g_print("completion: accepted, but window changed. Ingore it.\n");
-#endif
-			return TRUE;
-		}
-
-		/* inserting staff */
-#ifdef SHOW_SNOOPER
-		g_print("completion: cached ='%s'\n", main_v->completion.cache);
-#endif
-		{
-			/* get user's selection */
-			/* get path and iter */
-			GtkTreePath *treepath = NULL;
-			GtkTreeModel *model;
-
-			model = gtk_tree_view_get_model(GTK_TREE_VIEW(main_v->completion.treeview));
-			/* lucky, model is*NOT* NULL -- we skip a check :) */
-
-			gtk_tree_view_get_cursor(GTK_TREE_VIEW(main_v->completion.treeview), &treepath, NULL);
-			if (treepath) {
-				GtkTreeIter iter;
-				gchar *user_selection = NULL;
-				GValue *val = NULL;
-				gint i, len, cache_len;
-
-				gtk_tree_model_get_iter(model, &iter, treepath);
-				gtk_tree_path_free(treepath);
-#ifdef HAVE_UNIKEY_GTK
-				GtkTextIter cursor_iter, tmp_iter;
-				GtkTextMark *imark;
-				gchar *test_buf;
-				imark = gtk_text_buffer_get_insert( doc->buffer );
-				gtk_text_buffer_get_iter_at_mark( doc->buffer, &cursor_iter, imark );
-				tmp_iter = cursor_iter;
-				gtk_text_iter_backward_chars(&tmp_iter, 1);
-				test_buf = gtk_text_buffer_get_text(doc->buffer, &tmp_iter, &cursor_iter, FALSE);
-				if (test_buf[0] == ' ') {
-					gtk_text_buffer_delete( doc->buffer, &tmp_iter, &cursor_iter);
-				}
-#endif
-				val = g_new0(GValue, 1);
-				gtk_tree_model_get_value(model, &iter, 0, val);
-				user_selection = g_strdup((gchar *) (g_value_peek_pointer(val)));
-				g_value_unset (val);
-				g_free (val);
-#ifdef SHOW_SNOOPER
-				g_print("completion: user selected '%s'\n", user_selection);
-#endif
-				/*
-				inserting
-				*/
-				cache_len = strlen(main_v->completion.cache);
-				len = strlen(user_selection);
-				if ( len == cache_len ) {
-					return TRUE;
-				} else if (len > cache_len ){
-					len = len - cache_len;
-					gchar *retval = g_malloc((len+1) * sizeof(char));
-					for (i=0; i< len; i++) {
-						retval[i] = user_selection[cache_len + i];
-					}
-					retval[len] = '\0';
-#ifdef SHOW_SNOOPER
-					g_print("completion: will add '%s' (%d chars)\n", retval, len);
-#endif
-					GtkTextIter iter;
-					GtkTextMark *imark;
-					imark = gtk_text_buffer_get_insert( doc->buffer );
-					gtk_text_buffer_get_iter_at_mark( doc->buffer, &iter, imark );
-					gtk_text_buffer_insert( doc->buffer, &iter, retval, -1 );
-					g_free(retval);
-				}
-				g_free(user_selection);
-			}
-		}
-		return TRUE;
-	} else if ( main_v->completion.show == COMPLETION_WINDOW_SHOW || main_v->completion.show == COMPLETION_AUTO_CALL ) {
-		if (!completion_popup_menu(widget, kevent, doc)) {
-#ifdef SHOW_SNOOPER
-			g_print("doc: completion returns NULL. popup willnot be shown\n");
+			g_print("...autotcompletion accepted\n");
 #endif
 			gtk_widget_hide_all( main_v->completion.window );
 			main_v->completion.show = COMPLETION_WINDOW_HIDE;
-		} else {
-			main_v->completion.show = COMPLETION_WINDOW_SHOW;
+	
+			if ( main_v->completion.bfwin != BFWIN(doc->bfwin)->current_document ) {
+#ifdef SHOW_SNOOPER
+				/* TODO: hide the popup when window changed */
+				g_print("completion: accepted, but window changed. Ingore it.\n");
+#endif
+				return TRUE;
+			}
+	
+			/* inserting staff */
+#ifdef SHOW_SNOOPER
+			g_print("completion: cached ='%s'\n", main_v->completion.cache);
+#endif
+			{
+				/* get user's selection */
+				/* get path and iter */
+				GtkTreePath *treepath = NULL;
+				GtkTreeModel *model;
+	
+				model = gtk_tree_view_get_model(GTK_TREE_VIEW(main_v->completion.treeview));
+				/* lucky, model is*NOT* NULL -- we skip a check :) */
+	
+				gtk_tree_view_get_cursor(GTK_TREE_VIEW(main_v->completion.treeview), &treepath, NULL);
+				if (treepath) {
+					GtkTreeIter iter;
+					gchar *user_selection = NULL;
+					GValue *val = NULL;
+					gint i, len, cache_len;
+	
+					gtk_tree_model_get_iter(model, &iter, treepath);
+					gtk_tree_path_free(treepath);
+#ifdef ENABLE_FIX_UNIKEY_GTK
+					GtkTextIter cursor_iter, tmp_iter;
+					GtkTextMark *imark;
+					gchar *test_buf;
+					imark = gtk_text_buffer_get_insert( doc->buffer );
+					gtk_text_buffer_get_iter_at_mark( doc->buffer, &cursor_iter, imark );
+					tmp_iter = cursor_iter;
+					gtk_text_iter_backward_chars(&tmp_iter, 1);
+					test_buf = gtk_text_buffer_get_text(doc->buffer, &tmp_iter, &cursor_iter, FALSE);
+					if (test_buf[0] == ' ') {
+						gtk_text_buffer_delete( doc->buffer, &tmp_iter, &cursor_iter);
+					}
+#endif /* ENABLE_FIX_UNIKEY_GTK */
+					val = g_new0(GValue, 1);
+					gtk_tree_model_get_value(model, &iter, 0, val);
+					user_selection = g_strdup((gchar *) (g_value_peek_pointer(val)));
+					g_value_unset (val);
+					g_free (val);
+#ifdef SHOW_SNOOPER
+					g_print("completion: user selected '%s'\n", user_selection);
+#endif
+					/*
+					inserting
+					*/
+					cache_len = strlen(main_v->completion.cache);
+					len = strlen(user_selection);
+					if ( len == cache_len ) {
+						return TRUE;
+					} else if (len > cache_len ){
+						len = len - cache_len;
+						gchar *retval = g_malloc((len+1) * sizeof(char));
+						for (i=0; i< len; i++) {
+							retval[i] = user_selection[cache_len + i];
+						}
+						retval[len] = '\0';
+#ifdef SHOW_SNOOPER
+						g_print("completion: will add '%s' (%d chars)\n", retval, len);
+#endif
+						GtkTextIter iter;
+						GtkTextMark *imark;
+						imark = gtk_text_buffer_get_insert( doc->buffer );
+						gtk_text_buffer_get_iter_at_mark( doc->buffer, &iter, imark );
+						gtk_text_buffer_insert( doc->buffer, &iter, retval, -1 );
+						g_free(retval);
+					}
+					g_free(user_selection);
+				}
+			}
+			return TRUE;
+		} else if ( main_v->completion.show == COMPLETION_WINDOW_SHOW || main_v->completion.show == COMPLETION_AUTO_CALL ) {
+			if (!completion_popup_menu(widget, kevent, doc)) {
+#ifdef SHOW_SNOOPER
+				g_print("doc: completion returns NULL. popup willnot be shown\n");
+#endif
+				gtk_widget_hide_all( main_v->completion.window );
+				main_v->completion.show = COMPLETION_WINDOW_HIDE;
+			} else {
+				main_v->completion.show = COMPLETION_WINDOW_SHOW;
+			}
 		}
 	}
 	gap_command( widget, kevent, doc);
 	/* shift> = ]*/
 	/* if the shift key is released before the '>' key, we get a key release not for '>' but for '.'. We, therefore have set that in the key_press event, and check if the same hardware keycode was released */
 	/* complete environment */
-#define IS_MOVE_KEY(var) ((var == GDK_Left)||(var==GDK_Right)||(var==GDK_Up)||(var==GDK_Down)||(var==GDK_Home)||(var=GDK_End)||(var==GDK_BackSpace))
-	brace_finder(doc->buffer,&doc->brace_finder,BR_FIND_FORWARD |BR_HILIGHT_IF_FOUND, BRACE_FINDER_MAX_LINES);
+	if ( ! ( (kevent->state & GDK_CONTROL_MASK) && ( (kevent->keyval == GDK_bracketleft) || (kevent->keyval == GDK_bracketright) ) ) ) {
+		brace_finder(doc->buffer,doc->brace_finder,BR_AUTO_FIND, BRACE_FINDER_MAX_LINES);
+	}
 
-	if ( ( kevent->keyval == GDK_braceright ) || ( kevent->hardware_keycode == ((GdkEventKey *)main_v->last_kevent)->hardware_keycode && ((GdkEventKey *)main_v->last_kevent)->keyval == GDK_braceright ) ) {
+	if ( ( kevent->keyval == GDK_braceright ) || (main_v->last_kevent && ( kevent->hardware_keycode == ((GdkEventKey *)main_v->last_kevent)->hardware_keycode && ((GdkEventKey *)main_v->last_kevent)->keyval == GDK_braceright )) ) {
 		/* autoclose environment for LaTeX */
 		if ( doc->view_bars & MODE_AUTO_COMPLETE ) {
 			GtkTextMark * imark;
@@ -2625,7 +2592,7 @@ static void doc_buffer_delete_range_lcb( GtkTextBuffer *textbuffer, GtkTextIter 
 	gchar * string;
 	gboolean do_highlighting = FALSE;
 	string = gtk_text_buffer_get_text( doc->buffer, itstart, itend, FALSE );
-	DEBUG_MSG( "doc_buffer_delete_range_lcb, string='%s'\n", string );
+	/*DEBUG_MSG( "doc_buffer_delete_range_lcb, string='%s'\n", string );*/
 	if ( string ) {
 		/* highlighting stuff */
 		if ( (doc->view_bars & VIEW_COLORIZED) && string && doc->hl ) {
@@ -2651,7 +2618,7 @@ static void doc_buffer_delete_range_lcb( GtkTextBuffer *textbuffer, GtkTextIter 
 			start = gtk_text_iter_get_offset( itstart );
 			end = gtk_text_iter_get_offset( itend );
 			len = end - start;
-			DEBUG_MSG( "doc_buffer_delete_range_lcb, start=%d, end=%d, len=%d, string='%s'\n", start, end, len, string );
+			/* DEBUG_MSG( "doc_buffer_delete_range_lcb, start=%d, end=%d, len=%d, string='%s'\n", start, end, len, string  ); */
 			if ( len == 1 )
 			{
 				if ( ( !doc_unre_test_last_entry( doc, UndoDelete, start, -1 )  /* delete */
@@ -2660,7 +2627,7 @@ static void doc_buffer_delete_range_lcb( GtkTextBuffer *textbuffer, GtkTextIter 
 					|| string[ 0 ] == '\n'
 					|| string[ 0 ] == '\t'
 					|| string[ 0 ] == '\r' ) {
-					DEBUG_MSG( "doc_buffer_delete_range_lcb, need a new undogroup\n" );
+					/* DEBUG_MSG( "doc_buffer_delete_range_lcb, need a new undogroup\n" ); */
 					doc_unre_new_group( doc );
 				}
 			} else
@@ -2678,7 +2645,7 @@ static gboolean doc_view_button_release_lcb( GtkWidget *widget, GdkEventButton *
 {
 	DEBUG_MSG( "doc_view_button_release_lcb, button %d\n", bevent->button );
 	if (bevent->button == 1) {
-		brace_finder(doc->buffer, &doc->brace_finder, BR_FIND_FORWARD | BR_HILIGHT_IF_FOUND, BRACE_FINDER_MAX_LINES);
+		brace_finder(doc->buffer, doc->brace_finder, BR_AUTO_FIND, BRACE_FINDER_MAX_LINES);
 	}
 	if ( bevent->button == 2 ) {
 		/* end of paste */
@@ -2739,7 +2706,7 @@ static gboolean doc_view_button_press_lcb( GtkWidget *widget, GdkEventButton *be
 {
 	DEBUG_MSG( "doc_view_button_press_lcb, button %d\n", bevent->button );
 	if (bevent->button==1) {
-		brace_finder(doc->buffer, &doc->brace_finder, 0, -1);
+		brace_finder(doc->buffer, doc->brace_finder, 0, -1);
 	}
 	if ( bevent->button == 2 && !doc->paste_operation ) {
 		doc->paste_operation = g_new( Tpasteoperation, 1 );
@@ -3013,7 +2980,7 @@ gint doc_textbox_to_file( Tdocument * doc, gchar * filename, gboolean window_clo
 		return -2;
 	}
 
-	if ( main_v->props.view_bars & MODE_REMOVE_BACKUP_ON_CLOSE ) {
+	if ( main_v->props.view_bars & MODE_CLEAR_UNDO_HISTORY_ON_SAVE ) {
 		doc_unre_clear_all( doc );
 	}
 	DEBUG_MSG( "doc_textbox_to_file, calling doc_set_modified(doc, 0)\n" );
@@ -3068,9 +3035,9 @@ void doc_destroy( Tdocument * doc, gboolean delay_activation )
 	gtk_text_buffer_delete(doc->buffer, &start, &end);
 	DEBUG_MSG("doc_destroy: destroyed text buffer\n");
 	/* >> */
-	
+
 	g_free(doc->brace_finder); /* free the brace finder */
-	
+
 	g_object_ref( doc->view->parent );
 	if ( doc->floatingview ) {
 		gtk_widget_destroy( FLOATINGVIEW( doc->floatingview ) ->window );
@@ -3109,7 +3076,7 @@ void doc_destroy( Tdocument * doc, gboolean delay_activation )
 	BUG[200502]#7
 	*/
 	if ( doc->filename ) {
-		if ( main_v->props.view_bars & MODE_REMOVE_BACKUP_ON_CLOSE ) {
+		if ( (main_v->props.view_bars & MODE_REMOVE_BACKUP_ON_CLOSE) && strlen(main_v->props.backup_filestring) ) {
 			gchar * backupfile = g_strconcat( doc->filename, main_v->props.backup_filestring, NULL );
 			DEBUG_MSG( "unlinking %s, doc->filename=%s\n", backupfile, doc->filename );
 			unlink( backupfile );
@@ -3197,10 +3164,36 @@ gchar *ask_new_filename( Tbfwin *bfwin, gchar *oldfilename, const gchar *gui_nam
 	g_free( ondisk );
 	g_free( dialogtext );
 
-	if ( !newfilename || ( oldfilename && strcmp( oldfilename, newfilename ) == 0 ) ) {
-		if ( newfilename )
-			g_free( newfilename );
+	if ( !newfilename ) {
 		return NULL;
+	}else{
+		/* ondisk = get_filename_on_disk_encoding(newfilename); */
+		if (g_file_test(newfilename, G_FILE_TEST_EXISTS)) {
+			struct stat statbuf;
+			gint inode;
+			gint l_retval =1;
+			ondisk = get_filename_on_disk_encoding(newfilename);
+			if ( stat(ondisk,&statbuf) != 0 ) {
+				DEBUG_MSG("ask_new_filename: stat newfile [%s] failed\n", newfilename);
+				l_retval = 0;
+			}else if (oldfilename) {
+				inode = statbuf.st_ino;
+				g_free(ondisk);
+				ondisk = get_filename_on_disk_encoding(oldfilename);
+				if ( stat(ondisk, &statbuf) !=0 ) {
+					DEBUG_MSG("ask_new_filename: stat oldfile [%s] failed\n", oldfilename);
+					l_retval = 0;
+				}else if (l_retval && (statbuf.st_ino == inode) ) {
+					l_retval = 0;
+				}
+			}
+			g_free(ondisk);
+			if (l_retval ==0) {
+				DEBUG_MSG("ask_new_filename: stat failed or new file == old file. return NULL\n");
+				g_free( newfilename );
+				return NULL;
+			}
+		}
 	}
 
 	/* make a full path, re-use the ondisk variable */
@@ -3218,7 +3211,7 @@ gchar *ask_new_filename( Tbfwin *bfwin, gchar *oldfilename, const gchar *gui_nam
 		gint retval;
 		gchar *options[] = {_( "_Cancel" ), _( "_Overwrite" ), NULL};
 		tmpstr = g_strdup_printf( _( "File %s exists and is opened, overwrite?" ), newfilename );
-		retval = multi_warning_dialog( bfwin->main_window, tmpstr, _( "The file you have selected is being edited in Bluefish." ), 1, 0, options );
+		retval = multi_warning_dialog( bfwin->main_window, tmpstr, _( "The file you have selected is being edited in Winefish." ), 1, 0, options );
 		g_free( tmpstr );
 		if ( retval == 0 ) {
 			g_free( newfilename );
@@ -3227,8 +3220,8 @@ gchar *ask_new_filename( Tbfwin *bfwin, gchar *oldfilename, const gchar *gui_nam
 			document_unset_filename( exdoc );
 		}
 	} else {
-		gchar *ondiskencoding = get_filename_on_disk_encoding( newfilename );
-		if ( g_file_test( ondiskencoding, G_FILE_TEST_EXISTS ) ) {
+		/* gchar *ondiskencoding = get_filename_on_disk_encoding( newfilename ); */
+		if ( g_file_test( newfilename, G_FILE_TEST_EXISTS ) ) {
 			gchar * tmpstr;
 			gint retval;
 			gchar *options[] = {_( "_Cancel" ), _( "_Overwrite" ), NULL};
@@ -3238,11 +3231,11 @@ gchar *ask_new_filename( Tbfwin *bfwin, gchar *oldfilename, const gchar *gui_nam
 			g_free( tmpstr );
 			if ( retval == 0 ) {
 				g_free( newfilename );
-				g_free( ondiskencoding );
+				/* g_free( ondiskencoding ); */
 				return NULL;
 			}
 		}
-		g_free( ondiskencoding );
+		/* g_free( ondiskencoding ); */
 	}
 	return newfilename;
 }
@@ -3268,11 +3261,22 @@ gchar *ask_new_filename( Tbfwin *bfwin, gchar *oldfilename, const gchar *gui_nam
 * -4: if there is no filename, after asking one from the user
 * -5: if another process modified the file, and the user chose cancel
 **/
+enum {
+	DOC_SAVE_RET_OK = 1,
+	DOC_SAVE_RET_OK_BUT_BACKUP = 2,
+	DOC_SAVE_RET_USER_ABORT = 3,
+	DOC_SAVE_RET_BACKUP_FAILED_SAVE_ABORT =-1,
+	DOC_SAVE_RET_COULD_NOT_OPEN_FILE =-2,
+	DOC_SAVE_RET_BACKUP_FAILED_SAVE_USER_ABORT =-3,
+	DOC_SAVE_RET_NO_FILENAME =-4,
+	DOC_SAVE_RET_FILE_MODIFIED_USER_ABORT =-5
+};
+
 gint doc_save( Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean window_closing )
 {
-	gint retval;
+	gint retval = 0;
+	gchar *old_name = NULL;
 #ifdef DEBUG
-
 	g_assert( doc );
 #endif
 
@@ -3282,24 +3286,34 @@ gint doc_save( Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean 
 	}
 	if ( do_move ) {
 		do_save_as = 1;
+		if ( doc->filename == NULL ) {
+			do_move = FALSE;
+		}
 	}
 
 	if ( do_save_as ) {
+		DEBUG_MSG("doc_save: do save as...\n");
 		gchar * newfilename = NULL;
 		if ( !window_closing )
 			statusbar_message( BFWIN( doc->bfwin ), _( "save as..." ), 1 );
 		newfilename = ask_new_filename( BFWIN( doc->bfwin ), doc->filename, gtk_label_get_text( GTK_LABEL( doc->tab_label ) ), do_move );
 		if ( !newfilename ) {
-			return 3;
+			DEBUG_MSG("doc_save: user abort\n");
+			return DOC_SAVE_RET_USER_ABORT;
 		}
-		if ( doc->filename ) {
-			if ( do_move ) {
-				gchar * ondiskencoding = get_filename_on_disk_encoding( doc->filename );
-				unlink( ondiskencoding );
-				g_free( ondiskencoding );
-			}
-			g_free( doc->filename );
+#ifdef UNFIX_BUG_92
+		/*if ( doc->filename ) { */
+		if ( do_move ) {
+			gchar * ondiskencoding = get_filename_on_disk_encoding( doc->filename );
+			unlink( ondiskencoding );
+			g_free( ondiskencoding );
 		}
+#endif /* UNFIX_BUG_92 */
+		/*}*/
+		if (do_move) {
+			old_name = g_strdup(doc->filename);
+		}
+		g_free( doc->filename );
 		doc->filename = newfilename;
 		/* TODO: should feed the contents to the function too !! */
 		doc_reset_filetype( doc, doc->filename, NULL );
@@ -3326,11 +3340,11 @@ gint doc_save( Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean 
 			retval = multi_warning_dialog( BFWIN( doc->bfwin ) ->main_window, _( "File has been modified by another process." ), tmpstr, 1, 0, options );
 			g_free( tmpstr );
 			if ( retval == 0 ) {
-				return -5;
+				return DOC_SAVE_RET_FILE_MODIFIED_USER_ABORT;
 			}
 		}
 	}
-
+	
 	DEBUG_MSG( "doc_save, returned file %s\n", doc->filename );
 	/*	if (do_save_as && oldfilename && main_v->props.link_management) {
 			update_filenames_in_file(doc, oldfilename, doc->filename, 1);
@@ -3350,20 +3364,20 @@ gint doc_save( Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean 
 
 	switch ( retval ) {
 		gchar * errmessage;
-	case - 1:
+	case DOC_SAVE_RET_BACKUP_FAILED_SAVE_ABORT:
 		/* backup failed and aborted */
 		errmessage = g_strconcat( _( "Could not backup file:\n\"" ), doc->filename, "\"", NULL );
 		error_dialog( BFWIN( doc->bfwin ) ->main_window, _( "File save aborted.\n" ), errmessage );
 		g_free( errmessage );
 		break;
-	case - 2:
+	case DOC_SAVE_RET_COULD_NOT_OPEN_FILE:
 		/* could not open the file pointer */
 		errmessage = g_strconcat( _( "Could not write file:\n\"" ), doc->filename, "\"", NULL );
 		error_dialog( BFWIN( doc->bfwin ) ->main_window, _( "File save error" ), errmessage );
 		g_free( errmessage );
 		break;
-	case - 3:
-	case - 4:
+	case DOC_SAVE_RET_BACKUP_FAILED_SAVE_USER_ABORT:
+	case DOC_SAVE_RET_NO_FILENAME:
 		/* do nothing, the save is aborted by the user */
 		break;
 	default:
@@ -3372,6 +3386,14 @@ gint doc_save( Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean 
 			gchar *tmp = path_get_dirname_with_ending_slash( doc->filename );
 			bfwin_filebrowser_refresh_dir( BFWIN( doc->bfwin ), tmp );
 			g_free( tmp );
+			/* BUG#92. only move file after saving is okay. */
+			if ( do_move ) {
+				DEBUG_MSG("remove the old file =%s\n", old_name);
+				gchar * ondiskencoding = get_filename_on_disk_encoding( old_name );
+				unlink( ondiskencoding );
+				g_free( ondiskencoding );
+				g_free(old_name);
+			}
 		}
 
 		DEBUG_MSG( "doc_save, received return value %d from doc_textbox_to_file\n", retval );
@@ -3479,8 +3501,82 @@ static gboolean doc_textview_expose_event_lcb( GtkWidget * widget, GdkEventExpos
 	gint text_width;
 
 	win = gtk_text_view_get_window( view, GTK_TEXT_WINDOW_LEFT );
-	if ( win != event->window )
+	if ( win != event->window ) {
+		if ( event->window == gtk_text_view_get_window(view, GTK_TEXT_WINDOW_TEXT) )
+		{
+			{/* current line hilighting */
+#ifdef HILIGHT_THE_WHOLE_LINE_IN_WRAP_MODE
+				gint w2;
+				GtkTextBuffer *buf = gtk_text_view_get_buffer(view);
+				gtk_text_buffer_get_iter_at_mark(buf, &it, gtk_text_buffer_get_insert(buf));
+				gtk_text_view_get_visible_rect(view, &rect);
+				gtk_text_view_get_line_yrange(view, &it, &w, &w2);
+				gtk_text_view_buffer_to_window_coords(view, GTK_TEXT_WINDOW_TEXT, rect.x, rect.y, &rect.x, &rect.y);
+				gtk_text_view_buffer_to_window_coords(view, GTK_TEXT_WINDOW_TEXT, 0, w, NULL, &w);
+				gdk_draw_rectangle(event->window, widget->style->bg_gc[GTK_WIDGET_STATE(widget)], TRUE,rect.x, w, rect.width, w2);
+#else
+				GdkRectangle iter_rect;
+
+				GtkTextBuffer *buf = gtk_text_view_get_buffer(view);
+				gtk_text_buffer_get_iter_at_mark(buf, &it, gtk_text_buffer_get_insert(buf));
+
+				gtk_text_view_get_visible_rect(view, &rect);
+				gtk_text_view_get_iter_location(view, &it, &iter_rect);
+
+				gtk_text_view_buffer_to_window_coords(view, GTK_TEXT_WINDOW_TEXT, rect.x, rect.y, &rect.x, &rect.y);
+				gtk_text_view_buffer_to_window_coords(view, GTK_TEXT_WINDOW_TEXT, 0, iter_rect.y, NULL, &iter_rect.y);
+
+				gdk_draw_rectangle(event->window, widget->style->bg_gc[GTK_WIDGET_STATE(widget)], TRUE,rect.x, iter_rect.y, rect.width, iter_rect.height);
+#endif /* HILIGHT_THE_WHOLE_LINE_IN_WRAP_MODE */
+			}
+#ifdef ENABLE_COLUMN_MARKER
+			if (main_v->props.marker_ii || main_v->props.marker_iii || main_v->props.marker_i) {/* column marker */
+				GdkRectangle visible_rect;
+				GdkRectangle redraw_rect;
+				gint tab_width_i=0, tab_width_ii=0, tab_width_iii=0;
+
+				gchar *tab_string;
+				if (main_v->props.marker_i) {
+					tab_string = g_strnfill (main_v->props.marker_i, '_');
+					tab_width_i = widget_get_string_size(widget, tab_string);
+					/* use tab_size ;(
+					tab_width_i = 2 * textview_calculate_real_tab_width( GTK_WIDGET( ( ( Tdocument * ) doc ) ->view ), main_v->props.editor_tab_width );
+					*/
+					g_free(tab_string);
+				}
+				
+				if (main_v->props.marker_ii && (main_v->props.marker_ii != main_v->props.marker_i)) {
+					tab_string = g_strnfill (main_v->props.marker_ii, '_');
+					tab_width_ii = widget_get_string_size(widget, tab_string);
+					g_free(tab_string);
+				}
+				
+				if (main_v->props.marker_iii && (main_v->props.marker_iii != main_v->props.marker_i) && (main_v->props.marker_iii != main_v->props.marker_ii)) {
+					tab_string = g_strnfill (main_v->props.marker_iii, '_');
+					tab_width_iii = widget_get_string_size(widget, tab_string);
+					g_free(tab_string);
+				}
+			
+				gtk_text_view_get_visible_rect (view, &visible_rect);
+				gtk_text_view_buffer_to_window_coords (view,GTK_TEXT_WINDOW_TEXT, visible_rect.x,visible_rect.y,	&redraw_rect.x,&redraw_rect.y);
+				redraw_rect.width = visible_rect.width;
+				redraw_rect.height = visible_rect.height;
+				
+				if (tab_width_i) {
+					gtk_paint_vline(widget->style,event->window,GTK_WIDGET_STATE (widget), &redraw_rect,widget,"marker", redraw_rect.y, redraw_rect.y + redraw_rect.height, tab_width_i - visible_rect.x + redraw_rect.x + gtk_text_view_get_left_margin (view));
+				}
+				if (tab_width_ii) {
+					gtk_paint_vline(widget->style,event->window,GTK_WIDGET_STATE (widget), &redraw_rect,widget,"marker", redraw_rect.y, redraw_rect.y + redraw_rect.height, tab_width_ii - visible_rect.x + redraw_rect.x + gtk_text_view_get_left_margin (view));
+				}
+				if (tab_width_iii) {
+					gtk_paint_vline(widget->style,event->window,GTK_WIDGET_STATE (widget), &redraw_rect,widget,"marker", redraw_rect.y, redraw_rect.y + redraw_rect.height, tab_width_iii - visible_rect.x + redraw_rect.x + gtk_text_view_get_left_margin (view));
+				}
+				
+			}
+#endif /* ENABLE_COLUMN_MARKER */
+		}
 		return FALSE;
+	}
 
 	gtk_text_view_get_visible_rect( view, &rect );
 	gtk_text_view_get_line_at_y( view, &l_start, rect.y, &l_top1 );
@@ -3521,56 +3617,6 @@ static gboolean doc_textview_expose_event_lcb( GtkWidget * widget, GdkEventExpos
 	g_object_unref( G_OBJECT( l ) );
 	if ( temp_tab )
 		g_hash_table_destroy( temp_tab );
-#ifdef STUPID	
-	{
-		GdkRectangle visible_rect;
-		GdkRectangle redraw_rect;
-
-		gchar *tab_string;
-		tab_string = g_strnfill (20, '_');
-		gint tab_width = widget_get_string_size(widget, tab_string);
-		g_free(tab_string);
-			
-		gtk_text_view_get_visible_rect (view, &visible_rect);
-		gtk_text_view_buffer_to_window_coords (view,
-				GTK_TEXT_WINDOW_TEXT,
-				visible_rect.x,
-				visible_rect.y,
-				&redraw_rect.x,
-				&redraw_rect.y);
-
-		redraw_rect.width = visible_rect.width;
-		redraw_rect.height = visible_rect.height;
-
-		/*
-		GtkStyle *marker_style;
-		marker_style = gtk_style_new();
-		gint i=0;
-		for (i=0;i<5;i++) {
-			marker_style->fg_gc[i] = widget->style->fg_gc[i];
-			marker_style->bg_gc[i] = widget->style->bg_gc[i];
-			marker_style->light_gc[i] = widget->style->light_gc[i];
-			marker_style->dark_gc[i] = widget->style->dark_gc[i];
-			marker_style->mid_gc[i] = widget->style->mid_gc[i];
-			marker_style->base_gc[i] = widget->style->base_gc[i];
-			marker_style->text_aa_gc[i] = widget->style->text_aa_gc[i];
-		}
-		GdkColor red = {0,65535,0,0};
-		gdk_gc_set_background(marker_style->fg_gc[3], &red);
-		*/
-
-		gtk_paint_vline(
-			widget->style,
-			event->window,
-			GTK_WIDGET_STATE (widget), 
-			&redraw_rect,
-			widget,
-			"marker",
-			redraw_rect.y, 
-			redraw_rect.y + redraw_rect.height,
-			tab_width - visible_rect.x + redraw_rect.x + gtk_text_view_get_left_margin (view));
-	}
-#endif
 	return TRUE;
 }
 
@@ -3638,7 +3684,10 @@ Tdocument *doc_new( Tbfwin* bfwin, gboolean delay_activate )
 	/* so stupid ;) ~~~> BUG#81
 	newdoc->view_bars = SET_BIT(newdoc->view_bars, VIEW_COLORIZED, (main_v->props.view_bars & VIEW_COLORIZED ) && ( newdoc->hl->autoclosingtag > 0 ));
 	*/
-	newdoc->view_bars = SET_BIT(newdoc->view_bars, MODE_AUTO_COMPLETE, (main_v->props.view_bars & MODE_AUTO_COMPLETE ) && ( newdoc->hl->autoclosingtag > 0 ));
+	if ( (main_v->props.view_bars & MODE_AUTO_COMPLETE) && (newdoc->hl->autoclosingtag>0) ) {
+		newdoc->view_bars = SET_BIT(newdoc->view_bars, MODE_AUTO_COMPLETE, 1);
+	}
+	DEBUG_MSG("doc_new, autocompletion: main=%d, filetype=%d, current=%d\n", main_v->props.view_bars & MODE_AUTO_COMPLETE, (newdoc->hl->autoclosingtag > 0), newdoc->view_bars & MODE_AUTO_COMPLETE);
 
 	/* use project's settings if there's; otherwise use global properties */
 	newdoc->view_bars = SET_BIT(newdoc->view_bars, MODE_WRAP, ( bfwin->project ) ? GET_BIT(bfwin->project->view_bars,MODE_WRAP) : GET_BIT(main_v->props.view_bars,MODE_WRAP) );
@@ -3654,10 +3703,12 @@ Tdocument *doc_new( Tbfwin* bfwin, gboolean delay_activate )
 	newdoc->buffer = gtk_text_buffer_new( highlight_return_tagtable() );
 	
 	newdoc->brace_finder =g_new0( Tbracefinder, 1);
-	BRACEFINDER(newdoc->brace_finder)->tag = gtk_text_buffer_create_tag (newdoc->buffer, NULL,"background", "yellow", "foreground", "black", "weight","bold", NULL);
-	/*
-	BRACEFINDER(newdoc->brace_finder)->tag_extra = gtk_text_buffer_create_tag (newdoc->buffer, NULL,"background", "black", "foreground", "yellow", "weight","bold", NULL);
-	*/
+	BRACEFINDER(newdoc->brace_finder)->tag = gtk_text_buffer_create_tag (newdoc->buffer, NULL,"background", "yellow", "foreground", "black", NULL);
+	GtkTextIter iter;
+	gtk_text_buffer_get_start_iter(newdoc->buffer,&iter);
+	BRACEFINDER(newdoc->brace_finder)->mark_left = gtk_text_buffer_create_mark(newdoc->buffer,NULL,&iter,FALSE);
+	BRACEFINDER(newdoc->brace_finder)->mark_mid = gtk_text_buffer_create_mark(newdoc->buffer,NULL,&iter,FALSE);
+	BRACEFINDER(newdoc->brace_finder)->mark_right = gtk_text_buffer_create_mark(newdoc->buffer,NULL,&iter,FALSE);
 
 	BRACEFINDER(newdoc->brace_finder)->last_status = 0;
 	
@@ -3765,7 +3816,7 @@ Tdocument *doc_new( Tbfwin* bfwin, gboolean delay_activate )
 	if (newdoc->view_bars & MODE_AUTO_COMPLETE) {
 		setup_toggle_item( gtk_item_factory_from_widget( bfwin->menubar ), _( "/Document/AutoCompletion" ), TRUE );
 	}
-	
+	g_print( "doc_new, autocomplete =%d \n", newdoc->view_bars & MODE_AUTO_COMPLETE),
 	DEBUG_MSG( "doc_new, need_highlighting=%d, highlightstate=%d, global higlight = %d\n", newdoc->need_highlighting, GET_BIT(newdoc->view_bars,VIEW_COLORIZED), GET_BIT(main_v->props.view_bars,VIEW_COLORIZED) );
 #endif /* DONE_IN_GUI_SET_DOCUMENT_WIDGETS */
 	/*
@@ -3818,6 +3869,10 @@ void doc_new_with_new_file( Tbfwin *bfwin, gchar * new_filename )
 		doc_file_to_textbox( doc, bfwin->project->template , FALSE, FALSE )
 		;
 	}
+	/* may be related to BUG#93
+	(doc_file_to_textbox) does the hilight if found ft->hilight;
+	why the have to check this after?
+	*/
 	ft = get_filetype_by_filename_and_content( doc->filename, NULL );
 	if ( ft ) doc->hl = ft;
 	/*	doc->modified = 1;*/
@@ -3883,7 +3938,7 @@ Tdocument * doc_new_with_file( Tbfwin *bfwin, gchar * filename, gboolean delay_a
 	DEBUG_MSG( "doc_new_with_file, fullfilename=%s, filename=%s\n", fullfilename, filename );
 	add_filename_to_history( bfwin, fullfilename );
 
-	if ( g_list_length( bfwin->documentlist ) == 1 && doc_is_empty_non_modified_and_nameless( bfwin->current_document ) ) {
+	if ( /*g_list_length( bfwin->documentlist ) == 1 && */doc_is_empty_non_modified_and_nameless( bfwin->current_document ) ) {
 		doc = bfwin->current_document;
 		opening_in_existing_doc = TRUE;
 		bfwin->last_activated_doc = NULL;
@@ -3936,6 +3991,7 @@ void docs_new_from_files( Tbfwin *bfwin, GList * file_list, gboolean move_to_thi
 	gboolean delay = ( g_list_length( file_list ) > 1 );
 	gpointer pbar = NULL;
 	gint i = 0;
+	gint num_files_opened=0;
 	DEBUG_MSG( "docs_new_from_files, lenght=%d\n", g_list_length( file_list ) );
 
 	/* Hide the notebook and show a progressbar while
@@ -3952,10 +4008,13 @@ void docs_new_from_files( Tbfwin *bfwin, GList * file_list, gboolean move_to_thi
 		tmpdoc = doc_new_with_file( bfwin, ( gchar * ) tmplist->data, delay, move_to_this_win );
 		if ( !tmpdoc ) {
 			errorlist = g_list_append( errorlist, g_strdup( ( gchar * ) tmplist->data ) );
-		} else if (linenumber >=0) {
-			doc_activate( tmpdoc );
-			doc_select_line( tmpdoc, linenumber, TRUE );
-			gtk_widget_grab_focus( GTK_WIDGET( tmpdoc->view ) );
+		} else {
+			num_files_opened ++;
+			if (linenumber >=0) {
+				doc_activate( tmpdoc );
+				doc_select_line( tmpdoc, linenumber, TRUE );
+				gtk_widget_grab_focus( GTK_WIDGET( tmpdoc->view ) );
+			}
 		}
 		if ( pbar ) {
 			progress_set( pbar, ++i );
@@ -3972,8 +4031,8 @@ void docs_new_from_files( Tbfwin *bfwin, GList * file_list, gboolean move_to_thi
 		g_free( message );
 	}
 	free_stringlist( errorlist );
-
-	if ( delay ) {
+	
+	if ( num_files_opened >= 1 /*delay */) {
 		DEBUG_MSG( "since we delayed the highlighting, we set the notebook and filebrowser page now\n" );
 
 		/* Destroy the progressbar and show the notebook when finished. */
@@ -3982,12 +4041,26 @@ void docs_new_from_files( Tbfwin *bfwin, GList * file_list, gboolean move_to_thi
 
 		gtk_notebook_set_page( GTK_NOTEBOOK( bfwin->notebook ), g_list_length( bfwin->documentlist ) - 1 );
 		notebook_changed( bfwin, -1 );
+		/* num_files_opened so we not not to check...
 		if ( bfwin->current_document && bfwin->current_document->filename ) {
+		*/
 			/*filebrowser_open_dir(bfwin,bfwin->current_document->filename); is called by doc_activate() */
-			doc_activate( bfwin->current_document );
+		doc_activate( bfwin->current_document );
+		/*}*/
+		gui_set_title( bfwin, bfwin->current_document );
+		if (num_files_opened ==1) {
+			DEBUG_MSG("docs_new_from_files: num_files_opened =%d\n", num_files_opened);
+			if (DOCUMENT(bfwin->current_document)->need_highlighting) {
+				doc_highlight_full(bfwin->current_document);
+			}
 		}
 	}
-	gui_set_title( bfwin, bfwin->current_document );
+	/* related to BUG#93 */
+#ifdef CODE_MOVED_UP
+	if (bfwin->current_document) {
+		gui_set_title( bfwin, bfwin->current_document );
+	}
+#endif /* CODE_MOVED_UP */
 }
 
 /**
@@ -4004,8 +4077,12 @@ void doc_reload( Tdocument *doc )
 		statusbar_message( BFWIN( doc->bfwin ), _( "unable to open file" ), 2000 );
 		return ;
 	}
+	gint lineindex;
 	{
-		GtkTextIter itstart, itend;
+		GtkTextIter itstart, itend, itercur;
+		gtk_text_buffer_get_selection_bounds(doc->buffer, &itercur, NULL);
+		lineindex = gtk_text_iter_get_line(&itercur);
+		DEBUG_MSG("doc_reload: current lineindex %d\n", lineindex);
 		gtk_text_buffer_get_bounds( doc->buffer, &itstart, &itend );
 		gtk_text_buffer_delete( doc->buffer, &itstart, &itend );
 	}
@@ -4014,6 +4091,7 @@ void doc_reload( Tdocument *doc )
 	doc_unre_clear_all( doc );
 	doc_set_modified( doc, 0 );
 	doc_set_stat_info( doc ); /* also sets mtime field */
+	doc_select_line(doc, lineindex, TRUE);
 }
 
 /**
@@ -4269,6 +4347,7 @@ void file_insert_menucb( Tbfwin *bfwin, guint callback_action, GtkWidget *widget
 **/
 void file_new_cb( GtkWidget *widget, Tbfwin *bfwin )
 {
+	DEBUG_MSG("file_new_cb: hello world\n");
 	Tdocument * doc;
 	doc = doc_new( bfwin, FALSE );
 	switch_to_document_by_pointer( bfwin, doc );

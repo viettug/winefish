@@ -127,9 +127,14 @@ static gint parse_commandline(int argc, char **argv
 	}
 	DEBUG_MSG("parse_commandline, optind=%d, argc=%d\n", optind, argc);
 	while (optind < argc) {
-		tmpname = create_full_path(argv[optind], NULL);
-		DEBUG_MSG("parse_commandline, argv[%d]=%s, tmpname=%s\n", optind, argv[optind], tmpname);
-		*load_filenames = g_list_append(*load_filenames, tmpname);
+		/* related to BUG#93 */
+		/*if (file_exists_and_readable(argv[optind])){*/
+			tmpname = create_full_path(argv[optind], NULL);
+			DEBUG_MSG("parse_commandline, argv[%d]=%s, tmpname=%s\n", optind, argv[optind], tmpname);
+			*load_filenames = g_list_append(*load_filenames, tmpname);
+		/*}else{
+			g_print("winefish: file '%s' is unreadable\n", argv[optind]);
+		}*/
 		optind++;
 	}
 	DEBUG_MSG("parse_commandline, finished, num files=%d, num projects=%d\n"
@@ -255,7 +260,7 @@ int main(int argc, char *argv[])
 	if (projectfiles) {
 		GList *tmplist = g_list_first(projectfiles);
 		while (tmplist) {
-			project_open_from_file(firstbfwin, tmplist->data);
+			project_open_from_file(firstbfwin, tmplist->data, linenumber);
 			tmplist = g_list_next(tmplist);
 		}
 	}

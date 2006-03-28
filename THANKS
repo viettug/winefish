@@ -12,7 +12,7 @@ THANKS to
 THANKS to:
  IBMackey <ibumjr at sbcglobal.net>
  Daniele Medri <daniele at medri.org>
- Michèle Garoche <michele.garoche at easyconnect.fr> [MacOSX, BUG#84]
+ Michèle Garoche <michele.garoche at easyconnect.fr> [MacOSX, BUG#8{84,6408}, many more]
  Daniel Leidert <daniel.leidert at wgdd.de>
  Salman Ansari <salmanansari at msn.com> [x86_md64 bugs report and fix]
  Stew Heckenberg <whazaaaaahp at hotmail.com> [wf-1.3.2.5, feedback, report bugs]
@@ -22,12 +22,14 @@ THANKS to:
  mattions <mattions at gmail.com> [beta tester, gentoo port]
  Andrés Villaveces <avillavecesn@gmail.com> [feedback]
  Claudio Polegato Junior <cpolegatojr_lsts at pop.com.br> [BUG#82]
+ bender02 (http://winefish.berlios.de/forum/account.php?u=4) [BUG#90]
+ Michele Mattioni <michele.mattioni at poste.it> [1.3.2-RC2; many useful comments and suggestions]
 
  Viết Ánh <vietanh at hue.vnn.vn> [first tried Winefish]
  Larry Nguyễn <larry at vnlinux.org> [tested Winefish 1.x]
  Việt Long <longgia2001 at gmail.com> [very generic stuff]
  vnoss|work <irc.freenode.net#vietlug> [comment on ConTeXT support]
- xomhau <xomhau at gmail.com> [report a BUG/FreeBSD]
+ xomhau <xomhau at gmail.com> [report a BUG/Free BSD]
  Nguyễn Văn Hạnh <hanhnguyenvan at gmail.com> [cool friend]
  vnpenguin <http://vnoss.org/> [Winefish review, conTeXt stuff and more]
  pclouds <http://vnoss.org/> [Winefish for Gentoo -- promise :)]

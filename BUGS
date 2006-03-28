@@ -1,14 +1,190 @@
 $Id$
 
+============================================================== [200603]
+
+======== 1.3.2.8a
+
+#6408/fixed/kyanh/20060327/
+FIXED:
+	gui.c::gui_notebook_unbind_signals
+CRITICAL NOTES:
+	gulong g_signal_connect_object (...);
+
+	This is similar to g_signal_connect_data(), but uses a closure which ensures
+	that the gobject stays alive during the call to c_handler by temporarily
+	adding a reference count to gobject.
+	
+	Note that there is a bug in GObject that makes this function much less useful
+	than it might seem otherwise. Once gobject is disposed, the callback will no
+	longer be called, but, the signal handler is not currently disconnected.
+	If the instance is itself being freed at the same time than
+	this doesn't matter, since the signal will automatically be removed, but if
+	instance persists, then the signal handler will leak. You should not remove
+	the signal yourself because in a future versions of GObject, the handler will
+	automatically be disconnected.
+	
+	It's possible to work around this problem in a way that will continue to work
+	with future versions of GObject by checking that the signal handler is still
+	connected before disconnected it:
+		if (g_signal_handler_is_connected (instance, id))
+		   g_signal_handler_disconnect (instance, id);
+
+#107/fixed-partial/kyanh/20060327/
+* func_grep: unicode string is escaped => func_grep returns with errors. we used the function
+(g_strescape) to escape the character \ -- but the non ASCII characters are escaped too --
+as mentioned in (g_strescape) document.
+* use (func_grep_escape_string) instead. TODO: a' ==> search for 'a\'' => failed
+
+#106/fixed/kyanh/20060317/
+* clone file: should set modify status = TRUE if we clone file for an existing EMPTY tab.
+FIXED:... but the Undo stack is empty :(	
+
+#105/fixed/kyanh/20060317/
+* open a file : if there is 1 documents and the current == EMPTY, open in current tab
+if there are at least 2 documents and the current == EMTPY, open new tab
+* FIXED:
+	should be: if (current_document is EMPTY) then <open in this tab>
+
+#104/fixed/kyanh/20060317/
+* template listing: sometime find for %wf=, sometime for %%wf=
+WHY?
+	bf_lib.c::convert_command expands the command only
+	when current_document != NULL
+FIXED:
+	redesign convert_command
+
+#103/fixed/kyanh/20060317/
+* you cannot "Save As" for Untitled Document. others works
+* save as operation: if there's already a file with the same inode, the save
+operation returns without prompting :( there's of course a bug ;)
+
+#102/fixed/kyanh/20060317/
+* clone operation: if there's an untitled document, the operation
+will also create another new untitled document. should be one :(
+
+#101/fixed/kyanh/20060310/
+* open anyfile from commandline;
+when the file has just appear, press anykey => crashes
+FIXED:
+	check whether (main_v->last_kevent)
+
+#100/fixed/kyanh/20060225/1.3.2.7{c-d}
+* after searching (func_grep) the pattern wasnot added to history list
+
 ============================================================== [200602]
 
-======== 1.3.2.7a
+#99/fixed/kyanh/200603xx/
+* project_mode=1, current_file=NULL
+=> the command isnot converted. see bf_lib.c::convert_command
+current implement: return *command* if current_document->filename is NULL.
+we should do more check ;)
+
+#98/fixed/kyanh/20060217/
+* directory is considered as an regular file
+	324-kyanh$ locate foobar
+	/home/users/kyanh/.gaim/logs/yahoo/foobar/foobar20052
+	/home/users/kyanh/.gaim/logs/yahoo/foobar/foobar20052/2005-12-08.090419.txt
+	/home/users/kyanh/.gaim/logs/yahoo/foobar/foobar20052/2006-02-17.095657.txt
+	314-kyanh$ winefish $(locate foobar)
+	==> failed ;)
+FIXED:
+	--- src/bf_lib.c        (revision 1924)
+	+++ src/bf_lib.c        (working copy)
+	gboolean file_exists_and_readable(const gchar * filename) {
+	....
+	+ if ( g_file_test(filename, G_FILE_TEST_IS_DIR) ) {
+	+  return FALSE;
+	+  }
+
+#97/fixed/kyanh/20060216/
+* create_backup_on_save=1, remove_backup_on_save =1, witth suffix=NULL
+open file foobar.tex. its bakups it foobar.tex. THE SAME! now edit foobar.tex,
+save then close. You see that foobar.tex was delete completly
+
+#96/fixed/kyanh/20060216/
+* <stuff> \% % { <stuff>
+that brace is not considered as comment sign
+FIXED:
+	use a while-loop to detect the comment sign
+
+#95/fixed/kyanh/20060216/
+* project: editing options failed (basedir/basefiles doesnot exist) then there is:
+(winefish:1495): GLib-GObject-WARNING **: invalid cast from `GtkButton' to `GtkWindow'
+(winefish:1495): Gtk-CRITICAL **: gtk_window_set_transient_for: assertion `parent == NULL || GTK_IS_WINDOW (parent)' failed
+FIXED:
+	used wrong widget in (project.c::project_edit_ok_clicked_lcb)
+
+#93/fixed/kyanh/20060216/
+* $ winefish ~/tmp/foobar.tex
+if `foobar.tex' is not found, winefish crashes.
+*
+$ winefish ~/tmp/foobar.tex ./foobar.tex #bug
+$ winefish ./foobar.tex ~/tmp/foobar.tex #bug
+$ winefish none.tex exist.tex exist2.tex #good
+
+if `~/tmp/foobar.tex' is not found while `./foobar.tex' is found
+winefish doesnot crashes. but it opens the `./foobar.tex' with black-white hilighted
+status though the menu 'document/hilightstat' is ON. [no... it should be updated.
+the hilightstat still = OFF]
+
+Emacs:
+	emacs foobar/foobar/foobar.tex
+	emacs will prompt for create new directory (cu mx make-direcotory)
+	if the directory and its parent had not created yet, saving failed.
+
+FIXED:
+	(<: open one file. file exists)
+	(>: open two files. the first doesnot exist)
+		< docs_new_from_files, lenght=1
+		< docs_new_from_files, about to open /home/users/kyanh/moss/winefish/trunk/doc/test_brace_finder.tex, delay=0
+		---
+		> docs_new_from_files, lenght=2
+		> docs_new_from_files, about to open /home/users/kyanh/moss/winefish/trunk/src/testff, delay=1
+		> doc_new_with_file, called for /home/users/kyanh/moss/winefish/trunk/src/testff
+		> doc_new_with_file, file /home/users/kyanh/moss/winefish/trunk/src/testff !file_exists or readable
+		> docs_new_from_files, about to open /home/users/kyanh/moss/winefish/trunk/doc/test_brace_finder.tex, delay=1
+	(delay=1: not hilighted now)
+	when the first file is open and we failed, we should recaculate the delay value;)
+	delay = ( g_list_length( file_list ) > 1 ); ==> should be replace by numberer of opened files:(
+	we count the number of files opened. if this number >=1, we should set the notebook_page,
+	active the last document. if there is just one file (num_files_opened==1) and this doc needs hilight (doc->need_highlighting)
+	we should hilight it... this solve complete the bug.
+
+	there's nice dealing provided by bluefish (file.c, doc->status). take care of this [ future plan ]
+
+#92/fixed/kyanh/20050216/
+* rename a file: (delete old file + save new name)
+should: (save new name + delete old file)
+This bug is found via bluefish-dev list.
+
+#91/invalid/kyanh/20060216/
+* project backup file isnot deleted no matter the option 'remove backup on save' is ON
+(thanks to Michèle Garoche)
+* .wfproject is a rcfile. should we delete it when closing?
+I note that my current bluefish(dev) doesnot create backup file for rcfile when saving.
+WORKAROUND:
+* (rcfile_save_*) call to (stringlist.c::put_stringlist_limited) which puts a string to file.
+if you want to make a backup of rcfile before when saving, let's turn
+	BACKUP_RC_FILE_ON_SAVE
+on (src/config_spec.h). TODO: this shouldbe a runtime option
+
+#90/fixed/kyanh/20060214/
+* winefish should preserve %l or %f... 
++ reported by bender02 (http://winefish.berlios.de/forum/account.php?u=4)
++ /home/users/kyanh/moss/winefish.bugs/bug_expander.html)
++ http://winefish.berlios.de/forum/comments.php?DiscussionID=2
+FIXED:
+	added %p (expands to percent sign)
+
+#89/fixed/kyanh/20060212/
+* disable 'autocompletion' (toggler menu: document/autocompletion) takes no effect.
+FIXED: to many things
 
 #88/fixed/kyanh/20060211/
 * copy/paste a brace: it is still hilighted
-FIXED: modify past_operation
-But... the bug dies itself... as an effect of removing
-tag when key/button press.
+FIXED:
+	modify paste_operation
+	But... the bug dies itself... as an effect of removing tag when key/button press.
 
 #87/fixed/kyanh/20060211/
 * bad STORIES, see brace_finder.c :(
@@ -25,8 +201,6 @@ FIXED:
 * brace_finder: for the dollar sign, if the extra $ isnot found, finder return BR_RET_NOT_FOUND
 (even the the left $ is found)
 
-======== 1.3.2.6
-
 #85/fixed/kyanh/20060211/
 * autocompletion: press Control+S sometimes causes popup menu to be showed
 (press Control+S twice, release control after the first)
@@ -41,7 +215,7 @@ FIXED:
 #83/fixed/kyanh/20060210/
 * brace_finder:
 	<any_code>{|%<end_of_line>
-(| is the cursor). start finding brace returns BR_RET_IN_COMMENT
+	(| is the cursor). start finding brace returns BR_RET_IN_COMMENT
 FIXED:
 	must detect `iter_start_new' before checking for BR_RET_IN_COMMENT status.
 
@@ -53,7 +227,7 @@ in outputbox_bf.c, but the result is the same. it's hard to handle!!!
 * FIXED:
 	use (g_locale_to_utf8) in outputbox_filter::outputbox_filter.c
 	(thanks to a member of winefish-devel. now i forget his name. update soon)
- (he is Claudio Polegato Junior <cpolegatojr_lsts@pop.com.br>)
+	(he is Claudio Polegato Junior <cpolegatojr_lsts@pop.com.br>)
 
 ============================================================== [200601]
 
@@ -81,8 +255,9 @@ FIXED:
 FIXED:
 	document.c::doc_new():: we need set toogle menu=TRUE if hilightstat=1
 
-#76
-* reload a document should go the previous line
+#76a/kyanh/20060216/
+(a)* reload a document should go the previous line
+#76b
 * winefish knows file was changed by another process only when
 the document notebook/tab changed...
 
@@ -109,7 +284,7 @@ are completly cleared/
 #69/fixed/kyanh/20060124/
 * notebook_changed: shoule hide the popup menu (autocompletion)
 
-#68
+#68/fixed/kyanh/200602??/
 * wrong hilight for URLs in comments
 
 #67/fixed/kyanh/20060123/
@@ -177,8 +352,9 @@ document.c::doc_new()
 * Closing a project [within new Winefish window] should close
 also the Winefish window
 
-#60
+#60/fixed/kyanh/20060217/
 * Cannot open project's files at specific linenumber
+* TODO: present an existing project at specific linenumber
 
 #59/fixed/kyanh/20050719/
 * See project with files A, B, C (A is the first one)
@@ -352,7 +528,7 @@ The reason is: we used \pdfoutput=1. Just remove this line from template.
 must use:
  \ifx\pdfoutput\undefined\relax\else\ifnum\pdfoutput=1\relax\pdftrue\fi\fi
 
-#29
+#29/invalid/kyanh/20060217/
 * New document doesnot update hilight :(( -- Must do it by hand.
 
 ============================================================== [200504]
@@ -493,9 +669,7 @@ Fix:
 		g_free(ext);
 	Shouldnot use g_free(ext);
 
-
 ============================================================== [200502]
-
 
 #10/fixed/kyanh/20060124/
 * For 'outputbox.c': Doubleclick to open file => may open

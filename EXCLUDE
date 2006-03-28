@@ -1,0 +1,6 @@
+doc/*.tex
+VERSIONS
+EXCLUDE
+winefish.txt
+doc/Makefile
+BUGS
