@@ -229,7 +229,11 @@ static void pref_create_column(GtkTreeView *treeview, gint type, GCallback func,
 			g_object_set(G_OBJECT(renderer), "editable", TRUE, NULL);
 			g_signal_connect(G_OBJECT(renderer), "edited", func, data);
 		}
-	} else if (type == 2 || type == 3) {
+	} else 
+#ifdef HAVE_ATLEAST_GTK_2_6
+	if (type == 2 || type == 3)
+#endif /* HAVE_ATLEAST_GTK_2_4 */
+	{
 		renderer = gtk_cell_renderer_toggle_new();
 		if (type == 3) {
 			gtk_cell_renderer_toggle_set_radio(GTK_CELL_RENDERER_TOGGLE(renderer),TRUE);
@@ -238,7 +242,9 @@ static void pref_create_column(GtkTreeView *treeview, gint type, GCallback func,
 			g_object_set(G_OBJECT(renderer), "activatable", TRUE, NULL);
 			g_signal_connect(G_OBJECT(renderer), "toggled", func, data);
 		}
-	} else /* if (type ==4) */ {
+	}
+#ifdef HAVE_ATLEAST_GTK_2_6
+	else /* if (type ==4) */ {
 		renderer = gtk_cell_renderer_combo_new();
 		g_object_set(G_OBJECT(renderer), "has-entry", FALSE, NULL);
 		/* should be done by the calling function: g_object_set(G_OBJECT(renderer), "model", model, NULL);*/
@@ -248,6 +254,7 @@ static void pref_create_column(GtkTreeView *treeview, gint type, GCallback func,
 			g_signal_connect(G_OBJECT(renderer), "edited", func, data);
 		}
 	}
+#endif /* HAVE_ATLEAST_GTK_2_6 */
 	column = gtk_tree_view_column_new_with_attributes(title, renderer,(type ==1) ? "text" : "active" ,num,NULL);
 
 	if (sortable) {
