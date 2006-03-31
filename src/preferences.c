@@ -232,7 +232,7 @@ static void pref_create_column(GtkTreeView *treeview, gint type, GCallback func,
 	} else 
 #ifdef HAVE_ATLEAST_GTK_2_6
 	if (type == 2 || type == 3)
-#endif /* HAVE_ATLEAST_GTK_2_4 */
+#endif /* HAVE_ATLEAST_GTK_2_6 */
 	{
 		renderer = gtk_cell_renderer_toggle_new();
 		if (type == 3) {
