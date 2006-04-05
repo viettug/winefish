@@ -1,5 +1,11 @@
 $Id$
 
+Winefish 1.3.3
+==============
+
+* fixed
+- patch for gtk+ 2.4 users (src/preferences.c)
+
 Winefish 1.3.2.8b
 =================
 
