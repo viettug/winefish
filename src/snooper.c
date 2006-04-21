@@ -22,6 +22,10 @@
  *
  */
 
+#include "config.h"
+
+#ifndef SNOOPER2
+
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 
@@ -152,3 +156,5 @@ void snooper_install() {
 	main_v->snooper = gtk_key_snooper_install( (GtkKeySnoopFunc) completion_snooper, NULL);
 	main_v->last_kevent = gdk_event_new(GDK_KEY_PRESS);/* requires GLIB 2.2*/
 }
+
+#endif /* SNOOPER2 */
