@@ -754,7 +754,7 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 	gtk_accel_map_add_entry("<winefishmain>/Go/Goto Line", GDK_slash, GDK_CONTROL_MASK);
 	gtk_accel_map_add_entry("<winefishmain>/External/Stop...", GDK_Escape, 0);
 	/* gtk_accel_map_add_entry("<winefishmain>/View/View Outputbox", GDK_Escape, GDK_SHIFT_MASK); */
-#ifdef SNNOOPER2
+#ifdef SNOOPER2
 	main_v->accel_group = accel_group;
 #endif /* SNOOPER2 */
 
