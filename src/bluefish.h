@@ -358,7 +358,12 @@ typedef struct {
 	pcre *anycommand_regc;
 
 	Tcompletionwin completion; /* a popup window for completion */
+#ifdef SNOOPER2
+	gpointer snooper;
+	GtkAccelGroup *accel_group;
+#else
 	guint snooper; /* snooper */
+#endif /* SNOOPER2 */
 } Tmain;
 
 extern Tmain *main_v;

@@ -729,7 +729,11 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 	GtkItemFactory *item_factory;
 	GtkAccelGroup *accel_group;
 	gint nmenu_items = sizeof(menu_items) / sizeof(menu_items[0]);
+#ifdef SNNOOPER2
+	main_v->accel_group = gtk_accel_group_new();
+#else
 	accel_group = gtk_accel_group_new();
+#endif /* SNOOPER2 */
 	item_factory = gtk_item_factory_new(GTK_TYPE_MENU_BAR, "<winefishmain>", accel_group);
 #ifdef ENABLE_NLS
 	gtk_item_factory_set_translate_func(item_factory, menu_translate, "<winefishmain>", NULL);

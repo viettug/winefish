@@ -44,7 +44,7 @@
 #include <time.h> /* ctime_r() */
 #include <pcre.h>
 
-/* #define DEBUG */
+#define DEBUG
 
 #ifdef DEBUGPROFILING
 #include <sys/times.h>
@@ -1486,7 +1486,9 @@ static gchar *get_buffer_from_filename( Tbfwin *bfwin, gchar *filename, int *ret
 	GError *error = NULL;
 	gsize length;
 	gchar *ondiskencoding = get_filename_on_disk_encoding( filename );
+	g_print("get_buffer_from_filename: started\n");
 	result = g_file_get_contents( ondiskencoding, &buffer, &length, &error );
+	g_print("get_buffer_from_filename: done\n");
 	g_free( ondiskencoding );
 	if ( result == FALSE ) {
 		gchar * errmessage = g_strconcat( _( "Could not read file:\n" ), filename, NULL );
