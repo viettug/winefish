@@ -58,6 +58,7 @@ gui.c \
 highlight.c \
 html.c \
 html_diag.c \
+keymap.c \
 image.c \
 menu.c \
 msg_queue.c \
@@ -70,6 +71,7 @@ preferences.c \
 project.c \
 rcfile.c \
 snooper.c \
+snooper2.c \
 snr2.c \
 stringlist.c \
 treetips.c \
