@@ -728,12 +728,7 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 	GtkItemFactory *item_factory;
 	GtkAccelGroup *accel_group;
 	gint nmenu_items = sizeof(menu_items) / sizeof(menu_items[0]);
-#ifdef SNNOOPER2
-	main_v->accel_group = gtk_accel_group_new();
-	accel_group = main_v->accel_group;
-#else
 	accel_group = gtk_accel_group_new();
-#endif /* SNOOPER2 */
 	item_factory = gtk_item_factory_new(GTK_TYPE_MENU_BAR, "<winefishmain>", accel_group);
 #ifdef ENABLE_NLS
 	gtk_item_factory_set_translate_func(item_factory, menu_translate, "<winefishmain>", NULL);
@@ -759,6 +754,10 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 	gtk_accel_map_add_entry("<winefishmain>/Go/Goto Line", GDK_slash, GDK_CONTROL_MASK);
 	gtk_accel_map_add_entry("<winefishmain>/External/Stop...", GDK_Escape, 0);
 	/* gtk_accel_map_add_entry("<winefishmain>/View/View Outputbox", GDK_Escape, GDK_SHIFT_MASK); */
+#ifdef SNNOOPER2
+	main_v->accel_group = accel_group;
+#endif /* SNOOPER2 */
+
 	gtk_widget_show(bfwin->menubar);
 
 	/* setup_toggle_item(item_factory, N_("/View/View Main Toolbar"), main_v->session->view_bars & VIEW_MAIN_TOOLBAR); */
