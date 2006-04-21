@@ -2,6 +2,8 @@
 
 #ifdef SNOOPER2
 
+#define DEBUG
+
 #include <gtk/gtk.h>
 #include <string.h>
 
@@ -49,7 +51,6 @@ static void rcfile_parse_keys(void *keys_list) {
 
 /* this function should be called afted the func_hashtable was initialized */
 void keymap_init(void) {
-	g_print("keys_init:hello\n");
 	GList *keys_list = NULL;
 	rcfile_parse_keys(&keys_list);
 	
