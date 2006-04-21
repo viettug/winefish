@@ -29,7 +29,6 @@
 #include <gdk/gdkkeysyms.h>
 
 /* #define DEBUG*/ 
-
 #include "bluefish.h"
 #include "bfspell.h"
 #include "bookmark.h"
@@ -731,6 +730,7 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 	gint nmenu_items = sizeof(menu_items) / sizeof(menu_items[0]);
 #ifdef SNNOOPER2
 	main_v->accel_group = gtk_accel_group_new();
+	accel_group = main_v->accel_group;
 #else
 	accel_group = gtk_accel_group_new();
 #endif /* SNOOPER2 */

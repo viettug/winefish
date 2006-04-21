@@ -1,9 +1,39 @@
+#include "config.h"
+
 #ifdef SNOOPER2
 
 #include <gtk/gtk.h>
+#include <string.h>
 
+#include "bluefish.h"
+#include "stringlist.h"
 #include "rcfile.h"
 #include "snooper2.h"
+
+static gint func_any(gpointer data) {
+	g_print("func_any: hello\n");
+	return 1;
+}
+
+static void add_function(const char *human_name, FUNCTION computer_name) {
+	Tsnooper *snooper =  SNOOPER(main_v->snooper);
+
+	Tfunc *func;
+	func = g_new0(Tfunc, 1);
+	func->exec = computer_name;
+
+	g_hash_table_insert(snooper->func_hashtable, (gpointer)human_name, func);
+}
+
+void funclist_init() {
+	Tsnooper *snooper =  SNOOPER(main_v->snooper);
+	snooper->func_hashtable = g_hash_table_new((GHashFunc)g_str_hash, (GEqualFunc)g_str_equal);
+	add_function("func_help", func_any);
+	add_function("func_about", func_any);
+	add_function("func_key_list", func_any);
+	add_function("func_complete", func_any);
+	add_function("func_alias", func_any);
+}
 
 static void rcfile_parse_keys(void *keys_list) {
 	gchar *filename;

@@ -1,4 +1,4 @@
-/* $Id: rcfile.h,v 1.2 2005/07/21 08:13:18 kyanh Exp $ */
+/* $Id$ */
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * rcfile.h - functions to load the config
  *
@@ -37,4 +37,9 @@ gboolean rcfile_save_autotext(void);
 void rcfile_parse_autotext(void *autolist);
 gboolean rcfile_save_completion(void);
 void rcfile_parse_completion(void *autolist, void *autolist_s);
+
+void free_configlist(GList *configlist);
+void init_prop_arraylist(GList ** config_list, void *pointer_to_var, gchar * name_of_var, gint len, gboolean setNULL);
+gboolean parse_config_file(GList * config_list, gchar * filename);
+
 #endif /* __RCFILE_H_ */

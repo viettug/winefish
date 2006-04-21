@@ -1,4 +1,4 @@
-/* $Id: snooper.c 2404 2006-04-20 09:22:51Z kyanh $
+/* $Id$
  *
  * lykey, demo gtk-program with emacs-key style
  *
@@ -176,7 +176,6 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, gpointer data)
 }
 
 void snooper_install() {
-	main_v->snooper = g_new0(Tsnooper,1);
 	Tsnooper *snooper =  SNOOPER(main_v->snooper);
 	snooper->id = gtk_key_snooper_install( (GtkKeySnoopFunc) main_snooper, NULL);
 	snooper->last_event = gdk_event_new(GDK_KEY_PRESS);

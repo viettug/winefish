@@ -54,7 +54,7 @@ static GList *main_configlist=NULL;
 static GList *highlighting_configlist=NULL;
 static GList *custom_menu_configlist=NULL;
 
-static void free_configlist(GList *configlist) {
+void free_configlist(GList *configlist) {
 	GList *tmplist = g_list_first(configlist);
 	while(tmplist) {
 		Tconfig_list_item *cli = tmplist->data;
@@ -118,7 +118,7 @@ static void init_prop_stringlist(GList ** config_list, void *pointer_to_var, gch
 	}
 }
 
-static void init_prop_arraylist(GList ** config_list, void *pointer_to_var, gchar * name_of_var, gint len, gboolean setNULL)
+void init_prop_arraylist(GList ** config_list, void *pointer_to_var, gchar * name_of_var, gint len, gboolean setNULL)
 {
 	*config_list = make_config_list_item(*config_list, pointer_to_var, 'a', name_of_var, len);
 	if (setNULL) {
@@ -235,7 +235,7 @@ static gint save_config_file(GList * config_list, gchar * filename)
 	return 1;
 }
 
-static gboolean parse_config_file(GList * config_list, gchar * filename)
+gboolean parse_config_file(GList * config_list, gchar * filename)
 {
 	gboolean retval = FALSE;
 	gchar *tmpstring = NULL, *tmpstring2;

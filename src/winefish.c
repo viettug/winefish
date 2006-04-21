@@ -56,6 +56,10 @@
 /*#include "authen.h" *//* set_authen_callbacks() */
 #include "autox.h" /* kyanh, completion */
 #include "snooper.h" /* snooper_install() */
+#ifdef SNOOPER2
+#include "keymap.h" /* keymap_init() */
+#include "snooper2.h"
+#endif /* SNOOPER2 */
 
 /*********************************************/
 /* this var is global for all bluefish files */
@@ -216,6 +220,15 @@ int main(int argc, char *argv[])
 	splash_screen_set_label(_("parsing custom menu file..."));
 #endif /* #ifndef NOSPLASH */
 	rcfile_parse_custom_menu(FALSE,FALSE);
+
+#ifdef SNOOPER2
+#ifndef NOSPLASH
+	splash_screen_set_label(_("parsing the keymap..."));
+#endif /* #ifndef NOSPLASH */
+	main_v->snooper = g_new0(Tsnooper,1);
+	keymap_init();
+#endif /* SNOOPER2 */
+	
 	main_v->tooltips = gtk_tooltips_new();
 	/* initialize the completion window */
 	main_v->completion.window = NULL;
@@ -278,6 +291,9 @@ int main(int argc, char *argv[])
 	/* snooper must be installed after the main gui has shown;
 	otherwise the program may be aborted */
 	snooper_install();
+#ifdef SNOOPER2
+	funclist_init();
+#endif /* SNOOPER2 */
 
 	DEBUG_MSG("main, before gtk_main()\n");
 	gtk_main();
