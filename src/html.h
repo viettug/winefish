@@ -1,4 +1,4 @@
-/* $Id: html.h,v 1.1.1.1 2005/06/29 11:03:26 kyanh Exp $ */
+/* $Id$ */
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * html.h - menu/toolbar callback prototypes
  *
@@ -26,4 +26,4 @@
 /* void insert_char_cb(Tbfwin* bfwin,guint callback_action, GtkWidget *widget); */
 void general_html_menu_cb(Tbfwin* bfwin,guint callback_action, GtkWidget *widget);
 
-#endif							/* __HTML_H_ */
+#endif /* __HTML_H_ */

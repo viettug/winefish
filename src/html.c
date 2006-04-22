@@ -1,4 +1,4 @@
-/* $Id: html.c,v 1.2 2005/07/21 08:59:47 kyanh Exp $ */
+/* $Id$ */
 
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * html.c - menu/toolbar callbacks, inserting functions, and other cool stuff 
@@ -31,9 +31,9 @@
 #include <gtk/gtk.h>
 
 #include "bluefish.h"
-#include "html.h" 	/* myself */
-#include "html_diag.h" 	/* the new html dialog stuff  */
-#include "bf_lib.h"	/* bf_str_repeat() */
+#include "html.h" /* myself */
+#include "html_diag.h" /* the new html dialog stuff  */
+#include "bf_lib.h" /* bf_str_repeat() */
 #include "document.h" /* doc_insert_two_strings() */
 
 void general_html_menu_cb(Tbfwin* bfwin,guint callback_action, GtkWidget *widget) {
@@ -130,12 +130,7 @@ void general_html_menu_cb(Tbfwin* bfwin,guint callback_action, GtkWidget *widget
 		break;
 	case 31:
 		doc_insert_two_strings(bfwin->current_document, "\\begin{align}\n", "\n\\end{align}");
-		break;	
-		/*		
-	case 32:
-		doc_insert_two_strings(bfwin->current_document, "\\begin{flalign}\n", "\n\\end{flalign}");
-		break;	
-		*/
+		break;
 	case 33:
 		doc_insert_two_strings(bfwin->current_document, "\\begin{itemize}\n\\item", "\n\\item\n\\end{itemize}");
 		break;
@@ -163,10 +158,6 @@ void general_html_menu_cb(Tbfwin* bfwin,guint callback_action, GtkWidget *widget
 	case 41:
 		doc_insert_two_strings(bfwin->current_document, "\\begin{align*}\n", "\n\\end{align*}");
 		break;
-/*	case 42:
-		doc_insert_two_strings(bfwin->current_document, "\\begin{flalign*}\n", "\n\\end{flalign*}");
-		break;
-		*/
 	case 43:
 		doc_insert_two_strings(bfwin->current_document, "\\begin{alignat*}{", "}\n\n\\end{alignat*}");
 		break;
@@ -228,58 +219,6 @@ void general_html_menu_cb(Tbfwin* bfwin,guint callback_action, GtkWidget *widget
 	case 116:
 		doc_insert_two_strings(bfwin->current_document, "\\subsubsection*{", "}\n\\addcontentsline{toc}{subsubsection}{}");
 		break;
-/*
-	case 117:
-		doc_insert_two_strings(bfwin->current_document, "\\mathrm{","}");
-		break;
-	case 118:
-		doc_insert_two_strings(bfwin->current_document, "\\mathit{","}");
-		break;
-	case 119:
-		doc_insert_two_strings(bfwin->current_document, "\\mathbf{","}");
-		break;
-	case 120:
-		doc_insert_two_strings(bfwin->current_document, "\\mathsf{","}");
-		break;
-	case 121:
-		doc_insert_two_strings(bfwin->current_document, "\\mathtt{","}");
-		break;
-	case 122:
-		doc_insert_two_strings(bfwin->current_document, "\\mathcal{","}");
-		break;
-	case 123:
-		doc_insert_two_strings(bfwin->current_document, "\\mathbb{","}");
-		break;
-	case 124:
-		doc_insert_two_strings(bfwin->current_document, "\\mathfrak{","}");
-		break;
-*/
-/*
-	case 125:
-		doc_insert_two_strings(bfwin->current_document, "\\thinspace ","");
-		break;
-	case 126:
-		doc_insert_two_strings(bfwin->current_document, "\\medspace ","");
-		break;
-	case 127:
-		doc_insert_two_strings(bfwin->current_document, "\\thickspace ","");
-		break;
-	case 128:
-		doc_insert_two_strings(bfwin->current_document, "\\quad ","");
-		break;
-	case 129:
-		doc_insert_two_strings(bfwin->current_document, "\\quadquad ","");
-		break;
-	case 130:
-		doc_insert_two_strings(bfwin->current_document, "\\negthinspace ","");
-		break;
-	case 131:
-		doc_insert_two_strings(bfwin->current_document, "\\negmedspace ","");
-		break;
-	case 132:
-		doc_insert_two_strings(bfwin->current_document, "\\negthickspace ","");
-		break;
-*/
 	default:
 		break;
 	}
