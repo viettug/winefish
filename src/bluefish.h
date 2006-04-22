@@ -410,6 +410,8 @@ Note: VIEW_LINE_NUMBER is session variable;
 adding it to MODE_DEFAULT takes no effect.
 */
 
+#include "func_all.h"
+
 /* public functions from winefish.c */
 void bluefish_exit_request();
 #endif /* __BLUEFISH_H_ */

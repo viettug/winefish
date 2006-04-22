@@ -39,7 +39,7 @@ static gboolean snooper_loopkup_keyseq(GtkWidget *widget, GdkEventKey *kevent1, 
 	Tsnooper *snooper;
 	gchar *value;
 	gboolean retval;
-	
+
 	ch = gdk_keyval_to_unicode( kevent1->keyval );
 	ctrl = kevent1->state & GDK_CONTROL_MASK ? "<control>": "";
 	shift = kevent1->state & GDK_SHIFT_MASK ? "<shift>": "";
