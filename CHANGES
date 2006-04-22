@@ -1,5 +1,15 @@
 $Id$
 
+Winefish 1.4.0.1
+================
+
+* new features:
+- key sequence shortcuts ($HOME/.winefish/keymap)
+
+* stuff:
+- man page updated
+- optimized and cleaned up
+
 Winefish 1.3.3
 ==============
 
