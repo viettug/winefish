@@ -1,10 +1,17 @@
-.TH "Winefish" "1" "1.3.2" "kyanh" "User Commands"
+.\" Winefish manpage
+.\"
+.\" Customization by Daniel Leidert for the Debian distribution.
+.\"
+.TH "WINEFISH" "1" "2006-04-14" "winefish 1.3.3" "Winefish Documentation"
+
 .SH "NAME"
 .LP 
 \fBwinefish\fR \- LaTeX editor
-.SH "SYNTAX"
+
+.SH "SYNOPSIS"
 .LP 
-\fBwinefish\fR [\fIoption\fP] <\fIfilename\fP>
+\fBwinefish [OPTION...] \fIFILENAME\fR
+
 .SH "DESCRIPTION"
 .LP 
 \fBwinefish\fR is a LaTeX editor based on bluefish. It features:
@@ -19,92 +26,100 @@
 .LP 
 \- custom menu to define your own tags, sets of code, and dialogs
 .LP 
-\- customizable syntax highlighting based on PCRE
+\- customizable syntax highlighting based on \fBPCRE\fR(3)
 .LP 
-\- user customizable integration of latex, pdflatex,...
+\- user customizable integration of \fBlatex\fR(1), \fBpdflatex\fR(1),...
 .LP 
 \- custom search and replace pattern support for the custom menu
 .LP 
 \- wizards for startup, tables, list and others
+.TP
+\fBHomepage\fR
+\fI\%http://winefish.berlios.de\fR
+.br
+\fI\%http://winefish.viettug.org\fR
+.br
+\fI\%http://winefish.sourceforge.net\fR
+.TP
+\fBMailing lists\fR
+\fI\%winefish\-devel@lists.berlios.de\fR (development)
+.br
+\fI\%winefish\-users@lists.berlios.de\fR (users)
+
 .SH "OPTIONS"
+.PP
+\fBwinefish\fR currently supports the following options (in alphabetical
+order):
+.TP 
+\fB\-l \fILINENUMBER\fR
+Set the line number the file will be opened at.
+.TP 
+\fB\-n { \fI0\fB\ | \fI1\fB }\fR
+Open a new window (\fI1\fR) or not (\fI0\fR).
+.TP 
+\fB\-p \fIPROJECTFILE\fR
+Open the specified project file.
 .TP 
 \fB\-s\fR
-Skip root check
-.TP 
-\fB\-v\fR
-Show the current version of \fBwinefish\fR
-.TP 
-\fB\-n 0|1\fR
-Open a new window (1) or not (0)
-.TP 
-\fB\-p <filename>\fR
-Open the project named <filename>
-.TP 
-\fB\-l <linenumber>\fR
-Set the line number the file will be opened at
+Skip root check.
 .TP 
 \fB\-h\fR
-Show this help screen
+Show this help screen.
+.TP 
+\fB\-v\fR
+Show the current version of \fBwinefish\fR.
+
 .SH "FILES"
 .LP 
-Some configuration files are loaded into $HOME/.winefish:
+Some configuration files are loaded into \fI$HOME/.winefish\fR:
 .TP 
-\fBautotext\fR 
+\fI$HOME/.winefish/autotext\fR 
 Store shorcuts for text, i.e. LaTeX blocks
 .IP 
 You may edit it from the autotext panel in the preferences window
 .TP 
-\fBcustom_menu\fR 
+\fI$HOME/.winefish/custom_menu\fR 
 Define the contents of the custom menu
 .IP 
 You may edit it from the Edit custom menu item
 .TP 
-\fBhightlighting\fR 
+\fI$HOME/.winefish/hightlighting\fR 
 Define the highlighting patterns for some languages
 .IP 
 You may edit it from the highlighting panel in the preferences window
 .TP 
-\fBrcfile\fR 
+\fI$HOME/.winefish/rcfile\fR 
 Store most of the other settings defined in the preferences window
 .IP 
 You may modify the settings in the various panels of the preferences window
 .TP 
-\fBwords\fR 
+\fI$HOME/.winefish/words\fR 
 Store a list of tags for autocompletion
 .IP 
 You may add tags from the autoX panel in the preferences window
 
 .SH "EXAMPLES"
 .TP 
-\fBStarting winefish from the command line:\fR
-winefish
+Starting \fBwinefish\fR from the command line:
+\fBwinefish\fR
 .TP 
-\fBOpening a file in a new window at line 100:\fR
-winefish \-n 1 \-l 100 <filename>
+Opening a file foo in a new window at line 100:
+\fBwinefish \-n 1 \-l 100 \fIfoo\fR
 .TP 
-\fBOpening a project in the current window:\fR
-winefish \-n 0 \-p <project_filename>
+Opening a project foo in the current window:
+\fBwinefish \-n 0 \-p \fIfoo.wfproject\fR
+
+.SH "SEE ALSO"
+.LP
+\fBlatex\fR(1), \fBpdflatex\fR(1), \fBdvips\fR(1), \fBdvipdfm\fR(1),
+\fBxdvi\fR(1), \fBxpdf\fR(1), \fBgv\fR(1),
+\fI$prefix/share/doc/winefish/winefish.html\fR
+
 .SH "AUTHORS"
-.TP 
-\fBDocumentation\fR
-see $prefix/share/doc/winefish.html
-.TP 
-\fBHomepage\fR
-http://winefish.berlios.de/
-.IP 
-http://winefish.viettug.org/
-.IP 
-http://winefish.sourceforge.net/
-.TP 
-\fBMailing lists\fR
-(devel) winefish\-devel@lists.berlios.de
-.IP 
-(user) winefish\-users@lists.berlios.de
 .LP 
-This manual page was written for the Fink distribution
-as the original program does not have a manual page
-by Michele Garoche <michele.garoche@easyconnect.fr>.
-.LP 
-It may be used by other distribution.
+This manual page was written by Michèle Garoche
+<michele.garoche@easyconnect.fr> for the Fink distribution
+as the original program does not have a manual page. But it may
+be used by other distributions.
 .LP
 $LastChangedBy$
