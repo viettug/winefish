@@ -2,8 +2,6 @@
 
 #ifdef SNOOPER2
 
-#define DEBUG
-
 #include <gtk/gtk.h>
 #include <string.h>
 
@@ -17,12 +15,13 @@ static gint func_any(gpointer data) {
 	return 1;
 }
 
-static void add_function(const char *human_name, FUNCTION computer_name) {
+static void add_function(const char *human_name, FUNCTION computer_name, gint type) {
 	Tsnooper *snooper =  SNOOPER(main_v->snooper);
 
 	Tfunc *func;
 	func = g_new0(Tfunc, 1);
 	func->exec = computer_name;
+	func->type = type;
 
 	g_hash_table_insert(snooper->func_hashtable, (gpointer)human_name, func);
 }
@@ -30,11 +29,11 @@ static void add_function(const char *human_name, FUNCTION computer_name) {
 void funclist_init() {
 	Tsnooper *snooper =  SNOOPER(main_v->snooper);
 	snooper->func_hashtable = g_hash_table_new((GHashFunc)g_str_hash, (GEqualFunc)g_str_equal);
-	add_function("func_help", func_any);
-	add_function("func_about", func_any);
-	add_function("func_key_list", func_any);
-	add_function("func_complete", func_any);
-	add_function("func_alias", func_any);
+	add_function("func_help", func_any, FUNC_ANY);
+	add_function("func_about", func_any, FUNC_ANY);
+	add_function("func_key_list", func_any, FUNC_ANY);
+	add_function("func_complete", func_any, FUNC_TEXT_VIEW);
+	add_function("func_alias", func_any, FUNC_ANY);
 }
 
 static void rcfile_parse_keys(void *keys_list) {
@@ -68,13 +67,10 @@ void keymap_init(void) {
 					gchar *keyseq, *func_name;
 					keyseq = g_strdup(strarr[1]);
 					func_name = g_strdup(strarr[0]);
-					/* TODO: check if func valid.... */
 					g_hash_table_insert(snooper->key_hashtable, keyseq, func_name);
-					/* please donot free tmpstr ;) */
 					DEBUG_MSG("keys_init: map [func=%s] to [keys_seq=%s]\n", func_name, keyseq);
 				}
 			}
-			/* else: replace the old by the new one */
 		}
 		tmp2list = g_list_next(tmp2list);
 	}
