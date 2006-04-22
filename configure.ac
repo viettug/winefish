@@ -23,7 +23,7 @@ AC_CONFIG_SRCDIR(src/winefish.c)
 AC_CONFIG_HEADER(src/config.h)
 
 PACKAGE=winefish
-VERSION=1.3.2
+VERSION=1.4.0.1
 AC_SUBST(PACKAGE)
 AC_SUBST(VERSION)
 AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
@@ -613,5 +613,5 @@ AC_SUBST(INSTALLDATA)
 AC_SUBST(INSTALLMAIN)
 AC_SUBST(MAKEMAIN)
 
-AC_CONFIG_FILES(Makefile icons/Makefile src/Makefile data/Makefile po/Makefile man/Makefile)
+AC_CONFIG_FILES(Makefile icons/Makefile src/Makefile data/Makefile po/Makefile man/Makefile man/winefish.1)
 AC_OUTPUT

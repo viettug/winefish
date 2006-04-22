@@ -7876,7 +7876,7 @@ fi;
 
 
 
-                                                            ac_config_files="$ac_config_files Makefile icons/Makefile src/Makefile data/Makefile po/Makefile man/Makefile"
+                                                                      ac_config_files="$ac_config_files Makefile icons/Makefile src/Makefile data/Makefile po/Makefile man/Makefile man/winefish.1"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -8419,6 +8419,7 @@ do
   "data/Makefile" ) CONFIG_FILES="$CONFIG_FILES data/Makefile" ;;
   "po/Makefile" ) CONFIG_FILES="$CONFIG_FILES po/Makefile" ;;
   "man/Makefile" ) CONFIG_FILES="$CONFIG_FILES man/Makefile" ;;
+  "man/winefish.1" ) CONFIG_FILES="$CONFIG_FILES man/winefish.1" ;;
   "default-1" ) CONFIG_COMMANDS="$CONFIG_COMMANDS default-1" ;;
   "src/config.h" ) CONFIG_HEADERS="$CONFIG_HEADERS src/config.h" ;;
   *) { { echo "$as_me:$LINENO: error: invalid argument: $ac_config_target" >&5
