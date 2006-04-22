@@ -1,10 +1,8 @@
 /* $Id$ */
 
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
- * bfspell.c - aspell spell checker
  *
- * Copyright (C) 2002-2004 Olivier Sessink
- * Modified for Winefish (C) 2005 2006 kyanh <kyanh@o2.pl>
+ * Copyright (C) 2006 kyanh <kyanh@o2.pl>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
