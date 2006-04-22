@@ -1,41 +1,60 @@
 .\" Winefish manpage
 .\"
-.\" Copyright (c) 2006 Michèle Garoche, Daniel Leidert, kyanh
+.\" Copyright (c) 2006 Michèle Garoche
+.\" Copyright (c) 2006 Daniel Leidert
+.\" Copyright (c) 2006 kyanh
 .\"
-.\" The original file was created by Michèle Garoche.
-.\"
+.\" The original file was written by Michèle Garoche.
 .\" Customization by Daniel Leidert for the Debian distribution.
 .\"
-.TH "WINEFISH" "1" "2006-04-14" "Winefish @VERSION@" "Winefish Documentation"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 2 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program; if not, write to the Free Software
+.\" Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+.\"
+.TH "WINEFISH" "1" "Winefish @VERSION@" "Winefish Documentation"
 
 .SH "NAME"
-.LP 
+.LP
 \fBwinefish\fR \- LaTeX editor
 
 .SH "SYNOPSIS"
-.LP 
+.LP
 \fBwinefish [OPTION...] \fIFILENAME\fR
 
 .SH "DESCRIPTION"
-.LP 
+.LP
 \fBwinefish\fR is a LaTeX editor based on bluefish. Its features:
-.LP 
+.LP
 \- autotext support
 .br
 \- autocompletion support
-.br 
+.br
+\- autobrace matching
+.br
 \- command collector
-.br 
+.br
 \- multiple encodings support
-.br 
+.br
+\- customizable key sequence shortcuts
+.br
 \- custom menu to define your own tags, sets of code, and dialogs
-.br 
+.br
 \- customizable syntax highlighting based on \fBPCRE\fR(3)
-.br 
-\- user customizable integration of \fBlatex\fR(1), \fBpdflatex\fR(1),...
-.br 
+.br
+\- user customizable integration of \fBlatex\fR(1), \fBpdflatex\fR(1),
+.br
 \- custom search and replace pattern support for the custom menu
-.br 
+.br
 \- wizards for startup, tables, list and others
 .TP
 \fBHomepage\fR
@@ -54,62 +73,60 @@
 .PP
 \fBwinefish\fR currently supports the following options (in alphabetical
 order):
-.TP 
+.TP
 \fB\-l \fILINENUMBER\fR
 Set the line number the file will be opened at.
-.TP 
+.LP
 \fB\-n { \fI0\fB\ | \fI1\fB }\fR
 Open a new window (\fI1\fR) or not (\fI0\fR).
-.TP 
+.LP
 \fB\-p \fIPROJECTFILE\fR
 Open the specified project file.
-.TP 
+.LP
 \fB\-s\fR
 Skip root check.
-.TP 
+.LP
 \fB\-h\fR
 Show this help screen.
-.TP 
+.LP
 \fB\-v\fR
 Show the current version of \fBwinefish\fR.
 
 .SH "FILES"
-.LP 
+.LP
 Some configuration files are loaded into \fI$HOME/.winefish\fR:
-.TP 
+.TP
 \fI$HOME/.winefish/autotext\fR 
-Store shorcuts for text, i.e. LaTeX blocks
-.IP 
-You may edit it from the autotext panel in the preferences window
-.TP 
+Store shorcuts for text, i.e. LaTeX blocks.
+You may edit it from the autotext panel in the preferences window.
+.TP
 \fI$HOME/.winefish/custom_menu\fR 
-Define the contents of the custom menu
-.IP 
-You may edit it from the Edit custom menu item
-.TP 
+Define the contents of the custom menu.
+You may edit it from the Edit custom menu item.
+.TP
 \fI$HOME/.winefish/hightlighting\fR 
-Define the highlighting patterns for some languages
-.IP 
-You may edit it from the highlighting panel in the preferences window
-.TP 
-\fI$HOME/.winefish/rcfile\fR 
-Store most of the other settings defined in the preferences window
-.IP 
-You may modify the settings in the various panels of the preferences window
-.TP 
-\fI$HOME/.winefish/words\fR 
-Store a list of tags for autocompletion
-.IP 
-You may add tags from the autoX panel in the preferences window
+Define the highlighting patterns for some languages.
+You may edit it from the highlighting panel in the preferences window.
+.TP
+\fI$HOME/.winefish/rcfile\fR
+Store most of the other settings defined in the preferences window.
+You may modify the settings in the various panels of the preferences window.
+.TP
+\fI$HOME/.winefish/words\fR
+Store a list of tags for autocompletion.
+You may add tags from the autoX panel in the preferences window.
+.TP
+\fI$HOME/.winefish/keymap\fR
+Store the key sequence shortcuts.
 
 .SH "EXAMPLES"
-.TP 
+.TP
 Starting \fBwinefish\fR from the command line:
 \fBwinefish\fR
-.TP 
+.TP
 Opening a file foo in a new window at line 100:
 \fBwinefish \-n 1 \-l 100 \fIfoo\fR
-.TP 
+.TP
 Opening a project foo in the current window:
 \fBwinefish \-n 0 \-p \fIfoo.wfproject\fR
 
@@ -117,12 +134,17 @@ Opening a project foo in the current window:
 .LP
 \fBlatex\fR(1), \fBpdflatex\fR(1), \fBdvips\fR(1), \fBdvipdfm\fR(1),
 \fBxdvi\fR(1), \fBxpdf\fR(1), \fBgv\fR(1),
-\fI@prefix@/share/doc/winefish/winefish.html\fR
+\fI\%@prefix@/share/doc/winefish/winefish.html\fR
 
 .SH "AUTHORS"
 .LP
-This manual page was written by Michèle Garoche
-<michele.garoche@easyconnect.fr> for the Fink distribution
-as the original program does not have a manual page. But it may
-be used by other distributions.
+Winefish is written and maintained by kyanh <kyanh@viettug.org>
+with contributions from many individuals around the world.
+The main code of program is based on Bluefish HTML Editor
+(\fBhttp://bluefish.sf.net/\fR).
+.LP
+This man page was originally written by Michèle Garoche
+<michele.garoche@easyconnect.fr> for the Fink distribution.
+Daniel Leidert <daniele@medri.org> was customed it for the Debian distribution.
+Its last changes were made by kyanh <kyanh@viettug.org>.
 .LP
