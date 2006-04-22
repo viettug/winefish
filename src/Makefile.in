@@ -52,6 +52,9 @@ char_table.c \
 document.c \
 filebrowser.c \
 fref.c \
+func_complete.c \
+func_delline.c \
+func_shift.c \
 func_grep.c \
 gtk_easy.c \
 gui.c \
