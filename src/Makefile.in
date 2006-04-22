@@ -53,6 +53,7 @@ document.c \
 filebrowser.c \
 fref.c \
 func_complete.c \
+func_comment.c \
 func_delline.c \
 func_shift.c \
 func_grep.c \
