@@ -58,7 +58,6 @@
 #include "snooper.h" /* snooper_install() */
 #ifdef SNOOPER2
 #include "keymap.h" /* keymap_init() */
-#include "snooper2.h"
 #endif /* SNOOPER2 */
 
 /*********************************************/
@@ -223,10 +222,10 @@ int main(int argc, char *argv[])
 
 #ifdef SNOOPER2
 #ifndef NOSPLASH
-	splash_screen_set_label(_("parsing the keymap..."));
+	splash_screen_set_label(_("parsing keymap and initializing function list..."));
 #endif /* #ifndef NOSPLASH */
-	main_v->snooper = g_new0(Tsnooper,1);
 	keymap_init();
+	funclist_init();
 #endif /* SNOOPER2 */
 	
 	main_v->tooltips = gtk_tooltips_new();
@@ -290,9 +289,8 @@ int main(int argc, char *argv[])
 
 	/* snooper must be installed after the main gui has shown;
 	otherwise the program may be aborted */
+#ifndef SNOOPER2
 	snooper_install();
-#ifdef SNOOPER2
-	funclist_init();
 #endif /* SNOOPER2 */
 
 	DEBUG_MSG("main, before gtk_main()\n");

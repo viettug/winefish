@@ -4696,11 +4696,3 @@ void file_floatingview_menu_cb( Tbfwin *bfwin, guint callback_action, GtkWidget 
 	new_floatingview( bfwin->current_document );
 }
 
-/* kyanh, added */
-void menu_comment_cb( Tbfwin *bfwin, guint callback_action, GtkWidget *widget )
-{
-	if ( bfwin->current_document ) {
-		doc_comment_selection( bfwin->current_document, ( callback_action == 1 ) );
-	}
-}
-

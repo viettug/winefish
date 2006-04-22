@@ -36,7 +36,6 @@ static gboolean snooper_loopkup_keyseq(GtkWidget *widget, GdkEventKey *kevent1, 
 	const gchar *ctrl, *shift, *mod1;
 	const gchar *ctrl2, *shift2, *mod12;
 	guint32 ch, ch2;
-	Tsnooper *snooper;
 	gchar *value;
 	gboolean retval;
 
@@ -56,12 +55,11 @@ static gboolean snooper_loopkup_keyseq(GtkWidget *widget, GdkEventKey *kevent1, 
 		tmpstr = g_strdup_printf("%s%s%s%c",ctrl,shift,mod1,ch);
 	}
 
-	snooper = SNOOPER(main_v->snooper);
 	retval = FALSE;
-	value = g_hash_table_lookup(snooper->key_hashtable, tmpstr);
+	value = g_hash_table_lookup(main_v->key_hashtable, tmpstr);
 	if (value) {
 		gpointer value_;
-		value_ = g_hash_table_lookup(snooper->func_hashtable,value);
+		value_ = g_hash_table_lookup(main_v->func_hashtable,value);
 		if (value_) {
 			if ( FUNC_VALID_TYPE(FUNC(value_)->type, widget ) ) {
 				retval = TRUE;
@@ -94,7 +92,7 @@ static gboolean snooper_loopkup_keys_in_accel_map(GdkEventKey *kevent) {
 }
 
 static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, gpointer data) {
-	Tsnooper *snooper =  SNOOPER(main_v->snooper);
+	Tsnooper *snooper =  SNOOPER(BFWIN(data)->snooper);
 	if ( snooper->stat == SNOOPER_CANCEL_RELEASE_EVENT ) {
 		snooper->stat = 0;
 		return TRUE;
@@ -135,10 +133,10 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, gpointer data)
 	return FALSE;
 }
 
-void snooper_install() {
-	Tsnooper *snooper =  SNOOPER(main_v->snooper);
-	snooper->id = gtk_key_snooper_install( (GtkKeySnoopFunc) main_snooper, NULL);
-	snooper->last_event = gdk_event_new(GDK_KEY_PRESS);
+void snooper_install(Tbfwin *bfwin) {
+	bfwin->snooper = g_new0(Tsnooper,1);
+	SNOOPER(bfwin->snooper)->id = gtk_key_snooper_install( (GtkKeySnoopFunc) main_snooper, bfwin);
+	SNOOPER(bfwin->snooper)->last_event = gdk_event_new(GDK_KEY_PRESS);
 }
 
 #endif /* SNOOPER2 */

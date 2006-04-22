@@ -26,7 +26,7 @@
 #include "document.h"
 #include "stringlist.h" /* count_array */
 
-void doc_comment_selection( Tdocument *doc, gboolean uncomment )
+static void doc_comment_selection( Tdocument *doc, gboolean uncomment )
 {
 	GtkTextIter itstart, itend;
 	if ( gtk_text_buffer_get_selection_bounds( doc->buffer, &itstart, &itend ) ) {
@@ -140,5 +140,12 @@ void doc_comment_selection( Tdocument *doc, gboolean uncomment )
 			gtk_text_buffer_insert( doc->buffer, &iter, indentstring, indentlen );
 			g_free( indentstring );
 		}
+	}
+}
+
+void menu_comment_cb( Tbfwin *bfwin, guint callback_action, GtkWidget *widget )
+{
+	if ( bfwin->current_document ) {
+		doc_comment_selection( bfwin->current_document, ( callback_action == 1 ) );
 	}
 }

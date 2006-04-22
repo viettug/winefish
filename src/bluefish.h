@@ -323,8 +323,10 @@ typedef struct {
 	gpointer bmark;
 	GtkTreeStore *bookmarkstore; /* this is a link to project->bookmarkstore OR main_v->bookmarkstore
 		and it is only here for convenience !!!! */
-	GHashTable *bmark_files;     /* no way, I have to have list of file iters. Other way I 
-	                                cannot properly load bmarks for closed files */
+	GHashTable *bmark_files; /* no way, I have to have list of file iters. Other way I cannot properly load bmarks for closed files */
+#ifdef SNOOPER2
+	gpointer snooper;
+#endif /* SNOOPER2 */
 } Tbfwin;
 
 typedef struct {
@@ -359,7 +361,8 @@ typedef struct {
 
 	Tcompletionwin completion; /* a popup window for completion */
 #ifdef SNOOPER2
-	gpointer snooper;
+	GHashTable *key_hashtable;
+	GHashTable *func_hashtable;
 	GtkAccelGroup *accel_group;
 #else
 	guint snooper; /* snooper */

@@ -630,6 +630,9 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames, gint linenumber) {
 	/* first a menubar */
 	DEBUG_MSG("gui_create_main, starting menu_create_main\n");
 	menu_create_main(bfwin, vbox);
+#ifdef SNOOPER2
+	snooper_install(bfwin);
+#endif /* SNOOPER2 */
 	DEBUG_MSG("gui_create_main, starting recent_menu\n");
 	recent_menu_init(bfwin);
 	DEBUG_MSG("gui_create_main, starting external-encoding_menu\n");

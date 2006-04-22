@@ -16,19 +16,15 @@ static gint func_any(gpointer data) {
 }
 
 static void add_function(const char *human_name, FUNCTION computer_name, gint type) {
-	Tsnooper *snooper =  SNOOPER(main_v->snooper);
-
 	Tfunc *func;
 	func = g_new0(Tfunc, 1);
 	func->exec = computer_name;
 	func->type = type;
-
-	g_hash_table_insert(snooper->func_hashtable, (gpointer)human_name, func);
+	g_hash_table_insert(main_v->func_hashtable, (gpointer)human_name, func);
 }
 
 void funclist_init() {
-	Tsnooper *snooper =  SNOOPER(main_v->snooper);
-	snooper->func_hashtable = g_hash_table_new((GHashFunc)g_str_hash, (GEqualFunc)g_str_equal);
+	main_v->func_hashtable = g_hash_table_new((GHashFunc)g_str_hash, (GEqualFunc)g_str_equal);
 	add_function("func_help", func_any, FUNC_ANY);
 	add_function("func_about", func_any, FUNC_ANY);
 	add_function("func_key_list", func_any, FUNC_ANY);
@@ -52,22 +48,18 @@ static void rcfile_parse_keys(void *keys_list) {
 void keymap_init(void) {
 	GList *keys_list = NULL;
 	rcfile_parse_keys(&keys_list);
-	
-	Tsnooper *snooper =  SNOOPER(main_v->snooper);
-
-	snooper->key_hashtable = g_hash_table_new((GHashFunc)g_str_hash, (GEqualFunc)g_str_equal);
-
+	main_v->key_hashtable = g_hash_table_new((GHashFunc)g_str_hash, (GEqualFunc)g_str_equal);
 	GList *tmp2list = g_list_first(keys_list);
 	while (tmp2list) {
 		gchar **strarr;
 		strarr = (gchar **) tmp2list->data;
 		if (count_array(strarr) == 2) {
-			if (!g_hash_table_lookup(snooper->key_hashtable, strarr[0])) {
+			if (!g_hash_table_lookup(main_v->key_hashtable, strarr[0])) {
 				if (strlen(strarr[1])) {
 					gchar *keyseq, *func_name;
 					keyseq = g_strdup(strarr[1]);
 					func_name = g_strdup(strarr[0]);
-					g_hash_table_insert(snooper->key_hashtable, keyseq, func_name);
+					g_hash_table_insert(main_v->key_hashtable, keyseq, func_name);
 					DEBUG_MSG("keys_init: map [func=%s] to [keys_seq=%s]\n", func_name, keyseq);
 				}
 			}

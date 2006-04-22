@@ -1,4 +1,4 @@
-/* $Id: autox.c,v 1.2 2005/07/21 07:52:44 kyanh Exp $ */
+/* $Id$ */
 
 /* Winefish LaTeX Editor
  *
