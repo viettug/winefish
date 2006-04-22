@@ -1,4 +1,4 @@
-/* $Id: snooper.h 2411 2006-04-21 04:32:31Z kyanh $ */
+/* $Id$ */
 
 #ifndef __SNOOPER_H__
 #define __SNOOPER_H__
@@ -12,11 +12,16 @@
 #define SNOOPER_IS_KEYSEQ(var) ( (var->state & SNOOPER_CONTROL_MASKS) && SNOOPER_SHOULD_CAPTURE( var->keyval ) )
 
 enum {
-SNOOPER_HALF_SEQ = 1<<0,
-SNOOPER_FULL_SEQ  = 1<<1,
-SNOOPER_CANCEL_RELEASE_EVENT = 1<<2,
-SNOOPER_TODO = 1<<3
+	SNOOPER_HALF_SEQ = 1<<0,
+	SNOOPER_FULL_SEQ  = 1<<1,
+	SNOOPER_CANCEL_RELEASE_EVENT = 1<<2,
 };
+
+enum {
+	FUNC_ANY = 1<<0,
+	FUNC_TEXT_VIEW = 1<<1
+};
+#define FUNC_VALID_TYPE(type,widget) ( (type & FUNC_ANY) ||  ( (type & FUNC_TEXT_VIEW ) && GTK_IS_TEXT_VIEW(widget) ) )
 
 typedef gint (*FUNCTION)(gpointer data);
 
@@ -26,12 +31,12 @@ typedef struct {
 	GdkEvent *last_event;
 	GHashTable *key_hashtable;
 	GHashTable *func_hashtable;
-	gpointer todo;
 } Tsnooper;
 #define SNOOPER(var) ( (Tsnooper*)var)
 
 typedef struct {
 	FUNCTION exec;
+	gint type;
 	/* other stuff (function description, for e.g.) */
 } Tfunc;
 #define FUNC(var) ( (Tfunc*)var)
