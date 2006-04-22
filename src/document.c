@@ -67,6 +67,7 @@
 #include "bookmark.h"
 #include "autox.h" /* autotext_done() */
 #include "snooper.h"
+
 #include "brace_finder.h" /* VALID_BRACE */
 
 #include "func_grep.h"
@@ -1986,10 +1987,6 @@ static gboolean completion_popup_menu( GtkWidget *widget, GdkEventKey *kevent, T
 }
 
 static gboolean doc_view_key_press_lcb( GtkWidget *widget, GdkEventKey *kevent, Tdocument *doc ) {
-
-#ifdef SHOW_SNOOPER
-	g_print("doc: got key pressed\n");
-#endif
 	if ( ! ( (kevent->state & GDK_CONTROL_MASK) && ( (kevent->keyval == GDK_bracketleft) || (kevent->keyval == GDK_bracketright) ) ) ) {
 		brace_finder(doc->buffer, doc->brace_finder, 0, -1);
 	}
@@ -2154,10 +2151,6 @@ static gboolean doc_view_key_press_lcb( GtkWidget *widget, GdkEventKey *kevent, 
 #endif
 		gtk_widget_hide_all( main_v->completion.window );
 	}
-	/* moved to snooper.c :: completion_snooper()
-	main_v->lastkp_keyval = kevent->keyval;
-	main_v->lastkp_hardware_keycode = kevent->hardware_keycode;
-	*/
 	return FALSE; /* we didn't handle all of the event */
 }
 
