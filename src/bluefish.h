@@ -364,6 +364,7 @@ typedef struct {
 	GHashTable *key_hashtable;
 	GHashTable *func_hashtable;
 	GtkAccelGroup *accel_group;
+	guint active_snooper;
 #else
 	guint snooper; /* snooper */
 #endif /* SNOOPER2 */

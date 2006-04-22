@@ -91,8 +91,12 @@ static gboolean snooper_loopkup_keys_in_accel_map(GdkEventKey *kevent) {
 	return retval;
 }
 
-static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, gpointer data) {
-	Tsnooper *snooper =  SNOOPER(BFWIN(data)->snooper);
+static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin) {
+	Tsnooper *snooper =  SNOOPER(bfwin->snooper);
+	DEBUG_MSG("snooper(%d)\n", snooper->id);
+	if (snooper->id != main_v->active_snooper ) {
+		return FALSE;
+	}
 	if ( snooper->stat == SNOOPER_CANCEL_RELEASE_EVENT ) {
 		snooper->stat = 0;
 		return TRUE;

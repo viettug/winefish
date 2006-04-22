@@ -608,6 +608,13 @@ gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *
 	return FALSE;
 }
 
+#ifdef SNOOPER2
+static gboolean focus_in_event_lcb(GtkWidget *widget, gpointer fooo,Tbfwin *bfwin) {
+	main_v->active_snooper = SNOOPER(bfwin->snooper)->id;
+	return FALSE;
+}
+#endif /* SNOOPER2 */
+
 void gui_create_main(Tbfwin *bfwin, GList *filenames, gint linenumber) {
 	GtkWidget *vbox;
 	DEBUG_MSG("gui_create_main, bfwin=%p, bfwin->bookmarkstore=%p\n",bfwin,bfwin->bookmarkstore);
@@ -622,17 +629,18 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames, gint linenumber) {
 	g_signal_connect(G_OBJECT(bfwin->main_window), "delete_event", G_CALLBACK(main_window_delete_event_lcb), bfwin);
 	g_signal_connect(G_OBJECT(bfwin->main_window), "configure-event", G_CALLBACK(gui_main_window_configure_event_lcb), bfwin);
 	g_signal_connect(G_OBJECT(bfwin->main_window), "window-state-event", G_CALLBACK(gui_main_window_configure_event_lcb), bfwin);
-
+#ifdef SNOOPER2
+	snooper_install(bfwin);
+	g_signal_connect(G_OBJECT(bfwin->main_window), "focus-in-event", G_CALLBACK(focus_in_event_lcb), bfwin);
+#endif /* SNOOPER2 */
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(bfwin->main_window), vbox);
+
 	gtk_widget_show(vbox);
 
 	/* first a menubar */
 	DEBUG_MSG("gui_create_main, starting menu_create_main\n");
 	menu_create_main(bfwin, vbox);
-#ifdef SNOOPER2
-	snooper_install(bfwin);
-#endif /* SNOOPER2 */
 	DEBUG_MSG("gui_create_main, starting recent_menu\n");
 	recent_menu_init(bfwin);
 	DEBUG_MSG("gui_create_main, starting external-encoding_menu\n");
