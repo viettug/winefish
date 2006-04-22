@@ -1,7 +1,7 @@
 /* $Id$ */
 
-#ifndef __SNOOPER_H__
-#define __SNOOPER_H__
+#ifndef __SNOOPER2_H__
+#define __SNOOPER2_H__
 
 #include "config.h"
 
@@ -56,4 +56,4 @@ typedef struct {
 void snooper_install(Tbfwin *bfwin);
 
 #endif /* SNOOPER2 */
-#endif /* __SNOOPER_H__ */
+#endif /* __SNOOPER2_H__ */
