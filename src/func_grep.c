@@ -151,9 +151,9 @@ static void files_advanced_win_ok_clicked( GtkWidget * widget, Tfiles_advanced *
 
 	if (!c_find_pattern || strlen(c_find_pattern) == 0) {
 		c_find_pattern = g_strdup("*");
-	}else if (g_str_has_prefix(c_find_pattern, "<0: ") ) {
+	}else if (strcmp(c_find_pattern, _("current file")) ==0 ) {
 		type =  FIND_IN_CURRENT_FILE;
-	}else if ( g_str_has_prefix(c_find_pattern, "<1: ") ) {
+	}else if ( strcmp(c_find_pattern, _("all opened files")) ==0 ) {
 		type = FIND_IN_ALL_OPENED_FILES;
 	}
 
@@ -392,9 +392,9 @@ static void files_advanced_win_set_sensitive (Tfiles_advanced *tfs) {
 	gint type;
 	gchar * c_find_pattern;
 	c_find_pattern = gtk_editable_get_chars( GTK_EDITABLE( GTK_COMBO( tfs->find_pattern ) ->entry ), 0, -1 );
-	if (g_str_has_prefix(c_find_pattern, "<0: ") ) {
+	if (strcmp(c_find_pattern, _("current file")) ==0 ) {
 		type =  FIND_IN_CURRENT_FILE;
-	}else if ( g_str_has_prefix(c_find_pattern, "<1: ") ) {
+	}else if ( strcmp(c_find_pattern, _("all opened files"))==0 ) {
 		type = FIND_IN_ALL_OPENED_FILES;
 	}else{
 		type = FIND_IN_DIRECTORY;
@@ -458,8 +458,8 @@ static void files_advanced_win( Tfiles_advanced *tfs)
 	gtk_table_attach( GTK_TABLE( table ), bf_allbuttons_backend( _( "_Browse..." ), TRUE, 112, G_CALLBACK( files_advanced_win_select_basedir_lcb ), tfs ), MAX_COLUMN-1, MAX_COLUMN, 3, 4, GTK_SHRINK, GTK_SHRINK, 0, 0 );
 
 	list = NULL;
-	list = g_list_append( list, _("<0: current file>") );
-	list = g_list_append( list, _("<1: all opened files>") );
+	list = g_list_append( list, _("current file") );
+	list = g_list_append( list, _("all opened files") );
 	list = g_list_append( list, "*.tex" );
 	list = g_list_append( list, "*.cls,*.dtx,*.sty,*.ins" );
 	list = g_list_append( list, "*.ind,*.bbl" );
@@ -469,7 +469,7 @@ static void files_advanced_win( Tfiles_advanced *tfs)
 	if (open_files - 100) {
 		tfs->find_pattern = combo_with_popdown("*.tex", list, 1 );
 	}else{
-		tfs->find_pattern = combo_with_popdown( _("<1: all opened files>"), list, 1 );
+		tfs->find_pattern = combo_with_popdown( _("all opened files"), list, 1 );
 	}
 	bf_mnemonic_label_tad_with_alignment( _( "_File:" ), tfs->find_pattern, 0, 0.5, table, 1, 2, 4, 5 );
 	gtk_table_attach_defaults( GTK_TABLE( table ), tfs->find_pattern, 2, MAX_COLUMN-1, 4, 5 );
