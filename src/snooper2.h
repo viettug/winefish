@@ -10,6 +10,7 @@
 #define SNOOPER_CONTROL_MASKS ( GDK_CONTROL_MASK | GDK_MOD1_MASK )
 #define SNOOPER_SHOULD_CAPTURE(var) ( ( ( GDK_a <= var ) && ( (GDK_z >= var ) ) ) || ( ( GDK_Z >= var ) && ( ( GDK_A <= var ) ) )  || ( ( GDK_0 <= var ) && ( (GDK_9 >= var ) ) ) || ( var == GDK_percent) || (var == GDK_space) )
 #define SNOOPER_IS_KEYSEQ(var) ( (var->state & SNOOPER_CONTROL_MASKS) && SNOOPER_SHOULD_CAPTURE( var->keyval ) )
+#define SNOOPER_VALID_WIDGET(var) ( (GTK_IS_TEXT_VIEW(var) || GTK_IS_WINDOW(var) ) )
 
 enum {
 	COMPLETION_WINDOW_INIT = 1 << 0, /* require `intitalize' the window */

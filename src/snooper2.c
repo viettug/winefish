@@ -67,7 +67,7 @@ static gboolean snooper_loopkup_keyseq(GtkWidget *widget, GdkEventKey *kevent1, 
 			}
 		}
 	}
-	DEBUG_MSG("snooper_loopkup_keyseq: lookup '%s', retval = %d\n", tmpstr, retval);
+	DEBUG_MSG("snooper: lookup '%s', retval = %d\n", tmpstr, retval);
 	g_free(tmpstr);
 	return retval;
 }
@@ -87,13 +87,14 @@ static gboolean snooper_loopkup_keys_in_accel_map(GdkEventKey *kevent) {
 	if (accel_key) {
 		retval = TRUE;
 	}
-	DEBUG_MSG("snooper_loopkup_keys_in_accel_map: returns %d\n", retval);
+	DEBUG_MSG("snooper: lookup in accel. group, returns %d\n", retval);
 	return retval;
 }
 
 static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin) {
 	Tsnooper *snooper =  SNOOPER(bfwin->snooper);
-	DEBUG_MSG("snooper(%d)\n", snooper->id);
+	gboolean test = gtk_widget_is_ancestor(widget, bfwin->main_window);
+	DEBUG_MSG("snooper(%d)press(%d)valid(%d)widget(%s)hastextview(%d)\n", snooper->id, (kevent->type == GDK_KEY_PRESS), SNOOPER_VALID_WIDGET(widget), gtk_widget_get_name(widget), test );
 	if (snooper->id != main_v->active_snooper ) {
 		return FALSE;
 	}
