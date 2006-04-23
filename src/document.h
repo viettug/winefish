@@ -112,8 +112,6 @@ void all_documents_apply_settings(void);
 
 void doc_convert_asciichars_in_selection(Tbfwin *bfwin,guint callback_action,GtkWidget *widget);
 void word_count_cb (Tbfwin *bfwin,guint callback_action,GtkWidget *widget);
-void doc_indent_selection(Tdocument *doc, gboolean unindent);
-void menu_indent_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
 GList * list_relative_document_filenames(Tdocument *curdoc);
 void file_floatingview_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
 
