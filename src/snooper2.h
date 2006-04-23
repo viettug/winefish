@@ -7,9 +7,19 @@
 
 #ifdef SNOOPER2
 
+
+#define SNOOPER_IS_AZ(var) ( ( ( GDK_a <= var ) && ( (GDK_z >= var ) ) ) || ( ( GDK_Z >= var ) && ( ( GDK_A <= var ) ) ) )
+
+#define SNOOPER_IS_AZ09(var) ( SNOOPER_IS_AZ(var) || ( ( GDK_0 <= var ) && ( (GDK_9 >= var ) ) ) )
+
 #define SNOOPER_CONTROL_MASKS ( GDK_CONTROL_MASK | GDK_MOD1_MASK )
-#define SNOOPER_SHOULD_CAPTURE(var) ( ( ( GDK_a <= var ) && ( (GDK_z >= var ) ) ) || ( ( GDK_Z >= var ) && ( ( GDK_A <= var ) ) )  || ( ( GDK_0 <= var ) && ( (GDK_9 >= var ) ) ) || ( var == GDK_percent) || (var == GDK_space) )
+
+#define SNOOPER_SHOULD_CAPTURE(var) ( SNOOPER_IS_AZ09(var) || ( var == GDK_percent) || (var == GDK_space) )
+
 #define SNOOPER_IS_KEYSEQ(var) ( (var->state & SNOOPER_CONTROL_MASKS) && SNOOPER_SHOULD_CAPTURE( var->keyval ) )
+
+#define SNOOPER_A_CHARS(var) ( (var->state == 0) && ( ( (GdkEventKey*)main_v->last_kevent)->state==0 ) && ( (((GdkEventKey*)main_v->last_kevent)->keyval == GDK_braceleft) || SNOOPER_IS_AZ(var) ) )
+
 #define SNOOPER_VALID_WIDGET(var) ( (GTK_IS_TEXT_VIEW(var) || GTK_IS_WINDOW(var) ) )
 
 enum {
