@@ -6,5 +6,6 @@
 #include "func_grep.h"
 #include "func_shift.h"
 #include "func_comment.h"
+#include "func_indent.h"
 
 #endif /* __FUNC_ALL_H__ */

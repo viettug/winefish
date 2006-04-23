@@ -38,7 +38,7 @@ enum {
 };
 #define FUNC_VALID_TYPE(type,widget) ( (type & FUNC_ANY) ||  ( (type & FUNC_TEXT_VIEW ) && GTK_IS_TEXT_VIEW(widget) ) )
 
-typedef gint (*FUNCTION)(gpointer data);
+typedef gint (*FUNCTION)(GtkWidget *widget, Tbfwin *bfwin);
 
 typedef struct {
 	guint id;

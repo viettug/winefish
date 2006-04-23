@@ -10,7 +10,7 @@
 #include "rcfile.h"
 #include "snooper2.h"
 
-static gint func_any(gpointer data) {
+static gint func_any(GtkWidget *widget, Tbfwin *bfwin) {
 	g_print("func_any: hello\n");
 	return 1;
 }

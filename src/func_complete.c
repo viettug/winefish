@@ -20,6 +20,7 @@
  */
 
 #include <gtk/gtk.h>
+#include <gdk/gdkkeysyms.h>
 
 #include <string.h> /* strstr(), strlen() */
 
@@ -65,11 +66,9 @@ static void completion_popup_menu_init() {
 }
 
 gboolean completion_popup_menu( GtkWidget *widget, GdkEventKey *kevent, Tdocument *doc ) {
-
 	if ( !main_v->completion.window ) {
 		completion_popup_menu_init();
 	}
-
 	/* store the window pointer */
 	main_v->completion.bfwin = BFWIN(doc->bfwin)->current_document;
 	
@@ -190,4 +189,288 @@ gboolean completion_popup_menu( GtkWidget *widget, GdkEventKey *kevent, Tdocumen
 	
 	gtk_widget_show_all(main_v->completion.window);
 	return TRUE;
+}
+
+gint func_complete_delete() {
+	if (main_v->completion.show != COMPLETION_DELETE ) {
+		return 0;
+	}
+	DEBUG_MSG("doc: delete item from popup\n");
+	/* delete stuff:
+	- get current position/command
+	- hide the popup window
+	- delete the selected item. this alters `main_v->props.completion(_s)->items' (GCompletion)
+	- rebuild the popup
+	- recaculate: completion_popup_menu(widget, kevent, doc)
+	*/
+	/* get current selection */
+	GtkTreePath *treepath = NULL;
+	GtkTreeModel *model;
+	model = gtk_tree_view_get_model(GTK_TREE_VIEW(main_v->completion.treeview));
+	gtk_tree_view_get_cursor(GTK_TREE_VIEW(main_v->completion.treeview), &treepath, NULL);
+	gchar *user_selection = NULL;
+	if (treepath) {
+		GtkTreeIter iter;
+		GValue *val = NULL;
+		gtk_tree_model_get_iter(model, &iter, treepath);
+		gtk_tree_path_free(treepath);
+		val = g_new0(GValue, 1);
+		gtk_tree_model_get_value(model, &iter, 0, val);
+		user_selection = g_strdup((gchar *) (g_value_peek_pointer(val)));
+		g_value_unset (val);
+		g_free (val);
+		DEBUG_MSG("completion: user selected '%s'\n", user_selection);
+	}
+	if (user_selection) {
+		/* hide the windows */
+		gtk_widget_hide_all( main_v->completion.window );
+	
+		/* now delete */
+		DEBUG_MSG("completion: delete an item '%s'\n", user_selection);
+		GList *tmp;
+		GList *first_word = NULL;
+		gboolean word_removed = FALSE;
+		/* --- how to remove an item `foobar' ---
+		we first have a list prefixed by `foobar'.
+		get the first item of this list and remove the item from the main list by `g_list_remove_link'.
+		finally, remove the item from the main list.
+		*/
+		if (!word_removed) {
+			tmp = g_completion_complete(main_v->props.completion,user_selection,NULL);
+			if (tmp) {
+				first_word = g_list_first(tmp);
+				if (strcmp((gchar*)first_word->data, user_selection) == 0 ) {
+					g_list_remove_link(tmp,first_word);
+					DEBUG_MSG("completion: first word : %s\n",(gchar*)first_word->data);
+					g_completion_remove_items(main_v->props.completion, first_word);
+					DEBUG_MSG("completion: ...item deleted from global list\n");
+					word_removed = TRUE;
+				}
+			}
+		}
+		if (!word_removed) {
+			tmp = g_completion_complete(main_v->props.completion_s,user_selection,NULL);
+			/* note the session list wasnot sorted. if we remove an item, add it again to
+			the session list (by `gap_command', the list is unordered. so we have to
+			search through the session_list. we donot use the g_list_find_custom as
+			tmp is *GCompletion --- !!!! */
+			/* TODO: optimized */
+			first_word = g_list_last(tmp);
+			gint count=0;
+			while (first_word && (strcmp((gchar*)first_word->data, user_selection) != 0)) {
+				first_word = first_word->prev;
+				count ++;
+			}
+			DEBUG_MSG("completion: passed %d words\n",count);
+			/* we must ensure the the first item == user_selection */
+			if ( first_word ) {
+				g_list_remove_link(tmp,first_word);
+				DEBUG_MSG("completion: first word : %s\n",(gchar*)first_word->data);
+				g_completion_remove_items(main_v->props.completion_s, first_word);
+				DEBUG_MSG("completion: ...item deleted from session list\n");
+				word_removed = TRUE;
+			}
+		}
+		if(word_removed) {
+			gchar *tmpstr = g_strdup_printf(_("deleted '%s'"), user_selection);
+			/* statusbar_message(doc->bfwin, tmpstr, 2000); */
+			g_free(tmpstr);
+		}
+		g_free(user_selection);
+		main_v->completion.show = COMPLETION_AUTO_CALL;
+	}else{
+		main_v->completion.show = COMPLETION_WINDOW_HIDE;
+	}
+	return 1;
+}
+
+gint func_complete_move() {
+	if (main_v->completion.show == COMPLETION_WINDOW_UP || main_v->completion.show == COMPLETION_WINDOW_DOWN || main_v->completion.show == COMPLETION_WINDOW_PAGE_DOWN || main_v->completion.show == COMPLETION_WINDOW_PAGE_UP) {
+		GtkTreeModel *model;
+		gint maxnode, index;
+		model = gtk_tree_view_get_model(GTK_TREE_VIEW(main_v->completion.treeview));
+		maxnode = gtk_tree_model_iter_n_children(model, NULL);
+		if (maxnode ==1) {
+			gtk_widget_hide( GTK_WIDGET( main_v->completion.window ));
+			main_v->completion.show = COMPLETION_WINDOW_HIDE;
+			return 1;
+		}
+		GtkTreePath *treepath = NULL;
+		gtk_tree_view_get_cursor(GTK_TREE_VIEW(main_v->completion.treeview), &treepath, NULL);
+
+		/* TODO: remove this check */
+		if (treepath) {
+			{
+				gchar *path;
+				path = gtk_tree_path_to_string(treepath);
+				index = atoi(path);
+				g_free(path);
+			}
+			if (main_v->completion.show == COMPLETION_WINDOW_UP) {
+				index --;
+			} else if (main_v->completion.show == COMPLETION_WINDOW_PAGE_UP) {
+				index = index - 5;
+			} else if (main_v->completion.show == COMPLETION_WINDOW_DOWN) {
+				index ++;
+			} else {
+				index = index + 5;
+			}
+
+			if (index < 0) {
+				index = 0;
+			} else if (index >= maxnode) {
+				index = maxnode -1;
+			}
+			{
+				gchar *tmpstr = g_strdup_printf("%d", index);
+				treepath = gtk_tree_path_new_from_string(tmpstr);
+				g_free(tmpstr);
+			}
+			gtk_tree_view_set_cursor(GTK_TREE_VIEW(main_v->completion.treeview), treepath, NULL, FALSE);
+			gtk_tree_path_free(treepath);
+		}
+		main_v->completion.show = COMPLETION_WINDOW_SHOW;
+		return 1;
+	}
+	return 0;
+}
+
+gint func_complete_do(Tdocument *doc) {
+	/* orignal: key-release event */
+	if (doc->view_bars & MODE_AUTO_COMPLETE) {
+		if (main_v->completion.show == COMPLETION_WINDOW_ACCEPT) {
+			gtk_widget_hide_all( main_v->completion.window );
+			main_v->completion.show = COMPLETION_WINDOW_HIDE;
+			if ( main_v->completion.bfwin != BFWIN(doc->bfwin)->current_document ) {
+				return TRUE;
+			}
+			/* inserting staff */
+			{
+				/* get user's selection */
+				/* get path and iter */
+				GtkTreePath *treepath = NULL;
+				GtkTreeModel *model;
+	
+				model = gtk_tree_view_get_model(GTK_TREE_VIEW(main_v->completion.treeview));
+				/* lucky, model is*NOT* NULL -- we skip a check :) */
+	
+				gtk_tree_view_get_cursor(GTK_TREE_VIEW(main_v->completion.treeview), &treepath, NULL);
+				if (treepath) {
+					GtkTreeIter iter;
+					gchar *user_selection = NULL;
+					GValue *val = NULL;
+					gint i, len, cache_len;
+	
+					gtk_tree_model_get_iter(model, &iter, treepath);
+					gtk_tree_path_free(treepath);
+#ifdef ENABLE_FIX_UNIKEY_GTK
+					GtkTextIter cursor_iter, tmp_iter;
+					GtkTextMark *imark;
+					gchar *test_buf;
+					imark = gtk_text_buffer_get_insert( doc->buffer );
+					gtk_text_buffer_get_iter_at_mark( doc->buffer, &cursor_iter, imark );
+					tmp_iter = cursor_iter;
+					gtk_text_iter_backward_chars(&tmp_iter, 1);
+					test_buf = gtk_text_buffer_get_text(doc->buffer, &tmp_iter, &cursor_iter, FALSE);
+					if (test_buf[0] == ' ') {
+						gtk_text_buffer_delete( doc->buffer, &tmp_iter, &cursor_iter);
+					}
+#endif /* ENABLE_FIX_UNIKEY_GTK */
+					val = g_new0(GValue, 1);
+					gtk_tree_model_get_value(model, &iter, 0, val);
+					user_selection = g_strdup((gchar *) (g_value_peek_pointer(val)));
+					g_value_unset (val);
+					g_free (val);
+					/* inserting */
+					cache_len = strlen(main_v->completion.cache);
+					len = strlen(user_selection);
+					if ( len == cache_len ) {
+						return TRUE;
+					} else if (len > cache_len ){
+						len = len - cache_len;
+						gchar *retval = g_malloc((len+1) * sizeof(char));
+						for (i=0; i< len; i++) {
+							retval[i] = user_selection[cache_len + i];
+						}
+						retval[len] = '\0';
+						GtkTextIter iter;
+						GtkTextMark *imark;
+						imark = gtk_text_buffer_get_insert( doc->buffer );
+						gtk_text_buffer_get_iter_at_mark( doc->buffer, &iter, imark );
+						gtk_text_buffer_insert( doc->buffer, &iter, retval, -1 );
+						g_free(retval);
+					}
+					g_free(user_selection);
+				}
+			}
+			return 1;
+		} else if ( main_v->completion.show == COMPLETION_WINDOW_SHOW || main_v->completion.show == COMPLETION_AUTO_CALL ) {
+			/*
+			if (!completion_popup_menu(widget, kevent, doc)) {
+				gtk_widget_hide_all( main_v->completion.window );
+				main_v->completion.show = COMPLETION_WINDOW_HIDE;
+			} else {
+				main_v->completion.show = COMPLETION_WINDOW_SHOW;
+			}
+			*/
+		}
+	}
+	return 0;
+}
+
+/**
+* kyanh <kyanh@o2.pl>
+* add user command to autocompletion list.
+* this causes the list be sorted again ==> slower performance*
+*/
+
+gint func_complete_eat( GtkWidget *widget, GdkEventKey *kevent, Tdocument *doc ) {
+	guint32 character = gdk_keyval_to_unicode( kevent->keyval );
+	DEBUG_MSG( "gap_command: keyval=%d (or %X), character=%d, string=%s, state=%d, hw_keycode=%d\n", kevent->keyval, kevent->keyval, character, kevent->string, kevent->state, kevent->hardware_keycode );
+	/* SHIFT + DELIMITER ==> 2 keys release event and we move remove one */
+	if ( (kevent->keyval != GDK_Return) && (character==0 || !strstr(DELIMITERS, kevent->string)) ) {
+		return 0;
+	}
+	gchar *buf=NULL;
+	GtkTextMark * imark;
+	GtkTextIter itstart, iter, maxsearch;
+	
+	imark = gtk_text_buffer_get_insert( doc->buffer );
+	gtk_text_buffer_get_iter_at_mark( doc->buffer, &iter, imark );
+	
+	itstart = iter;
+	gtk_text_iter_backward_chars(&itstart, 1);
+	/* buf = gtk_text_buffer_get_text(doc->buffer, &itstart, &iter, FALSE); */
+	/* if ( strlen(buf)==1 && strstr(DELIMITERS, buf) ) { */
+	iter = itstart;
+	maxsearch = itstart;
+	gtk_text_iter_backward_chars( &maxsearch, COMMAND_MAX_LENGTH );
+	if ( gtk_text_iter_backward_find_char( &itstart, ( GtkTextCharPredicate ) find_char, GINT_TO_POINTER( "\\" ), &maxsearch ) ) {
+		int ovector[ 3 ], ret;
+		maxsearch = iter; /* reuse maxsearch */
+		buf = gtk_text_buffer_get_text( doc->buffer, &itstart, &maxsearch, FALSE );
+		ret = pcre_exec( main_v->anycommand_regc, NULL, buf, strlen( buf ), 0, PCRE_ANCHORED, ovector, 3 );
+		if ( ret > 0 ) {
+			/* buf is now the user command */
+			DEBUG_MSG("gap_command: found command = [%s]\n", buf);
+			GList *tmplist = NULL;
+			tmplist = g_list_find_custom(main_v->props.completion->items, buf, (GCompareFunc)strcmp);
+			/* g_completion_complete(main_v->props.completion, buf, NULL); */
+			if ( !tmplist ) {
+				tmplist = g_list_find_custom(main_v->props.completion_s->items, buf, (GCompareFunc)strcmp);
+				/* g_completion_complete(main_v->props.completion_s, buf, NULL); */
+				if (!tmplist) {
+					DEBUG_MSG("gap_command: new command = [%s]\n", buf);
+					gchar *tmpstr = g_strdup(buf);
+					tmplist = g_list_append(tmplist, tmpstr);
+					/* Cannot use: g_list_append(tmplist, buf); as buf is freed. See below. */
+					g_completion_add_items(main_v->props.completion_s, tmplist);
+					DEBUG_MSG("gap_command: completion_s data = %s\n", (gchar *)main_v->props.completion_s->items->data);
+					g_list_free(tmplist);
+				}
+			}
+		}
+	}
+	g_free(buf);
+	return 1;
 }

@@ -31,7 +31,7 @@
 #include "bluefish.h"
 #include "snooper2.h"
 
-static gboolean snooper_loopkup_keyseq(GtkWidget *widget, GdkEventKey *kevent1, GdkEventKey *kevent2) {
+static gboolean snooper_loopkup_keyseq(GtkWidget *widget, Tbfwin *bfwin, GdkEventKey *kevent1, GdkEventKey *kevent2) {
 	gchar *tmpstr;
 	const gchar *ctrl, *shift, *mod1;
 	const gchar *ctrl2, *shift2, *mod12;
@@ -63,7 +63,7 @@ static gboolean snooper_loopkup_keyseq(GtkWidget *widget, GdkEventKey *kevent1, 
 		if (value_) {
 			if ( FUNC_VALID_TYPE(FUNC(value_)->type, widget ) ) {
 				retval = TRUE;
-				FUNC(value_)->exec(widget);
+				FUNC(value_)->exec(widget, bfwin);
 			}
 		}
 	}
@@ -105,15 +105,16 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 	if (kevent->type == GDK_KEY_PRESS) {
 		if ( snooper->stat && ( kevent->keyval == GDK_Escape ) ) {
 			snooper->stat = SNOOPER_CANCEL_RELEASE_EVENT;
+			/* hide the completion popup menu */
 			return TRUE;
 		}else if ( (snooper->stat == SNOOPER_HALF_SEQ) || SNOOPER_IS_KEYSEQ(kevent) ) {
 			if ( snooper->stat == SNOOPER_HALF_SEQ ) {
-				snooper_loopkup_keyseq(widget, (GdkEventKey*) snooper -> last_event, kevent);
+				snooper_loopkup_keyseq(widget, bfwin, (GdkEventKey*) snooper -> last_event, kevent);
 				snooper->stat = 0;
 				return TRUE;
 			} else if (snooper->stat == 0) {
 				*( (GdkEventKey*) snooper->last_event )= *kevent;
-				if (snooper_loopkup_keyseq(widget, kevent, NULL) ) {
+				if (snooper_loopkup_keyseq(widget, bfwin, kevent, NULL) ) {
 					snooper->stat = 0;
 					return TRUE;
 				}else{
@@ -130,7 +131,7 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 			snooper->stat = 0;
 			return FALSE;
 		}
-	}else{
+	}else{/** key release **/
 		if ( snooper->stat ==  SNOOPER_HALF_SEQ ) {
 			return TRUE;
 		}
