@@ -65,7 +65,7 @@ static void completion_popup_menu_init() {
 	gtk_container_add( GTK_CONTAINER( main_v->completion.window ), frame );
 }
 
-gboolean completion_popup_menu( GtkWidget *widget, GdkEventKey *kevent, Tdocument *doc ) {
+gint func_complete_show( GtkWidget *widget, Tdocument *doc ) {
 	if ( !main_v->completion.window ) {
 		completion_popup_menu_init();
 	}
@@ -93,7 +93,7 @@ gboolean completion_popup_menu( GtkWidget *widget, GdkEventKey *kevent, Tdocumen
 		}
 
 		if (!buf || ( (main_v->completion.show != COMPLETION_FIRST_CALL) && (strlen(buf) < 3)) ) {
-			return FALSE;
+			return 0;
 		}
 
 		GList *completion_list_0 = NULL;
@@ -115,7 +115,7 @@ gboolean completion_popup_menu( GtkWidget *widget, GdkEventKey *kevent, Tdocumen
 				completion_list = g_list_copy(completion_list_1);
 				g_list_sort(completion_list, (GCompareFunc)strcmp);
 			}else{
-				return FALSE;
+				return 0;
 			}
 		}
 		/* shouldnot remove completion_list_i after using it */
@@ -126,7 +126,7 @@ gboolean completion_popup_menu( GtkWidget *widget, GdkEventKey *kevent, Tdocumen
 
 		/* there is *ONLY* one word and the user reach end of this word */
 		if ( (main_v->completion.show != COMPLETION_FIRST_CALL) &&  g_list_length(completion_list) ==1 && strlen (completion_list->data) == strlen(buf) ) {
-			return FALSE;
+			return 0;
 		}
 
 		main_v->completion.cache = buf;
@@ -188,7 +188,7 @@ gboolean completion_popup_menu( GtkWidget *widget, GdkEventKey *kevent, Tdocumen
 	}
 	
 	gtk_widget_show_all(main_v->completion.window);
-	return TRUE;
+	return 1;
 }
 
 gint func_complete_delete() {
