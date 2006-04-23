@@ -1,6 +1,6 @@
 #ifndef __FUNC_COMPLETE_H__
 #define __FUNC_COMPLETE_H__
-gint func_complete_show( GtkWidget *widget, Tdocument *doc );
+gint func_complete_show( GtkWidget *widget, Tbfwin *win );
 gint func_complete_delete();
 gint func_complete_move();
 gint func_complete_do( Tdocument *doc );

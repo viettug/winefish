@@ -1779,7 +1779,7 @@ static gboolean doc_view_key_release_lcb( GtkWidget *widget, GdkEventKey *kevent
 		brace_finder(doc->buffer,doc->brace_finder,BR_AUTO_FIND, BRACE_FINDER_MAX_LINES);
 	}
 
-	if ( ( kevent->keyval == GDK_braceright ) || (main_v->last_kevent && ( kevent->hardware_keycode == ((GdkEventKey *)main_v->last_kevent)->hardware_keycode && ((GdkEventKey *)main_v->last_kevent)->keyval == GDK_braceright )) ) {
+	if ( ( kevent->keyval == GDK_braceright ) /* || (main_v->last_kevent && ( kevent->hardware_keycode == ((GdkEventKey *)main_v->last_kevent)->hardware_keycode && ((GdkEventKey *)main_v->last_kevent)->keyval == GDK_braceright )) */) {
 		/* autoclose environment for LaTeX */
 		if ( doc->view_bars & MODE_AUTO_COMPLETE ) {
 			GtkTextMark * imark;

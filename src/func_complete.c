@@ -31,7 +31,7 @@ static gboolean find_char( gunichar ch, gchar *data ) {
 	return ( strchr( data, ch ) != NULL );
 }
 
-static void completion_popup_menu_init() {
+static void func_complete_init() {
 	main_v->completion.window = gtk_window_new( GTK_WINDOW_POPUP );
 	main_v->completion.treeview = gtk_tree_view_new();
 	/* add column */
@@ -65,13 +65,16 @@ static void completion_popup_menu_init() {
 	gtk_container_add( GTK_CONTAINER( main_v->completion.window ), frame );
 }
 
-gint func_complete_show( GtkWidget *widget, Tdocument *doc ) {
+gint func_complete_show( GtkWidget *widget_, Tbfwin *bfwin ) {
+	Tdocument *doc = bfwin->current_document;
+	GtkWidget *widget = doc->view;
+
 	if ( !main_v->completion.window ) {
-		completion_popup_menu_init();
+		func_complete_init();
 	}
 	/* store the window pointer */
 	main_v->completion.bfwin = BFWIN(doc->bfwin)->current_document;
-	
+
 	/* reset the popup content */
 	GtkTreeModel *model;
 	{
@@ -168,15 +171,11 @@ gint func_complete_show( GtkWidget *widget, Tdocument *doc ) {
 	x += root_x;
 	y += root_y;
 	win = gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_WIDGET);
-	if (win) {
-		/* get the position of text view window relative to its parents */
-		gdk_window_get_geometry(win, &root_x, &root_y, NULL, NULL, NULL);
-		x += root_x;
-		y += root_y;
-	} else {/* when does this case take place ?*/
-		g_print("completion_popup_menu: not a window\n");
-		return FALSE;
-	}
+
+	/* get the position of text view window relative to its parents */
+	gdk_window_get_geometry(win, &root_x, &root_y, NULL, NULL, NULL);
+	x += root_x;
+	y += root_y;
 
 	gtk_window_move (GTK_WINDOW(main_v->completion.window), x+16, y);
 	{/* select the first item; need*not* for the first time */
@@ -188,6 +187,9 @@ gint func_complete_show( GtkWidget *widget, Tdocument *doc ) {
 	}
 	
 	gtk_widget_show_all(main_v->completion.window);
+
+	main_v->completion.show = COMPLETION_AUTO_CALL;
+
 	return 1;
 }
 

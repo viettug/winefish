@@ -18,7 +18,7 @@
 
 #define SNOOPER_IS_KEYSEQ(var) ( (var->state & SNOOPER_CONTROL_MASKS) && SNOOPER_SHOULD_CAPTURE( var->keyval ) )
 
-#define SNOOPER_A_CHARS(var) ( (var->state == 0) && ( ( (GdkEventKey*)main_v->last_kevent)->state==0 ) && ( (((GdkEventKey*)main_v->last_kevent)->keyval == GDK_braceleft) || SNOOPER_IS_AZ(var) ) )
+#define SNOOPER_A_CHARS(var) ( (var->state == 0) && ( SNOOPER_IS_AZ(var->keyval) ) )
 
 #define SNOOPER_VALID_WIDGET(var) ( (GTK_IS_TEXT_VIEW(var) || GTK_IS_WINDOW(var) ) )
 

@@ -135,6 +135,10 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 		if ( snooper->stat ==  SNOOPER_HALF_SEQ ) {
 			return TRUE;
 		}
+		if (SNOOPER_A_CHARS(kevent)) {
+			DEBUG_MSG("snooper: auto start completion...\n");
+			func_complete_show(widget, bfwin);
+		}
 	}
 	return FALSE;
 }
