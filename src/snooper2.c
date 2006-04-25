@@ -93,11 +93,33 @@ static gboolean snooper_loopkup_keys_in_accel_map(GdkEventKey *kevent) {
 
 static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin) {
 	Tsnooper *snooper =  SNOOPER(bfwin->snooper);
+
 	gboolean test = gtk_widget_is_ancestor(widget, bfwin->main_window);
 	DEBUG_MSG("snooper(%d)press(%d)valid(%d)widget(%s)hastextview(%d)\n", snooper->id, (kevent->type == GDK_KEY_PRESS), SNOOPER_VALID_WIDGET(widget), gtk_widget_get_name(widget), test );
+
+	/** check for valid snooper here **/
 	if (snooper->id != main_v->active_snooper ) {
 		return FALSE;
 	}
+
+	if ( SNOOPER_COMPLETION_ON ) {
+		if ( kevent->type == GDK_KEY_RELEASE ) return TRUE;
+		if ( SNOOPER_COMPLETION_MOVE(kevent->keyval) ) {
+			func_complete_move(kevent);
+			return TRUE;
+		}else if ( SNOOPER_COMPLETION_ACCEPT(kevent->keyval) ) {
+			func_complete_do(bfwin->current_document);
+			return TRUE;
+		}else if ( SNOOPER_COMPLETION_ESCAPE(kevent->keyval) ) {
+			func_complete_hide();
+			return TRUE;
+		}else{
+			func_complete_show(widget, bfwin); /* update the window */
+			return FALSE;
+		}
+	}
+
+	/** if completion is hidden **/
 	if ( snooper->stat == SNOOPER_CANCEL_RELEASE_EVENT ) {
 		snooper->stat = 0;
 		return TRUE;
@@ -136,7 +158,6 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 			return TRUE;
 		}
 		if (SNOOPER_A_CHARS(kevent)) {
-			DEBUG_MSG("snooper: auto start completion...\n");
 			func_complete_show(widget, bfwin);
 		}
 	}
