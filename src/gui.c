@@ -613,6 +613,10 @@ static gboolean focus_in_event_lcb(GtkWidget *widget, gpointer fooo,Tbfwin *bfwi
 	main_v->active_snooper = SNOOPER(bfwin->snooper)->id;
 	return FALSE;
 }
+static gboolean focus_out_event_lcb(GtkWidget *widget, gpointer fooo,Tbfwin *bfwin) {
+	func_complete_hide();
+	return FALSE;
+}
 #endif /* SNOOPER2 */
 
 void gui_create_main(Tbfwin *bfwin, GList *filenames, gint linenumber) {
@@ -632,6 +636,7 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames, gint linenumber) {
 #ifdef SNOOPER2
 	snooper_install(bfwin);
 	g_signal_connect(G_OBJECT(bfwin->main_window), "focus-in-event", G_CALLBACK(focus_in_event_lcb), bfwin);
+	g_signal_connect(G_OBJECT(bfwin->main_window), "focus-out-event", G_CALLBACK(focus_out_event_lcb), bfwin);
 #endif /* SNOOPER2 */
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(bfwin->main_window), vbox);
