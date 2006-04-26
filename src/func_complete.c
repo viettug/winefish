@@ -98,8 +98,22 @@ gint func_complete_hide(Tbfwin *bfwin) {
 	return 0;
 }
 
-gint func_complete_show( GtkWidget *widget_, Tbfwin *bfwin ) {
+gint func_complete_show( GtkWidget *widget_, GdkEventKey *kevent, Tbfwin *bfwin ) {
 	DEBUG_MSG("func_complete_show: started\n");
+
+	if ( !bfwin->completion ) func_complete_init( bfwin );
+	Tcompletion *cpl = bfwin->completion;
+
+	if (kevent) {
+		/* để hạn chees tự động gọi khi nhấn phím mũi tên...
+		nghĩa là: khi người dùng nhấn ít nhấn hai phím ký tự thif mới bắt đầu show() */
+		if ( cpl->show <= COMPLETION_WINDOW_HIDE ) {
+			if ( ! SNOOPER_A_CHARS(kevent) || ! SNOOPER_A_CHARS( ( (GdkEventKey *) SNOOPER(bfwin->snooper)->last_event) ) ) {
+				DEBUG_MSG("func_complete_show: auto closed\n");
+				return 0;
+			}
+		}
+	}
 
 	Tdocument *doc = bfwin->current_document;
 	GtkWidget *widget = doc->view;
@@ -108,9 +122,6 @@ gint func_complete_show( GtkWidget *widget_, Tbfwin *bfwin ) {
 		DEBUG_MSG("func_complete_show: ah... the doc->view has focus \n");
 		return 0;
 	}
-
-	Tcompletion *cpl = bfwin->completion;
-	if ( !cpl ) func_complete_init( bfwin );
 
 	/* reset the popup content */
 	GtkTreeModel *model;
@@ -133,8 +144,8 @@ gint func_complete_show( GtkWidget *widget_, Tbfwin *bfwin ) {
 		}
 		DEBUG_MSG("func_complete_show: buffer detected = %s\n", buf);
 
-		if ( !buf || ( strlen(buf) < 3 ) ) {
-			DEBUG_MSG("func_complete_show:empty buffer or strlen(buffer) <3. existing...\n");
+		if ( !buf || ( (cpl->show < COMPLETION_FORCED && strlen(buf) < 4 ) ) ) {
+			DEBUG_MSG("func_complete_show:empty buffer or strlen(buffer) <4. existing...\n");
 			func_complete_hide(bfwin);
 			return 0;
 		}
@@ -230,7 +241,7 @@ gint func_complete_show( GtkWidget *widget_, Tbfwin *bfwin ) {
 		}
 	}
 	gtk_widget_show_all(cpl->window);
-	cpl->show = COMPLETION_AUTO_CALL;
+	cpl->show = COMPLETION_WINDOW_SHOW;
 	return 1;
 }
 
@@ -327,7 +338,7 @@ gint func_complete_delete(GtkWidget *widget, Tbfwin *bfwin) {
 			if (tmpstr) g_free(tmpstr);
 		}
 		g_free(user_selection);
-		func_complete_show(widget, bfwin);/* rebuilt the list */
+		func_complete_show(widget, NULL, bfwin);/* rebuilt the list */
 	}else{
 		func_complete_hide(bfwin);
 	}
@@ -451,6 +462,7 @@ gint func_complete_do(Tbfwin *bfwin) {
 		}
 		g_free(user_selection);
 	}
+	func_complete_hide(bfwin);
 	return 1;
 }
 
@@ -508,5 +520,14 @@ gint func_complete_eat( GtkWidget *widget, GdkEventKey *kevent, Tdocument *doc )
 		}
 	}
 	g_free(buf);
+	return 1;
+}
+
+gint func_complete_force( GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin ) {
+	DEBUG_MSG("func_complete_force: started\n");
+	if (!bfwin->completion) func_complete_init(bfwin);
+	Tcompletion *cpl = bfwin->completion;
+	cpl->show = COMPLETION_FORCED;
+	func_complete_show(widget,kevent,bfwin);
 	return 1;
 }
