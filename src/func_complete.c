@@ -33,6 +33,11 @@ static gboolean find_char( gunichar ch, gchar *data ) {
 	return ( strchr( data, ch ) != NULL );
 }
 
+static gboolean completion_double_click(GtkWidget *widget, gpointer data) {
+	DEBUG_MSG("func_complete: double_click event captured\n");
+	return TRUE;
+}
+
 static void func_complete_init() {
 	DEBUG_MSG("func_complete_init: started\n");
 	main_v->completion.window = gtk_window_new( GTK_WINDOW_POPUP );
@@ -66,11 +71,13 @@ static void func_complete_init() {
 	frame = gtk_frame_new(NULL);
 	gtk_container_add( GTK_CONTAINER( frame ), scrolwin );
 	gtk_container_add( GTK_CONTAINER( main_v->completion.window ), frame );
+
+	g_signal_connect(G_OBJECT(main_v->completion.treeview), "clicked", G_CALLBACK(completion_double_click), NULL);
 }
 
 gint func_complete_hide() {
 	DEBUG_MSG("func_complete_hide: started\n");
-	if ( main_v->completion.window ) {
+	if ( main_v->completion.window && ( main_v->completion.show > COMPLETION_WINDOW_HIDE ) ) {
 		gtk_widget_hide_all(main_v->completion.window);
 		main_v->completion.show = COMPLETION_WINDOW_HIDE;
 		return 1;
@@ -112,8 +119,10 @@ gint func_complete_show( GtkWidget *widget_, Tbfwin *bfwin ) {
 				buf = gtk_text_buffer_get_text( doc->buffer, &itstart, &maxsearch, FALSE );
 			}
 		}
+		DEBUG_MSG("func_complete_show: buffer detected = %s\n", buf);
 
-		if (!buf || ( (main_v->completion.show != COMPLETION_FIRST_CALL) && (strlen(buf) < 3)) ) {
+		if ( !buf || ( strlen(buf) < 3 ) ) {
+			DEBUG_MSG("func_complete_show:empty buffer or strlen(buffer) <3. existing...\n");
 			func_complete_hide();
 			return 0;
 		}
@@ -137,6 +146,7 @@ gint func_complete_show( GtkWidget *widget_, Tbfwin *bfwin ) {
 				completion_list = g_list_copy(completion_list_1);
 				g_list_sort(completion_list, (GCompareFunc)strcmp);
 			}else{
+				DEBUG_MSG("func_complete_show: complete failed. existing...\n");
 				func_complete_hide();
 				return 0;
 			}
@@ -148,7 +158,8 @@ gint func_complete_show( GtkWidget *widget_, Tbfwin *bfwin ) {
 		They are used directly. */
 
 		/* there is *ONLY* one word and the user reach end of this word */
-		if ( (main_v->completion.show != COMPLETION_FIRST_CALL) &&  g_list_length(completion_list) ==1 && strlen (completion_list->data) == strlen(buf) ) {
+		if ( g_list_length(completion_list) == 1 && strlen (completion_list->data) == strlen(buf) ) {
+			DEBUG_MSG("func_complete_show: there's only *one* word. existing...\n");
 			func_complete_hide();
 			return 0;
 		}
@@ -206,19 +217,13 @@ gint func_complete_show( GtkWidget *widget_, Tbfwin *bfwin ) {
 			gtk_tree_path_free(treepath);
 		}
 	}
-	
 	gtk_widget_show_all(main_v->completion.window);
-
 	main_v->completion.show = COMPLETION_AUTO_CALL;
-
 	return 1;
 }
 
-gint func_complete_delete() {
-	if (main_v->completion.show != COMPLETION_DELETE ) {
-		return 0;
-	}
-	DEBUG_MSG("doc: delete item from popup\n");
+gint func_complete_delete(GtkWidget *widget, Tbfwin *bfwin) {
+	DEBUG_MSG("func_complete_delete: started\n");
 	/* delete stuff:
 	- get current position/command
 	- hide the popup window
@@ -245,9 +250,8 @@ gint func_complete_delete() {
 		DEBUG_MSG("completion: user selected '%s'\n", user_selection);
 	}
 	if (user_selection) {
-		/* hide the windows */
-		gtk_widget_hide_all( main_v->completion.window );
-	
+		func_complete_hide();
+
 		/* now delete */
 		DEBUG_MSG("completion: delete an item '%s'\n", user_selection);
 		GList *tmp;
@@ -300,21 +304,23 @@ gint func_complete_delete() {
 			g_free(tmpstr);
 		}
 		g_free(user_selection);
-		main_v->completion.show = COMPLETION_AUTO_CALL;
+		func_complete_show(widget, bfwin);
 	}else{
-		main_v->completion.show = COMPLETION_WINDOW_HIDE;
+		func_complete_hide();
 	}
 	return 1;
 }
 
 gint func_complete_move(GdkEventKey *kevent) {
+	DEBUG_MSG("func_complete_move: started\n");
+
 	GtkTreeModel *model;
 	gint maxnode, index;
 
 	model = gtk_tree_view_get_model(GTK_TREE_VIEW(main_v->completion.treeview));
 	maxnode = gtk_tree_model_iter_n_children(model, NULL);
 	main_v->completion.show = SNOOPER_COMPLETION_MOVE_TYPE(kevent->keyval);
-	
+
 	if (maxnode ==1) {
 		func_complete_hide();
 		return 0;
@@ -358,6 +364,8 @@ gint func_complete_move(GdkEventKey *kevent) {
 }
 
 gint func_complete_do(Tdocument *doc) {
+	DEBUG_MSG("func_complete_do: started\n");
+
 	/* orignal: key-release event */
 	func_complete_hide();
 	if ( main_v->completion.bfwin != BFWIN(doc->bfwin)->current_document ) {
@@ -430,6 +438,8 @@ gint func_complete_do(Tdocument *doc) {
 */
 
 gint func_complete_eat( GtkWidget *widget, GdkEventKey *kevent, Tdocument *doc ) {
+	DEBUG_MSG("func_complete_eat: started\n");
+
 	guint32 character = gdk_keyval_to_unicode( kevent->keyval );
 	if ( (kevent->keyval != GDK_Return) && (character==0 || !strstr(DELIMITERS, kevent->string)) ) {
 		return 0;

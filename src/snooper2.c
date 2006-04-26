@@ -101,29 +101,31 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 	if (snooper->id != main_v->active_snooper ) {
 		return FALSE;
 	}
-
-	if ( SNOOPER_COMPLETION_ON ) {
-		if ( kevent->type == GDK_KEY_RELEASE ) return TRUE;
-		if ( SNOOPER_COMPLETION_MOVE(kevent->keyval) ) {
-			func_complete_move(kevent);
-			return TRUE;
-		}else if ( SNOOPER_COMPLETION_ACCEPT(kevent->keyval) ) {
-			func_complete_do(bfwin->current_document);
-			return TRUE;
-		}else if ( SNOOPER_COMPLETION_ESCAPE(kevent->keyval) ) {
-			func_complete_hide();
-			return TRUE;
-		}else{
-			func_complete_show(widget, bfwin); /* update the window */
-			return FALSE;
-		}
-	}
-
-	/** if completion is hidden **/
 	if ( snooper->stat == SNOOPER_CANCEL_RELEASE_EVENT ) {
 		snooper->stat = 0;
 		return TRUE;
 	}
+	if ( SNOOPER_COMPLETION_ON ) {
+		if ( SNOOPER_COMPLETION_MOVE(kevent->keyval) ) {
+			func_complete_move(kevent);
+			snooper->stat = SNOOPER_CANCEL_RELEASE_EVENT;
+			return TRUE;
+		}else if ( SNOOPER_COMPLETION_ACCEPT(kevent->keyval) ) {
+			func_complete_do(bfwin->current_document);
+			snooper->stat = SNOOPER_CANCEL_RELEASE_EVENT;
+			return TRUE;
+		}else if ( SNOOPER_COMPLETION_ESCAPE(kevent->keyval) ) {
+			func_complete_hide();
+			snooper->stat = SNOOPER_CANCEL_RELEASE_EVENT;
+			return TRUE;
+		}else if ( SNOOPER_COMPLETION_DELETE(kevent->keyval) ) {
+			func_complete_delete(widget, bfwin);
+			snooper->stat = SNOOPER_CANCEL_RELEASE_EVENT;
+			return TRUE;
+		}
+	}
+
+	/** if completion is hidden **/
 	if (kevent->type == GDK_KEY_PRESS) {
 		if ( snooper->stat && ( kevent->keyval == GDK_Escape ) ) {
 			snooper->stat = SNOOPER_CANCEL_RELEASE_EVENT;

@@ -29,6 +29,7 @@
 
 #define SNOOPER_COMPLETION_ACCEPT(var) ( var == GDK_Return )
 #define SNOOPER_COMPLETION_ESCAPE(var) ( var == GDK_Escape )
+#define SNOOPER_COMPLETION_DELETE(var) ( var == GDK_Delete )
 
 #define SNOOPER_COMPLETION_MOVE_TYPE(var) ( (var  == GDK_Up) ? COMPLETION_WINDOW_UP : ( (var == GDK_Down) ? COMPLETION_WINDOW_DOWN : ( ( var == GDK_Page_Down ) ? COMPLETION_WINDOW_PAGE_DOWN : COMPLETION_WINDOW_PAGE_UP ) ) )
 
