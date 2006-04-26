@@ -98,13 +98,14 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 	DEBUG_MSG("snooper(%d)press(%d)valid(%d)widget(%s)hastextview(%d)\n", snooper->id, (kevent->type == GDK_KEY_PRESS), SNOOPER_VALID_WIDGET(widget), gtk_widget_get_name(widget), test );
 
 	/** check for valid snooper here **/
-	if (snooper->id != main_v->active_snooper ) {
-		return FALSE;
-	}
+	if (snooper->id != main_v->active_snooper ) return FALSE;
+
 	if ( snooper->stat == SNOOPER_CANCEL_RELEASE_EVENT ) {
 		snooper->stat = 0;
 		return TRUE;
 	}
+
+	/** special for completion **/
 	if ( SNOOPER_COMPLETION_ON(bfwin) ) {
 		if ( SNOOPER_COMPLETION_MOVE(kevent->keyval) ) {
 			func_complete_move(kevent, bfwin);
@@ -153,12 +154,10 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 			}
 		}else{
 			snooper->stat = 0;
-			/* if (SNOOPER_A_CHARS(kevent)) func_complete_show(widget, bfwin); */
 			return FALSE;
 		}
 	}else{/** key release **/
 		if ( snooper->stat ==  SNOOPER_HALF_SEQ ) return TRUE;
-		if (SNOOPER_A_CHARS(kevent)) func_complete_show(widget, bfwin);
 	}
 	return FALSE;
 }

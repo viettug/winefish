@@ -20,7 +20,7 @@
 
 #define SNOOPER_IS_KEYSEQ(var) ( (var->state & SNOOPER_CONTROL_MASKS) && SNOOPER_SHOULD_CAPTURE( var->keyval ) )
 
-#define SNOOPER_A_CHARS(var) ( SNOOPER_IS_AZ(var->keyval) || SNOOPER_IS_LBRACE(var->keyval) )
+#define SNOOPER_A_CHARS(var) ( (SNOOPER_IS_AZ(var->keyval) ) || SNOOPER_IS_LBRACE(var->keyval) )
 
 #define SNOOPER_VALID_WIDGET(var) ( (GTK_IS_TEXT_VIEW(var) || GTK_IS_WINDOW(var) ) )
 

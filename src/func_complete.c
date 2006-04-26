@@ -104,7 +104,10 @@ gint func_complete_show( GtkWidget *widget_, Tbfwin *bfwin ) {
 	Tdocument *doc = bfwin->current_document;
 	GtkWidget *widget = doc->view;
 
-	if ( ! GTK_WIDGET_HAS_FOCUS(widget) ) return 0;
+	if ( ! GTK_WIDGET_HAS_FOCUS(widget) ) {
+		DEBUG_MSG("func_complete_show: ah... the doc->view has focus \n");
+		return 0;
+	}
 
 	Tcompletion *cpl = bfwin->completion;
 	if ( !cpl ) func_complete_init( bfwin );
@@ -121,8 +124,8 @@ gint func_complete_show( GtkWidget *widget_, Tbfwin *bfwin ) {
 			gtk_text_buffer_get_iter_at_mark( doc->buffer, &iter, imark );
 			itstart = iter;
 			maxsearch = iter;
-			gtk_text_iter_backward_chars( &maxsearch, 50 ); /* 50 chars... may it be too long? */
-			
+			gtk_text_iter_backward_chars( &maxsearch, COMMAND_MAX_LENGTH ); /* 50 chars... may it be too long? */
+			/* TODO: limit1 = begin of line ;) */
 			if ( gtk_text_iter_backward_find_char( &itstart, ( GtkTextCharPredicate ) find_char, GINT_TO_POINTER( "\\" ), &maxsearch ) ) {
 				maxsearch = iter; /* re-use maxsearch */
 				buf = gtk_text_buffer_get_text( doc->buffer, &itstart, &maxsearch, FALSE );
