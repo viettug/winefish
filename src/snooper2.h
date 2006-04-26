@@ -20,7 +20,7 @@
 
 #define SNOOPER_IS_KEYSEQ(var) ( (var->state & SNOOPER_CONTROL_MASKS) && SNOOPER_SHOULD_CAPTURE( var->keyval ) )
 
-#define SNOOPER_A_CHARS(var) ( (SNOOPER_IS_AZ(var->keyval) ) || SNOOPER_IS_LBRACE(var->keyval) )
+#define SNOOPER_A_CHARS(var) ( ( SNOOPER_IS_AZ(var->keyval) ) || SNOOPER_IS_LBRACE(var->keyval) )
 
 #define SNOOPER_VALID_WIDGET(var) ( (GTK_IS_TEXT_VIEW(var) || GTK_IS_WINDOW(var) ) )
 
@@ -45,8 +45,7 @@ enum {
 	COMPLETION_WINDOW_PAGE_DOWN =  1 << 6, /* select many items down */
 	COMPLETION_WINDOW_ACCEPT=  1 << 7, /* accept one item */
 	COMPLETION_DELETE =  1 << 8 , /* delete an item */
-	COMPLETION_FIRST_CALL =  1 << 9, /* first press CTRL+Space in the period */
-	COMPLETION_AUTO_CALL = 1<< 10 /* auto call */
+	COMPLETION_FORCED =  1 << 9, /* first press CTRL+Space in the period */
 };
 
 enum {
@@ -62,12 +61,13 @@ enum {
 };
 #define FUNC_VALID_TYPE(type,widget) ( (type & FUNC_ANY) ||  ( (type & FUNC_TEXT_VIEW ) && GTK_IS_TEXT_VIEW(widget) ) )
 
-typedef gint (*FUNCTION)(GtkWidget *widget, Tbfwin *bfwin);
+typedef gint (*FUNCTION)(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin);
 
 typedef struct {
 	guint id;
 	gint stat;
 	GdkEvent *last_event;
+	GdkEvent *last_seq;
 } Tsnooper;
 #define SNOOPER(var) ( (Tsnooper*)var)
 
