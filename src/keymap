@@ -1,0 +1,11 @@
+map: func_help:<control>9<control>0:
+map: func_about:<control>9<control>1:
+map: func_open:<control>o:
+map: func_new:<control>n:
+map: func_key_list:<control>l<control>l:
+map: func_unknown:<control>l<control>l:
+map: func_comment:<control><shift>%:
+map: func_uncomment:<control><shift><mod1>%:
+map: func_complete:<control> :
+map: func_alias:<control><mod1>a:
+map: func_complete:<control>99:

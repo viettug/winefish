@@ -10,7 +10,7 @@
 #include "rcfile.h"
 #include "snooper2.h"
 
-static gint func_any(GtkWidget *widget, Tbfwin *bfwin) {
+static gint func_any(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin) {
 	g_print("func_any: hello\n");
 	return 1;
 }
@@ -28,7 +28,7 @@ void funclist_init() {
 	add_function("func_help", func_any, FUNC_ANY);
 	add_function("func_about", func_any, FUNC_ANY);
 	add_function("func_key_list", func_any, FUNC_ANY);
-	add_function("func_complete", func_any, FUNC_TEXT_VIEW);
+	add_function("func_complete", func_complete_force, FUNC_TEXT_VIEW);
 	add_function("func_alias", func_any, FUNC_ANY);
 }
 
