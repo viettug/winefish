@@ -144,7 +144,7 @@ gint func_complete_show( GtkWidget *widget_, GdkEventKey *kevent, Tbfwin *bfwin 
 		}
 		DEBUG_MSG("func_complete_show: buffer detected = %s\n", buf);
 
-		if ( !buf || ( (cpl->show < COMPLETION_FORCED && strlen(buf) < 4 ) ) ) {
+		if ( !buf || ( strlen(buf) < 3 ) ) {
 			DEBUG_MSG("func_complete_show:empty buffer or strlen(buffer) <4. existing...\n");
 			func_complete_hide(bfwin);
 			return 0;

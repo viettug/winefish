@@ -64,6 +64,7 @@ static gboolean snooper_loopkup_keyseq(GtkWidget *widget, Tbfwin *bfwin, GdkEven
 			if ( FUNC_VALID_TYPE(FUNC(value_)->type, widget ) ) {
 				retval = TRUE;
 				FUNC(value_)->exec(widget, kevent1, bfwin);
+				SNOOPER(bfwin->snooper)->stat = SNOOPER_HAS_EXCUTING_FUNC;
 			}
 		}
 	}
@@ -102,7 +103,7 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 	/** check for valid snooper here **/
 	if (snooper->id != main_v->active_snooper ) return FALSE;
 
-	if ( snooper->stat == SNOOPER_CANCEL_RELEASE_EVENT ) {
+	if ( snooper->stat == SNOOPER_CANCEL_RELEASE_EVENT || SNOOPER(bfwin->snooper)->stat == SNOOPER_HAS_EXCUTING_FUNC ) {
 		snooper->stat = 0;
 		return TRUE;
 	}
