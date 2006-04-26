@@ -153,15 +153,12 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 			}
 		}else{
 			snooper->stat = 0;
+			/* if (SNOOPER_A_CHARS(kevent)) func_complete_show(widget, bfwin); */
 			return FALSE;
 		}
 	}else{/** key release **/
-		if ( snooper->stat ==  SNOOPER_HALF_SEQ ) {
-			return TRUE;
-		}
-		if (SNOOPER_A_CHARS(kevent)) {
-			func_complete_show(widget, bfwin);
-		}
+		if ( snooper->stat ==  SNOOPER_HALF_SEQ ) return TRUE;
+		if (SNOOPER_A_CHARS(kevent)) func_complete_show(widget, bfwin);
 	}
 	return FALSE;
 }
