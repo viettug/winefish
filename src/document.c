@@ -1771,7 +1771,7 @@ static gboolean doc_view_key_release_lcb( GtkWidget *widget, GdkEventKey *kevent
 /* never reach: if ( (kevent->keyval == GDK_space) && (kevent->state & GDK_CONTROL_MASK ))*/
 	/* complete the word */
 	/* func_complete_do() */
-	func_complete_eat( widget, kevent, doc);
+	/* func_complete_eat( widget, kevent, doc); */
 	/* shift> = ]*/
 	/* if the shift key is released before the '>' key, we get a key release not for '>' but for '.'. We, therefore have set that in the key_press event, and check if the same hardware keycode was released */
 	/* complete environment */
