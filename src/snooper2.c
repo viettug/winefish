@@ -63,7 +63,7 @@ static gboolean snooper_loopkup_keyseq(GtkWidget *widget, Tbfwin *bfwin, GdkEven
 		if (value_) {
 			if ( FUNC_VALID_TYPE(FUNC(value_)->type, widget ) ) {
 				retval = TRUE;
-				FUNC(value_)->exec(widget, bfwin);
+				FUNC(value_)->exec(widget, kevent1, bfwin);
 			}
 		}
 	}
@@ -94,8 +94,10 @@ static gboolean snooper_loopkup_keys_in_accel_map(GdkEventKey *kevent) {
 static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin) {
 	Tsnooper *snooper =  SNOOPER(bfwin->snooper);
 
+#ifdef DEBUG
 	gboolean test = gtk_widget_is_ancestor(widget, bfwin->main_window);
 	DEBUG_MSG("snooper(%d)press(%d)valid(%d)widget(%s)hastextview(%d)\n", snooper->id, (kevent->type == GDK_KEY_PRESS), SNOOPER_VALID_WIDGET(widget), gtk_widget_get_name(widget), test );
+#endif /* DEBUG */
 
 	/** check for valid snooper here **/
 	if (snooper->id != main_v->active_snooper ) return FALSE;
@@ -128,17 +130,18 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 
 	/** if completion is hidden **/
 	if (kevent->type == GDK_KEY_PRESS) {
+		SNOOPER(bfwin->snooper)->last_event = (GdkEvent *)kevent;
 		if ( snooper->stat && ( kevent->keyval == GDK_Escape ) ) {
 			snooper->stat = SNOOPER_CANCEL_RELEASE_EVENT;
 			/* hide the completion popup menu */
 			return TRUE;
 		}else if ( (snooper->stat == SNOOPER_HALF_SEQ) || SNOOPER_IS_KEYSEQ(kevent) ) {
 			if ( snooper->stat == SNOOPER_HALF_SEQ ) {
-				snooper_loopkup_keyseq(widget, bfwin, (GdkEventKey*) snooper -> last_event, kevent);
+				snooper_loopkup_keyseq(widget, bfwin, (GdkEventKey*) snooper -> last_seq, kevent);
 				snooper->stat = 0;
 				return TRUE;
 			} else if (snooper->stat == 0) {
-				*( (GdkEventKey*) snooper->last_event )= *kevent;
+				*( (GdkEventKey*) snooper->last_seq )= *kevent;
 				if (snooper_loopkup_keyseq(widget, bfwin, kevent, NULL) ) {
 					snooper->stat = 0;
 					return TRUE;
@@ -165,6 +168,7 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 void snooper_install(Tbfwin *bfwin) {
 	bfwin->snooper = g_new0(Tsnooper,1);
 	SNOOPER(bfwin->snooper)->id = gtk_key_snooper_install( (GtkKeySnoopFunc) main_snooper, bfwin);
+	SNOOPER(bfwin->snooper)->last_seq = gdk_event_new(GDK_KEY_PRESS);
 	SNOOPER(bfwin->snooper)->last_event = gdk_event_new(GDK_KEY_PRESS);
 }
 
