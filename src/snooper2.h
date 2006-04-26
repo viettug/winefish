@@ -12,13 +12,15 @@
 
 #define SNOOPER_IS_AZ09(var) ( SNOOPER_IS_AZ(var) || ( ( GDK_0 <= var ) && ( (GDK_9 >= var ) ) ) )
 
+#define SNOOPER_IS_LBRACE(var) ( var == GDK_braceleft )
+
 #define SNOOPER_CONTROL_MASKS ( GDK_CONTROL_MASK | GDK_MOD1_MASK )
 
 #define SNOOPER_SHOULD_CAPTURE(var) ( SNOOPER_IS_AZ09(var) || ( var == GDK_percent) || (var == GDK_space) )
 
 #define SNOOPER_IS_KEYSEQ(var) ( (var->state & SNOOPER_CONTROL_MASKS) && SNOOPER_SHOULD_CAPTURE( var->keyval ) )
 
-#define SNOOPER_A_CHARS(var) ( (var->state == 0) && ( SNOOPER_IS_AZ(var->keyval) ) )
+#define SNOOPER_A_CHARS(var) ( SNOOPER_IS_AZ(var->keyval) || SNOOPER_IS_LBRACE(var->keyval) )
 
 #define SNOOPER_VALID_WIDGET(var) ( (GTK_IS_TEXT_VIEW(var) || GTK_IS_WINDOW(var) ) )
 
