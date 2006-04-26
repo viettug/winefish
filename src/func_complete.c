@@ -132,7 +132,7 @@ gint func_complete_show( GtkWidget *widget_, Tbfwin *bfwin ) {
 
 		if ( !buf || ( strlen(buf) < 3 ) ) {
 			DEBUG_MSG("func_complete_show:empty buffer or strlen(buffer) <3. existing...\n");
-			/* func_complete_hide(bfwin); */
+			func_complete_hide(bfwin);
 			return 0;
 		}
 
@@ -156,7 +156,7 @@ gint func_complete_show( GtkWidget *widget_, Tbfwin *bfwin ) {
 				g_list_sort(completion_list, (GCompareFunc)strcmp);
 			}else{
 				DEBUG_MSG("func_complete_show: complete failed. existing...\n");
-				/* func_complete_hide(bfwin); */
+				func_complete_hide(bfwin);
 				return 0;
 			}
 		}
@@ -169,7 +169,7 @@ gint func_complete_show( GtkWidget *widget_, Tbfwin *bfwin ) {
 		/* there is *ONLY* one word and the user reach end of this word */
 		if ( g_list_length(completion_list) == 1 && strlen (completion_list->data) == strlen(buf) ) {
 			DEBUG_MSG("func_complete_show: there's only *one* word. existing...\n");
-			/* func_complete_hide(bfwin); */
+			func_complete_hide(bfwin);
 			return 0;
 		}
 
