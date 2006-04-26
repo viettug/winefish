@@ -105,17 +105,17 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 		snooper->stat = 0;
 		return TRUE;
 	}
-	if ( SNOOPER_COMPLETION_ON ) {
+	if ( SNOOPER_COMPLETION_ON(bfwin) ) {
 		if ( SNOOPER_COMPLETION_MOVE(kevent->keyval) ) {
-			func_complete_move(kevent);
+			func_complete_move(kevent, bfwin);
 			snooper->stat = SNOOPER_CANCEL_RELEASE_EVENT;
 			return TRUE;
 		}else if ( SNOOPER_COMPLETION_ACCEPT(kevent->keyval) ) {
-			func_complete_do(bfwin->current_document);
+			func_complete_do(bfwin);
 			snooper->stat = SNOOPER_CANCEL_RELEASE_EVENT;
 			return TRUE;
 		}else if ( SNOOPER_COMPLETION_ESCAPE(kevent->keyval) ) {
-			func_complete_hide();
+			func_complete_hide(bfwin);
 			snooper->stat = SNOOPER_CANCEL_RELEASE_EVENT;
 			return TRUE;
 		}else if ( SNOOPER_COMPLETION_DELETE(kevent->keyval) ) {

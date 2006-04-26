@@ -23,7 +23,7 @@
 #define SNOOPER_VALID_WIDGET(var) ( (GTK_IS_TEXT_VIEW(var) || GTK_IS_WINDOW(var) ) )
 
 /** completion stuff **/
-#define SNOOPER_COMPLETION_ON ( main_v->completion.show > COMPLETION_WINDOW_HIDE )
+#define SNOOPER_COMPLETION_ON(bfwin) ( bfwin->completion && ( COMPLETION(bfwin->completion)->show > COMPLETION_WINDOW_HIDE ) )
 
 #define SNOOPER_COMPLETION_MOVE(var) ( var == GDK_Up || var== GDK_Down || var == GDK_Page_Up || var == GDK_Page_Down)
 

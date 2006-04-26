@@ -121,10 +121,10 @@ gchar **autotext_done(gchar *lookup) {
 }
 
 void completion_init(void) {
-	main_v->completion.show = COMPLETION_WINDOW_INIT;
+	/* main_v->completion.show = COMPLETION_WINDOW_INIT; */
 	main_v->props.completion = g_completion_new(NULL);
 	main_v->props.completion_s = g_completion_new(NULL);
-	main_v->completion.cache = NULL;
+	/* main_v->completion.cache = NULL; */
 
 	GList *tmplist = NULL, *tmplist_s = NULL;
 	GList *tmp2list = NULL, *tmp2list_s = NULL;

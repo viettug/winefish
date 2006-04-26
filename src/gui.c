@@ -99,10 +99,7 @@ void notebook_show(Tbfwin *bfwin) {
 
 void notebook_changed(Tbfwin *bfwin, gint newpage) {
 	/* BUG#69 */
-	if (main_v->completion.show == COMPLETION_WINDOW_SHOW) {
-		gtk_widget_hide( GTK_WIDGET( main_v->completion.window ));
-		main_v->completion.show = COMPLETION_WINDOW_HIDE;
-	}
+	func_complete_hide(bfwin);
 	gint cur = newpage;
 	gint doclistlen;
 	DEBUG_MSG("notebook_changed, doclistlen=%d, newpage=%d, notebook_curpage=%d, last_notebook_page=%d, curdoc=%p\n"
@@ -412,13 +409,7 @@ void gui_notebook_unbind_signals(Tbfwin *bfwin) {
 }
 
 static gboolean gui_main_window_configure_event_lcb(GtkWidget *widget,GdkEvent *revent,Tbfwin *bfwin) {
-	{
-	/* hide the popuup menu for autocompletion */
-		if (main_v->completion.show & COMPLETION_WINDOW_SHOW ) {
-			gtk_widget_hide(main_v->completion.window);
-			main_v->completion.show = COMPLETION_WINDOW_HIDE;
-		}
-	}
+	func_complete_hide(bfwin);
 	/* resize the outputbox */
 #ifdef AUTO_RESIZE_OUTPUTBOX
 	{
@@ -614,7 +605,7 @@ static gboolean focus_in_event_lcb(GtkWidget *widget, gpointer fooo,Tbfwin *bfwi
 	return FALSE;
 }
 static gboolean focus_out_event_lcb(GtkWidget *widget, gpointer fooo,Tbfwin *bfwin) {
-	func_complete_hide();
+	func_complete_hide(bfwin);
 	return FALSE;
 }
 #endif /* SNOOPER2 */

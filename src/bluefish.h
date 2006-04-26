@@ -325,17 +325,10 @@ typedef struct {
 		and it is only here for convenience !!!! */
 	GHashTable *bmark_files; /* no way, I have to have list of file iters. Other way I cannot properly load bmarks for closed files */
 #ifdef SNOOPER2
+	gpointer completion;
 	gpointer snooper;
 #endif /* SNOOPER2 */
 } Tbfwin;
-
-typedef struct {
-	GtkWidget *window; /* popup window */
-	GtkWidget *treeview; /* we hold it so we scroll */
-	gint show; /* 1: show; 0: hide; */
-	gchar *cache; /* temporary buffer */
-	gpointer bfwin;
-} Tcompletionwin;
 
 typedef struct {
 	Tproperties props; /* preferences */
@@ -358,13 +351,13 @@ typedef struct {
 	pcre *autoclosingtag_be_regc; /* for context \start...\stop and plain text \begin...\end */
 	pcre *anycommand_regc;
 
-	Tcompletionwin completion; /* a popup window for completion */
 #ifdef SNOOPER2
 	GHashTable *key_hashtable;
 	GHashTable *func_hashtable;
 	GtkAccelGroup *accel_group;
 	guint active_snooper;
 #else
+	Tcompletionwin completion; /* a popup window for completion */
 	GdkEvent *last_kevent;
 	guint snooper; /* snooper */
 #endif /* SNOOPER2 */

@@ -230,7 +230,7 @@ int main(int argc, char *argv[])
 	
 	main_v->tooltips = gtk_tooltips_new();
 	/* initialize the completion window */
-	main_v->completion.window = NULL;
+	/* main_v->completion.window = NULL; */
 	fref_init();
 	bmark_init();
 #ifdef WITH_MSG_QUEUE
