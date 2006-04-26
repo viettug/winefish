@@ -11,10 +11,11 @@ typedef struct {
 
 #define COMPLETION(var) ( (Tcompletion*)var )
 
-gint func_complete_show( GtkWidget *widget, Tbfwin *win );
+gint func_complete_show( GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin );
+gint func_complete_force( GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin );
 gint func_complete_hide( Tbfwin *bfwin );
 gint func_complete_delete( GtkWidget *widget, Tbfwin *bfwin );
-gint func_complete_move( GdkEventKey *kevent , Tbfwin *win );
+gint func_complete_move( GdkEventKey *kevent , Tbfwin *bfwin );
 gint func_complete_do( Tbfwin *bfwin );
 gint func_complete_eat( GtkWidget *widget, GdkEventKey *kevent, Tdocument *doc );
 
