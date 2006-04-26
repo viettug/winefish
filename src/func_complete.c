@@ -35,7 +35,7 @@ static gboolean find_char( gunichar ch, gchar *data ) {
 }
 
 static void completion_row_activated_lcb(GtkTreeView *treeview, GtkTreePath *arg1, GtkTreeViewColumn *arg2, Tbfwin *bfwin ) {
-	DEBUG_MSG("func_complete: double_click event captured\n");
+	DEBUG_MSG("func_complete: row_activated_ event captured\n");
 	func_complete_do( bfwin );
 }
 
@@ -83,9 +83,8 @@ static void func_complete_init(Tbfwin *bfwin) {
 }
 
 gint func_complete_hide(Tbfwin *bfwin) {
-	DEBUG_MSG("func_complete_hide: ");
+	DEBUG_MSG("func_complete_hide: started\n");
 	if ( SNOOPER_COMPLETION_ON(bfwin) ) {
-		DEBUG_MSG("done!\n");
 		Tcompletion *cpl = bfwin->completion;
 		gtk_widget_hide_all(cpl->window);
 		cpl->show = COMPLETION_WINDOW_HIDE;
@@ -93,7 +92,7 @@ gint func_complete_hide(Tbfwin *bfwin) {
 	}
 #ifdef DEBUG
 	else {
-		DEBUG_MSG("nothing to do\n");
+		DEBUG_MSG("func_complete_hide: nothing to do\n");
 	}
 #endif /* DEBUG */
 	return 0;
@@ -105,16 +104,10 @@ gint func_complete_show( GtkWidget *widget_, Tbfwin *bfwin ) {
 	Tdocument *doc = bfwin->current_document;
 	GtkWidget *widget = doc->view;
 
-	if ( ! GTK_WIDGET_HAS_FOCUS(widget) ) {
-		return 0;
-	}
+	if ( ! GTK_WIDGET_HAS_FOCUS(widget) ) return 0;
 
 	Tcompletion *cpl = bfwin->completion;
-	if ( !cpl ) {
-		func_complete_init( bfwin );
-	}
-	/* store the window pointer */
-	/* cpl->bfwin = doc->bfwin; */
+	if ( !cpl ) func_complete_init( bfwin );
 
 	/* reset the popup content */
 	GtkTreeModel *model;
@@ -139,7 +132,7 @@ gint func_complete_show( GtkWidget *widget_, Tbfwin *bfwin ) {
 
 		if ( !buf || ( strlen(buf) < 3 ) ) {
 			DEBUG_MSG("func_complete_show:empty buffer or strlen(buffer) <3. existing...\n");
-			func_complete_hide(bfwin);
+			/* func_complete_hide(bfwin); */
 			return 0;
 		}
 
@@ -163,7 +156,7 @@ gint func_complete_show( GtkWidget *widget_, Tbfwin *bfwin ) {
 				g_list_sort(completion_list, (GCompareFunc)strcmp);
 			}else{
 				DEBUG_MSG("func_complete_show: complete failed. existing...\n");
-				func_complete_hide(bfwin);
+				/* func_complete_hide(bfwin); */
 				return 0;
 			}
 		}
@@ -176,7 +169,7 @@ gint func_complete_show( GtkWidget *widget_, Tbfwin *bfwin ) {
 		/* there is *ONLY* one word and the user reach end of this word */
 		if ( g_list_length(completion_list) == 1 && strlen (completion_list->data) == strlen(buf) ) {
 			DEBUG_MSG("func_complete_show: there's only *one* word. existing...\n");
-			func_complete_hide(bfwin);
+			/* func_complete_hide(bfwin); */
 			return 0;
 		}
 
@@ -265,22 +258,25 @@ gint func_complete_delete(GtkWidget *widget, Tbfwin *bfwin) {
 		user_selection = g_strdup((gchar *) (g_value_peek_pointer(val)));
 		g_value_unset (val);
 		g_free (val);
-		DEBUG_MSG("completion: user selected '%s'\n", user_selection);
+		DEBUG_MSG("func_complete_delete: user selected '%s'\n", user_selection);
 	}
 	if (user_selection) {
 		func_complete_hide(bfwin);
 
 		/* now delete */
-		DEBUG_MSG("completion: delete an item '%s'\n", user_selection);
+		DEBUG_MSG("func_complete_delete: delete an item '%s'\n", user_selection);
 		GList *tmp;
 		GList *first_word = NULL;
-		gboolean word_removed = FALSE;
-		/* --- how to remove an item `foobar' ---
+		gint word_removed = 0;
+		/** 0: donot removed; -1: cannot removed from global list; 1: removed; **/
+
+		/** --- how to remove an item `foobar' ---
 		we first have a list prefixed by `foobar'.
 		get the first item of this list and remove the item from the main list by `g_list_remove_link'.
 		finally, remove the item from the main list.
-		*/
-		if (!word_removed) {
+		**/
+		/* if (!word_removed) */
+		{
 			tmp = g_completion_complete(main_v->props.completion,user_selection,NULL);
 			if (tmp) {
 				first_word = g_list_first(tmp);
@@ -288,8 +284,8 @@ gint func_complete_delete(GtkWidget *widget, Tbfwin *bfwin) {
 					g_list_remove_link(tmp,first_word);
 					DEBUG_MSG("completion: first word : %s\n",(gchar*)first_word->data);
 					g_completion_remove_items(main_v->props.completion, first_word);
-					DEBUG_MSG("completion: ...item deleted from global list\n");
-					word_removed = TRUE;
+					DEBUG_MSG("func_complete_delete: deleted word from global list\n");
+					word_removed = 1;
 				}
 			}
 		}
@@ -297,7 +293,7 @@ gint func_complete_delete(GtkWidget *widget, Tbfwin *bfwin) {
 			tmp = g_completion_complete(main_v->props.completion_s,user_selection,NULL);
 			/* note the session list wasnot sorted. if we remove an item, add it again to
 			the session list (by `func_complete_eat', the list is unordered. so we have to
-			search through the session_list. we donot use the g_list_find_custom as
+			search through the session_list. we donot use the (g_list_find_custom) as
 			tmp is *GCompletion --- !!!! */
 			/* TODO: optimized */
 			first_word = g_list_last(tmp);
@@ -306,23 +302,29 @@ gint func_complete_delete(GtkWidget *widget, Tbfwin *bfwin) {
 				first_word = first_word->prev;
 				count ++;
 			}
-			DEBUG_MSG("completion: passed %d words\n",count);
+			DEBUG_MSG("func_complete_delete: passed %d words\n",count);
 			/* we must ensure the the first item == user_selection */
 			if ( first_word ) {
 				g_list_remove_link(tmp,first_word);
-				DEBUG_MSG("completion: first word : %s\n",(gchar*)first_word->data);
+				DEBUG_MSG("func_complete_delete: first word : %s\n",(gchar*)first_word->data);
 				g_completion_remove_items(main_v->props.completion_s, first_word);
-				DEBUG_MSG("completion: ...item deleted from session list\n");
-				word_removed = TRUE;
+				DEBUG_MSG("func_complete_delete: ...selected word from session list\n");
+				word_removed = 1;
 			}
 		}
-		if(word_removed) {
-			gchar *tmpstr = g_strdup_printf(_("deleted '%s'"), user_selection);
+		{
+			gchar *tmpstr = NULL;
+			switch(word_removed) {
+				case 1: tmpstr = g_strdup_printf(_("deleted '%s'"), user_selection); break;
+				case -1: tmpstr = g_strup(_("cannot delete from global list")); break;
+				default: break;
+			}
+			DEBUG_MSG("func_complete_delete: %s\n", tmpstr);
 			/* statusbar_message(doc->bfwin, tmpstr, 2000); */
-			g_free(tmpstr);
+			if (tmpstr) g_free(tmpstr);
 		}
 		g_free(user_selection);
-		func_complete_show(widget, bfwin);
+		func_complete_show(widget, bfwin);/* rebuilt the list */
 	}else{
 		func_complete_hide(bfwin);
 	}
