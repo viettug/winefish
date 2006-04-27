@@ -29,7 +29,8 @@ void funclist_init() {
 	add_function("func_about", func_any, FUNC_ANY);
 	add_function("func_key_list", func_any, FUNC_ANY);
 	add_function("func_complete", func_complete_force, FUNC_TEXT_VIEW);
-	add_function("func_alias", func_any, FUNC_ANY);
+	add_function("func_comment", func_comment, FUNC_ANY);
+	add_function("func_uncomment", func_uncomment, FUNC_ANY);
 }
 
 static void rcfile_parse_keys(void *keys_list) {
