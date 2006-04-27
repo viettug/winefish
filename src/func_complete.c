@@ -181,7 +181,7 @@ gint func_complete_show( GtkWidget *widget_, GdkEventKey *kevent, Tbfwin *bfwin 
 		They are used directly. */
 
 		/* there is *ONLY* one word and the user reach end of this word */
-		if ( g_list_length(completion_list) == 1 && strlen (completion_list->data) == strlen(buf) ) {
+		if ( cpl->show != COMPLETION_FORCED && g_list_length(completion_list) == 1 && strlen (completion_list->data) == strlen(buf) ) {
 			DEBUG_MSG("func_complete_show: there's only *one* word. existing...\n");
 			func_complete_hide(bfwin);
 			return 0;
