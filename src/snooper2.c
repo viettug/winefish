@@ -64,10 +64,10 @@ static gboolean snooper_loopkup_keyseq(GtkWidget *widget, Tbfwin *bfwin, GdkEven
 			if ( FUNC_VALID_TYPE(FUNC(value_)->type, widget ) ) {
 				retval = TRUE;
 				FUNC(value_)->exec(widget, kevent1, bfwin);
-				SNOOPER(bfwin->snooper)->stat = SNOOPER_HAS_EXCUTING_FUNC;
 			}
 		}
 	}
+	SNOOPER(bfwin->snooper)->stat = SNOOPER_HAS_EXCUTING_FUNC;
 	DEBUG_MSG("snooper: lookup '%s', retval = %d\n", tmpstr, retval);
 	g_free(tmpstr);
 	return retval;
@@ -95,21 +95,20 @@ static gboolean snooper_loopkup_keys_in_accel_map(GdkEventKey *kevent) {
 static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin) {
 	Tsnooper *snooper =  SNOOPER(bfwin->snooper);
 
-#ifdef DEBUG
-	gboolean test = gtk_widget_is_ancestor(widget, bfwin->main_window);
-	DEBUG_MSG("snooper(%d)press(%d)valid(%d)widget(%s)hastextview(%d)\n", snooper->id, (kevent->type == GDK_KEY_PRESS), SNOOPER_VALID_WIDGET(widget), gtk_widget_get_name(widget), test );
-#endif /* DEBUG */
+	DEBUG_MSG("snooper:id(%d)press(%d)widget(%p,%s)\n", snooper->id, (kevent->type == GDK_KEY_PRESS), widget, gtk_widget_get_name(widget) );
 
 	/** check for valid snooper here **/
 	if (snooper->id != main_v->active_snooper ) return FALSE;
 
-	if ( snooper->stat == SNOOPER_CANCEL_RELEASE_EVENT || SNOOPER(bfwin->snooper)->stat == SNOOPER_HAS_EXCUTING_FUNC ) {
+	if (  kevent->type == GDK_KEY_RELEASE && ( snooper->stat == SNOOPER_CANCEL_RELEASE_EVENT || snooper->stat == SNOOPER_HAS_EXCUTING_FUNC ) ) {
+		DEBUG_MSG("snooper: has executed function OR cancel command requested; exit...\n");
 		snooper->stat = 0;
 		return TRUE;
 	}
 
 	/** special for completion **/
 	if ( SNOOPER_COMPLETION_ON(bfwin) ) {
+		DEBUG_MSG("snooper: completion on bfwin = %p\n", bfwin);
 		if ( SNOOPER_COMPLETION_MOVE(kevent->keyval) ) {
 			func_complete_move(kevent, bfwin);
 			snooper->stat = SNOOPER_CANCEL_RELEASE_EVENT;
@@ -126,6 +125,8 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 			func_complete_delete(widget, bfwin);
 			snooper->stat = SNOOPER_CANCEL_RELEASE_EVENT;
 			return TRUE;
+		}else if ( snooper->stat ) {
+			func_complete_hide(bfwin);
 		}
 	}
 
@@ -139,16 +140,14 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 		}else if ( (snooper->stat == SNOOPER_HALF_SEQ) || SNOOPER_IS_KEYSEQ(kevent) ) {
 			if ( snooper->stat == SNOOPER_HALF_SEQ ) {
 				snooper_loopkup_keyseq(widget, bfwin, (GdkEventKey*) snooper -> last_seq, kevent);
-				snooper->stat = 0;
 				return TRUE;
 			} else if (snooper->stat == 0) {
 				*( (GdkEventKey*) snooper->last_seq )= *kevent;
 				if (snooper_loopkup_keyseq(widget, bfwin, kevent, NULL) ) {
-					snooper->stat = 0;
 					return TRUE;
 				}else{
 					if (snooper_loopkup_keys_in_accel_map(kevent)) {
-						snooper->stat = SNOOPER_CANCEL_RELEASE_EVENT;
+						snooper->stat = SNOOPER_HAS_EXCUTING_FUNC;
 						return FALSE;
 					}else{
 						snooper->stat = SNOOPER_HALF_SEQ;
@@ -161,7 +160,10 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 			return FALSE;
 		}
 	}else{/** key release **/
-		if ( snooper->stat ==  SNOOPER_HALF_SEQ ) return TRUE;
+		if ( snooper->stat ==  SNOOPER_HALF_SEQ ) {
+			DEBUG_MSG("snooper: in the middle of sequence; release event cancelled\n");
+			return TRUE;
+		}
 	}
 	return FALSE;
 }
