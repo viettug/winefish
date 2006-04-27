@@ -63,6 +63,7 @@ static gboolean snooper_loopkup_keyseq(GtkWidget *widget, Tbfwin *bfwin, GdkEven
 		if (value_) {
 			if ( FUNC_VALID_TYPE(FUNC(value_)->type, widget ) ) {
 				retval = TRUE;
+				func_complete_hide(bfwin);
 				FUNC(value_)->exec(widget, kevent1, bfwin);
 			}
 		}
