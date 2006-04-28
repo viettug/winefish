@@ -78,6 +78,10 @@ static gboolean dollar_predicate(gunichar ch, gpointer data) {
 */
 
 /* kyanh, 20060128 */
+/**
+@param opt: BR_MOVE_IF_FOUND | BR_FIND_BACKWARD | BR_FIND_FORWARD | BR_AUTO_FIND
+@param limit: with limit or not
+*/
 guint16 brace_finder(GtkTextBuffer *buffer, Tbracefinder *brfinder, gint opt, gint limit) {
 	GtkTextIter iter_start, iter_start_new, iter_end;
 	GtkTextIter tmpiter/* LEFT */, tmp2iter /* RIGHT */, tmpiter_extra /* = `tmpiter' for dollar sign if opt & BR_AUTO_FIND */;
