@@ -98,13 +98,13 @@ gint func_complete_hide(Tbfwin *bfwin) {
 	return 0;
 }
 
-gint func_complete_show( GtkWidget *widget_, GdkEventKey *kevent, Tbfwin *bfwin ) {
-	DEBUG_MSG("func_complete_show: started\n");
+gint func_complete_show( GtkWidget *widget_, GdkEventKey *kevent, Tbfwin *bfwin, gint opt ) {
+	DEBUG_MSG("func_complete_show: started with opt=%d\n", opt);
 
 	if ( !bfwin->completion ) func_complete_init( bfwin );
 	Tcompletion *cpl = bfwin->completion;
 
-	if (kevent) {
+	if ( kevent && opt & FUNC_FROM_OTHER ) {
 		/* để hạn chees tự động gọi khi nhấn phím mũi tên...
 		nghĩa là: khi người dùng nhấn ít nhấn hai phím ký tự thif mới bắt đầu show() */
 		if ( cpl->show <= COMPLETION_WINDOW_HIDE ) {
@@ -144,7 +144,7 @@ gint func_complete_show( GtkWidget *widget_, GdkEventKey *kevent, Tbfwin *bfwin 
 		}
 		DEBUG_MSG("func_complete_show: buffer detected = %s\n", buf);
 
-		if ( !buf || ( strlen(buf) < 3 ) ) {
+		if ( !buf || strlen(buf) ==1 || ( opt & FUNC_FROM_OTHER && ( strlen(buf) < 4 ) ) ) {
 			DEBUG_MSG("func_complete_show:empty buffer or strlen(buffer) <4. existing...\n");
 			func_complete_hide(bfwin);
 			return 0;
@@ -181,7 +181,7 @@ gint func_complete_show( GtkWidget *widget_, GdkEventKey *kevent, Tbfwin *bfwin 
 		They are used directly. */
 
 		/* there is *ONLY* one word and the user reach end of this word */
-		if ( cpl->show != COMPLETION_FORCED && g_list_length(completion_list) == 1 && strlen (completion_list->data) == strlen(buf) ) {
+		if ( ( opt & FUNC_FROM_OTHER ) && g_list_length(completion_list) == 1 && strlen (completion_list->data) == strlen(buf) ) {
 			DEBUG_MSG("func_complete_show: there's only *one* word. existing...\n");
 			func_complete_hide(bfwin);
 			return 0;
@@ -338,7 +338,7 @@ gint func_complete_delete(GtkWidget *widget, Tbfwin *bfwin) {
 			if (tmpstr) g_free(tmpstr);
 		}
 		g_free(user_selection);
-		func_complete_show(widget, NULL, bfwin);/* rebuilt the list */
+		func_complete_show(widget, NULL, bfwin, FUNC_FROM_OTHER);/* rebuilt the list; TODO: should forced the result... */
 	}else{
 		func_complete_hide(bfwin);
 	}
@@ -466,19 +466,28 @@ gint func_complete_do(Tbfwin *bfwin) {
 	return 1;
 }
 
-/**
+/*
 * kyanh <kyanh@o2.pl>
 * add user command to autocompletion list.
 * this causes the list be sorted again ==> slower performance*
 */
 
-gint func_complete_eat( GtkWidget *widget, GdkEventKey *kevent, Tdocument *doc ) {
+gint func_complete_eat( GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt ) {
 	DEBUG_MSG("func_complete_eat: started\n");
 
-	guint32 character = gdk_keyval_to_unicode( kevent->keyval );
-	if ( (kevent->keyval != GDK_Return) && (character==0 || !strstr(DELIMITERS, kevent->string)) ) {
-		return 0;
+	Tdocument *doc = bfwin->current_document;
+
+	if (!doc) return 0;
+
+	if (opt & FUNC_FROM_OTHER) {
+		/** only when user press a delimiters that we can start game; */
+		guint32 character = gdk_keyval_to_unicode( kevent->keyval );
+		if ( (kevent->keyval != GDK_Return) && (character==0 || !strstr(DELIMITERS, kevent->string)) ) {
+			DEBUG_MSG("func_complete_eat: returned\n");
+			return 0;
+		}
 	}
+
 	gchar *buf=NULL;
 	GtkTextMark * imark;
 	GtkTextIter itstart, iter, maxsearch;
@@ -487,7 +496,7 @@ gint func_complete_eat( GtkWidget *widget, GdkEventKey *kevent, Tdocument *doc )
 	gtk_text_buffer_get_iter_at_mark( doc->buffer, &iter, imark );
 	
 	itstart = iter;
-	gtk_text_iter_backward_chars(&itstart, 1);
+	if (opt & FUNC_FROM_OTHER) gtk_text_iter_backward_chars(&itstart, 1);
 	/* buf = gtk_text_buffer_get_text(doc->buffer, &itstart, &iter, FALSE); */
 	/* if ( strlen(buf)==1 && strstr(DELIMITERS, buf) ) { */
 	iter = itstart;
@@ -520,14 +529,5 @@ gint func_complete_eat( GtkWidget *widget, GdkEventKey *kevent, Tdocument *doc )
 		}
 	}
 	g_free(buf);
-	return 1;
-}
-
-gint func_complete_force( GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin ) {
-	DEBUG_MSG("func_complete_force: started\n");
-	if (!bfwin->completion) func_complete_init(bfwin);
-	Tcompletion *cpl = bfwin->completion;
-	cpl->show = COMPLETION_FORCED;
-	func_complete_show(widget,kevent,bfwin);
 	return 1;
 }
