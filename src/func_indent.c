@@ -17,6 +17,8 @@
  * Return value: void
  **/
 static void doc_indent_selection( Tdocument *doc, gboolean unindent ) {
+	if (!doc) return;
+
 	GtkTextIter itstart, itend;
 	if ( gtk_text_buffer_get_selection_bounds( doc->buffer, &itstart, &itend ) ) {
 		GtkTextMark * end;
@@ -131,7 +133,10 @@ static void doc_indent_selection( Tdocument *doc, gboolean unindent ) {
 }
 
 void menu_indent_cb( Tbfwin *bfwin, guint callback_action, GtkWidget *widget ) {
-	if ( bfwin->current_document ) {
-		doc_indent_selection( bfwin->current_document, ( callback_action == 1 ) );
-	}
+	doc_indent_selection( bfwin->current_document, ( callback_action == 1 ) );
+}
+
+gint func_indent( GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt) {
+	doc_indent_selection( bfwin->current_document, opt & FUNC_VALUE_0 );
+	return 1;
 }
