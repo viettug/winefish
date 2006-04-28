@@ -31,28 +31,37 @@
 #include "bluefish.h"
 #include "snooper2.h"
 
-static gboolean snooper_loopkup_keyseq(GtkWidget *widget, Tbfwin *bfwin, GdkEventKey *kevent1, GdkEventKey *kevent2) {
-	gchar *tmpstr;
+#define ALL_ACCELS_MASK (GDK_CONTROL_MASK | GDK_SHIFT_MASK | GDK_MOD1_MASK)
+#define KEVENT(var) ( (GdkEventKey*)var )
+
+static gchar * snooper_parse_key(GdkEventKey *kevent) {
+	gchar *tmpstr = NULL;
 	const gchar *ctrl, *shift, *mod1;
-	const gchar *ctrl2, *shift2, *mod12;
-	guint32 ch, ch2;
+	guint keyval;
+	GdkModifierType consumed;
+	gdk_keymap_translate_keyboard_state (NULL, kevent->hardware_keycode, kevent->state, kevent->group, &keyval, NULL, NULL, &consumed);
+	ctrl = kevent->state & ~consumed & GDK_CONTROL_MASK ? "<control>": "";
+	shift = kevent->state & ~consumed & GDK_SHIFT_MASK ? "<shift>": "";
+	mod1 = kevent->state & ~consumed & GDK_MOD1_MASK ? "<mod1>": "";
+	tmpstr = g_strdup_printf("%s%s%s%c", ctrl, shift, mod1, gdk_keyval_to_unicode(keyval));
+	DEBUG_MSG("snooper_parse_key: return %s\n", tmpstr);
+	return tmpstr;
+}
+
+static gboolean snooper_loopkup_keyseq(GtkWidget *widget, Tbfwin *bfwin, GdkEventKey *kevent1, GdkEventKey *kevent2) {
+	gchar *tmpstr, *r1, *r2;
 	gchar *value;
 	gboolean retval;
 
-	ch = gdk_keyval_to_unicode( kevent1->keyval );
-	ctrl = kevent1->state & GDK_CONTROL_MASK ? "<control>": "";
-	shift = kevent1->state & GDK_SHIFT_MASK ? "<shift>": "";
-	mod1 = kevent1->state & GDK_MOD1_MASK ? "<mod1>": "";
+	r1 = snooper_parse_key(kevent1);
 
 	if (kevent2) {
-		ch2 = gdk_keyval_to_unicode( kevent2->keyval );
-		ctrl2 = kevent2->state & GDK_CONTROL_MASK ? "<control>": "";
-		shift2 = kevent2->state & GDK_SHIFT_MASK ? "<shift>": "";
-		mod12 = kevent2->state & GDK_MOD1_MASK ? "<mod1>": "";
-		/* TODO: use (gtk_accelerator_name) */
-		tmpstr = g_strdup_printf("%s%s%s%c%s%s%s%c",ctrl,shift,mod1,ch,ctrl2,shift2,mod12,ch2);
+		r2 = snooper_parse_key(kevent2);
+		tmpstr = g_strdup_printf("%s%s",r1,r2);
+		g_free(r1);
+		g_free(r2);
 	}else{
-		tmpstr = g_strdup_printf("%s%s%s%c",ctrl,shift,mod1,ch);
+		tmpstr = r1;
 	}
 
 	retval = FALSE;
@@ -75,11 +84,13 @@ static gboolean snooper_loopkup_keyseq(GtkWidget *widget, Tbfwin *bfwin, GdkEven
 }
 
 static gboolean snooper_accel_group_find_func(GtkAccelKey *key, GClosure *closure, gpointer data) {
-	GdkEventKey *test = (GdkEventKey*)data;
+	guint keyval;
+	GdkModifierType consumed;
+	gdk_keymap_translate_keyboard_state (NULL, KEVENT(data)->hardware_keycode, KEVENT(data)->state, KEVENT(data)->group, &keyval, NULL, NULL, &consumed);
 #ifdef DEBUG_ALL
-	DEBUG_MSG("snooper_accel_group_find_func: accel(%d,%d) compared with (%d,%d)\n", key->accel_key, key->accel_mods, test->keyval, test->state);
-#endif /* DEBUG */
-	return ( (key->accel_key == test->keyval) && (key->accel_mods & test->state ) );
+	DEBUG_MSG("snooper_accel_group_find_func: compared (%d,%d) with (%d,%d)\n", key->accel_key, key->accel_mods, keyval, KEVENT(data)->state & ~consumed );
+#endif /* DEBUG_ALL */
+	return ( (key->accel_key == keyval) && (key->accel_mods == ( KEVENT(data)->state & ~consumed) ) );
 }
 
 static gboolean snooper_loopkup_keys_in_accel_map(GdkEventKey *kevent) {
@@ -97,7 +108,7 @@ static gboolean snooper_loopkup_keys_in_accel_map(GdkEventKey *kevent) {
 static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin) {
 	Tsnooper *snooper =  SNOOPER(bfwin->snooper);
 
-	DEBUG_MSG("snooper:id(%d)press(%d)widget(%p,%s)\n", snooper->id, (kevent->type == GDK_KEY_PRESS), widget, gtk_widget_get_name(widget) );
+	DEBUG_MSG("snooper: id(%d)press(%d)widget(%s)\n", snooper->id, (kevent->type == GDK_KEY_PRESS), gtk_widget_get_name(widget) );
 
 	/** check for valid snooper here **/
 	if (snooper->id != main_v->active_snooper ) return FALSE;
