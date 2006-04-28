@@ -75,20 +75,21 @@ static gboolean snooper_loopkup_keyseq(GtkWidget *widget, Tbfwin *bfwin, GdkEven
 }
 
 static gboolean snooper_accel_group_find_func(GtkAccelKey *key, GClosure *closure, gpointer data) {
-	GdkEventKey *test;
-	test = (GdkEventKey*)data;
-	return ( (key->accel_key == test->keyval) && (key->accel_mods == test->state) );
+	GdkEventKey *test = (GdkEventKey*)data;
+#ifdef DEBUG_ALL
+	DEBUG_MSG("snooper_accel_group_find_func: accel(%d,%d) compared with (%d,%d)\n", key->accel_key, key->accel_mods, test->keyval, test->state);
+#endif /* DEBUG */
+	return ( (key->accel_key == test->keyval) && (key->accel_mods & test->state ) );
 }
 
 static gboolean snooper_loopkup_keys_in_accel_map(GdkEventKey *kevent) {
 	GtkAccelKey *accel_key;
 	gboolean retval;
-	
+
 	retval = FALSE;
 	accel_key = gtk_accel_group_find( main_v->accel_group, (GtkAccelGroupFindFunc) snooper_accel_group_find_func, kevent);
-	if (accel_key) {
-		retval = TRUE;
-	}
+	if (accel_key) retval = TRUE;
+
 	DEBUG_MSG("snooper: lookup in accel. group, returns %d\n", retval);
 	return retval;
 }
