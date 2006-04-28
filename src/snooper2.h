@@ -45,7 +45,6 @@ enum {
 	COMPLETION_WINDOW_PAGE_DOWN =  1 << 6, /* select many items down */
 	COMPLETION_WINDOW_ACCEPT=  1 << 7, /* accept one item */
 	COMPLETION_DELETE =  1 << 8 , /* delete an item */
-	COMPLETION_FORCED =  1 << 9, /* first press CTRL+Space in the period */
 };
 
 enum {
@@ -56,12 +55,16 @@ enum {
 };
 
 enum {
-	FUNC_ANY = 1<<0,
-	FUNC_TEXT_VIEW = 1<<1
+	FUNC_VALUE_0 = 1<<0,
+	FUNC_VALUE_1 = 1<<1,
+	FUNC_ANY = 1<<2,
+	FUNC_TEXT_VIEW = 1<<3,
+	FUNC_FROM_SNOOPER = 1<<4,
+	FUNC_FROM_OTHER =1 <<5
 };
 #define FUNC_VALID_TYPE(type,widget) ( (type & FUNC_ANY) ||  ( (type & FUNC_TEXT_VIEW ) && GTK_IS_TEXT_VIEW(widget) ) )
 
-typedef gint (*FUNCTION)(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin);
+typedef gint (*FUNCTION)(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt);
 
 typedef struct {
 	guint id;
@@ -73,7 +76,7 @@ typedef struct {
 
 typedef struct {
 	FUNCTION exec;
-	gint type;
+	gint data;
 	/* other stuff (function description, for e.g.) */
 } Tfunc;
 #define FUNC(var) ( (Tfunc*)var)
