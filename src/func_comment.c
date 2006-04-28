@@ -19,15 +19,17 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+#define DEBUG
+
 #include <gtk/gtk.h>
 
 #include "bluefish.h"
 #include "undo_redo.h"
 #include "document.h"
 #include "stringlist.h" /* count_array */
+#include "snooper2.h"
 
-static void doc_comment_selection( Tdocument *doc, gboolean uncomment )
-{
+static void doc_comment_selection( Tdocument *doc, gboolean uncomment ) {
 	if (!doc) return;
 
 	GtkTextIter itstart, itend;
@@ -149,12 +151,16 @@ void menu_comment_cb( Tbfwin *bfwin, guint callback_action, GtkWidget *widget ) 
 	doc_comment_selection( bfwin->current_document, ( callback_action == 1 ) );
 }
 
-gint func_comment(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin) {
-	doc_comment_selection( bfwin->current_document, 0 );
+gint func_comment(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt) {
+	DEBUG_MSG("doc_comment_selection: started with opt = %d\n", opt);
+	doc_comment_selection( bfwin->current_document, opt & FUNC_VALUE_0 );
 	return 1;
 }
 
-gint func_uncomment(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin) {
+/*
+gint func_uncomment(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt) {
 	doc_comment_selection( bfwin->current_document, 1 );
 	return 1;
 }
+*/
+
