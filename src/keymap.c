@@ -10,16 +10,17 @@
 #include "rcfile.h"
 #include "snooper2.h"
 
-static gint func_any(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin) {
+static gint func_any(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt) {
 	g_print("func_any: hello\n");
 	return 1;
 }
 
-static void add_function(const char *human_name, FUNCTION computer_name, gint type) {
+/** TODO: passed some data here */
+static void add_function(const char *human_name, FUNCTION computer_name, gint data) {
 	Tfunc *func;
 	func = g_new0(Tfunc, 1);
 	func->exec = computer_name;
-	func->type = type;
+	func->data = data | FUNC_FROM_SNOOPER;
 	g_hash_table_insert(main_v->func_hashtable, (gpointer)human_name, func);
 }
 
@@ -28,9 +29,12 @@ void funclist_init() {
 	add_function("func_help", func_any, FUNC_ANY);
 	add_function("func_about", func_any, FUNC_ANY);
 	add_function("func_key_list", func_any, FUNC_ANY);
-	add_function("func_complete", func_complete_force, FUNC_TEXT_VIEW);
+
+	add_function("func_complete", func_complete_show, FUNC_ANY);
+	add_function("func_complete_eat", func_complete_eat, FUNC_ANY);
+
 	add_function("func_comment", func_comment, FUNC_ANY);
-	add_function("func_uncomment", func_uncomment, FUNC_ANY);
+	add_function("func_uncomment", func_comment, FUNC_VALUE_0 + FUNC_ANY);
 }
 
 static void rcfile_parse_keys(void *keys_list) {
