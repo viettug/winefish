@@ -58,13 +58,13 @@ static gboolean snooper_loopkup_keyseq(GtkWidget *widget, Tbfwin *bfwin, GdkEven
 	retval = FALSE;
 	value = g_hash_table_lookup(main_v->key_hashtable, tmpstr);
 	if (value) {
-		gpointer value_;
+		Tfunc *value_;
 		value_ = g_hash_table_lookup(main_v->func_hashtable,value);
 		if (value_) {
-			if ( FUNC_VALID_TYPE(FUNC(value_)->type, widget ) ) {
+			if ( FUNC_VALID_TYPE( value_->data, widget ) ) {
 				retval = TRUE;
 				func_complete_hide(bfwin);
-				FUNC(value_)->exec(widget, kevent1, bfwin);
+				FUNC(value_)->exec(widget, kevent1, bfwin, value_->data );
 			}
 		}
 	}
