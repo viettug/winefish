@@ -7,5 +7,6 @@ map: func_unknown:<control>l<control>l:
 map: func_comment:<control><shift>%:
 map: func_uncomment:<control><shift><mod1>%:
 map: func_complete:<control> :
+map: func_complete_eat:<control>9<control>9:
 map: func_alias:<control><mod1>a:
 map: func_complete:<control>99:
