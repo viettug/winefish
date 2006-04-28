@@ -34,7 +34,10 @@ void funclist_init() {
 	add_function("func_complete_eat", func_complete_eat, FUNC_ANY);
 
 	add_function("func_comment", func_comment, FUNC_ANY);
-	add_function("func_uncomment", func_comment, FUNC_VALUE_0 + FUNC_ANY);
+	add_function("func_uncomment", func_comment, FUNC_VALUE_0 | FUNC_ANY);
+	
+	add_function("func_indent", func_indent, FUNC_ANY);
+	add_function("func_unindent", func_indent, FUNC_VALUE_0 | FUNC_ANY);
 }
 
 static void rcfile_parse_keys(void *keys_list) {
