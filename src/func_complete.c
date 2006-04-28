@@ -30,6 +30,16 @@
 #include "snooper2.h"
 #include "func_complete.h"
 
+typedef struct {
+	GtkWidget *window; /* popup window */
+	GtkWidget *treeview; /* we hold it so we scroll */
+	gint show; /* 1: show; 0: hide; */
+	gchar *cache; /* temporary buffer */
+	/* gpointer bfwin; */
+} Tcompletion;
+
+#define COMPLETION(var) ( (Tcompletion*)var )
+
 static gboolean find_char( gunichar ch, gchar *data ) {
 	return ( strchr( data, ch ) != NULL );
 }
