@@ -54,16 +54,6 @@ enum {
 	SNOOPER_HAS_EXCUTING_FUNC = 1<<3,
 };
 
-enum {
-	FUNC_VALUE_0 = 1<<0,
-	FUNC_VALUE_1 = 1<<1,
-	FUNC_ANY = 1<<2,
-	FUNC_TEXT_VIEW = 1<<3,
-	FUNC_FROM_SNOOPER = 1<<4,
-	FUNC_FROM_OTHER =1 <<5
-};
-#define FUNC_VALID_TYPE(type,widget) ( (type & FUNC_ANY) ||  ( (type & FUNC_TEXT_VIEW ) && GTK_IS_TEXT_VIEW(widget) ) )
-
 typedef gint (*FUNCTION)(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt);
 
 typedef struct {
