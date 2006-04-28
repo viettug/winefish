@@ -67,6 +67,7 @@
 #include "bookmark.h"
 #include "autox.h" /* autotext_done() */
 #include "snooper.h"
+#include "snooper2.h"
 
 #include "brace_finder.h" /* VALID_BRACE */
 
@@ -1743,26 +1744,22 @@ else {
 }
 
 static gboolean doc_view_key_press_lcb( GtkWidget *widget, GdkEventKey *kevent, Tdocument *doc ) {
-	if ( ! ( (kevent->state & GDK_CONTROL_MASK) && ( (kevent->keyval == GDK_bracketleft) || (kevent->keyval == GDK_bracketright) ) ) ) {
+	//if ( ! ( (kevent->state & GDK_CONTROL_MASK) && ( (kevent->keyval == GDK_bracketleft) || (kevent->keyval == GDK_bracketright) ) ) ) {
 		brace_finder(doc->buffer, doc->brace_finder, 0, -1);
-	}
-	/* func_complete_show(widget, kevent, doc->bfwin); */
-	return FALSE; /* we didn't handle all of the event */
+	//}
+	return FALSE;
 }
 
 static gboolean doc_view_key_release_lcb( GtkWidget *widget, GdkEventKey *kevent, Tdocument *doc ) {
-/* never reach: if ( (kevent->keyval == GDK_space) && (kevent->state & GDK_CONTROL_MASK ))*/
-	func_complete_show(widget, kevent, doc->bfwin);
+	func_complete_show(widget, kevent, doc->bfwin, FUNC_FROM_OTHER);
+	func_complete_eat( widget, kevent, doc->bfwin, FUNC_FROM_OTHER);
 
-	/* complete the word */
-	/* func_complete_do() */
-	/* func_complete_eat( widget, kevent, doc); */
 	/* shift> = ]*/
 	/* if the shift key is released before the '>' key, we get a key release not for '>' but for '.'. We, therefore have set that in the key_press event, and check if the same hardware keycode was released */
 	/* complete environment */
-	if ( ! ( (kevent->state & GDK_CONTROL_MASK) && ( (kevent->keyval == GDK_bracketleft) || (kevent->keyval == GDK_bracketright) ) ) ) {
-		brace_finder(doc->buffer,doc->brace_finder,BR_AUTO_FIND, BRACE_FINDER_MAX_LINES);
-	}
+	//if ( ! ( (kevent->state & GDK_CONTROL_MASK) && ( (kevent->keyval == GDK_bracketleft) || (kevent->keyval == GDK_bracketright) ) ) ) {
+	brace_finder(doc->buffer,doc->brace_finder,BR_AUTO_FIND, BRACE_FINDER_MAX_LINES);
+	//}
 
 	if ( ( kevent->keyval == GDK_braceright ) /* || (main_v->last_kevent && ( kevent->hardware_keycode == ((GdkEventKey *)main_v->last_kevent)->hardware_keycode && ((GdkEventKey *)main_v->last_kevent)->keyval == GDK_braceright )) */) {
 		/* autoclose environment for LaTeX */
