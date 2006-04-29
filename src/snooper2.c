@@ -41,7 +41,7 @@ gchar * stat_name(var) {
 	if ( var & SNOOPER_HALF_SEQ)
 		tmpstr = g_strconcat(tmpstr, ",HALF_SEQ", NULL);
 	if (var & SNOOPER_CANCEL_RELEASE_EVENT)
-		tmpstr = g_strconcat(",CANCEL_RELEASE", NULL);
+		tmpstr = g_strconcat(tmpstr,",CANCEL_RELEASE", NULL);
 	return tmpstr;
 }
 #endif
@@ -142,9 +142,11 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 	}
 
 #ifdef DEBUG
-	gchar *tmpstr = stat_name(snooper->stat);
-	DEBUG_MSG("snooper: stat(%s)press(%d,%d)length(%d)widget(%s)\n", tmpstr,(kevent->type == GDK_KEY_PRESS), kevent->keyval, kevent->length, gtk_widget_get_name(widget) );
-	g_free(tmpstr);
+	{
+		gchar *tmpstr = stat_name(snooper->stat);
+		DEBUG_MSG("snooper: stat(%s)press(%d,%d)length(%d)widget(%s)\n", tmpstr,(kevent->type == GDK_KEY_PRESS), kevent->keyval, kevent->length, gtk_widget_get_name(widget) );
+		g_free(tmpstr);
+	}
 #endif
 
 	if (kevent->type == GDK_KEY_PRESS)
@@ -152,7 +154,13 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 
 	if (  kevent->type == GDK_KEY_RELEASE
 		     && ( snooper->stat & (SNOOPER_CANCEL_RELEASE_EVENT | SNOOPER_HAS_EXCUTING_FUNC ) ) ) {
-		DEBUG_MSG("snooper: exit as stat = %d\n", snooper->stat);
+#ifdef DEBUG
+		{
+			gchar *tmpstr = stat_name(snooper->stat);
+			DEBUG_MSG("snooper: exit as stat = %s\n", tmpstr);
+			g_free(tmpstr);
+		}
+#endif
 		snooper->stat &= ~(SNOOPER_CANCEL_RELEASE_EVENT | SNOOPER_HAS_EXCUTING_FUNC);
 		return TRUE;
 	}
@@ -207,8 +215,6 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 				}
 			}
 		}else if (kevent->length) {
-			DEBUG_MSG("======\n");
-			snooper_parse_key(kevent);
 			DEBUG_MSG("snooper: not seq; reset stat = 0\n");
 			snooper->stat = SNOOPER_ACTIVE;
 			return FALSE;
