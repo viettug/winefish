@@ -759,7 +759,7 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 	TODO: should we use accel_group per window?
 	NOTE: change hotkey for a window takes effect other window (in case main_v->accel_group )
 	*/
-	main_v->accel_group = accel_group;
+	bfwin->accel_group = accel_group;
 #endif /* SNOOPER2 */
 
 	gtk_widget_show(bfwin->menubar);
@@ -1729,7 +1729,7 @@ void make_cust_menubar(Tbfwin *bfwin, GtkWidget *cust_handle_box) {
 	GtkAccelGroup *accel_group;
 	gint nmenu_items = sizeof(cust_menu) / sizeof(cust_menu[0]);
 
-	g_print("make_cust_menubar, started\n");
+	DEBUG_MSG("make_cust_menubar, started\n");
 
 	/* this should only happen once !!!!!!!!!! */
 	accel_group = gtk_accel_group_new();
@@ -1744,7 +1744,7 @@ void make_cust_menubar(Tbfwin *bfwin, GtkWidget *cust_handle_box) {
 	gtk_container_add(GTK_CONTAINER(bfwin->custom_menu_hb), bfwin->menu_cmenu);
 	gtk_widget_show(bfwin->menu_cmenu);
 #ifdef SNOOPER2
-	main_v->accel_group2 = accel_group;
+	bfwin->accel_group2 = accel_group;
 #endif /* SNOOPER2 */
 	fill_cust_menubar(bfwin);
 
