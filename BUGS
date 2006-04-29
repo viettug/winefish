@@ -1,5 +1,26 @@
 $Id$
 
+============================================================== [200604]
+
+#108/fixed/kyanh/20060429/
+* winefish 1.4.0.1; 1.3.2, 1.3.3
+* open winefish, press Ctrl+D to add bookmark. A warning dialog will appear (cannot add bookmark
+for untitled document). press Escape to kill that dialog => winefish crash !!!)
+FIXED:
+	--- gtk_easy.c  (revision 2436)
+	+++ gtk_easy.c  (working copy)
+	@@ -941,8 +941,8 @@
+		DEBUG_MSG("dialog_key_press_event_lcb, started, widget is %p and dialog is %p\n", widget, dialog);
+		if (event->keyval == GDK_Escape) {
+			DEBUG_MSG("dialog_key_press_event_lcb, emit delete_event on %p\n", dialog);
+	-               /* g_signal_emit_by_name(G_OBJECT(dialog), "delete_event"); */
+	-               gtk_widget_destroy(dialog);
+	+               g_signal_emit_by_name(G_OBJECT(dialog), "delete_event");
+	+               /* gtk_widget_destroy(dialog); */
+			return TRUE;
+	}
+		return FALSE;
+
 ============================================================== [200603]
 
 ======== 1.3.2.8a
