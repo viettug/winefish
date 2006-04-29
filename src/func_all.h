@@ -11,10 +11,11 @@
 enum {
 	FUNC_VALUE_0 = 1<<0,
 	FUNC_VALUE_1 = 1<<1,
-	FUNC_ANY = 1<<2,
-	FUNC_TEXT_VIEW = 1<<3,
-	FUNC_FROM_SNOOPER = 1<<4,
-	FUNC_FROM_OTHER =1 <<5
+	FUNC_VALUE_2 = 1<<2,
+	FUNC_ANY = 1<<3,
+	FUNC_TEXT_VIEW = 1<<4,
+	FUNC_FROM_SNOOPER = 1<<5,
+	FUNC_FROM_OTHER =1 <<6
 };
 
 #define FUNC_VALID_TYPE(type,widget) ( (type & FUNC_ANY) ||  ( (type & FUNC_TEXT_VIEW ) && GTK_IS_TEXT_VIEW(widget) ) )
