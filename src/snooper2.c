@@ -23,7 +23,7 @@
 
 #ifdef SNOOPER2
 
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
@@ -123,7 +123,7 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 
 	/** check for valid snooper here **/
 	if ( ! (snooper->stat & SNOOPER_ACTIVE) ) {
-		DEBUG_MSG("snooper: this snooper was disabled...\n");
+		DEBUG_MSG("snooper: snooper on bfwin(%p) was disabled...\n", bfwin);
 		return FALSE;
 	}
 
