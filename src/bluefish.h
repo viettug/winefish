@@ -327,6 +327,8 @@ typedef struct {
 #ifdef SNOOPER2
 	gpointer completion;
 	gpointer snooper;
+	GtkAccelGroup *accel_group;
+	GtkAccelGroup *accel_group2;
 #endif /* SNOOPER2 */
 } Tbfwin;
 
@@ -354,9 +356,9 @@ typedef struct {
 #ifdef SNOOPER2
 	GHashTable *key_hashtable;
 	GHashTable *func_hashtable;
-	GtkAccelGroup *accel_group;
-	GtkAccelGroup *accel_group2;
-	guint active_snooper;
+	/*GtkAccelGroup *accel_group;*/
+	/*GtkAccelGroup *accel_group2;*/
+	/*guint active_snooper;*/
 #else
 	Tcompletionwin completion; /* a popup window for completion */
 	GdkEvent *last_kevent;
