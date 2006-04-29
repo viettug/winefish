@@ -44,7 +44,7 @@ static void add_function(const char *human_name, FUNCTION computer_name, gint da
 	func = g_new0(Tfunc, 1);
 	func->exec = computer_name;
 	func->data = data | FUNC_FROM_SNOOPER;
-	g_hash_table_replace(main_v->func_hashtable, (gpointer)human_name, func);
+	g_hash_table_insert(main_v->func_hashtable, (gpointer)human_name, func);
 }
 
 void funclist_init() {
@@ -82,24 +82,27 @@ static void rcfile_parse_keys(void *keys_list) {
 	g_free(filename);
 }
 
+static void hash_table_key_value_free(gpointer data) {
+	DEBUG_MSG("hash_table_key_value_free: for %s\n", (gchar *)data);
+	g_free(data);
+}
+
 /* this function should be called afted the func_hashtable was initialized */
 void keymap_init(void) {
 	GList *keys_list = NULL;
 	rcfile_parse_keys(&keys_list);
-	main_v->key_hashtable = g_hash_table_new((GHashFunc)g_str_hash, (GEqualFunc)g_str_equal);
+	main_v->key_hashtable = g_hash_table_new_full(g_str_hash, g_str_equal,hash_table_key_value_free,hash_table_key_value_free);
 	GList *tmp2list = g_list_first(keys_list);
 	while (tmp2list) {
 		gchar **strarr;
 		strarr = (gchar **) tmp2list->data;
 		if (count_array(strarr) == 2) {
-			if (!g_hash_table_lookup(main_v->key_hashtable, strarr[0])) {
-				if (strlen(strarr[1])) {
-					gchar *keyseq, *func_name;
-					keyseq = g_strdup(strarr[1]);
-					func_name = g_strdup(strarr[0]);
-					g_hash_table_insert(main_v->key_hashtable, keyseq, func_name);
-					DEBUG_MSG("keys_init: map [func=%s] to [keys_seq=%s]\n", func_name, keyseq);
-				}
+			if ( strlen(strarr[1]) && strlen(strarr[0]) ) {
+				gchar *keyseq, *func_name;
+				keyseq = g_strdup(strarr[1]);
+				func_name = g_strdup(strarr[0]);
+				g_hash_table_insert(main_v->key_hashtable, keyseq, func_name);
+				DEBUG_MSG("keys_init: map [func=%s] to [keys_seq=%s]\n", func_name, keyseq);
 			}
 		}
 		tmp2list = g_list_next(tmp2list);
