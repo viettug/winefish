@@ -77,7 +77,7 @@ static gboolean snooper_loopkup_keyseq(GtkWidget *widget, Tbfwin *bfwin, GdkEven
 	}else{
 		tmpstr = r1;
 	}
-
+	SNOOPER(bfwin->snooper)->stat |= SNOOPER_HAS_EXCUTING_FUNC;
 	retval = FALSE;
 	value = g_hash_table_lookup(main_v->key_hashtable, tmpstr);
 	if (value) {
@@ -91,7 +91,6 @@ static gboolean snooper_loopkup_keyseq(GtkWidget *widget, Tbfwin *bfwin, GdkEven
 			}
 		}
 	}
-	SNOOPER(bfwin->snooper)->stat |= SNOOPER_HAS_EXCUTING_FUNC;
 	DEBUG_MSG("snooper: lookup '%s' (full=%d), retval = %d\n", tmpstr, kevent2 != NULL, retval);
 	g_free(tmpstr);
 	return retval;
