@@ -33,6 +33,21 @@
 
 #define KEVENT(var) ( (GdkEventKey*)var )
 
+#ifdef DEBUG
+gchar * stat_name(var) {
+	gchar *tmpstr = g_strdup("EMPTY");
+	if ( var & SNOOPER_HAS_EXCUTING_FUNC )
+		tmpstr = g_strconcat(tmpstr, ",HAS_EXCUTED", NULL);
+	if ( var & SNOOPER_HALF_SEQ)
+		tmpstr = g_strconcat(tmpstr, ",HALF_SEQ", NULL);
+	if (var & SNOOPER_CANCEL_RELEASE_EVENT)
+		tmpstr = g_strconcat(",CANCEL_RELEASE", NULL);
+	return tmpstr;
+}
+#endif
+
+
+
 static gchar * snooper_parse_key(GdkEventKey *kevent) {
 	gchar *tmpstr = NULL;
 	const gchar *ctrl, *shift, *mod1;
@@ -101,11 +116,11 @@ static gboolean snooper_loopkup_keys_in_accel_map(GtkWidget *widget, GdkEventKey
 
 static gboolean snooper_loopkup_keys_in_accel_map(GdkEventKey *kevent, Tbfwin *bfwin) {
 	gpointer retval;
-	retval = gtk_accel_group_find( bfwin->accel_group, snooper_accel_group_find_func, kevent );
+	retval = bfwin->accel_group ? gtk_accel_group_find( bfwin->accel_group, snooper_accel_group_find_func, kevent ) : NULL;
 	DEBUG_MSG("snooper: lookup in accel.map (1)\n" );
 	if (!retval) {
 		DEBUG_MSG("snooper: lookup in accel.map (2)\n" );
-		retval = gtk_accel_group_find( bfwin->accel_group2, snooper_accel_group_find_func, kevent );
+		retval = bfwin->accel_group2 ? gtk_accel_group_find( bfwin->accel_group2, snooper_accel_group_find_func, kevent ) : NULL;
 	}
 #ifdef DEBUG
 	gchar *tmpstr = snooper_parse_key(kevent);
@@ -127,7 +142,9 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 	}
 
 #ifdef DEBUG
-	DEBUG_MSG("snooper: stat(%s)press(%d,%d)length(%d)widget(%s)\n", STAT_NAME(snooper->stat),(kevent->type == GDK_KEY_PRESS), kevent->keyval, kevent->length, gtk_widget_get_name(widget) );
+	gchar *tmpstr = stat_name(snooper->stat);
+	DEBUG_MSG("snooper: stat(%s)press(%d,%d)length(%d)widget(%s)\n", tmpstr,(kevent->type == GDK_KEY_PRESS), kevent->keyval, kevent->length, gtk_widget_get_name(widget) );
+	g_free(tmpstr);
 #endif
 
 	if (kevent->type == GDK_KEY_PRESS)
@@ -189,7 +206,9 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 					}
 				}
 			}
-		}else if ( ! SNOOPER_IS_KEYSEQ(kevent) ) {
+		}else if (kevent->length) {
+			DEBUG_MSG("======\n");
+			snooper_parse_key(kevent);
 			DEBUG_MSG("snooper: not seq; reset stat = 0\n");
 			snooper->stat = SNOOPER_ACTIVE;
 			return FALSE;
