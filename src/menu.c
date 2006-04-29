@@ -755,6 +755,10 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 	gtk_accel_map_add_entry("<winefishmain>/External/Stop...", GDK_Escape, 0);
 	/* gtk_accel_map_add_entry("<winefishmain>/View/View Outputbox", GDK_Escape, GDK_SHIFT_MASK); */
 #ifdef SNOOPER2
+	/*
+	TODO: should we use accel_group per window?
+	NOTE: change hotkey for a window takes effect other window (in case main_v->accel_group )
+	*/
 	main_v->accel_group = accel_group;
 #endif /* SNOOPER2 */
 
