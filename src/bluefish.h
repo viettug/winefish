@@ -355,6 +355,7 @@ typedef struct {
 	GHashTable *key_hashtable;
 	GHashTable *func_hashtable;
 	GtkAccelGroup *accel_group;
+	GtkAccelGroup *accel_group2;
 	guint active_snooper;
 #else
 	Tcompletionwin completion; /* a popup window for completion */

@@ -1729,7 +1729,7 @@ void make_cust_menubar(Tbfwin *bfwin, GtkWidget *cust_handle_box) {
 	GtkAccelGroup *accel_group;
 	gint nmenu_items = sizeof(cust_menu) / sizeof(cust_menu[0]);
 
-	DEBUG_MSG("make_cust_menubar, started\n");
+	g_print("make_cust_menubar, started\n");
 
 	/* this should only happen once !!!!!!!!!! */
 	accel_group = gtk_accel_group_new();
@@ -1743,7 +1743,9 @@ void make_cust_menubar(Tbfwin *bfwin, GtkWidget *cust_handle_box) {
 	bfwin->menu_cmenu = gtk_item_factory_get_widget(item_factory, "<winefishcustom>");
 	gtk_container_add(GTK_CONTAINER(bfwin->custom_menu_hb), bfwin->menu_cmenu);
 	gtk_widget_show(bfwin->menu_cmenu);
-
+#ifdef SNOOPER2
+	main_v->accel_group2 = accel_group;
+#endif /* SNOOPER2 */
 	fill_cust_menubar(bfwin);
 
 	DEBUG_MSG("make_cust_menubar, finished\n");

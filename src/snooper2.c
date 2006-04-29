@@ -88,7 +88,7 @@ static gboolean snooper_accel_group_find_func(GtkAccelKey *key, GClosure *closur
 	GdkModifierType consumed;
 	gdk_keymap_translate_keyboard_state (NULL, KEVENT(data)->hardware_keycode, KEVENT(data)->state, KEVENT(data)->group, &keyval, NULL, NULL, &consumed);
 #ifdef DEBUG_ALL
-	DEBUG_MSG("snooper_accel_group_find_func: compared (%d,%d) with (%d,%d)\n", key->accel_key, key->accel_mods, keyval, KEVENT(data)->state & ~consumed );
+	DEBUG_MSG("snooper: _accel_group_find_func: compared (%d,%d) with (%d,%d)\n", key->accel_key, key->accel_mods, keyval, KEVENT(data)->state & ~consumed );
 #endif /* DEBUG_ALL */
 	return ( (key->accel_key == keyval) && (key->accel_mods == ( KEVENT(data)->state & ~consumed) ) );
 }
@@ -101,19 +101,19 @@ static gboolean snooper_loopkup_keys_in_accel_map(GtkWidget *widget, GdkEventKey
 #else /* DONOT_WORK */
 
 static gboolean snooper_loopkup_keys_in_accel_map(GdkEventKey *kevent) {
+	gpointer retval;
+	retval = gtk_accel_group_find( main_v->accel_group, snooper_accel_group_find_func, kevent );
+	DEBUG_MSG("snooper: looking up accel.map (1)\n" );
+	if (!retval) {
+		DEBUG_MSG("snooper: looking up accel.map (2)\n" );
+		retval = gtk_accel_group_find( main_v->accel_group2, snooper_accel_group_find_func, kevent );
+	}
 #ifdef DEBUG
-	GtkAccelKey *accel_key;
-	gboolean retval;
-
-	retval = FALSE;
-	accel_key = gtk_accel_group_find( main_v->accel_group, (GtkAccelGroupFindFunc) snooper_accel_group_find_func, kevent);
-	if (accel_key) retval = TRUE;
-
-	DEBUG_MSG("snooper: lookup in accel. group, returns %d\n", retval);
-	return retval;
-#else
-	return ( gtk_accel_group_find( main_v->accel_group, (GtkAccelGroupFindFunc) snooper_accel_group_find_func, kevent) != NULL);
+	gchar *tmpstr = snooper_parse_key(kevent);
+	DEBUG_MSG("snooper: looking up '%s' return %p\n", tmpstr, retval);
+	g_free(tmpstr);
 #endif /* DEBUG */
+	return retval != NULL;
 }
 
 #endif /* DONOT_WORK */
@@ -178,7 +178,6 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 					return TRUE;
 				}else{
 					if (snooper_loopkup_keys_in_accel_map(kevent)) {
-						DEBUG_MSG("snooper: lookup in accel.map: return 1\n");
 						snooper->stat = SNOOPER_HAS_EXCUTING_FUNC;
 						return FALSE;
 					}else{
