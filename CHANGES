@@ -4,7 +4,7 @@ Winefish 1.4.0.1
 ================
 
 * new features:
-- key sequence shortcuts ($HOME/.winefish/keymap)
+- Emacs key sequence support ($HOME/.winefish/keymap).
 
 * stuff:
 - man page updated
