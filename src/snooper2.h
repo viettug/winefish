@@ -52,8 +52,6 @@ enum {
 	SNOOPER_ACTIVE = 1<<4
 };
 
-#define STAT_NAME(var) ( ( var & SNOOPER_HAS_EXCUTING_FUNC) ? "HAS_EXCUTED" : ( ( var & SNOOPER_HALF_SEQ) ? "HALF_SEQ" : ( (var & SNOOPER_CANCEL_RELEASE_EVENT)? "CANCEL_RELEASE" : "EMPTY" ) ) )
-
 typedef gint (*FUNCTION)(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt);
 
 typedef struct {
