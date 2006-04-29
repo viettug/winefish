@@ -63,8 +63,8 @@ void funclist_init() {
 	add_function("func_unindent", func_indent, FUNC_VALUE_0 | FUNC_ANY);
 	
 	add_function("func_delete_line", func_delete_line, FUNC_VALUE_0 | FUNC_ANY);
-	add_function("func_delete_line_left", func_delete_line, FUNC_VALUE_1 | FUNC_ANY);
-	add_function("func_delete_line_right", func_delete_line, FUNC_VALUE_2 | FUNC_ANY);
+	add_function("func_delete_line_right", func_delete_line, FUNC_VALUE_1 | FUNC_ANY);
+	add_function("func_delete_line_left", func_delete_line, FUNC_VALUE_2 | FUNC_ANY);
 }
 
 static void rcfile_parse_keys(void *keys_list) {
