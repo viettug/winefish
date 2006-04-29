@@ -43,7 +43,7 @@ static gchar * snooper_parse_key(GdkEventKey *kevent) {
 	shift = kevent->state & ~consumed & GDK_SHIFT_MASK ? "<shift>": "";
 	mod1 = kevent->state & ~consumed & GDK_MOD1_MASK ? "<mod1>": "";
 	tmpstr = g_strdup_printf("%s%s%s%c", ctrl, shift, mod1, gdk_keyval_to_unicode(keyval));
-	DEBUG_MSG("snooper: key parsed = %s\n", tmpstr);
+	DEBUG_MSG("snooper: key parsed = '%s'\n", tmpstr);
 	return tmpstr;
 }
 
@@ -135,7 +135,7 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 
 	if (  kevent->type == GDK_KEY_RELEASE
 		     && ( snooper->stat & (SNOOPER_CANCEL_RELEASE_EVENT | SNOOPER_HAS_EXCUTING_FUNC ) ) ) {
-		DEBUG_MSG("snooper: exit as stat = %s\n", STAT_NAME(snooper->stat));
+		DEBUG_MSG("snooper: exit as stat = %d\n", snooper->stat);
 		snooper->stat &= ~(SNOOPER_CANCEL_RELEASE_EVENT | SNOOPER_HAS_EXCUTING_FUNC);
 		return TRUE;
 	}
@@ -189,7 +189,7 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 					}
 				}
 			}
-		}else if (kevent->length) {
+		}else if ( ! SNOOPER_IS_KEYSEQ(kevent) ) {
 			DEBUG_MSG("snooper: not seq; reset stat = 0\n");
 			snooper->stat = SNOOPER_ACTIVE;
 			return FALSE;
