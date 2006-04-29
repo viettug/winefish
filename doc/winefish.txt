@@ -4,7 +4,6 @@ $Id$
 Winefish Documentation
 Format: KTML
 Convert: k2h winefish.txt > winefish.html
-
 This is a generated file. !! DO NOT EDIT !!
 -->
 <HEAD>
@@ -14,32 +13,68 @@ This is a generated file. !! DO NOT EDIT !!
 <META name="Copyright" content="Copyright \(c\) 2005-2006 kyanh">
 <STYLE>
 <!--
-body { margin: 30px; font-size: 13px; margin-right: 100px; }
-b { font-weight: normal; color: navy; font-family: monospace; }
-pre {color: olive; border-left: 2px solid navy; padding-left: 10px; }
+body {
+	margin: 30px;
+	margin-right: 100px;
+	line-height: 150\%;
+}
+b {
+	font-weight: normal;
+	font-family: monospace;
+	border: 1px solid grey;
+	padding: 2px;
+	padding-left: 3px;
+	padding-right: 3px;
+}
+pre {
+	border: 1px solid grey;
+	border-right: 0px;
+	padding: 10px;
+}
+/*
 a, a:visited, a:hover { text-decoration: none; }
 a:hover { color: yellow; background-color: black; }
 a:visited { color: green; }
+*/
+h1 {
+	background-color: #E6E6BB;
+}
+h2 {
+	background-color: #DEE7EC;
+}
+h1, h2 {
+	padding: 4px;
+}
+hr {
+	height: 10px;
+}
 -->
 </STYLE>
 </HEAD>
 <BODY>
-1(@[Winefish 1.3.2 Documentation](http://winefish.berlios.de/))
+1(@[Winefish 1.4.x Documentation](http://winefish.berlios.de/))
 
 L(
 * Author: kyanh <@(kyanh_at_viettug_dot_org)>
 * RED(If you had been using an older version of Winefish,
 you should read @[NEWS](#NEWS) and @[IMPORTANT NOTES](#IMPORTANT NOTES) )
 * For further help, visit @(http://winefish.berlios.de/forum/)
+* The title of this document means that you cannot use it for
+an older verion of winefish
 * I'm sorry about my English :\)\)
 If you find any \(spell\) mistakes in this document feel free to let me know!
 )
 
 2(#(CONTENTS))
 
+<table>
+<tbody>
+<tr valign="top">
+<td>
 L(
 * @[THANKS](#THANKS)
 * @[NEWS](#NEWS)
+* @[NEWS-1.3.2](#NEWS-1.3.2)
 * @[Features](#FEATURES)
 * @[Installation](#INSTALLATION)
 * @[Important Notes](#IMPORTANT NOTES)
@@ -47,6 +82,10 @@ L(
 * Hotkeys: @[editing](#HOTKEYS: EDITING)
 * Hotkeys: @[compiling](#HOTKEYS: COMPILING)
 * @[Project Mode](#PROJECT MODE)
+)
+</td>
+<td>
+L(
 * @[Document Structure](#DOCUMENT STRUCTURE)
 * @[Autotext](#AUTOTEXT)
 * @[AutoCompletion](#AUTO_COMPLETION)
@@ -59,6 +98,10 @@ L(
 * @[Column Marker](#COLUMN MARKER)
 * @[About](#ABOUT)
 )
+</td>
+</tr>
+</tbody>
+</table>
 
 2(#(THANKS))
 
@@ -80,11 +123,13 @@ L(
 
 2(#(INSTALLATION))
 
-Read INSTALL
+Read INSTALL for details.
+
+There are supports/packages for
+	Debian, Slackware, Gentoo, Ubuntu, Fedora Core, etc.
+Visit winefish's homepage for details.
 
 2(#(INPUT METHOD))
-
-Input Method is not a function of Winefish.
 
 Right click on the document. In the context menu,
 goto B(Input Methods) and choose your favorite
@@ -92,6 +137,13 @@ input method. These various methods are selected from your
 system, not provided by Winefish.
 
 2(#(NEWS))
+Some new features:
+L(
+* Emacs key style support
+* multiple outputbox
+)
+
+2(#(NEWS-1.3.2))
 
 Some new features:
 L(
@@ -120,11 +172,11 @@ Move the old one B($HOME/.winefish/rcfile_v2) to B($HOME/.winefish/rcfile)
 manually, then reconfigure Winefish (\(use B(Preferences Pages).\)
 Please take care of following properties:
 L(
-* Editor / Highlighting Syntax by Default
-* Files / Create Backup On Save
-* Users Interface / \*
-* TeXbox / Save, Show
-* Miscellaneous / Templates Directory
+* Editor,  B(Highlighting Syntax by Default)
+* Files,  B(Create Backup On Save)
+* Users Interface, \*
+* TeXbox, B(Save, Show)
+* Miscellaneous, B(Templates Directory)
 )
 
 If you do not move B($HOME/.winefish/rcfile_v2) to B($HOME/.winefish/rcfile),
@@ -138,21 +190,21 @@ B($HOME/.winefish/highlighting) to enjoy the new one.
 L(
 * Start "autocompletion": B(control + Space)
 * Start "autotext": B(shift + Space)
-* Update syntax highlighting: B(meta + Space)
+* Update syntax highlighting: B(mod1 + Space)
 * Go to a line: B(control + /)
 * Start a numbered section: B(control + {0,1,2,3,4,5,6})
-* Start an unnumbered section: B(control + meta + {0,1,2,3,4})
+* Start an unnumbered section: B(control + mod1 + {0,1,2,3,4})
 * Insert an image: B(control + I)
 * Insert a table or array: B(control + T)
 * Insert a list: B(control + L)
-* Insert `verbatim': B(shift + control + V), B(shift + control + meta + V)
-* \(Un\)comment selected text: B(control + \%), B(control + meta + \%)
+* Insert `verbatim': B(shift + control + V), B(shift + control + mod1 + V)
+* \(Un\)comment selected text: B(control + \%), B(control + mod1 + \%)
 * Increase/Decrease Indent: B(control + ,) / B(control + .)
 * Insert source separator: B(control + =)
 * Delete the first char of each line in the selected text: B(control + <)
 * Delete current line: B(control + K)
-* Templates manager: B(control + meta + shift + F)
-* Advanced Find in Files: B(control + meta + F)
+* Templates manager: B(control + mod1 + shift + F)
+* Advanced Find in Files: B(control + mod1 + F)
 * Brace Finder: B(control + ]), B(control + [)
 )
 
@@ -177,6 +229,10 @@ to turn project mode ON/OFF, *OR* select menu B(External/Project Mode)
 
 2(#(PROJECT MODE))
 
+A project is a group of files. This happens for example when
+you are typeting a thesis which contains the main file `foobar.tex'
+and its children name `chaper1.tex', `chapter2.tex', etc.
+
 L(
 * Each project requires a U(GREEN((base directory)) and a U(GREEN((base file))
 * The "base file" RED(must be located) in "base directory"
@@ -190,8 +246,8 @@ L(
 * Press B(control + F) to start the search engine
 * Type B(exactly) the following string:
 PRE(^\BACKSLASH\BACKSLASH\(sub\){0,2}section.\*?$)
-* Select PERL type as type \(regular expression\)
-* Select Bookmark Results
+* Select B(PERL type) as type \(regular expression\)
+* Select B(Bookmark Results)
 * Press OK.
 )
 
@@ -203,9 +259,9 @@ B(/tsta) then press B(shift + Space). Other tests are B(/tstd),
 B(/tstc) and B(/tstd).
 
 You may modify the file B($HOME/.winefish/autotext).
-RED(You should not try to modify it directly, as Winefish will override it when existing.
+RED(You should not try to modify it directly), as Winefish will override it when existing.
 But you could modify it from the B(Preferences Page, Automation panel).
-As long as you click on Apply after editing it, the changes will survive exiting.)
+As long as you click on Apply after editing it, the changes will survive exiting.
 The contents are similar to
 PRE(
 att: /tsta:\BACKSLASH\BACKSLASHbegin{foo\n:\n\BACKSLASH\end{foo:
@@ -241,9 +297,9 @@ You may delete a word from popup menu (press B(Delete)),
 or from B(Preferences) page.
 
 The words are saved in B($HOME/.winefish/words).
-RED(You should not try to modify it directly, as Winefish will override it when existing.
+RED(You should not try to modify it directly), as Winefish will override it when existing.
 But you could modify it from the B(Preferences Page, Automation panel).
-As long as you click on Apply after editing it, the changes will survive exiting.)
+As long as you click on Apply after editing it, the changes will survive exiting.
 
 When you're typing, Winefish collects LaTeX commands and add them to
 list of known words. If there's a bad command, you may `B(delete)'
@@ -254,8 +310,8 @@ L(
 * greater than 2
 *less than or equal COMMAND_MAX_LENGTH \(defined in B(src/config_spec.h)\)
 )
-You may add commands by using B(Preferences Pages / AutoX) but this is U(not recommended)
-as Winefish collects commands automatically and B(Preferences Pages / AutoX) will be
+You may add commands by using B(Preferences Pages, AutoX) but this is U(not recommended)
+as Winefish collects commands automatically and B(Preferences Pages, AutoX) will be
 dropped some day.\)
 
 2(#(COMMANDLINE OPTIONS))
@@ -275,11 +331,19 @@ Currently accepted options are:
 
 2(#(OUTPUTBOX))
 
-When you start a tool, start `Grep Function' \(B(control + meta + F)\),
-or start listing your templates \(B(control + meta + shift + F)\),
+When you start a tool, `grep function' \(B(control + mod1 + F)\),
+or listing your templates \(B(control + mod1 + shift + F)\),
 the results are shipped out to a Outputbox.
 
-There are some useful operations with Outputbox:
+The results of executing may be filtered so that only useful messages
+will be appeared. Each line of outputbox is often of the form
+PRE(RED(foobar.tex) 12 RED(bla bla bla bla...))
+What does this mean? The message `bla bla bla....' deals with
+the file named `foobar.tex' at the line numbered 12. Sometimes
+there's only line number \(12\) but the filename. In this case,
+the current file is taken.
+
+There are some useful operations for each line of outputbox:
 L(
 * GREEN(single-click:) open file at specified line
 * GREEN(right-click:) create a popup menu
@@ -291,7 +355,7 @@ You may press B(shift + Escape) to hide/show the Outputbox.
 
 2(#(TEMPLATES SUPPORT))
 
-Go to B(Preferences Pages / Miscellaneous) and specify the directory
+Go to B(Preferences Pages, Miscellaneous) and specify the directory
 which contains your templates. By default, it is B($HOME/tex/templates).
 
 The template file is of type B(*.tex) or B(*.sty).
@@ -303,8 +367,8 @@ PRE(
 \documentclass{article}
 ...
 )
-To U(list all your template files), press B(control + meta + shift + F).
-You may also use the menu B(Edit/Find, Replace/Templates).
+To U(list all your template files), press B(control + mod1 + shift + F).
+You may also use the menu B(Edit, Find, Replace, Templates).
 Then press B(control + click) to create a clone file \(See @[OUTPUTBOX](#OUTPUTBOX)\)
 
 Winefish does not clean up the B(\%\%wf=) string automatically.
@@ -330,7 +394,7 @@ start finding the matching for it; *otherwise, treat as I(forward).)
 * for other characters:
 L(
 * I(forward): start finding }
-* I(backward): start finding the {
+* I(backward): start finding {
 )
 )
 
@@ -361,7 +425,9 @@ L(
 * Press B(shift + Escape) to hide/show the Outputbox.
 * Press B(control + I) to insert an image.
 * B(Doubleclick) on an image in the file browser.
-* Long line should be split into shorter ones.
+* Long line should be splitted into shorter ones.
+This mean that you should not use the WRAP option.
+Let's WRAP the text by yourself!
 GRAY(\(I have a file with a very long line.
 I tried to open it in Emacs, KDE applications, Bluefish and Winefish. Only the \*fishes
 make me annoyed! The cursor moved very very slowly when it was inside that line.
@@ -390,21 +456,66 @@ from @[EditPlus](http://www.editplus.com/) but it seems to make people annoyed.
 So the feature is disabled by default. You can turn it on via the option 
 B(--enable-column-marker) when running B(configure) script.
 
-There are 3 markers what you can specify from B(Preferences Page / Miscellaneous).
+There are 3 markers as you can see in B(Preferences Page, Miscellaneous) panel.
 The zero value is equivalent to B(disabled).
+
+2(#(FUNCTION LIST))
+
+B(func_comment)
+B(func_uncomment)
+
+B(func_indent)
+B(func_unindent)
+
+B(func_complete)
+popup the list of latex command which is prefixed by current 
+
+B(func_complete_eat)
+
+B(func_delete_line)
+B(func_delete_line_left)
+B(func_delete_line_right)
+
+B(func_select_line)
+B(func_select_word)
+B(func_select_all)
+B(func_select_line_left)
+B(func_select_line_right)
+
+B(func_move_up)
+B(func_move_down)
+B(func_page_up)
+B(func_page_down)
+B(func_move_left)
+B(func_move_right)
+B(func_move_word_left)
+B(func_move_word_right)
+
+B(func_hilight_off)
+B(func_hilight_on)
+
+B(func_grep)
+
+B(func_new)
+
+B(func_open)
+
+B(func_about)
+B(func_help)
+
+B(func_keymap)
+show the contents of B($HOME/.winefish/keymap)
 
 2(#(ABOUT))
 
-GRAY(I am a vietnamese who loves maths, music and of course winefish ;\)
+I am a vietnamese who loves maths, music and of course winefish ;\)
 
 Please write my name with lowercase characters -- B(kyanh) -- as it is
-my *nix* name... and it's very hard to write the vietnamese one ;\(
-)
+my \nix name... and it's very hard to write the vietnamese one ;\(
 
-<BR>
+This HTML file was generated from B(winefish.txt) by B(k2h) program.
+
 <HR>
-This HTML file was generated from RED(winefish.txt) by RED(k2h) program.\\
-RED($Id$)
-<HR>
+GRAY($Id$)
 </BODY>
 </HEAD>
