@@ -31,7 +31,6 @@
 #include "bluefish.h"
 #include "snooper2.h"
 
-#define ALL_ACCELS_MASK (GDK_CONTROL_MASK | GDK_SHIFT_MASK | GDK_MOD1_MASK)
 #define KEVENT(var) ( (GdkEventKey*)var )
 
 static gchar * snooper_parse_key(GdkEventKey *kevent) {
