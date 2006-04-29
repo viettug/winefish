@@ -17,3 +17,9 @@ map: func_delete_line_left:<control>pl:
 map: func_delete_line_right:<control>pr:
 map: func_grep:<control>pg:
 map: func_template_list:<control>pt:
+map: func_move_line_end:<control>me:
+map: func_move_line_start:<control>mb:
+map: func_move_line_up:<control>mu:
+map: func_move_line_down:<control>md:
+map: func_move_to_end:<control>mE:
+map: func_move_to_start:<control>mS:
