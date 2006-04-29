@@ -41,10 +41,10 @@ gint func_move(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt) 
 
 	opt = opt >> FUNC_VALUE_;
 	switch(opt) {
-	case FUNC_MOVE_TO_END:
+	case FUNC_MOVE_END:
 		gtk_text_iter_forward_to_end(&itend);
 		break;
-	case FUNC_MOVE_TO_START:
+	case FUNC_MOVE_START:
 		gtk_text_iter_set_line (&itend, 0);
 		break;
 	case FUNC_MOVE_LINE_START:

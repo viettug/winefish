@@ -73,8 +73,8 @@ void funclist_init() {
 	add_function("func_move_line_down", func_move, FUNC_ANY | (FUNC_MOVE_LINE_DOWN<<FUNC_VALUE_) );
 	add_function("func_move_line_end", func_move, FUNC_ANY | (FUNC_MOVE_LINE_END<<FUNC_VALUE_) );
 	add_function("func_move_line_start", func_move, FUNC_ANY | (FUNC_MOVE_LINE_START<<FUNC_VALUE_) );
-	add_function("func_move_to_start", func_move, FUNC_ANY | (FUNC_MOVE_TO_START<<FUNC_VALUE_) );
-	add_function("func_move_to_end", func_move, FUNC_ANY | (FUNC_MOVE_TO_END<<FUNC_VALUE_) );
+	add_function("func_move_start", func_move, FUNC_ANY | (FUNC_MOVE_START<<FUNC_VALUE_) );
+	add_function("func_move_end", func_move, FUNC_ANY | (FUNC_MOVE_END<<FUNC_VALUE_) );
 }
 
 static void rcfile_parse_keys(void *keys_list) {
