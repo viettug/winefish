@@ -10,5 +10,5 @@ map: func_complete:<control> :
 map: func_complete_eat:<control>9<control>9:
 map: func_alias:<control><mod1>a:
 map: func_complete:<control>99:
-map: func_indent:<control>p<control>i:
-map: func_unindent:<control>p<control>I:
+map: func_indent:<control>pi:
+map: func_unindent:<control>pI:
