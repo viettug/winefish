@@ -25,8 +25,8 @@
 
 /*
  opt & FUNC_VALUE_0: delete the whole line
- opt & FUNC_VALUE_1: delete to the begining of line
- opt & FUNC_VALUE_2: delete to the end of line
+ opt & FUNC_VALUE_1: delete to right (end of line)
+ opt & FUNC_VALUE_2: delete to left (begining of line)
 */
 gint func_delete_line( GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt ) {
 	Tdocument *doc = bfwin->current_document;
