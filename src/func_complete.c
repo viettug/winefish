@@ -531,3 +531,104 @@ gint func_complete_eat( GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, g
 	g_free(buf);
 	return 1;
 }
+
+gint func_complete_eat_env( GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt ) {
+	Tsnooper *snooper = bfwin->snooper;
+	Tdocument *doc = bfwin->current_document;
+
+	if (!doc) return 0;
+
+	if ( ! ( ( kevent->keyval == GDK_braceright )  || (snooper->last_event && ( kevent->hardware_keycode == ((GdkEventKey *)snooper->last_event)->hardware_keycode && ((GdkEventKey *)snooper->last_event)->keyval == GDK_braceright )) ) )
+		return 0;
+	
+	GtkTextMark * imark;
+	GtkTextIter itstart, iter, maxsearch;
+
+	imark = gtk_text_buffer_get_insert( doc->buffer );
+	gtk_text_buffer_get_iter_at_mark( doc->buffer, &iter, imark );
+
+	itstart = iter;
+	maxsearch = iter;
+
+	gtk_text_iter_backward_chars( &maxsearch, COMMAND_MAX_LENGTH + 5 ); /* \begin{flushleft} */
+	if ( ! gtk_text_iter_backward_find_char( &itstart, ( GtkTextCharPredicate ) find_char, GINT_TO_POINTER( "\\" ), &maxsearch ) )
+		return 0;
+
+	/* we use a regular expression to check if the tag is valid, AND to parse the tagname from the string */
+	gchar * buf;
+	int ovector[ 12 ], ret;
+	DEBUG_MSG( "func_complete_eat_env: we found a backslash\n" );
+	maxsearch = iter; /* re-use maxsearch */
+	buf = gtk_text_buffer_get_text( doc->buffer, &itstart, &maxsearch, FALSE );
+	DEBUG_MSG( "func_complete_eat_env: buf='%s'\n", buf );
+	ret = pcre_exec( main_v->autoclosingtag_regc, NULL, buf, strlen( buf ), 0, PCRE_ANCHORED, ovector, 12 );
+	if ( !ret ) {
+		g_free(buf);
+		return 0;
+	}
+	gchar * tagname, *toinsert, *indent = NULL;
+	DEBUG_MSG( "func_complete_eat_env: autoclosing, we have a tag, ret=%d, starts at ovector[2]=%d, ovector[3]=%d\n", ret, ovector[ 2 ], ovector[ 3 ] );
+	tagname = g_strndup( &buf[ ovector[ 2 ] ], ovector[ 3 ] - ovector[ 2 ] );
+	DEBUG_MSG( "func_complete_eat_env: autoclosing, tagname='%s'\n", tagname );
+	/* add to the completion lisst */
+	/* TODO: move this to gap_command */
+	{
+		gchar *tmpstr = g_strconcat("\\begin{",tagname,NULL);
+		GList *search = NULL;
+		
+		search = g_list_find_custom(main_v->props.completion->items,tmpstr, (GCompareFunc)strcmp);
+		if (!search) {
+			search = g_list_find_custom(main_v->props.completion_s->items,tmpstr, (GCompareFunc)strcmp);
+			if (!search) {
+				DEBUG_MSG("doc: new environment captured: %s\n", tmpstr);
+				GList *tmplist = NULL;
+				tmplist = g_list_append(tmplist, tmpstr);
+				g_completion_add_items(main_v->props.completion_s,tmplist);
+				g_list_free(tmplist);
+			}
+		}
+		/* search cannot be freed */
+	}
+	/** inserting stuff; count the autoindent */
+	if (main_v->props.view_bars & MODE_AUTO_INDENT) {
+		itstart = iter;
+		gtk_text_iter_set_line_index(&itstart, 0);
+		indent = gtk_text_buffer_get_text(doc->buffer, &itstart, &iter, FALSE);
+		if (indent) {
+			gchar *indenting = indent;
+			while (*indenting == '\t' || *indenting == ' ' ) {
+				indenting++;
+			}
+			*indenting = '\0';
+			if (strlen( indent )) {
+				toinsert = g_strconcat( "\n", indent, "\n", indent, "\\end{", tagname, "}", NULL);
+			}else{
+				toinsert = g_strconcat( "\n\n\\end{", tagname, "}", NULL );
+			}
+		}else{
+			toinsert = g_strconcat( "\n\n\\end{", tagname, "}", NULL );
+		}
+	}else{
+		toinsert = g_strconcat( "\n\n\\end{", tagname, "}", NULL );
+	}
+	if ( toinsert ) {
+		/* we re-use the maxsearch iter now */
+		gtk_text_buffer_insert( doc->buffer, &maxsearch, toinsert, -1 );
+		/* now we set the cursor back to its previous location, re-using itstart */
+		gtk_text_buffer_get_iter_at_mark( doc->buffer, &itstart, gtk_text_buffer_get_insert( doc->buffer ) );
+		gint tmpint = strlen( tagname ) + 7; /* NOTE: utf8 tagname ==> use g_utf8_strlen */
+		if (indent) {
+			gtk_text_iter_backward_chars( &itstart, tmpint + strlen(indent));
+			g_free(indent);
+		}else{
+			gtk_text_iter_backward_chars( &itstart, tmpint);
+		}
+		/* gint startoffset = gtk_text_iter_get_offset(&itstart); */
+		gtk_text_buffer_place_cursor( doc->buffer, &itstart );
+		/* doc_unre_add(doc, toinsert, startoffset, startoffset+tmpint, UndoInsert); */
+		g_free( toinsert );
+	}
+	g_free( tagname );
+	g_free( buf );
+	return 1;
+}
