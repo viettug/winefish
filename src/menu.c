@@ -74,7 +74,8 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 #ifdef EXTERNAL_GREP
 #ifdef EXTERNAL_FIND
 	case 3:
-		file_open_advanced_cb(bfwin, TRUE/*open_files*/);
+		/*file_open_advanced_cb(bfwin, TRUE);*/
+		func_grep(widget, NULL, bfwin, 1<<FUNC_VALUE_);
 	break;
 #endif /* EXTERNAL_FIND */
 #endif /* EXTERNAL_GREP */
@@ -144,10 +145,12 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 #ifdef EXTERNAL_GREP
 #ifdef EXTERNAL_FIND
 	case 28:
-		file_open_advanced_cb(bfwin, FALSE/*donot open files*/);
+		func_grep(widget, NULL, bfwin, 0);
+		/*file_open_advanced_cb(bfwin, FALSE);*/
 		break;
 	case 29:
-		template_rescan_cb(bfwin);
+		/* template_rescan_cb(bfwin); */
+		func_template_list(widget, NULL, bfwin, 0);
 		break;
 #endif /* EXTERNAL_FIND */
 #endif /* EXTERNAL_GREP */

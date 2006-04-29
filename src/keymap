@@ -15,3 +15,5 @@ map: func_unindent:<control>pI:
 map: func_delete_line:<control>pw:
 map: func_delete_line_left:<control>pl:
 map: func_delete_line_right:<control>pr:
+map: func_grep:<control>pg:
+map: func_template_list:<control>pt:

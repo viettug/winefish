@@ -65,6 +65,9 @@ void funclist_init() {
 	add_function("func_delete_line", func_delete_line, FUNC_VALUE_0 | FUNC_ANY);
 	add_function("func_delete_line_right", func_delete_line, FUNC_VALUE_1 | FUNC_ANY);
 	add_function("func_delete_line_left", func_delete_line, FUNC_VALUE_2 | FUNC_ANY);
+	
+	add_function("func_grep", func_grep, FUNC_ANY);
+	add_function("func_template_list", func_template_list, FUNC_ANY);
 }
 
 static void rcfile_parse_keys(void *keys_list) {

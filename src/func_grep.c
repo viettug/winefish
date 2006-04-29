@@ -571,23 +571,17 @@ static GList *return_files_advanced( Tbfwin *bfwin, gchar *tmppath)
 
 /***************************************************************/
 
-void file_open_advanced_cb( Tbfwin *bfwin, gboolean v_open_files )
-{
-	if (open_files > 99 )
-	{
-		/* prevent user from calling twice */
-		return;
-	}
+/* void file_open_advanced_cb( Tbfwin *bfwin, gboolean v_open_files ) */
+gint func_grep( GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt ) {
+	if (open_files > 99 ) return 0;
 
 	GList * tmplist;
-	open_files = 100 + v_open_files;
+	open_files = 100 + ( opt >> FUNC_VALUE_ );
 
 	tmplist = return_files_advanced( bfwin , NULL);
 
 	if (open_files - 100) {
-		if ( !tmplist ) {
-			return ;
-		}
+		if ( !tmplist ) return 0;
 		{
 			gint len = g_list_length( tmplist );
 			gchar *message = g_strdup_printf( _( "loading %d file(s)..." ), len );
@@ -599,6 +593,7 @@ void file_open_advanced_cb( Tbfwin *bfwin, gboolean v_open_files )
 		free_stringlist( tmplist );
 	}
 	open_files = 0;
+	return 1;
 }
 
 void open_advanced_from_filebrowser( Tbfwin *bfwin, gchar *path )
@@ -619,7 +614,8 @@ void open_advanced_from_filebrowser( Tbfwin *bfwin, gchar *path )
 	free_stringlist( tmplist );
 }
 
-void template_rescan_cb(Tbfwin *bfwin) {
+/* void template_rescan_cb(Tbfwin *bfwin) { */
+gint func_template_list( GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt ) {
 	gchar *command;
 	gchar *c_basedir;
 	if (main_v->props.templates_dir && strlen(main_v->props.templates_dir) ){
@@ -636,6 +632,7 @@ void template_rescan_cb(Tbfwin *bfwin) {
 	outputbox(bfwin, &bfwin->templatebox,_("template"),  "^([^:]+):([0-9]+):(.*)", 1, 2, 3, command, 0);
 	g_free(command);
 	g_free(c_basedir);
+	return 1;
 }
 #endif /* EXTERNAL_FIND */
 #endif /* EXTERNAL_GREP */
