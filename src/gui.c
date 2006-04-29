@@ -601,12 +601,12 @@ gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *
 
 #ifdef SNOOPER2
 static gboolean focus_in_event_lcb(GtkWidget *widget, gpointer fooo,Tbfwin *bfwin) {
-	SNOOPER(bfwin->snooper)->stat = SET_BIT( SNOOPER(bfwin->snooper)->stat, SNOOPER_ACTIVE, 1);
+	SNOOPER(bfwin->snooper)->stat |= SNOOPER_ACTIVE;
 	return FALSE;
 }
 static gboolean focus_out_event_lcb(GtkWidget *widget, gpointer fooo,Tbfwin *bfwin) {
 	func_complete_hide(bfwin);
-	SNOOPER(bfwin->snooper)->stat = SET_BIT( SNOOPER(bfwin->snooper)->stat, SNOOPER_ACTIVE, 0);
+	SNOOPER(bfwin->snooper)->stat &= ~SNOOPER_ACTIVE;
 	return FALSE;
 }
 #endif /* SNOOPER2 */
