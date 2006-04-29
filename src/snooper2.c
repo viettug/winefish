@@ -124,7 +124,7 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 	/** check for valid snooper here **/
 	if ( ! (snooper->stat & SNOOPER_ACTIVE) ) {
 		DEBUG_MSG("snooper: this snooper was disabled...\n");
-		return TRUE;
+		return FALSE;
 	}
 
 #ifdef DEBUG
