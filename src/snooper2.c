@@ -116,6 +116,9 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 	DEBUG_MSG("snooper: id(%d,%s)press(%d,%d)length(%d)widget(%s)\n", snooper->id, STAT_NAME(snooper->stat),(kevent->type == GDK_KEY_PRESS), kevent->keyval, kevent->length, gtk_widget_get_name(widget) );
 #endif
 
+	if (kevent->type == GDK_KEY_PRESS)
+		SNOOPER(bfwin->snooper)->last_event = (GdkEvent *)kevent;
+
 	/** check for valid snooper here **/
 	if (snooper->id != main_v->active_snooper ) return FALSE;
 
@@ -152,7 +155,7 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 
 	/** if completion is hidden **/
 	if (kevent->type == GDK_KEY_PRESS) {
-		SNOOPER(bfwin->snooper)->last_event = (GdkEvent *)kevent;
+		/* SNOOPER(bfwin->snooper)->last_event = (GdkEvent *)kevent; */
 		if ( snooper->stat && ( kevent->keyval == GDK_Escape ) ) {
 			snooper->stat = SNOOPER_CANCEL_RELEASE_EVENT;
 			return TRUE;
