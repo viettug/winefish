@@ -29,16 +29,7 @@
 #include "undo_redo.h"
 #include "bf_lib.h"
 
-/**
-* doc_toggle_highlighting_cb:
- * @doc: a #Tdocument*
- * @unindent: #gboolean
- *
- * Indent the selected block in current document.
- * Set unindent to TRUE to unindent.
- *
- * Return value: void
- **/
+/* original version taken from bluefish's (doc_indent_selection) */
 gint func_indent( GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt) {
 	Tdocument *doc = bfwin->current_document;
 	if (!doc) return 0;
@@ -74,10 +65,10 @@ gint func_indent( GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint op
 					itend = itstart;
 					gtk_text_iter_forward_chars( &itend, main_v->props.editor_tab_width );
 					buf = gtk_text_buffer_get_text( doc->buffer, &itstart, &itend, FALSE );
-					DEBUG_MSG( "tab_width=%d, strlen(buf)=%d, buf='%s'\n", main_v->props.editor_tab_width, strlen( buf ), buf );
+					DEBUG_MSG( "func_indent: tab_width=%d, strlen(buf)=%d, buf='%s'\n", main_v->props.editor_tab_width, strlen( buf ), buf );
 					while ( cont && buf[ i ] != '\0' ) {
 						cont = ( buf[ i ] == ' ' );
-						DEBUG_MSG( "doc_indent_selection, buf[%d]='%c'\n", i, buf[ i ] );
+						DEBUG_MSG( "func_indent: buf[%d]='%c'\n", i, buf[ i ] );
 						i++;
 					}
 					if ( !cont ) {
@@ -113,7 +104,7 @@ gint func_indent( GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint op
 			gtk_text_buffer_get_iter_at_mark( doc->buffer, &itend, end );
 			gtk_text_buffer_delete_mark( doc->buffer, cur );
 			gtk_text_iter_forward_line( &itstart );
-			DEBUG_MSG( "doc_indent_selection, itstart at %d, itend at %d\n", gtk_text_iter_get_offset( &itstart ), gtk_text_iter_get_offset( &itend ) );
+			DEBUG_MSG( "func_indent: itstart at %d, itend at %d\n", gtk_text_iter_get_offset( &itstart ), gtk_text_iter_get_offset( &itend ) );
 		}
 		gtk_text_buffer_delete_mark( doc->buffer, end );
 		doc_bind_signals( doc );
