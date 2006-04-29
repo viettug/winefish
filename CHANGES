@@ -3,6 +3,9 @@ $Id$
 Winefish 1.4.0.1
 ================
 
+* fixed:
+- BUG#{108}
+
 * new features:
 - Emacs key sequence support ($HOME/.winefish/keymap).
 
