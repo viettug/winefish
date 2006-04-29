@@ -42,16 +42,23 @@ gint func_delete_line( GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gi
 	/* delete the whole line */
 	if ( opt & FUNC_VALUE_0 ) {
 		gtk_text_iter_set_line_offset( &itstart, 0 );
-		gtk_text_iter_forward_line( &itend );
+		/* TODO: */
+		if (gtk_text_iter_forward_line( &itend ))
+			gtk_text_iter_backward_char(&itend);
 	/* delete to end of line */
 	} else if (opt & FUNC_VALUE_1 ) {
-		if ( gtk_text_iter_forward_line( &itend ) )
-			gtk_text_iter_backward_char(&itend);
+		gtk_text_iter_forward_line( &itend );
+		gtk_text_iter_backward_char(&itend);
 	/* delete to begin of line */
 	} else if (opt & FUNC_VALUE_2 ) {
 		gtk_text_iter_set_line_offset( &itstart, 0 );
 	}
-	if (gtk_text_iter_compare(&itstart, &itend) == -1) {
+	/* delete current line (exclude the line end) */
+	if (gtk_text_iter_compare(&itstart, &itend) == -1 ) {
+		gtk_text_buffer_delete( doc->buffer, &itstart, &itend );
+		return 1;
+	}else if ( gtk_text_iter_compare(&itstart, &itend) ==0 && gtk_text_iter_get_line_offset(&itend) ==0 )  {
+		gtk_text_iter_forward_char(&itend);
 		gtk_text_buffer_delete( doc->buffer, &itstart, &itend );
 		return 1;
 	}
