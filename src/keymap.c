@@ -44,7 +44,7 @@ static void add_function(const char *human_name, FUNCTION computer_name, gint da
 	func = g_new0(Tfunc, 1);
 	func->exec = computer_name;
 	func->data = data | FUNC_FROM_SNOOPER;
-	g_hash_table_insert(main_v->func_hashtable, (gpointer)human_name, func);
+	g_hash_table_replace(main_v->func_hashtable, (gpointer)human_name, func);
 }
 
 void funclist_init() {
