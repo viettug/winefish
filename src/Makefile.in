@@ -57,6 +57,7 @@ func_comment.c \
 func_delline.c \
 func_shift.c \
 func_indent.c \
+func_move.c \
 func_grep.c \
 gtk_easy.c \
 gui.c \
