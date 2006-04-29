@@ -12,3 +12,6 @@ map: func_alias:<control><mod1>a:
 map: func_complete:<control>99:
 map: func_indent:<control>pi:
 map: func_unindent:<control>pI:
+map: func_delete_line:<control>pw:
+map: func_delete_line_left:<control>pl:
+map: func_delete_line_right:<control>pr:
