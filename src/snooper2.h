@@ -18,7 +18,7 @@
 
 #define SNOOPER_IS_KEYSEQ(var) ( var->state & SNOOPER_CONTROL_MASKS )
 
-#define SNOOPER_A_CHARS(var) ( ( SNOOPER_IS_AZ(var->keyval) ) || SNOOPER_IS_LBRACE(var->keyval) )
+#define SNOOPER_A_CHARS(var) (  var && ( ( SNOOPER_IS_AZ(var->keyval) ) || SNOOPER_IS_LBRACE(var->keyval) ) )
 
 #define SNOOPER_VALID_WIDGET(var) ( (GTK_IS_TEXT_VIEW(var) || GTK_IS_WINDOW(var) ) )
 
@@ -57,9 +57,6 @@ enum {
 typedef gint (*FUNCTION)(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt);
 
 typedef struct {
-#ifdef DEBUG
-	guint id;
-#endif
 	gint stat;
 	GdkEvent *last_event;
 	GdkEvent *last_seq;

@@ -123,9 +123,7 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 
 	/** check for valid snooper here **/
 	if ( ! (snooper->stat & SNOOPER_ACTIVE) ) {
-#ifdef DEBUG
-		DEBUG_MSG("snooper: snooper id (%d) is disabled...\n", snooper->id);
-#endif
+		DEBUG_MSG("snooper: this snooper was disabled...\n");
 		return TRUE;
 	}
 
@@ -208,12 +206,10 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 
 void snooper_install(Tbfwin *bfwin) {
 	bfwin->snooper = g_new0(Tsnooper,1);
-#ifdef DEBUG
-	SNOOPER(bfwin->snooper)->id =
-#endif
 	gtk_key_snooper_install( (GtkKeySnoopFunc) main_snooper, bfwin);
 	SNOOPER(bfwin->snooper)->last_seq = gdk_event_new(GDK_KEY_PRESS);
 	SNOOPER(bfwin->snooper)->last_event = gdk_event_new(GDK_KEY_PRESS);
+	/* SNOOPER(bfwin->snooper)->stat = SNOOPER_ACTIVE; */
 }
 
 #endif /* SNOOPER2 */
