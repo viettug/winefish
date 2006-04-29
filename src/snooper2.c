@@ -170,7 +170,7 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 		if ( ( snooper->stat & ~SNOOPER_ACTIVE )&& ( kevent->keyval == GDK_Escape ) ) {
 			snooper->stat |= SNOOPER_CANCEL_RELEASE_EVENT;
 			return TRUE;
-		}else if ( kevent->length && ( ( snooper->stat & SNOOPER_HALF_SEQ ) || SNOOPER_IS_KEYSEQ(kevent) ) ) {
+		}else if ( ( kevent->length || kevent->keyval == GDK_space) && ( ( snooper->stat & SNOOPER_HALF_SEQ ) || SNOOPER_IS_KEYSEQ(kevent) ) ) {
 			if (snooper->stat & SNOOPER_HALF_SEQ ) {
 				snooper->stat &=  ~SNOOPER_HALF_SEQ;
 				snooper_loopkup_keyseq(widget, bfwin, (GdkEventKey*) snooper -> last_seq, kevent);
