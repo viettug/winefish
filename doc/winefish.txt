@@ -15,7 +15,6 @@ This is a generated file. !! DO NOT EDIT !!
 <!--
 body {
 	margin: 30px;
-	margin-right: 100px;
 	line-height: 150\%;
 }
 b {
@@ -28,7 +27,6 @@ b {
 }
 pre {
 	border: 1px solid grey;
-	border-right: 0px;
 	padding: 10px;
 }
 /*
@@ -38,21 +36,27 @@ a:visited { color: green; }
 */
 h1 {
 	background-color: #E6E6BB;
+	padding: 20px;
 }
 h2 {
 	background-color: #DEE7EC;
-}
-h1, h2 {
 	padding: 4px;
 }
 hr {
 	height: 10px;
 }
+.svnid {
+	border: 1px solid grey;
+	padding: 4px;
+	text-align: center;
+}
 -->
 </STYLE>
 </HEAD>
 <BODY>
-1(@[Winefish 1.4.x Documentation](http://winefish.berlios.de/))
+1(@[Winefish 1.4.0.1 Documentation](http://winefish.berlios.de/))
+
+2(#(READE ME!))
 
 L(
 * Author: kyanh <@(kyanh_at_viettug_dot_org)>
@@ -62,7 +66,7 @@ you should read @[NEWS](#NEWS) and @[IMPORTANT NOTES](#IMPORTANT NOTES) )
 * The title of this document means that you cannot use it for
 an older verion of winefish
 * I'm sorry about my English :\)\)
-If you find any \(spell\) mistakes in this document feel free to let me know!
+If you find any mistakes in this document feel free to let me know!
 )
 
 2(#(CONTENTS))
@@ -74,29 +78,30 @@ If you find any \(spell\) mistakes in this document feel free to let me know!
 L(
 * @[THANKS](#THANKS)
 * @[NEWS](#NEWS)
-* @[NEWS-1.3.2](#NEWS-1.3.2)
-* @[Features](#FEATURES)
-* @[Installation](#INSTALLATION)
-* @[Important Notes](#IMPORTANT NOTES)
-* @[Input Method](#INPUT METHOD)
+* @[news-1.3.2](#NEWS-1.3.2)
+* @[features](#FEATURES)
+* @[installation](#INSTALLATION)
+* @[important notes](#IMPORTANT NOTES)
+* @[input method](#INPUT METHOD)
 * Hotkeys: @[editing](#HOTKEYS: EDITING)
 * Hotkeys: @[compiling](#HOTKEYS: COMPILING)
-* @[Project Mode](#PROJECT MODE)
+* @[project mode](#PROJECT MODE)
+* @[document structure](#DOCUMENT STRUCTURE)
 )
 </td>
 <td>
 L(
-* @[Document Structure](#DOCUMENT STRUCTURE)
-* @[Autotext](#AUTOTEXT)
-* @[AutoCompletion](#AUTO_COMPLETION)
-* @[Commandline Options](#COMMANDLINE OPTIONS)
-* @[Outputbox](#OUTPUTBOX)
-* @[Templates Support](#TEMPLATES SUPPORT)
-* @[Brace Finder](#BRACE FINDER)
+* @[function list](#FUNCTION LIST)
+* @[autotext](#AUTOTEXT)
+* @[auto completion](#AUTO_COMPLETION)
+* @[commandline options](#COMMANDLINE OPTIONS)
+* @[outputbox](#OUTPUTBOX)
+* @[templates support](#TEMPLATES SUPPORT)
+* @[brace finder](#BRACE FINDER)
 * @[TIPS](#TIPS)
-* @[Locale Support](#LOCALE SUPPORT)
-* @[Column Marker](#COLUMN MARKER)
-* @[About](#ABOUT)
+* @[locale support](#LOCALE SUPPORT)
+* @[column marker](#COLUMN MARKER)
+* @[about](#ABOUT)
 )
 </td>
 </tr>
@@ -159,14 +164,7 @@ B(single-click) and B(control + single-click). See @[OUTPUTBOX](#OUTPUTBOX)
 any many more. See B(NEWS) and B(CHANGES) for details.
 
 2(#(IMPORTANT NOTES))
-%
-%RED(Though Winefish 1.3.2 was released
-%it may still expose a CRASH when running on GREEN(MacOSX).
-%Please visit the project page at
-%@[berlios](https://developer.berlios.de/projects/winefish/)
-%for details. GRAY(I almost cannot fix this BUG; GREEN(I need someone could help me!))
-%)
-%
+
 Winefish now uses B($HOME/.winefish/rcfile) to save configuration.
 Move the old one B($HOME/.winefish/rcfile_v2) to B($HOME/.winefish/rcfile)
 manually, then reconfigure Winefish (\(use B(Preferences Pages).\)
@@ -229,14 +227,15 @@ to turn project mode ON/OFF, *OR* select menu B(External/Project Mode)
 
 2(#(PROJECT MODE))
 
-A project is a group of files. This happens for example when
-you are typeting a thesis which contains the main file `foobar.tex'
-and its children name `chaper1.tex', `chapter2.tex', etc.
+A project is a group of files. This happens when
+you are typeting a thesis whose main file is `foobar.tex'
+and whose children are `chaper1.tex', `chapter2.tex', etc.
 
 L(
 * Each project requires a U(GREEN((base directory)) and a U(GREEN((base file))
 * The "base file" RED(must be located) in "base directory"
 * Project's files should be located in "base directory"
+or its sub-directories
 )
 
 2(#(DOCUMENT STRUCTURE))
@@ -442,10 +441,6 @@ If you specify multiple files, all are opened at the same line numbered <num> :\
 % You may get some good idea. Modify it as you want!
 % Do not worry about duplicate entries. Winefish know this!
 % See @[AUTO_COMPLETION](#AUTO_COMPLETION) and @[AUTOTEXT](#AUTOTEXT) for NOTES.
-* What does Winefish  mean? L(
-* Winefish = Wine + fish = to be drunk \(Oops, I can't drink\)
-* Winefish = White fish \(white not blue\)
-* Winefish = Why fish? See @[About](#ABOUT)
 ))
 
 2(#(COLUMN MARKER))
@@ -468,13 +463,13 @@ B(func_indent)
 B(func_unindent)
 
 B(func_complete)
-popup the list of latex command which is prefixed by current 
-
 B(func_complete_eat)
+\\popup the list of latex command which is prefixed by current 
 
 B(func_delete_line)
 B(func_delete_line_left)
 B(func_delete_line_right)
+\\delete the whole line, to line's start or to line's end
 
 B(func_select_line)
 B(func_select_word)
@@ -495,16 +490,17 @@ B(func_hilight_off)
 B(func_hilight_on)
 
 B(func_grep)
+B(func_template_list)
+\\start grep function; list your templates
 
 B(func_new)
-
 B(func_open)
 
 B(func_about)
 B(func_help)
 
 B(func_keymap)
-show the contents of B($HOME/.winefish/keymap)
+\\show the contents of B($HOME/.winefish/keymap)
 
 2(#(ABOUT))
 
@@ -515,7 +511,7 @@ my \nix name... and it's very hard to write the vietnamese one ;\(
 
 This HTML file was generated from B(winefish.txt) by B(k2h) program.
 
-<HR>
-GRAY($Id$)
+<BR>
+<p class="svnid">GRAY($Id$)</p>
 </BODY>
 </HEAD>
