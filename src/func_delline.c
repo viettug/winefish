@@ -33,26 +33,26 @@ gint func_delete_line( GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gi
 	if (!doc) return 0;
 
 	GtkTextIter itstart, itend;
-	if ( !gtk_text_buffer_get_selection_bounds( doc->buffer, &itstart, &itend ) ) {
-		/* there is no selection, work on the current line */
-		GtkTextIter iter;
-		gtk_text_buffer_get_iter_at_mark( doc->buffer, &iter, gtk_text_buffer_get_insert( doc->buffer ) );
-		/* delete the whole line */
-		if ( opt & FUNC_VALUE_0 ) {
-			gtk_text_iter_set_line_offset( &iter, 0 );
-			gtk_text_iter_forward_line( &itend );
-		/* delete to end of line */
-		} else if (opt & FUNC_VALUE_1 ) {
-			if ( gtk_text_iter_forward_line( &itend ) )
-				gtk_text_iter_backward_char(&itend);
-		/* delete to begin of line */
-		} else if (opt & FUNC_VALUE_2 ) {
-			gtk_text_iter_set_line_offset( &iter, 0 );
-		}
-		if (gtk_text_iter_compare(&iter, &itend) == -1) {
-			gtk_text_buffer_delete( doc->buffer, &iter, &itend );
-			return 1;
-		}
+	if ( gtk_text_buffer_get_selection_bounds( doc->buffer, &itstart, &itend ) )
+		return 0;
+	/* there is no selection, work on the current line */
+	GtkTextIter iter;
+	gtk_text_buffer_get_iter_at_mark( doc->buffer, &iter, gtk_text_buffer_get_insert( doc->buffer ) );
+	/* delete the whole line */
+	if ( opt & FUNC_VALUE_0 ) {
+		gtk_text_iter_set_line_offset( &iter, 0 );
+		gtk_text_iter_forward_line( &itend );
+	/* delete to end of line */
+	} else if (opt & FUNC_VALUE_1 ) {
+		if ( gtk_text_iter_forward_line( &itend ) )
+			gtk_text_iter_backward_char(&itend);
+	/* delete to begin of line */
+	} else if (opt & FUNC_VALUE_2 ) {
+		gtk_text_iter_set_line_offset( &iter, 0 );
+	}
+	if (gtk_text_iter_compare(&iter, &itend) == -1) {
+		gtk_text_buffer_delete( doc->buffer, &iter, &itend );
+		return 1;
 	}
 	return 0;
 }
