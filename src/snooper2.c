@@ -93,6 +93,13 @@ static gboolean snooper_accel_group_find_func(GtkAccelKey *key, GClosure *closur
 	return ( (key->accel_key == keyval) && (key->accel_mods == ( KEVENT(data)->state & ~consumed) ) );
 }
 
+#ifdef DONOT_WORK
+static gboolean snooper_loopkup_keys_in_accel_map(GtkWidget *widget, GdkEventKey *kevent) {
+	return gtk_accel_groups_activate(G_OBJECT(widget), kevent->keyval, kevent->state);
+}
+
+#else /* DONOT_WORK */
+
 static gboolean snooper_loopkup_keys_in_accel_map(GdkEventKey *kevent) {
 #ifdef DEBUG
 	GtkAccelKey *accel_key;
@@ -108,6 +115,8 @@ static gboolean snooper_loopkup_keys_in_accel_map(GdkEventKey *kevent) {
 	return ( gtk_accel_group_find( main_v->accel_group, (GtkAccelGroupFindFunc) snooper_accel_group_find_func, kevent) != NULL);
 #endif /* DEBUG */
 }
+
+#endif /* DONOT_WORK */
 
 static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin) {
 	Tsnooper *snooper =  SNOOPER(bfwin->snooper);
@@ -159,7 +168,7 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 		if ( snooper->stat && ( kevent->keyval == GDK_Escape ) ) {
 			snooper->stat = SNOOPER_CANCEL_RELEASE_EVENT;
 			return TRUE;
-		}else if ( (kevent->length && (snooper->stat == SNOOPER_HALF_SEQ) ) || SNOOPER_IS_KEYSEQ(kevent) ) {
+		}else if ( kevent->length && (snooper->stat == SNOOPER_HALF_SEQ || SNOOPER_IS_KEYSEQ(kevent) ) ) {
 			if (snooper->stat == SNOOPER_HALF_SEQ ) {
 				snooper_loopkup_keyseq(widget, bfwin, (GdkEventKey*) snooper -> last_seq, kevent);
 				return TRUE;
@@ -169,6 +178,7 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 					return TRUE;
 				}else{
 					if (snooper_loopkup_keys_in_accel_map(kevent)) {
+						DEBUG_MSG("snooper: lookup in accel.map: return 1\n");
 						snooper->stat = SNOOPER_HAS_EXCUTING_FUNC;
 						return FALSE;
 					}else{

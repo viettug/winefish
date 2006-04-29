@@ -16,9 +16,7 @@
 
 #define SNOOPER_CONTROL_MASKS ( GDK_CONTROL_MASK | GDK_MOD1_MASK )
 
-#define SNOOPER_SHOULD_CAPTURE(var) ( SNOOPER_IS_AZ09(var) || ( var == GDK_percent) || (var == GDK_space) )
-
-#define SNOOPER_IS_KEYSEQ(var) ( (var->state & SNOOPER_CONTROL_MASKS) && SNOOPER_SHOULD_CAPTURE( var->keyval ) )
+#define SNOOPER_IS_KEYSEQ(var) ( var->state & SNOOPER_CONTROL_MASKS )
 
 #define SNOOPER_A_CHARS(var) ( ( SNOOPER_IS_AZ(var->keyval) ) || SNOOPER_IS_LBRACE(var->keyval) )
 
