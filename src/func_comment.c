@@ -29,8 +29,12 @@
 #include "stringlist.h" /* count_array */
 #include "snooper2.h"
 
-static void doc_comment_selection( Tdocument *doc, gboolean uncomment ) {
-	if (!doc) return;
+gint func_comment(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt) {
+	Tdocument *doc = bfwin->current_document;
+
+	if (!doc) return 0;
+
+	gint uncomment = opt & FUNC_VALUE_0;
 
 	GtkTextIter itstart, itend;
 	if ( gtk_text_buffer_get_selection_bounds( doc->buffer, &itstart, &itend ) ) {
@@ -145,22 +149,9 @@ static void doc_comment_selection( Tdocument *doc, gboolean uncomment ) {
 			g_free( indentstring );
 		}
 	}
+	return 1;
 }
 
 void menu_comment_cb( Tbfwin *bfwin, guint callback_action, GtkWidget *widget ) {
-	doc_comment_selection( bfwin->current_document, ( callback_action == 1 ) );
+	func_comment(widget, NULL, bfwin, callback_action * FUNC_VALUE_0 );
 }
-
-gint func_comment(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt) {
-	DEBUG_MSG("doc_comment_selection: started with opt = %d\n", opt);
-	doc_comment_selection( bfwin->current_document, opt & FUNC_VALUE_0 );
-	return 1;
-}
-
-/*
-gint func_uncomment(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt) {
-	doc_comment_selection( bfwin->current_document, 1 );
-	return 1;
-}
-*/
-
