@@ -19,7 +19,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-/*#define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
@@ -99,7 +99,7 @@ gint func_complete_hide(Tbfwin *bfwin) {
 }
 
 gint func_complete_show( GtkWidget *widget_, GdkEventKey *kevent, Tbfwin *bfwin, gint opt ) {
-	DEBUG_MSG("func_complete_show: started with opt=%d\n", opt);
+	DEBUG_MSG("func_complete_show: on %p, started with opt=%d\n", bfwin, opt);
 
 	if ( !bfwin->completion ) func_complete_init( bfwin );
 	Tcompletion *cpl = bfwin->completion;
