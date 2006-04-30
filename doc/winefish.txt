@@ -91,7 +91,8 @@ L(
 </td>
 <td>
 L(
-* @[function list](#FUNCTION LIST)
+* @[keymap file](#KEYMAP FILE) \(new\)
+* @[function list](#FUNCTION LIST) \(new\)
 * @[autotext](#AUTOTEXT)
 * @[auto completion](#AUTO_COMPLETION)
 * @[commandline options](#COMMANDLINE OPTIONS)
@@ -124,6 +125,7 @@ L(
 * configurable highlight support
 * @[templates support](#TEMPLATES SUPPORT)
 * @[brace finder](#BRACE FINDER)
+* and some stupid things...
 )
 
 2(#(INSTALLATION))
@@ -132,7 +134,7 @@ Read INSTALL for details.
 
 There are supports/packages for
 	Debian, Slackware, Gentoo, Ubuntu, Fedora Core, etc.
-Visit winefish's homepage for details.
+Visit @[winefish's homepage](http://winefish.berlios.de/) for details.
 
 2(#(INPUT METHOD))
 
@@ -144,7 +146,7 @@ system, not provided by Winefish.
 2(#(NEWS))
 Some new features:
 L(
-* Emacs key style support
+* @[Emacs key style support](#KEYMAP FILE)
 * multiple outputbox
 )
 
@@ -336,7 +338,7 @@ the results are shipped out to a Outputbox.
 
 The results of executing may be filtered so that only useful messages
 will be appeared. Each line of outputbox is often of the form
-PRE(RED(foobar.tex) 12 RED(bla bla bla bla...))
+PRE(RED(foobar.tex) BLUE(12) bla bla bla bla...)
 What does this mean? The message `bla bla bla....' deals with
 the file named `foobar.tex' at the line numbered 12. Sometimes
 there's only line number \(12\) but the filename. In this case,
@@ -355,11 +357,11 @@ You may press B(shift + Escape) to hide/show the Outputbox.
 2(#(TEMPLATES SUPPORT))
 
 Go to B(Preferences Pages, Miscellaneous) and specify the directory
-which contains your templates. By default, it is B($HOME/tex/templates).
+which contains your templates. It is B($HOME/tex/templates) by default.
 
 The template file is of type B(*.tex) or B(*.sty).
-Each template *MUST* contain the  pattern B(\%\%wf=).
-This helps you writing description for templates. For e.g.,
+Each template *MUST* contain the  pattern B(\%\%wf=)
+which helps you writing description. For e.g.,
 PRE(
 \%\%wf=this is a template file
 \%\%wf=this is the template's description
@@ -370,7 +372,7 @@ To U(list all your template files), press B(control + mod1 + shift + F).
 You may also use the menu B(Edit, Find, Replace, Templates).
 Then press B(control + click) to create a clone file \(See @[OUTPUTBOX](#OUTPUTBOX)\)
 
-Winefish does not clean up the B(\%\%wf=) string automatically.
+Winefish does not clean up the string B(\%\%wf=) automatically.
 
 2(#(BRACE FINDER))
 
@@ -463,13 +465,19 @@ B(func_indent)
 B(func_unindent)
 
 B(func_complete)
+\\popup the list of latex command which is prefixed by current
+
 B(func_complete_eat)
-\\popup the list of latex command which is prefixed by current 
+\\add current command to sessin word list \(use for autocompletion\).
+If there isn't selection, the command is taken from current cursor
+backward to the first backslash. If you're selecting some text
+which is prefixed by a backslash, the selection will be taken.
 
 B(func_delete_line)
 B(func_delete_line_left)
 B(func_delete_line_right)
-\\delete the whole line, to line's start or to line's end
+\\delete the whole line;
+delete to line's start or to line's end
 
 B(func_select_line)
 B(func_select_word)
@@ -477,10 +485,18 @@ B(func_select_all)
 B(func_select_line_left)
 B(func_select_line_right)
 
-B(func_move_up)
-B(func_move_down)
+B(func_move_line_up)
+B(func_move_line_down)
+B(func_move_line_start)
+B(func_move_line_end)
+\\
+move up, down \(try to keep column number unchanged\);
+move to line's start or line's end
+
 B(func_page_up)
 B(func_page_down)
+\\not implemented yet
+
 B(func_move_left)
 B(func_move_right)
 B(func_move_word_left)
@@ -491,7 +507,7 @@ B(func_hilight_on)
 
 B(func_grep)
 B(func_template_list)
-\\start grep function; list your templates
+\\start grep function \(find in files\); list your templates
 
 B(func_new)
 B(func_open)
@@ -502,6 +518,64 @@ B(func_help)
 B(func_keymap)
 \\show the contents of B($HOME/.winefish/keymap)
 
+2(#(KEYMAP FILE))
+
+The file B(keymap) located in B($HOME/.winefish/) defines
+the key shortcuts for editor functions. Its contents
+are very simimilar to
+PRE(
+map: func_comment:<control>\%:
+map: func_uncomment:<control><mod1>\%:
+map: func_complete:<control> :
+map: func_complete:<control><shift> :
+map: func_complete_eat:GREEN(\<control\>9)BLUE(\<control\>9):
+map: func_complete_eat:GREEN(\<control\>9)BLUE(9):
+map: func_foobar:<control>S:
+map: func_foobar:<control>s:
+map: func_foobar:<control>\::
+)
+Each line is of form
+PRE(map: OLIVE(foobar):GREEN(group1)BLUE(group2):)
+where OLIVE(foobar) is an editor function which is listed in
+@[FUNCTION LIST](#FUNCTION LIST), GREEN(group1) and BLUE(group2)
+are key sequences. The GREEN(group1) is of the format
+PRE(
+<control>NAVY([\<shift\>])BROWN([\<mod1\>])RED(\<key\>)
+BROWN([\<control\>])NAVY([\<shift\>])\<mod1\>RED(\<key\>)
+)
+The \<shift\> is U(optional)
+while there must be at least \<control\> or \<mod1\>.
+
+The BLUE(group2) is of the format
+PRE(
+CYAN([\<control\>])NAVY([\<shift\>])BROWN([\<mod1\>])RED([\<key\>])
+)
+In BLUE(group2), the \<control\>, \<shift\>, \<mod1\>
+and RED(\<key\>) may be omitted.
+
+For both groups RED(\<key\>) is any \(single\) readable character.
+If you want a colon B(:) you must escape it -- used B(\:).
+
+RED(TRICK:)
+You may use various shortcuts for the same function.
+If some functions are mapped to the same shortcut only
+the last one will be used.
+
+RED(NOTE:)
+Please take care of using \<shift\>. This modified key is often
+used to print `another' character or the `lowercase/upsercase' version
+of a \<key\>. When CAPS LOCK is off on an US keyboard, pressing
+B(BROWN(\<shift\>s)) will print B(S) on the screen while pressing
+B(BROWN(\<shift\>4)) will print B($).
+So RED(\<key\>) is what you get on the screen, not what you type.
+For the mapping
+PRE(map: func_foobar:<control>S:)
+on US keyboard, when CAPS LOCK is off you must type
+B(BROWN(\<control\>\<shift\>s))
+but when CAPS LOCK is on you just type
+B(BROWN(\<control\>s))
+to active the function RED(func_foobar).
+
 2(#(ABOUT))
 
 I am a vietnamese who loves maths, music and of course winefish ;\)
@@ -509,7 +583,12 @@ I am a vietnamese who loves maths, music and of course winefish ;\)
 Please write my name with lowercase characters -- B(kyanh) -- as it is
 my \nix name... and it's very hard to write the vietnamese one ;\(
 
+I love Emacs but I almost cannot use it. Since winefish 1.4.0.1
+the Emacs key style is support... I thought I should be back
+to Emacs and left winefish unmaintained ;\)
+
 This HTML file was generated from B(winefish.txt) by B(k2h) program.
+I may say B(I love \TeX) but I wrote this document in KTML format ;\)
 
 <BR>
 <p class="svnid">GRAY($Id$)</p>
