@@ -83,7 +83,7 @@ static void rcfile_parse_keys(void *keys_list) {
 	init_prop_arraylist(&keys_configlist, keys_list, "map:",2, TRUE);
 	filename = g_strconcat(g_get_current_dir(), "/keymap", NULL);
 	if (!parse_config_file(keys_configlist, filename)) {
-		DEBUG_MSG("rcfile_parse_keys: failed; cannot locate 'keys' file in current directory\n");
+		DEBUG_MSG("rcfile_parse_keys: failed; cannot locate 'keymap' file in current directory\n");
 	}
 	free_configlist(keys_configlist);
 	g_free(filename);
