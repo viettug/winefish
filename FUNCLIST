@@ -7,9 +7,9 @@
 /func_complete
 /func_complete_eat
 
-func_delete_line
-func_delete_line_left
-func_delete_line_right
+/func_delete_line
+/func_delete_line_left
+/func_delete_line_right
 
 func_select_line
 func_select_word
@@ -17,14 +17,15 @@ func_select_all
 func_select_line_left
 func_select_line_right
 
-func_move_up
-func_move_down
+/func_move_line_up
+/func_move_line_down
+/func_move_line_start
+/func_move_line_end
+
 func_move_left
 func_move_right
 func_move_page_up
 func_move_page_down
-func_move_line_left
-func_move_line_right
 func_move_word_left
 func_move_word_right
 
@@ -37,3 +38,5 @@ func_open
 func_about
 func_help
 func_keymap
+
+func_sort
