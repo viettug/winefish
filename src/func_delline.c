@@ -21,8 +21,6 @@
 
 #include <gtk/gtk.h>
 
-#define DEBUG
-
 #include "bluefish.h"
 
 /*
