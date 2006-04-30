@@ -103,8 +103,8 @@ void keymap_init(void) {
 	while (tmp2list) {
 		gchar **strarr;
 		strarr = (gchar **) tmp2list->data;
-		if (count_array(strarr) == 2) {
-			if ( strlen(strarr[1]) && strlen(strarr[0]) ) {
+		if (count_array(strarr) >= 2) {
+			if ( strlen(strarr[1]) && strlen(strarr[0]) && g_hash_table_lookup(main_v->func_hashtable, strarr[0]) ) {
 				gchar *keyseq, *func_name;
 				keyseq = g_strdup(strarr[1]);
 				func_name = g_strdup(strarr[0]);
@@ -119,6 +119,7 @@ void keymap_init(void) {
 	{
 		GList *tmplist = g_list_first(keys_list);
 		while(tmplist) {
+			/* TODO: is this enought to free everythign? */
 			void *cli = tmplist->data;
 			g_free(cli);
 			tmplist = g_list_next(tmplist);
