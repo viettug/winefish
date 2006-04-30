@@ -29,7 +29,8 @@
 #include "func_move.h"
 
 gint func_move(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt) {
-	DEBUG_MSG("func_move: started\n");
+	DEBUG_MSG("func_move: started with opt = %d\n", opt >> FUNC_VALUE_);
+
 	Tdocument *doc = bfwin->current_document;
 
 	if (!doc) return 0;
