@@ -1,7 +1,10 @@
 $Id$
 
+* redesign the hastable for autotext ( the value should be an array)
+* handle the way of executing a function from snooper (use thread_pool?)
+* use (g_hash_table_replace) instead (g_hash_table_insert) (autox.c)
+* support match (, )
 * customizable completion regular patterns
-* 
 * Glib 2.6: use g_stat() instead of stat(), g_unlink() instead of unlink()
 * Move template_rescan_cb() from func_grep.c to menu.c (make it static)
 * Optimize usage of GET_BIT
