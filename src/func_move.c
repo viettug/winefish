@@ -34,11 +34,11 @@ gint func_move(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt) 
 
 	if (!doc) return 0;
 
-	GtkTextIter itend;
+	GtkTextIter itend, iter;
 	gboolean retval  = 1;
+	gint c_offset;
 	
-	if ( gtk_text_buffer_get_selection_bounds( doc->buffer, NULL, &itend ) ) return 0;
-
+	if ( gtk_text_buffer_get_selection_bounds( doc->buffer, &iter, &itend ) ) return 0;
 	opt = opt >> FUNC_VALUE_;
 	switch(opt) {
 	case FUNC_MOVE_END:
@@ -51,22 +51,22 @@ gint func_move(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt) 
 		gtk_text_iter_set_line_offset ( &itend, 0 );
 		break;
 	case FUNC_MOVE_LINE_END:
-		if ( gtk_text_iter_forward_line( &itend ) )
+		/* c_offset = gtk_text_iter_get_chars_in_line(&itend);
+		if (!gtk_text_iter_is_end(&itend))
+			c_offset --;
+		gtk_text_iter_set_line_offset(&itend, c_offset); */
+		if ( gtk_text_iter_forward_line( &itend ) || ( gtk_text_iter_get_line_index(&iter) != gtk_text_iter_get_line_index(&itend) ) )
 			gtk_text_iter_backward_char(&itend);
 		break;
 	case FUNC_MOVE_LINE_UP:
-		{
-			gint c_offset = gtk_text_iter_get_line_offset(&itend);
-			if (gtk_text_iter_backward_line(&itend) )
-				gtk_text_iter_set_line_offset(&itend, c_offset);
-		}
+		c_offset = gtk_text_iter_get_line_offset(&itend);
+		if (gtk_text_iter_backward_line(&itend) )
+			gtk_text_iter_set_line_offset(&itend, c_offset);
 		break;
 	case FUNC_MOVE_LINE_DOWN:
-		{
-			gint c_offset = gtk_text_iter_get_line_offset(&itend);
-			if (gtk_text_iter_forward_line(&itend) ) {
-				gtk_text_iter_set_line_offset(&itend, c_offset);
-			}
+		c_offset = gtk_text_iter_get_line_offset(&itend);
+		if (gtk_text_iter_forward_line(&itend) ) {
+			gtk_text_iter_set_line_offset(&itend, c_offset);
 		}
 		break;
 	default:
