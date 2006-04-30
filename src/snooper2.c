@@ -23,7 +23,7 @@
 
 #ifdef SNOOPER2
 
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
