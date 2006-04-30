@@ -19,7 +19,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
@@ -101,8 +101,13 @@ gint func_complete_hide(Tbfwin *bfwin) {
 gint func_complete_show( GtkWidget *widget_, GdkEventKey *kevent, Tbfwin *bfwin, gint opt ) {
 	DEBUG_MSG("func_complete_show: on %p, started with opt=%d\n", bfwin, opt);
 
+	Tdocument *doc = bfwin->current_document;
+	GtkWidget *widget = doc->view;
+	Tcompletion *cpl;
+	GtkTreeModel *model;
+
 	if ( !bfwin->completion ) func_complete_init( bfwin );
-	Tcompletion *cpl = bfwin->completion;
+	cpl = bfwin->completion;
 
 	if ( kevent && opt & FUNC_FROM_OTHER ) {
 		/* để hạn chees tự động gọi khi nhấn phím mũi tên...
@@ -115,28 +120,26 @@ gint func_complete_show( GtkWidget *widget_, GdkEventKey *kevent, Tbfwin *bfwin,
 		}
 	}
 
-	Tdocument *doc = bfwin->current_document;
-	GtkWidget *widget = doc->view;
 
 	if ( ! GTK_WIDGET_HAS_FOCUS(widget) ) {
 		DEBUG_MSG("func_complete_show: ah... the doc->view has focus \n");
 		return 0;
 	}
 
-	/* reset the popup content */
-	GtkTreeModel *model;
 	{
 		gchar *buf = NULL;/* func_complete_eat(widget, kevent, doc); */
 		{/* get text at doc's iterator */
 			GtkTextMark * imark;
 			GtkTextIter itstart, iter, maxsearch;
+			gint offset;
 
 			imark = gtk_text_buffer_get_insert( doc->buffer );
 			gtk_text_buffer_get_iter_at_mark( doc->buffer, &iter, imark );
 			itstart = iter;
 			maxsearch = iter;
-			gtk_text_iter_backward_chars( &maxsearch, COMMAND_MAX_LENGTH ); /* 50 chars... may it be too long? */
-			/* TODO: limit1 = begin of line ;) */
+			offset = gtk_text_iter_get_line_offset(&iter);
+			gtk_text_iter_backward_chars( &maxsearch, MIN(offset, COMMAND_MAX_LENGTH ));
+			/* 50 chars... may it be too long? */
 			if ( gtk_text_iter_backward_find_char( &itstart, ( GtkTextCharPredicate ) find_char, GINT_TO_POINTER( "\\" ), &maxsearch ) ) {
 				maxsearch = iter; /* re-use maxsearch */
 				buf = gtk_text_buffer_get_text( doc->buffer, &itstart, &maxsearch, FALSE );
@@ -145,7 +148,8 @@ gint func_complete_show( GtkWidget *widget_, GdkEventKey *kevent, Tbfwin *bfwin,
 		DEBUG_MSG("func_complete_show: buffer detected = %s\n", buf);
 
 		if ( !buf || strlen(buf) ==1 || ( opt & FUNC_FROM_OTHER && ( strlen(buf) < 4 ) ) ) {
-			DEBUG_MSG("func_complete_show:empty buffer or strlen(buffer) <4. existing...\n");
+			DEBUG_MSG("func_complete_show: strlen(buffer) <4. existing...\n");
+			if (buf) g_free(buf);
 			func_complete_hide(bfwin);
 			return 0;
 		}
@@ -170,6 +174,7 @@ gint func_complete_show( GtkWidget *widget_, GdkEventKey *kevent, Tbfwin *bfwin,
 				g_list_sort(completion_list, (GCompareFunc)strcmp);
 			}else{
 				DEBUG_MSG("func_complete_show: complete failed. existing...\n");
+				g_free(buf);
 				func_complete_hide(bfwin);
 				return 0;
 			}
@@ -181,14 +186,16 @@ gint func_complete_show( GtkWidget *widget_, GdkEventKey *kevent, Tbfwin *bfwin,
 		They are used directly. */
 
 		/* there is *ONLY* one word and the user reach end of this word */
-		if ( ( opt & FUNC_FROM_OTHER ) && g_list_length(completion_list) == 1 && strlen (completion_list->data) == strlen(buf) ) {
+		if ( ( opt & FUNC_FROM_OTHER )
+				&& g_list_length(completion_list) == 1 && strlen (completion_list->data) == strlen(buf) ) {
 			DEBUG_MSG("func_complete_show: there's only *one* word. existing...\n");
+			g_free(buf);
 			func_complete_hide(bfwin);
 			return 0;
 		}
 
-		cpl->cache = buf;
-		
+		cpl->cache = buf; /* so we should not free buf */
+
 		GtkListStore *store;
 		GtkTreeIter iter;
 
@@ -207,39 +214,42 @@ gint func_complete_show( GtkWidget *widget_, GdkEventKey *kevent, Tbfwin *bfwin,
 		model = GTK_TREE_MODEL(store);
 	}
 
-	/* the old model will be ignored */
+	/* the old model will be remove automatically */
 	gtk_tree_view_set_model(GTK_TREE_VIEW(cpl->treeview), model);
 	g_object_unref(model);
 
-	/* Moving the popup window */
-	gint root_x, x, root_y, y;
-	GdkWindow *win;
+	/** Moving the popup window */
 	{
-		GdkRectangle rect;
-		GtkTextIter iter;
-		gtk_text_buffer_get_iter_at_mark( doc->buffer, &iter, gtk_text_buffer_get_insert( doc->buffer ) );	
-		gtk_text_view_get_iter_location( GTK_TEXT_VIEW(widget), &iter, &rect);
-		gtk_text_view_buffer_to_window_coords( GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_WIDGET, rect.x, rect.y, &x, &y );
-	}
+		gint root_x, x, root_y, y;
+		GdkWindow *win;
+		{
+			GdkRectangle rect;
+			GtkTextIter iter;
+			gtk_text_buffer_get_iter_at_mark( doc->buffer, &iter, gtk_text_buffer_get_insert( doc->buffer ) );	
+			gtk_text_view_get_iter_location( GTK_TEXT_VIEW(widget), &iter, &rect);
+			gtk_text_view_buffer_to_window_coords( GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_WIDGET, rect.x, rect.y, &x, &y );
+		}
+		
+		gtk_window_get_position(GTK_WINDOW(BFWIN(doc->bfwin)->main_window), &root_x, &root_y);
+		x += root_x;
+		y += root_y;
+		win = gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_WIDGET);
 	
-	gtk_window_get_position(GTK_WINDOW(BFWIN(doc->bfwin)->main_window), &root_x, &root_y);
-	x += root_x;
-	y += root_y;
-	win = gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_WIDGET);
-
-	/* get the position of text view window relative to its parents */
-	gdk_window_get_geometry(win, &root_x, &root_y, NULL, NULL, NULL);
-	x += root_x;
-	y += root_y;
-
-	gtk_window_move (GTK_WINDOW(cpl->window), x+16, y);
-	{/* select the first item; need*not* for the first time */
-		GtkTreePath *treepath = gtk_tree_path_new_from_string("0");
-		if (treepath) {
-			gtk_tree_view_set_cursor(GTK_TREE_VIEW(cpl->treeview), treepath, NULL, FALSE);
-			gtk_tree_path_free(treepath);
+		/* get the position of text view window relative to its parents */
+		gdk_window_get_geometry(win, &root_x, &root_y, NULL, NULL, NULL);
+		x += root_x;
+		y += root_y;
+	
+		gtk_window_move (GTK_WINDOW(cpl->window), x+16, y);
+		{/* select the first item; need*not* for the first time */
+			GtkTreePath *treepath = gtk_tree_path_new_from_string("0");
+			if (treepath) {
+				gtk_tree_view_set_cursor(GTK_TREE_VIEW(cpl->treeview), treepath, NULL, FALSE);
+				gtk_tree_path_free(treepath);
+			}
 		}
 	}
+
 	gtk_widget_show_all(cpl->window);
 	cpl->show = COMPLETION_WINDOW_SHOW;
 	return 1;
@@ -444,9 +454,7 @@ gint func_complete_do(Tbfwin *bfwin) {
 		/* inserting */
 		cache_len = strlen(cpl->cache);
 		len = strlen(user_selection);
-		if ( len == cache_len ) {
-			return TRUE;
-		} else if (len > cache_len ){
+		if (len > cache_len ){
 			len = len - cache_len;
 			gchar *retval = g_malloc((len+1) * sizeof(char));
 			for (i=0; i< len; i++) {
@@ -473,14 +481,19 @@ gint func_complete_do(Tbfwin *bfwin) {
 */
 
 gint func_complete_eat( GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt ) {
-	DEBUG_MSG("func_complete_eat: started\n");
+	DEBUG_MSG("func_complete_eat: started, FROM-OTHER = %d\n", opt & FUNC_FROM_OTHER);
 
 	Tdocument *doc = bfwin->current_document;
+	gchar *buf=NULL;
+	GtkTextMark * imark;
+	GtkTextIter itstart, iter, maxsearch;
+	gint ovector[ 3 ], ret;
+	GList *tmplist = NULL;
 
 	if (!doc) return 0;
 
 	if (opt & FUNC_FROM_OTHER) {
-		/** only when user press a delimiters that we can start game; */
+		/* only when user press a delimiters that we can start game; */
 		guint32 character = gdk_keyval_to_unicode( kevent->keyval );
 		if ( (kevent->keyval != GDK_Return) && (character==0 || !strstr(DELIMITERS, kevent->string)) ) {
 			DEBUG_MSG("func_complete_eat: returned\n");
@@ -488,43 +501,36 @@ gint func_complete_eat( GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, g
 		}
 	}
 
-	gchar *buf=NULL;
-	GtkTextMark * imark;
-	GtkTextIter itstart, iter, maxsearch;
-	
 	imark = gtk_text_buffer_get_insert( doc->buffer );
 	gtk_text_buffer_get_iter_at_mark( doc->buffer, &iter, imark );
-	
+
 	itstart = iter;
 	if (opt & FUNC_FROM_OTHER) gtk_text_iter_backward_chars(&itstart, 1);
-	/* buf = gtk_text_buffer_get_text(doc->buffer, &itstart, &iter, FALSE); */
-	/* if ( strlen(buf)==1 && strstr(DELIMITERS, buf) ) { */
+
 	iter = itstart;
 	maxsearch = itstart;
-	gtk_text_iter_backward_chars( &maxsearch, COMMAND_MAX_LENGTH );
+	ret = gtk_text_iter_get_line_offset(&iter);
+	gtk_text_iter_backward_chars( &maxsearch, MIN(ret, COMMAND_MAX_LENGTH) );
+
 	if ( gtk_text_iter_backward_find_char( &itstart, ( GtkTextCharPredicate ) find_char, GINT_TO_POINTER( "\\" ), &maxsearch ) ) {
-		int ovector[ 3 ], ret;
 		maxsearch = iter; /* reuse maxsearch */
 		buf = gtk_text_buffer_get_text( doc->buffer, &itstart, &maxsearch, FALSE );
 		ret = pcre_exec( main_v->anycommand_regc, NULL, buf, strlen( buf ), 0, PCRE_ANCHORED, ovector, 3 );
-		if ( ret > 0 ) {
-			/* buf is now the user command */
-			DEBUG_MSG("func_complete_eat: found command = [%s]\n", buf);
-			GList *tmplist = NULL;
-			tmplist = g_list_find_custom(main_v->props.completion->items, buf, (GCompareFunc)strcmp);
-			/* g_completion_complete(main_v->props.completion, buf, NULL); */
-			if ( !tmplist ) {
-				tmplist = g_list_find_custom(main_v->props.completion_s->items, buf, (GCompareFunc)strcmp);
-				/* g_completion_complete(main_v->props.completion_s, buf, NULL); */
-				if (!tmplist) {
-					DEBUG_MSG("func_complete_eat: new command = [%s]\n", buf);
-					gchar *tmpstr = g_strdup(buf);
-					tmplist = g_list_append(tmplist, tmpstr);
-					/* Cannot use: g_list_append(tmplist, buf); as buf is freed. See below. */
-					g_completion_add_items(main_v->props.completion_s, tmplist);
-					DEBUG_MSG("func_complete_eat: completion_s data = %s\n", (gchar *)main_v->props.completion_s->items->data);
-					g_list_free(tmplist);
-				}
+		if ( ret <=0 ) {
+			DEBUG_MSG("func_complete_eat: \\ not found; return\n");
+			g_free(buf);
+			return 0;
+		}
+		tmplist = g_list_find_custom(main_v->props.completion->items, buf, (GCompareFunc)strcmp);
+		if ( !tmplist ) {
+			tmplist = g_list_find_custom(main_v->props.completion_s->items, buf, (GCompareFunc)strcmp);
+			if (!tmplist) {
+				gchar *tmpstr = g_strdup(buf);
+				tmplist = g_list_append(tmplist, tmpstr);
+				/* Cannot use: g_list_append(tmplist, buf); as buf is freed. See below. */
+				g_completion_add_items(main_v->props.completion_s, tmplist);
+				g_list_free(tmplist);
+				DEBUG_MSG("func_complete_eat: new command added: [%s]\n", buf);
 			}
 		}
 	}
@@ -533,16 +539,20 @@ gint func_complete_eat( GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, g
 }
 
 gint func_complete_eat_env( GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt ) {
+	DEBUG_MSG("func_complete_eat_env: started with opt = %d\n", opt);
+
 	Tsnooper *snooper = bfwin->snooper;
 	Tdocument *doc = bfwin->current_document;
+	GtkTextMark * imark;
+	GtkTextIter itstart, iter, maxsearch;
+	gchar * buf;
+	gint ovector[ 12 ], ret;
+	gchar * tagname, *toinsert, *indent = NULL;
 
 	if (!doc) return 0;
 
 	if ( ! ( ( kevent->keyval == GDK_braceright )  || (snooper->last_event && ( kevent->hardware_keycode == ((GdkEventKey *)snooper->last_event)->hardware_keycode && ((GdkEventKey *)snooper->last_event)->keyval == GDK_braceright )) ) )
 		return 0;
-	
-	GtkTextMark * imark;
-	GtkTextIter itstart, iter, maxsearch;
 
 	imark = gtk_text_buffer_get_insert( doc->buffer );
 	gtk_text_buffer_get_iter_at_mark( doc->buffer, &iter, imark );
@@ -550,28 +560,25 @@ gint func_complete_eat_env( GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwi
 	itstart = iter;
 	maxsearch = iter;
 
-	gtk_text_iter_backward_chars( &maxsearch, COMMAND_MAX_LENGTH + 5 ); /* \begin{flushleft} */
-	if ( ! gtk_text_iter_backward_find_char( &itstart, ( GtkTextCharPredicate ) find_char, GINT_TO_POINTER( "\\" ), &maxsearch ) )
+	ret = gtk_text_iter_get_line_offset(&iter);
+	gtk_text_iter_backward_chars( &maxsearch, MIN(ret, COMMAND_MAX_LENGTH + 5) );
+	if ( ! gtk_text_iter_backward_find_char( &itstart, ( GtkTextCharPredicate ) find_char, GINT_TO_POINTER( "\\" ), &maxsearch ) ) {
+		DEBUG_MSG("func_complete_eat_env: \\ not found; return\n");
 		return 0;
+	}
 
 	/* we use a regular expression to check if the tag is valid, AND to parse the tagname from the string */
-	gchar * buf;
-	int ovector[ 12 ], ret;
-	DEBUG_MSG( "func_complete_eat_env: we found a backslash\n" );
 	maxsearch = iter; /* re-use maxsearch */
 	buf = gtk_text_buffer_get_text( doc->buffer, &itstart, &maxsearch, FALSE );
-	DEBUG_MSG( "func_complete_eat_env: buf='%s'\n", buf );
 	ret = pcre_exec( main_v->autoclosingtag_regc, NULL, buf, strlen( buf ), 0, PCRE_ANCHORED, ovector, 12 );
-	if ( !ret ) {
+	DEBUG_MSG( "func_complete_eat_env: buf='%s'; pcre_exec return %d\n", buf , ret);
+	if ( ret <=0 ) {
 		g_free(buf);
 		return 0;
 	}
-	gchar * tagname, *toinsert, *indent = NULL;
-	DEBUG_MSG( "func_complete_eat_env: autoclosing, we have a tag, ret=%d, starts at ovector[2]=%d, ovector[3]=%d\n", ret, ovector[ 2 ], ovector[ 3 ] );
 	tagname = g_strndup( &buf[ ovector[ 2 ] ], ovector[ 3 ] - ovector[ 2 ] );
-	DEBUG_MSG( "func_complete_eat_env: autoclosing, tagname='%s'\n", tagname );
-	/* add to the completion lisst */
-	/* TODO: move this to gap_command */
+	DEBUG_MSG( "func_complete_eat_env: tagname='%s'; starts at ovector[2]=%d, ovector[3]=%d\n", tagname, ovector[ 2 ], ovector[ 3 ] );
+
 	{
 		gchar *tmpstr = g_strconcat("\\begin{",tagname,NULL);
 		GList *search = NULL;
@@ -580,7 +587,7 @@ gint func_complete_eat_env( GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwi
 		if (!search) {
 			search = g_list_find_custom(main_v->props.completion_s->items,tmpstr, (GCompareFunc)strcmp);
 			if (!search) {
-				DEBUG_MSG("doc: new environment captured: %s\n", tmpstr);
+				DEBUG_MSG("func_complete_eat_env: new environment captured: %s\n", tmpstr);
 				GList *tmplist = NULL;
 				tmplist = g_list_append(tmplist, tmpstr);
 				g_completion_add_items(main_v->props.completion_s,tmplist);
@@ -589,7 +596,7 @@ gint func_complete_eat_env( GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwi
 		}
 		/* search cannot be freed */
 	}
-	/** inserting stuff; count the autoindent */
+	/* inserting stuff; count the autoindent */
 	if (main_v->props.view_bars & MODE_AUTO_INDENT) {
 		itstart = iter;
 		gtk_text_iter_set_line_index(&itstart, 0);
