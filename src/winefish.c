@@ -224,8 +224,8 @@ int main(int argc, char *argv[])
 #ifndef NOSPLASH
 	splash_screen_set_label(_("parsing keymap and initializing function list..."));
 #endif /* #ifndef NOSPLASH */
-	keymap_init();
 	funclist_init();
+	keymap_init();
 #endif /* SNOOPER2 */
 	
 	main_v->tooltips = gtk_tooltips_new();
