@@ -53,7 +53,8 @@ gint func_delete_line( GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gi
 	if (gtk_text_iter_compare(&itstart, &itend) == -1 ) {
 		gtk_text_buffer_delete( doc->buffer, &itstart, &itend );
 		return 1;
-	}else if ( opt & FUNC_VALUE_1 && gtk_text_iter_compare(&itstart, &itend) ==0 /*&& gtk_text_iter_get_line_offset(&itend) ==0 */)  {
+	}else if ( gtk_text_iter_compare(&itstart, &itend) ==0
+			  && ( opt & FUNC_VALUE_1 || ( opt & FUNC_VALUE_0 && gtk_text_iter_get_line_offset(&itend) ==0 ) ) ) {
 		gtk_text_iter_forward_char(&itend);
 		gtk_text_buffer_delete( doc->buffer, &itstart, &itend );
 		return 1;
