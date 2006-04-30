@@ -23,3 +23,4 @@ map: func_move_line_up:<control>mu:
 map: func_move_line_down:<control>md:
 map: func_move_end:<control>mE:
 map: func_move_start:<control>mS:
+map: func_move_startxx:<control>S:
