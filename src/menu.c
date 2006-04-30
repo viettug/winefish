@@ -346,7 +346,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Edit/_Comment"), NULL, menu_comment_cb, 0, "<Item>"},
 	{N_("/Edit/_UnComment"), NULL, menu_comment_cb, 1, "<Item>"},
 	{N_("/Edit/_Hard Shift Left"), NULL, menu_shift_cb, 1, "<Item>"},
-	{N_("/Edit/Delete Current Line"), "<control>k", menu_del_line_cb, 0, "<Item>"},
+	{N_("/Edit/Delete Current Line"), "<control>k", menu_del_line_cb, 1, "<Item>"},
 	{N_("/Edit/sep5"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Edit/Add _Bookmark"), "<control>d", menu_bmark_operations_cb, 1, "<Item>"},	
 	{N_("/_Insert"), NULL, NULL, 0, "<Branch>"},
