@@ -18,8 +18,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
- 
+
 #include <gtk/gtk.h>
+
+#define DEBUG
 
 #include "bluefish.h"
 
@@ -29,35 +31,29 @@
  opt & FUNC_VALUE_2: delete to left (begining of line)
 */
 gint func_delete_line( GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt ) {
+	DEBUG_MSG("func_delete_line: started with opt = %d\n", opt);
 	Tdocument *doc = bfwin->current_document;
 	if (!doc) return 0;
 
 	GtkTextIter itstart, itend;
-	if ( gtk_text_buffer_get_selection_bounds( doc->buffer, &itstart, &itend ) )
-		return 0;
-	/* there is no selection, work on the current line */
-	/* GtkTextIter iter;
-	gtk_text_buffer_get_iter_at_mark( doc->buffer, &iter, gtk_text_buffer_get_insert( doc->buffer ) );
-	*/
+	if ( gtk_text_buffer_get_selection_bounds( doc->buffer, &itstart, &itend ) ) return 0;
 	/* delete the whole line */
 	if ( opt & FUNC_VALUE_0 ) {
 		gtk_text_iter_set_line_offset( &itstart, 0 );
-		/* TODO: */
-		if (gtk_text_iter_forward_line( &itend ))
+		if (gtk_text_iter_forward_line( &itend )  || ( gtk_text_iter_get_line(&itstart) != gtk_text_iter_get_line(&itend) ) )
 			gtk_text_iter_backward_char(&itend);
 	/* delete to end of line */
 	} else if (opt & FUNC_VALUE_1 ) {
-		gtk_text_iter_forward_line( &itend );
-		gtk_text_iter_backward_char(&itend);
+		if (gtk_text_iter_forward_line( &itend )  || ( gtk_text_iter_get_line(&itstart) != gtk_text_iter_get_line(&itend) ) )
+			gtk_text_iter_backward_char(&itend);
 	/* delete to begin of line */
 	} else if (opt & FUNC_VALUE_2 ) {
 		gtk_text_iter_set_line_offset( &itstart, 0 );
 	}
-	/* delete current line (exclude the line end) */
 	if (gtk_text_iter_compare(&itstart, &itend) == -1 ) {
 		gtk_text_buffer_delete( doc->buffer, &itstart, &itend );
 		return 1;
-	}else if ( gtk_text_iter_compare(&itstart, &itend) ==0 && gtk_text_iter_get_line_offset(&itend) ==0 )  {
+	}else if ( opt & FUNC_VALUE_1 && gtk_text_iter_compare(&itstart, &itend) ==0 /*&& gtk_text_iter_get_line_offset(&itend) ==0 */)  {
 		gtk_text_iter_forward_char(&itend);
 		gtk_text_buffer_delete( doc->buffer, &itstart, &itend );
 		return 1;
