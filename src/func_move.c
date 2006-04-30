@@ -52,7 +52,8 @@ gint func_move(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt) 
 		gtk_text_iter_set_line_offset ( &itend, 0 );
 		break;
 	case FUNC_MOVE_LINE_END:
-		if ( gtk_text_iter_forward_line( &itend ) || ( gtk_text_iter_get_line_index(&iter) != gtk_text_iter_get_line_index(&itend) ) )
+		gtk_text_iter_forward_line( &itend );
+		if (gtk_text_iter_get_line(&iter) != gtk_text_iter_get_line(&itend))
 			gtk_text_iter_backward_char(&itend);
 		break;
 	case FUNC_MOVE_LINE_UP:
