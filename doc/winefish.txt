@@ -42,6 +42,9 @@ h2 {
 	background-color: #DEE7EC;
 	padding: 4px;
 }
+h1:hover, h2:hover {
+	background-color: violet;
+}
 hr {
 	height: 10px;
 }
@@ -49,6 +52,9 @@ hr {
 	border: 1px solid grey;
 	padding: 4px;
 	text-align: center;
+}
+pre:hover {
+	/*background-color: grey;*/
 }
 -->
 </STYLE>
@@ -59,12 +65,12 @@ hr {
 2(#(READE ME!))
 
 L(
-* Author: kyanh <@(kyanh_at_viettug_dot_org)>
 * RED(If you had been using an older version of Winefish,
-you should read @[NEWS](#NEWS) and @[IMPORTANT NOTES](#IMPORTANT NOTES) )
-* For further help, visit @(http://winefish.berlios.de/forum/)
-* The title of this document means that you cannot use it for
-an older verion of winefish
+you should read @[NEWS](#NEWS) and @[IMPORTANT NOTES](#IMPORTANT NOTES)).
+The title of this document means that you cannot use it for
+an older verion of winefish.
+* For further help, visit @(http://winefish.berlios.de/forum/).
+There's also the list for users: @(mailto:winefish-users@lists.berlios.de).
 * I'm sorry about my English :\)\)
 If you find any mistakes in this document feel free to let me know!
 )
@@ -482,11 +488,13 @@ delete to line's start or to line's end
 B(func_select_line)
 B(func_select_word)
 B(func_select_all)
+\\
 B(func_select_line_left)
 B(func_select_line_right)
 
 B(func_move_line_up)
 B(func_move_line_down)
+\\
 B(func_move_line_start)
 B(func_move_line_end)
 \\
@@ -497,10 +505,14 @@ B(func_page_up)
 B(func_page_down)
 \\not implemented yet
 
-B(func_move_left)
-B(func_move_right)
-B(func_move_word_left)
-B(func_move_word_right)
+B(func_move_char_left)
+B(func_move_char_right)
+\\
+B(func_move_word_start)
+B(func_move_word_end)
+\\
+B(func_move_sentence_start)
+B(func_move_sentence_end)
 
 B(func_hilight_off)
 B(func_hilight_on)
@@ -554,7 +566,7 @@ In BLUE(group2), the \<control\>, \<shift\>, \<mod1\>
 and RED(\<key\>) may be omitted.
 
 For both groups RED(\<key\>) is any \(single\) readable character.
-If you want a colon B(:) you must escape it -- used B(\:).
+If you want a colon B(:) you must escape it -- use B(\:).
 
 RED(TRICK:)
 You may use various shortcuts for the same function.
