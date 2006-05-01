@@ -19,7 +19,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#define DEBUG
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
