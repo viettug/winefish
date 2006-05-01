@@ -85,6 +85,18 @@ void funclist_init() {
 	add_function("func_move_display_start", func_move, FUNC_ANY | (FUNC_MOVE_DISPLAY_START<<FUNC_VALUE_) );
 	add_function("func_move_display_end", func_move, FUNC_ANY | (FUNC_MOVE_DISPLAY_END<<FUNC_VALUE_) );
 #endif /* ENABLE_MOVE_DISPLAY_LINE */
+	add_function("func_select_line_up", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_LINE_UP<<FUNC_VALUE_) );
+	add_function("func_select_line_down", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_LINE_DOWN<<FUNC_VALUE_) );
+	add_function("func_select_line_end", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_LINE_END<<FUNC_VALUE_) );
+	add_function("func_select_line_start", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_LINE_START<<FUNC_VALUE_) );
+	add_function("func_select_start", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_START<<FUNC_VALUE_) );
+	add_function("func_select_end", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_END<<FUNC_VALUE_) );
+	add_function("func_select_char_left", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_CHAR_LEFT<<FUNC_VALUE_) );
+	add_function("func_select_char_right", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_CHAR_RIGHT<<FUNC_VALUE_) );
+	add_function("func_select_sentence_start", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_SENTENCE_START<<FUNC_VALUE_) );
+	add_function("func_select_sentence_end", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_SENTENCE_END<<FUNC_VALUE_) );
+	add_function("func_select_word_start", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_WORD_START<<FUNC_VALUE_) );
+	add_function("func_select_word_end", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_WORD_END<<FUNC_VALUE_) );
 }
 
 static void rcfile_parse_keys(void *keys_list) {
