@@ -18,8 +18,10 @@ enum {
 	FUNC_MOVE_WORD_END,
 	FUNC_MOVE_SENTENCE_START,
 	FUNC_MOVE_SENTENCE_END,
+#ifdef ENABLE_MOVE_DISPLAY_LINE
 	FUNC_MOVE_DISPLAY_START,
 	FUNC_MOVE_DISPLAY_END,
+#endif /* ENABLE_MOVE_DISPLAY_LINE */
 };
 
 gint func_move(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt);
