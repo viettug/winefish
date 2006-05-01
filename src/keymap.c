@@ -88,6 +88,10 @@ void funclist_init() {
 	add_function("func_select_line_up", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_LINE_UP<<FUNC_VALUE_) );
 	add_function("func_select_line_down", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_LINE_DOWN<<FUNC_VALUE_) );
 	add_function("func_select_line_end", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_LINE_END<<FUNC_VALUE_) );
+#if 0
+	/* use func_move() to delete... but not better as func_delete_line() */
+	add_function("func_delete_line_end2", func_move, FUNC_ANY | FUNC_VALUE_1 | (FUNC_MOVE_LINE_END<<FUNC_VALUE_) );
+#endif
 	add_function("func_select_line_start", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_LINE_START<<FUNC_VALUE_) );
 	add_function("func_select_start", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_START<<FUNC_VALUE_) );
 	add_function("func_select_end", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_END<<FUNC_VALUE_) );
@@ -97,6 +101,7 @@ void funclist_init() {
 	add_function("func_select_sentence_end", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_SENTENCE_END<<FUNC_VALUE_) );
 	add_function("func_select_word_start", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_WORD_START<<FUNC_VALUE_) );
 	add_function("func_select_word_end", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_WORD_END<<FUNC_VALUE_) );
+	add_function("func_select_line", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_LINE<<FUNC_VALUE_) );
 }
 
 static void rcfile_parse_keys(void *keys_list) {
