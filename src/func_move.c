@@ -90,6 +90,14 @@ gint func_move(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt) 
 	case FUNC_MOVE_WORD_END:
 		gtk_text_iter_forward_word_end(&itend);
 		break;
+#ifdef ENABLE_MOVE_DISPLAY_LINE
+	case FUNC_MOVE_DISPLAY_END:
+		gtk_text_view_forward_display_line_end(GTK_TEXT_VIEW(doc->view), &itend);
+		break;
+	case FUNC_MOVE_DISPLAY_START:
+		gtk_text_view_backward_display_line_start(GTK_TEXT_VIEW(doc->view), &itend);
+		break;
+#endif /* ENABLE_MOVE_DISPLAY_LINE */
 	default:
 		retval = 0;
 		break;

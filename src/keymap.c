@@ -81,6 +81,10 @@ void funclist_init() {
 	add_function("func_move_sentence_end", func_move, FUNC_ANY | (FUNC_MOVE_SENTENCE_END<<FUNC_VALUE_) );
 	add_function("func_move_word_start", func_move, FUNC_ANY | (FUNC_MOVE_WORD_START<<FUNC_VALUE_) );
 	add_function("func_move_word_end", func_move, FUNC_ANY | (FUNC_MOVE_WORD_END<<FUNC_VALUE_) );
+#ifdef ENABLE_MOVE_DISPLAY_LINE
+	add_function("func_move_display_start", func_move, FUNC_ANY | (FUNC_MOVE_DISPLAY_START<<FUNC_VALUE_) );
+	add_function("func_move_display_end", func_move, FUNC_ANY | (FUNC_MOVE_DISPLAY_END<<FUNC_VALUE_) );
+#endif /* ENABLE_MOVE_DISPLAY_LINE */
 }
 
 static void rcfile_parse_keys(void *keys_list) {

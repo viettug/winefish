@@ -30,3 +30,5 @@ map: func_move_sentence_start:<control>m<:
 map: func_move_sentence_end:<control>m>:
 map: func_move_word_start:<control>m,:
 map: func_move_word_end:<control>m.:
+map: func_move_display_start:<control>m{:
+map: func_move_display_end:<control>m}:
