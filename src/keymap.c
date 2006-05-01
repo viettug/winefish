@@ -32,6 +32,7 @@
 #include "stringlist.h"
 #include "rcfile.h"
 #include "snooper2.h"
+#include "bf_lib.h" /* return_first_existing_filename */
 
 static gint func_any(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt) {
 	g_print("func_any: hello\n");
@@ -105,15 +106,18 @@ void funclist_init() {
 }
 
 static void rcfile_parse_keys(void *keys_list) {
-	gchar *filename;
+	gchar *filename, *filename_, *filename__;
 	GList *keys_configlist=NULL;
 	init_prop_arraylist(&keys_configlist, keys_list, "map:",2, TRUE);
 	filename = g_strconcat(g_get_current_dir(), "/keymap", NULL);
-	if (!parse_config_file(keys_configlist, filename)) {
-		DEBUG_MSG("rcfile_parse_keys: failed; cannot locate 'keymap' file in current directory\n");
-	}
+	filename_ = g_strconcat(g_get_home_dir(), "/.winefish/keymap", NULL);
+	filename__ = return_first_existing_filename(filename, filename_, PKGDATADIR"keymap", NULL);
+	if (!parse_config_file(keys_configlist, filename__))
+		DEBUG_MSG("rcfile_parse_keys: failed; cannot locate 'keymap' file\n");
 	free_configlist(keys_configlist);
 	g_free(filename);
+	g_free(filename_);
+	g_free(filename__);
 }
 
 static void hash_table_key_value_free(gpointer data) {
