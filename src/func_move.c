@@ -37,7 +37,7 @@ gint func_move(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt) 
 
 	if (!doc) return 0;
 
-	GtkTextIter itend, iter;
+	GtkTextIter itend, iter, iter_;
 	GtkTextMark *mark;
 	gint retval  = 1;
 	gint c_offset, d_offset;
@@ -48,13 +48,32 @@ gint func_move(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt) 
 	gtk_text_buffer_get_selection_bounds( doc->buffer, &iter, &itend );
 #endif
 	mark = gtk_text_buffer_get_insert(doc->buffer);
-	gtk_text_buffer_get_iter_at_mark(doc->buffer, &itend, mark);
+	gtk_text_buffer_get_iter_at_mark(doc->buffer, &itend, mark); /* cursor */
 	mark = gtk_text_buffer_get_selection_bound(doc->buffer);
 	gtk_text_buffer_get_iter_at_mark(doc->buffer, &iter, mark);
 
 	select = opt & (FUNC_VALUE_0|FUNC_VALUE_1|FUNC_VALUE_2);
 	opt = opt >> FUNC_VALUE_;
 	switch(opt) {
+	case FUNC_MOVE_LINE:
+		if ( ! (select & FUNC_VALUE_0) ) {
+			DEBUG_MSG("func_move: move_line failed\n");
+			retval=0;
+			break;
+		}
+		DEBUG_MSG("func_move: move_line started...\n");
+		if (gtk_text_iter_compare(&iter, &itend) <=0) {
+			gtk_text_iter_set_line_offset(&iter, 0);
+			iter_ = itend;
+			if (gtk_text_iter_forward_line( &itend )  || ( gtk_text_iter_get_line(&iter_) != gtk_text_iter_get_line(&itend) ) )
+				gtk_text_iter_backward_char(&itend);
+		}else{
+			gtk_text_iter_set_line_offset(&itend, 0);
+			iter_ = iter;
+			if (gtk_text_iter_forward_line( &iter )  || ( gtk_text_iter_get_line(&iter_) != gtk_text_iter_get_line(&iter) ) )
+				gtk_text_iter_backward_char(&iter);
+		}
+		break;
 	case FUNC_MOVE_END:
 		gtk_text_iter_forward_to_end(&itend);
 		break;
@@ -65,12 +84,11 @@ gint func_move(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt) 
 		gtk_text_iter_set_line_offset ( &itend, 0 );
 		break;
 	case FUNC_MOVE_LINE_END:
-		gtk_text_iter_forward_line( &itend );
-		if (gtk_text_iter_get_line(&iter) != gtk_text_iter_get_line(&itend))
+		if (gtk_text_iter_forward_line( &itend ) || gtk_text_iter_get_line(&iter) != gtk_text_iter_get_line(&itend))
 			gtk_text_iter_backward_char(&itend);
 		break;
 	case FUNC_MOVE_LINE_UP:
-		c_offset = gtk_text_iter_get_line_offset(&itend);
+		c_offset = gtk_text_iter_get_line_offset(&iter);
 		if ( gtk_text_iter_backward_line(&itend) ) {
 			d_offset = gtk_text_iter_get_chars_in_line(&itend);
 			if (c_offset >= d_offset) c_offset = MAX(0,d_offset - 1);
@@ -78,7 +96,7 @@ gint func_move(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt) 
 		}
 		break;
 	case FUNC_MOVE_LINE_DOWN:
-		c_offset = gtk_text_iter_get_line_offset(&itend);
+		c_offset = gtk_text_iter_get_line_offset(&iter);
 		if (gtk_text_iter_forward_line(&itend) ) {
 			d_offset = gtk_text_iter_get_chars_in_line(&itend);
 			if (c_offset >= d_offset) c_offset = MAX(0,d_offset - 1);
@@ -118,6 +136,8 @@ gint func_move(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt) 
 	if (retval) {
 		if (select & FUNC_VALUE_0 ) {
 			gtk_text_buffer_select_range(doc->buffer, &itend, &iter);
+		}else if (select & FUNC_VALUE_1) {
+			gtk_text_buffer_delete(doc->buffer, &itend, &iter);
 		}else{
 			gtk_text_buffer_place_cursor(doc->buffer, &itend);
 			gtk_text_view_scroll_to_iter( GTK_TEXT_VIEW( doc->view ), &itend, 0, FALSE, 0, 0);
