@@ -4,6 +4,7 @@
 #include "func_all.h"
 
 enum {
+	FUNC_MOVE_LINE, /* valid only for select/delete operation */
 	FUNC_MOVE_LINE_UP,
 	FUNC_MOVE_LINE_DOWN,
 	FUNC_MOVE_LINE_END,
