@@ -28,8 +28,10 @@
 #include "bluefish.h"
 #include "func_move.h"
 
+/* move cursor or move selection */
+
 gint func_move(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt) {
-	DEBUG_MSG("func_move: started with opt = %d\n", opt >> FUNC_VALUE_);
+	DEBUG_MSG("func_move: started with opt=%d, select=%d\n", opt >> FUNC_VALUE_, opt & FUNC_VALUE_0);
 
 	Tdocument *doc = bfwin->current_document;
 
@@ -38,8 +40,11 @@ gint func_move(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt) 
 	GtkTextIter itend, iter;
 	gboolean retval  = 1;
 	gint c_offset, d_offset;
+	gint select;
 	
-	if ( gtk_text_buffer_get_selection_bounds( doc->buffer, &iter, &itend ) ) return 0;
+	//if ( gtk_text_buffer_get_selection_bounds( doc->buffer, &iter, &itend ) ) return 0;
+	gtk_text_buffer_get_selection_bounds( doc->buffer, &iter, &itend );
+	select = opt & (FUNC_VALUE_0|FUNC_VALUE_0|FUNC_VALUE_1);
 	opt = opt >> FUNC_VALUE_;
 	switch(opt) {
 	case FUNC_MOVE_END:
@@ -103,8 +108,12 @@ gint func_move(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt) 
 		break;
 	}
 	if (retval) {
-		gtk_text_buffer_place_cursor(doc->buffer, &itend);
-		gtk_text_view_scroll_to_iter( GTK_TEXT_VIEW( doc->view ), &itend, 0, FALSE, 0, 0);
+		if (select & FUNC_VALUE_0 ) {
+			gtk_text_buffer_select_range(doc->buffer, &itend, &iter);
+		}else{
+			gtk_text_buffer_place_cursor(doc->buffer, &itend);
+			gtk_text_view_scroll_to_iter( GTK_TEXT_VIEW( doc->view ), &itend, 0, FALSE, 0, 0);
+		}
 	}
 	return retval;
 }
