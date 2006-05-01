@@ -72,13 +72,31 @@ gint func_move(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt) 
 			gtk_text_iter_set_line_offset(&itend, c_offset);
 		}
 		break;
+	case FUNC_MOVE_CHAR_LEFT:
+		gtk_text_iter_backward_char(&itend);
+		break;
+	case FUNC_MOVE_CHAR_RIGHT:
+		gtk_text_iter_forward_char(&itend);
+		break;
+	case FUNC_MOVE_SENTENCE_START:
+		gtk_text_iter_backward_sentence_start(&itend);
+		break;
+	case FUNC_MOVE_SENTENCE_END:
+		gtk_text_iter_forward_sentence_end(&itend);
+		break;
+	case FUNC_MOVE_WORD_START:
+		gtk_text_iter_backward_word_start(&itend);
+		break;
+	case FUNC_MOVE_WORD_END:
+		gtk_text_iter_forward_word_end(&itend);
+		break;
 	default:
 		retval = 0;
 		break;
 	}
 	if (retval) {
 		gtk_text_buffer_place_cursor(doc->buffer, &itend);
-		gtk_text_view_scroll_to_iter( GTK_TEXT_VIEW( doc->view ), &itend, 0.25, FALSE, 0.5, 0.5);
+		gtk_text_view_scroll_to_iter( GTK_TEXT_VIEW( doc->view ), &itend, 0, FALSE, 0, 0);
 	}
 	return retval;
 }

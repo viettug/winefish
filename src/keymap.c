@@ -58,23 +58,29 @@ void funclist_init() {
 
 	add_function("func_comment", func_comment, FUNC_ANY);
 	add_function("func_uncomment", func_comment, FUNC_VALUE_0 | FUNC_ANY);
-	
+
 	add_function("func_indent", func_indent, FUNC_ANY);
 	add_function("func_unindent", func_indent, FUNC_VALUE_0 | FUNC_ANY);
-	
+
 	add_function("func_delete_line", func_delete_line, FUNC_VALUE_0 | FUNC_ANY);
 	add_function("func_delete_line_right", func_delete_line, FUNC_VALUE_1 | FUNC_ANY);
 	add_function("func_delete_line_left", func_delete_line, FUNC_VALUE_2 | FUNC_ANY);
-	
+
 	add_function("func_grep", func_grep, FUNC_ANY);
 	add_function("func_template_list", func_template_list, FUNC_ANY);
-	
+
 	add_function("func_move_line_up", func_move, FUNC_ANY | (FUNC_MOVE_LINE_UP<<FUNC_VALUE_) );
 	add_function("func_move_line_down", func_move, FUNC_ANY | (FUNC_MOVE_LINE_DOWN<<FUNC_VALUE_) );
 	add_function("func_move_line_end", func_move, FUNC_ANY | (FUNC_MOVE_LINE_END<<FUNC_VALUE_) );
 	add_function("func_move_line_start", func_move, FUNC_ANY | (FUNC_MOVE_LINE_START<<FUNC_VALUE_) );
 	add_function("func_move_start", func_move, FUNC_ANY | (FUNC_MOVE_START<<FUNC_VALUE_) );
 	add_function("func_move_end", func_move, FUNC_ANY | (FUNC_MOVE_END<<FUNC_VALUE_) );
+	add_function("func_move_char_left", func_move, FUNC_ANY | (FUNC_MOVE_CHAR_LEFT<<FUNC_VALUE_) );
+	add_function("func_move_char_right", func_move, FUNC_ANY | (FUNC_MOVE_CHAR_RIGHT<<FUNC_VALUE_) );
+	add_function("func_move_sentence_start", func_move, FUNC_ANY | (FUNC_MOVE_SENTENCE_START<<FUNC_VALUE_) );
+	add_function("func_move_sentence_end", func_move, FUNC_ANY | (FUNC_MOVE_SENTENCE_END<<FUNC_VALUE_) );
+	add_function("func_move_word_start", func_move, FUNC_ANY | (FUNC_MOVE_WORD_START<<FUNC_VALUE_) );
+	add_function("func_move_word_end", func_move, FUNC_ANY | (FUNC_MOVE_WORD_END<<FUNC_VALUE_) );
 }
 
 static void rcfile_parse_keys(void *keys_list) {

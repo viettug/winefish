@@ -24,3 +24,9 @@ map: func_move_line_down:<control>md:
 map: func_move_end:<control>mE:
 map: func_move_start:<control>mS:
 map: func_move_startxx:<control>S:
+map: func_move_char_left:<control>m[:
+map: func_move_char_right:<control>m]:
+map: func_move_sentence_start:<control>m<:
+map: func_move_sentence_end:<control>m>:
+map: func_move_word_start:<control>m,:
+map: func_move_word_end:<control>m.:
