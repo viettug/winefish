@@ -34,3 +34,5 @@ map: func_move_display_start:<control>m{:
 map: func_move_display_end:<control>m}:
 map: func_select_sentence_start:<control>S[:
 map: func_select_sentence_end:<control>S]:
+map: func_select_line_start:<control>S{:
+map: func_select_line_end:<control>S}:

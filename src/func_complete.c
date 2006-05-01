@@ -47,6 +47,7 @@ static void func_complete_init(Tbfwin *bfwin) {
 	cpl->window = gtk_window_new( GTK_WINDOW_POPUP );
 	cpl->treeview = gtk_tree_view_new();
 	cpl->show = COMPLETION_WINDOW_HIDE;
+	cpl->cache = NULL;
 	bfwin->completion = cpl;
 
 	/* add column */
@@ -194,6 +195,7 @@ gint func_complete_show( GtkWidget *widget_, GdkEventKey *kevent, Tbfwin *bfwin,
 			return 0;
 		}
 
+		g_free(cpl->cache); /* free the old one ;) */
 		cpl->cache = buf; /* so we should not free buf */
 
 		GtkListStore *store;
