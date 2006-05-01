@@ -38,13 +38,21 @@ gint func_move(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt) 
 	if (!doc) return 0;
 
 	GtkTextIter itend, iter;
-	gboolean retval  = 1;
+	GtkTextMark *mark;
+	gint retval  = 1;
 	gint c_offset, d_offset;
 	gint select;
-	
-	//if ( gtk_text_buffer_get_selection_bounds( doc->buffer, &iter, &itend ) ) return 0;
+
+#if 0
+	/* _selection_bounds() always returns iter <= itend :( */
 	gtk_text_buffer_get_selection_bounds( doc->buffer, &iter, &itend );
-	select = opt & (FUNC_VALUE_0|FUNC_VALUE_0|FUNC_VALUE_1);
+#endif
+	mark = gtk_text_buffer_get_insert(doc->buffer);
+	gtk_text_buffer_get_iter_at_mark(doc->buffer, &itend, mark);
+	mark = gtk_text_buffer_get_selection_bound(doc->buffer);
+	gtk_text_buffer_get_iter_at_mark(doc->buffer, &iter, mark);
+
+	select = opt & (FUNC_VALUE_0|FUNC_VALUE_1|FUNC_VALUE_2);
 	opt = opt >> FUNC_VALUE_;
 	switch(opt) {
 	case FUNC_MOVE_END:
