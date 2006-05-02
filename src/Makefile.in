@@ -59,6 +59,7 @@ func_shift.c \
 func_indent.c \
 func_move.c \
 func_grep.c \
+func_zoom.c \
 gtk_easy.c \
 gui.c \
 highlight.c \
