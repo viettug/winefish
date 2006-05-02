@@ -1,10 +1,8 @@
 /* $Id$ */
 
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
- * outputbox.c the output box
  *
- * Copyright (C) 2002 Olivier Sessink
- * Modified for Winefish (C) 2005 2006 kyanh <kyanh@o2.pl>
+ * Copyright (C) 2005 2006 kyanh <kyanh@o2.pl>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

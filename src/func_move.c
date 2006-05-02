@@ -2,8 +2,6 @@
 
 /* Winefish LaTeX Editor (based on Bluefish)
  *
- * grep function: frontend and backend
- *
  * Copyright (c) 2006 kyanh <kyanh@o2.pl>
  *
  * This program is free software; you can redistribute it and/or modify
