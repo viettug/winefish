@@ -8,6 +8,7 @@
 #include "func_comment.h"
 #include "func_indent.h"
 #include "func_move.h"
+#include "func_zoom.h"
 
 enum {
 	FUNC_ANY = 1<<0,
