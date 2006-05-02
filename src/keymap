@@ -8,7 +8,7 @@ map: func_comment:<c>%:
 map: func_uncomment:<c><mod1>%:
 map: func_complete:<c> :
 map: func_complete_eat:<c>9<c>9:
-map: func_alias:<cm>a:
+map: func_alias:<c>a:
 map: func_complete:<c>99:
 map: func_indent:<c>pi:
 map: func_unindent:<c>pI:
