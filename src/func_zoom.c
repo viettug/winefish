@@ -20,7 +20,7 @@
  */
  
 #include <gtk/gtk.h>
-#define DEBUG
+/* #define DEBUG */
 #include "bluefish.h"
 
 gint func_zoom( GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt) {
@@ -39,7 +39,7 @@ gint func_zoom( GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt)
 	font_mask = pango_font_description_get_set_fields(font_desc);
 	DEBUG_MSG("func_zoom: size=%d; mask_size = %d\n", size, font_mask & PANGO_FONT_MASK_SIZE);
 #endif /* DEBUG */
-	if (!size) {
+	if ( size<=0 ) {
 		DEBUG_MSG("func_zoom: the font size wasnot specified; return...\n");
 		return 0;
 	}
@@ -47,6 +47,7 @@ gint func_zoom( GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt)
 		DEBUG_MSG("func_zoom: absolute size was used\n");
 		if (opt & FUNC_VALUE_0) {
 			size -= 1;
+			size = MAX(size, 1);
 		}else{
 			size += 1;
 		}
@@ -55,6 +56,7 @@ gint func_zoom( GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt)
 		DEBUG_MSG("func_zoom: logical size was used\n");
 		if (opt & FUNC_VALUE_0) {
 			size -= PANGO_SCALE;
+			size = MAX(size, PANGO_SCALE);
 		}else{
 			size += PANGO_SCALE;
 		}
