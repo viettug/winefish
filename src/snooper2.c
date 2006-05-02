@@ -53,11 +53,19 @@ static gchar * snooper_parse_key(GdkEventKey *kevent) {
 	const gchar *ctrl, *shift, *mod1;
 	guint keyval;
 	GdkModifierType consumed;
+	gint modified;
+
 	gdk_keymap_translate_keyboard_state (NULL, kevent->hardware_keycode, kevent->state, kevent->group, &keyval, NULL, NULL, &consumed);
-	ctrl = kevent->state & ~consumed & GDK_CONTROL_MASK ? "<control>": "";
-	shift = kevent->state & ~consumed & GDK_SHIFT_MASK ? "<shift>": "";
-	mod1 = kevent->state & ~consumed & GDK_MOD1_MASK ? "<mod1>": "";
-	tmpstr = g_strdup_printf("%s%s%s%c", ctrl, shift, mod1, gdk_keyval_to_unicode(keyval));
+	modified = kevent->state & ~consumed;
+	ctrl = modified & GDK_CONTROL_MASK ? "c": "";
+	shift = modified & GDK_SHIFT_MASK ? "s": "";
+	mod1 = modified& GDK_MOD1_MASK ? "m": "";
+	modified &= (GDK_CONTROL_MASK|GDK_SHIFT_MASK|GDK_MOD1_MASK);
+	if (modified) {
+		tmpstr = g_strdup_printf("<%s%s%s>%c", ctrl, shift, mod1, gdk_keyval_to_unicode(keyval));
+	}else{
+		tmpstr = g_strdup_printf("%c", gdk_keyval_to_unicode(keyval));
+	}
 	DEBUG_MSG("snooper: key parsed = '%s'\n", tmpstr);
 	return tmpstr;
 }
