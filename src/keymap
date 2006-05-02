@@ -40,3 +40,5 @@ map: func_select_line_up:<control>Sa:
 map: func_select_line_down:<control>Sv:
 map: func_select_line:<control>S-:
 map: func_delete_line_end2:<control>De:
+map: func_zoom_in:<control>+<control>+:
+map: func_zoom_out:<control>-<control>-:

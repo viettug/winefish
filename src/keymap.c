@@ -103,6 +103,9 @@ void funclist_init() {
 	add_function("func_select_word_start", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_WORD_START<<FUNC_VALUE_) );
 	add_function("func_select_word_end", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_WORD_END<<FUNC_VALUE_) );
 	add_function("func_select_line", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_LINE<<FUNC_VALUE_) );
+
+	add_function("func_zoom_in", func_zoom, FUNC_ANY);
+	add_function("func_zoom_out", func_zoom, FUNC_ANY | FUNC_VALUE_0);
 }
 
 static void rcfile_parse_keys(void *keys_list) {
