@@ -35,7 +35,7 @@
 #include "bf_lib.h" /* return_first_existing_filename */
 
 static gint func_any(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt) {
-	g_print("func_any: hello\n");
+	g_print("_any: hello\n");
 	return 1;
 }
 
@@ -50,62 +50,62 @@ static void add_function(const char *human_name, FUNCTION computer_name, gint da
 
 void funclist_init() {
 	main_v->func_hashtable = g_hash_table_new((GHashFunc)g_str_hash, (GEqualFunc)g_str_equal);
-	add_function("func_help", func_any, FUNC_ANY);
-	add_function("func_about", func_any, FUNC_ANY);
-	add_function("func_key_list", func_any, FUNC_ANY);
+	add_function("_help", func_any, FUNC_ANY);
+	add_function("_about", func_any, FUNC_ANY);
+	add_function("_key_list", func_any, FUNC_ANY);
 
-	add_function("func_complete", func_complete_show, FUNC_ANY);
-	add_function("func_complete_eat", func_complete_eat, FUNC_ANY);
+	add_function("_complete", func_complete_show, FUNC_ANY);
+	add_function("_complete_eat", func_complete_eat, FUNC_ANY);
 
-	add_function("func_comment", func_comment, FUNC_ANY);
-	add_function("func_uncomment", func_comment, FUNC_VALUE_0 | FUNC_ANY);
+	add_function("_comment", func_comment, FUNC_ANY);
+	add_function("_uncomment", func_comment, FUNC_VALUE_0 | FUNC_ANY);
 
-	add_function("func_indent", func_indent, FUNC_ANY);
-	add_function("func_unindent", func_indent, FUNC_VALUE_0 | FUNC_ANY);
+	add_function("_indent", func_indent, FUNC_ANY);
+	add_function("_unindent", func_indent, FUNC_VALUE_0 | FUNC_ANY);
 
-	add_function("func_delete_line", func_delete_line, FUNC_VALUE_0 | FUNC_ANY);
-	add_function("func_delete_line_right", func_delete_line, FUNC_VALUE_1 | FUNC_ANY);
-	add_function("func_delete_line_left", func_delete_line, FUNC_VALUE_2 | FUNC_ANY);
+	add_function("_delete_line", func_delete_line, FUNC_VALUE_0 | FUNC_ANY);
+	add_function("_delete_line_right", func_delete_line, FUNC_VALUE_1 | FUNC_ANY);
+	add_function("_delete_line_left", func_delete_line, FUNC_VALUE_2 | FUNC_ANY);
 
-	add_function("func_grep", func_grep, FUNC_ANY);
-	add_function("func_template_list", func_template_list, FUNC_ANY);
+	add_function("_grep", func_grep, FUNC_ANY);
+	add_function("_template_list", func_template_list, FUNC_ANY);
 
-	add_function("func_move_line_up", func_move, FUNC_ANY | (FUNC_MOVE_LINE_UP<<FUNC_VALUE_) );
-	add_function("func_move_line_down", func_move, FUNC_ANY | (FUNC_MOVE_LINE_DOWN<<FUNC_VALUE_) );
-	add_function("func_move_line_end", func_move, FUNC_ANY | (FUNC_MOVE_LINE_END<<FUNC_VALUE_) );
-	add_function("func_move_line_start", func_move, FUNC_ANY | (FUNC_MOVE_LINE_START<<FUNC_VALUE_) );
-	add_function("func_move_start", func_move, FUNC_ANY | (FUNC_MOVE_START<<FUNC_VALUE_) );
-	add_function("func_move_end", func_move, FUNC_ANY | (FUNC_MOVE_END<<FUNC_VALUE_) );
-	add_function("func_move_char_left", func_move, FUNC_ANY | (FUNC_MOVE_CHAR_LEFT<<FUNC_VALUE_) );
-	add_function("func_move_char_right", func_move, FUNC_ANY | (FUNC_MOVE_CHAR_RIGHT<<FUNC_VALUE_) );
-	add_function("func_move_sentence_start", func_move, FUNC_ANY | (FUNC_MOVE_SENTENCE_START<<FUNC_VALUE_) );
-	add_function("func_move_sentence_end", func_move, FUNC_ANY | (FUNC_MOVE_SENTENCE_END<<FUNC_VALUE_) );
-	add_function("func_move_word_start", func_move, FUNC_ANY | (FUNC_MOVE_WORD_START<<FUNC_VALUE_) );
-	add_function("func_move_word_end", func_move, FUNC_ANY | (FUNC_MOVE_WORD_END<<FUNC_VALUE_) );
+	add_function("_move_line_up", func_move, FUNC_ANY | (FUNC_MOVE_LINE_UP<<FUNC_VALUE_) );
+	add_function("_move_line_down", func_move, FUNC_ANY | (FUNC_MOVE_LINE_DOWN<<FUNC_VALUE_) );
+	add_function("_move_line_end", func_move, FUNC_ANY | (FUNC_MOVE_LINE_END<<FUNC_VALUE_) );
+	add_function("_move_line_start", func_move, FUNC_ANY | (FUNC_MOVE_LINE_START<<FUNC_VALUE_) );
+	add_function("_move_start", func_move, FUNC_ANY | (FUNC_MOVE_START<<FUNC_VALUE_) );
+	add_function("_move_end", func_move, FUNC_ANY | (FUNC_MOVE_END<<FUNC_VALUE_) );
+	add_function("_move_char_left", func_move, FUNC_ANY | (FUNC_MOVE_CHAR_LEFT<<FUNC_VALUE_) );
+	add_function("_move_char_right", func_move, FUNC_ANY | (FUNC_MOVE_CHAR_RIGHT<<FUNC_VALUE_) );
+	add_function("_move_sentence_start", func_move, FUNC_ANY | (FUNC_MOVE_SENTENCE_START<<FUNC_VALUE_) );
+	add_function("_move_sentence_end", func_move, FUNC_ANY | (FUNC_MOVE_SENTENCE_END<<FUNC_VALUE_) );
+	add_function("_move_word_start", func_move, FUNC_ANY | (FUNC_MOVE_WORD_START<<FUNC_VALUE_) );
+	add_function("_move_word_end", func_move, FUNC_ANY | (FUNC_MOVE_WORD_END<<FUNC_VALUE_) );
 #ifdef ENABLE_MOVE_DISPLAY_LINE
-	add_function("func_move_display_start", func_move, FUNC_ANY | (FUNC_MOVE_DISPLAY_START<<FUNC_VALUE_) );
-	add_function("func_move_display_end", func_move, FUNC_ANY | (FUNC_MOVE_DISPLAY_END<<FUNC_VALUE_) );
+	add_function("_move_display_start", func_move, FUNC_ANY | (FUNC_MOVE_DISPLAY_START<<FUNC_VALUE_) );
+	add_function("_move_display_end", func_move, FUNC_ANY | (FUNC_MOVE_DISPLAY_END<<FUNC_VALUE_) );
 #endif /* ENABLE_MOVE_DISPLAY_LINE */
-	add_function("func_select_line_up", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_LINE_UP<<FUNC_VALUE_) );
-	add_function("func_select_line_down", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_LINE_DOWN<<FUNC_VALUE_) );
-	add_function("func_select_line_end", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_LINE_END<<FUNC_VALUE_) );
+	add_function("_select_line_up", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_LINE_UP<<FUNC_VALUE_) );
+	add_function("_select_line_down", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_LINE_DOWN<<FUNC_VALUE_) );
+	add_function("_select_line_end", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_LINE_END<<FUNC_VALUE_) );
 #if 0
 	/* use func_move() to delete... but not better as func_delete_line() */
-	add_function("func_delete_line_end2", func_move, FUNC_ANY | FUNC_VALUE_1 | (FUNC_MOVE_LINE_END<<FUNC_VALUE_) );
+	add_function("_delete_line_end2", func_move, FUNC_ANY | FUNC_VALUE_1 | (FUNC_MOVE_LINE_END<<FUNC_VALUE_) );
 #endif
-	add_function("func_select_line_start", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_LINE_START<<FUNC_VALUE_) );
-	add_function("func_select_start", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_START<<FUNC_VALUE_) );
-	add_function("func_select_end", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_END<<FUNC_VALUE_) );
-	add_function("func_select_char_left", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_CHAR_LEFT<<FUNC_VALUE_) );
-	add_function("func_select_char_right", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_CHAR_RIGHT<<FUNC_VALUE_) );
-	add_function("func_select_sentence_start", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_SENTENCE_START<<FUNC_VALUE_) );
-	add_function("func_select_sentence_end", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_SENTENCE_END<<FUNC_VALUE_) );
-	add_function("func_select_word_start", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_WORD_START<<FUNC_VALUE_) );
-	add_function("func_select_word_end", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_WORD_END<<FUNC_VALUE_) );
-	add_function("func_select_line", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_LINE<<FUNC_VALUE_) );
+	add_function("_select_line_start", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_LINE_START<<FUNC_VALUE_) );
+	add_function("_select_start", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_START<<FUNC_VALUE_) );
+	add_function("_select_end", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_END<<FUNC_VALUE_) );
+	add_function("_select_char_left", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_CHAR_LEFT<<FUNC_VALUE_) );
+	add_function("_select_char_right", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_CHAR_RIGHT<<FUNC_VALUE_) );
+	add_function("_select_sentence_start", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_SENTENCE_START<<FUNC_VALUE_) );
+	add_function("_select_sentence_end", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_SENTENCE_END<<FUNC_VALUE_) );
+	add_function("_select_word_start", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_WORD_START<<FUNC_VALUE_) );
+	add_function("_select_word_end", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_WORD_END<<FUNC_VALUE_) );
+	add_function("_select_line", func_move, FUNC_ANY | FUNC_VALUE_0 | (FUNC_MOVE_LINE<<FUNC_VALUE_) );
 
-	add_function("func_zoom_in", func_zoom, FUNC_ANY);
-	add_function("func_zoom_out", func_zoom, FUNC_ANY | FUNC_VALUE_0);
+	add_function("_zoom_in", func_zoom, FUNC_ANY);
+	add_function("_zoom_out", func_zoom, FUNC_ANY | FUNC_VALUE_0);
 }
 
 static void rcfile_parse_keys(void *keys_list) {
