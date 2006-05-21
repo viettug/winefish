@@ -33,6 +33,7 @@
 #include "rcfile.h"
 #include "snooper2.h"
 #include "bf_lib.h" /* return_first_existing_filename */
+#include "bfspell.h" /* func_spell_check */
 
 static gint func_any(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt) {
 	g_print("_any: hello\n");
@@ -106,6 +107,9 @@ void funclist_init() {
 
 	add_function("_zoom_in", func_zoom, FUNC_ANY);
 	add_function("_zoom_out", func_zoom, FUNC_ANY | FUNC_VALUE_0);
+#ifdef HAVE_LIBASPELL
+	add_function("_spell_check", func_spell_check, FUNC_ANY);
+#endif /* HAVE_LIBASPELL */
 }
 
 static void rcfile_parse_keys(void *keys_list) {
