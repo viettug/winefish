@@ -567,37 +567,70 @@ void spell_check_cb(GtkWidget *widget, Tbfwin *bfwin) {
 	spell_gui_fill_dicts(bfspell);
 }
 
+enum {
+	SP_FREE,
+	SP_RUNNING,
+};
+
+static gint func_spell_check_running = 0;
+
 gint func_spell_check(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt) {
+	DEBUG_MSG("func_spell_check: opt = %d\n", opt);
+	if (func_spell_check_running) {
+		/* removed tag ... */
+		return 0;
+	}
+	func_spell_check_running = 1;
+
 	GtkTextIter itstart,itend;
 	Tbfspell *bfspell = NULL;
 	bfspell = g_new0(Tbfspell,1);
 	bfwin->bfspell = bfspell;
 	bfspell->bfwin = bfwin;
 	bfspell->doc = bfwin->current_document;
+	bfspell->spell_config = new_aspell_config();
+	aspell_config_replace(bfspell->spell_config, "lang", main_v->props.spell_default_lang);
+	aspell_config_replace(bfspell->spell_config, "encoding", "utf-8");
 
 	AspellCanHaveError *possible_err = new_aspell_speller(bfspell->spell_config);
 	bfspell->spell_checker = 0;
 	bfspell->filtert = FILTER_TEX;
 	if (aspell_error_number(possible_err) != 0) {
 		DEBUG_MSG(aspell_error_message(possible_err));
+		delete_aspell_config(bfspell->spell_config);
+		g_free(bfspell);
 		return 0;
 	} else {
 		bfspell->spell_checker = to_aspell_speller(possible_err);
 	}
 
-	bfspell->stop_position = gtk_text_buffer_get_char_count(bfspell->doc->buffer);
-
-#if 0
-	GtkTextIter start, end;
-	gtk_text_buffer_get_selection_bounds(bfspell->doc->buffer,&start,&end);
-	bfspell->offset = gtk_text_iter_get_offset(&start);
-	bfspell->stop_position = gtk_text_iter_get_offset(&end);
-#endif
+	if (opt & FUNC_VALUE_0 ) {/* auto start */
+		GtkTextMark *mark;
+		GtkTextIter start, end;
+		gtk_text_buffer_get_start_iter(bfspell->doc->buffer, &start);
+		gtk_text_buffer_get_end_iter(bfspell->doc->buffer, &end);
+		gtk_text_buffer_remove_tag(bfspell->doc->buffer, bfspell->doc->spell_tag, &start, &end);
+		mark = gtk_text_buffer_get_insert(bfspell->doc->buffer);
+		gtk_text_buffer_get_iter_at_mark(bfspell->doc->buffer, &start, mark);
+		/* gtk_text_buffer_get_selection_bounds(bfspell->doc->buffer,&start,&end); */
+		end = start;
+		/* gtk_text_iter_forward_chars(&end, 30);
+		 gtk_text_iter_backward_chars(&start, 30); */
+		/* gtk_text_iter_forward_to_line_end(&end);
+		gtk_text_iter_set_line_offset(&start, 0);
+		*/
+		gtk_text_view_forward_display_line_end(GTK_TEXT_VIEW(bfspell->doc->view), &end);
+		gtk_text_view_backward_display_line_start(GTK_TEXT_VIEW(bfspell->doc->view), &start);
+		bfspell->offset = gtk_text_iter_get_offset(&start);
+		bfspell->stop_position = gtk_text_iter_get_offset(&end);
+	}else{
+		bfspell->stop_position = gtk_text_buffer_get_char_count(bfspell->doc->buffer);
+	}
 
 	gchar *word = doc_get_next_word(bfspell, &itstart,&itend);
 	while (word) {
 		if (!isdigit(word[0]) & !aspell_speller_check(bfspell->spell_checker, word, -1)) {
-			gtk_text_buffer_apply_tag(bfspell->doc->buffer, BRACEFINDER(bfspell->doc->brace_finder)->tag, &itstart, &itend);
+			gtk_text_buffer_apply_tag(bfspell->doc->buffer, bfspell->doc->spell_tag, &itstart, &itend);
 		}
 		g_free(word);
 		word = doc_get_next_word(bfspell,&itstart,&itend);
@@ -605,6 +638,8 @@ gint func_spell_check(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gin
 	bfspell->offset = 0;
 	delete_aspell_speller(bfspell->spell_checker);
 	bfspell->spell_checker = NULL;
+	g_free(bfspell);
+	func_spell_check_running = 0;
 	return 1;
 }
 #endif /* HAVE_LIBASPELL */
