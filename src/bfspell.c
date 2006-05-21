@@ -43,7 +43,9 @@
  */
 typedef enum {FILTER_NONE,FILTER_TEX,FILTER_HTML} Tspellfilter;
 
+#ifdef TEST_ONLY
 gboolean hilight = 1;
+#endif /* TEST_ONLY */
 
 typedef struct {
 	AspellConfig *spell_config;
@@ -169,10 +171,12 @@ static gboolean spell_check_word(Tbfspell *bfspell, gchar * tocheck, GtkTextIter
 		int correct = aspell_speller_check(bfspell->spell_checker, tocheck, -1);
 		DEBUG_MSG("word '%s' has correct=%d\n",tocheck,correct);
 		if (!correct) {
+#ifdef TEST_ONLY
 			if (hilight) {
 				gtk_text_buffer_apply_tag(bfspell->doc->buffer, BRACEFINDER(bfspell->doc->brace_finder)->tag, itstart, itend);
 				return FALSE;
 			}
+#endif /* TEST_ONLY */
 			AspellWordList *awl = (AspellWordList *)aspell_speller_suggest(bfspell->spell_checker, tocheck,-1);
 			if (!bfspell->so || !bfspell->eo) {
 				bfspell->so = gtk_text_buffer_create_mark(bfspell->doc->buffer,NULL,itstart,FALSE);
@@ -227,6 +231,7 @@ static gboolean spell_run(Tbfspell *bfspell) {
 	GtkTextIter itstart,itend;
 	gchar *word = doc_get_next_word(bfspell, &itstart,&itend);
 	DEBUG_MSG("spell_run, started, bfspell=%p, word=%s\n",bfspell,word);
+#ifdef TEST_ONLY
 	if (hilight) {
 		while (word) {
 			if (!spell_check_word(bfspell,word,&itstart,&itend)) {
@@ -239,6 +244,7 @@ static gboolean spell_run(Tbfspell *bfspell) {
 		spell_run_finished(bfspell);
 		return FALSE;
 	}
+#endif /* TEST_ONLY */
 	if (!word) {
 		spell_run_finished(bfspell);
 		return FALSE; /* finished */
@@ -559,5 +565,46 @@ void spell_check_cb(GtkWidget *widget, Tbfwin *bfwin) {
 	flush_queue();
 	spell_start(bfspell);
 	spell_gui_fill_dicts(bfspell);
+}
+
+gint func_spell_check(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gint opt) {
+	GtkTextIter itstart,itend;
+	Tbfspell *bfspell = NULL;
+	bfspell = g_new0(Tbfspell,1);
+	bfwin->bfspell = bfspell;
+	bfspell->bfwin = bfwin;
+	bfspell->doc = bfwin->current_document;
+
+	AspellCanHaveError *possible_err = new_aspell_speller(bfspell->spell_config);
+	bfspell->spell_checker = 0;
+	bfspell->filtert = FILTER_TEX;
+	if (aspell_error_number(possible_err) != 0) {
+		DEBUG_MSG(aspell_error_message(possible_err));
+		return 0;
+	} else {
+		bfspell->spell_checker = to_aspell_speller(possible_err);
+	}
+
+	bfspell->stop_position = gtk_text_buffer_get_char_count(bfspell->doc->buffer);
+
+#if 0
+	GtkTextIter start, end;
+	gtk_text_buffer_get_selection_bounds(bfspell->doc->buffer,&start,&end);
+	bfspell->offset = gtk_text_iter_get_offset(&start);
+	bfspell->stop_position = gtk_text_iter_get_offset(&end);
+#endif
+
+	gchar *word = doc_get_next_word(bfspell, &itstart,&itend);
+	while (word) {
+		if (!isdigit(word[0]) & !aspell_speller_check(bfspell->spell_checker, word, -1)) {
+			gtk_text_buffer_apply_tag(bfspell->doc->buffer, BRACEFINDER(bfspell->doc->brace_finder)->tag, &itstart, &itend);
+		}
+		g_free(word);
+		word = doc_get_next_word(bfspell,&itstart,&itend);
+	}
+	bfspell->offset = 0;
+	delete_aspell_speller(bfspell->spell_checker);
+	bfspell->spell_checker = NULL;
+	return 1;
 }
 #endif /* HAVE_LIBASPELL */
