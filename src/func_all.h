@@ -10,6 +10,8 @@
 #include "func_move.h"
 #include "func_zoom.h"
 
+#include "bfspell.h"
+
 enum {
 	FUNC_ANY = 1<<0,
 	FUNC_TEXT_VIEW = 1<<1,
