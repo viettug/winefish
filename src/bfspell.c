@@ -1,4 +1,4 @@
-/* $Id: bfspell.c,v 1.1.1.1 2005/06/29 11:03:16 kyanh Exp $ */
+/* $Id$ */
 
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * bfspell.c - aspell spell checker
@@ -21,7 +21,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-/*#define DEBUG*/
+/* #define DEBUG */
 
 #include "config.h"
 
@@ -42,6 +42,8 @@
  * indent -ts4 -kr
  */
 typedef enum {FILTER_NONE,FILTER_TEX,FILTER_HTML} Tspellfilter;
+
+gboolean hilight = 1;
 
 typedef struct {
 	AspellConfig *spell_config;
@@ -167,6 +169,10 @@ static gboolean spell_check_word(Tbfspell *bfspell, gchar * tocheck, GtkTextIter
 		int correct = aspell_speller_check(bfspell->spell_checker, tocheck, -1);
 		DEBUG_MSG("word '%s' has correct=%d\n",tocheck,correct);
 		if (!correct) {
+			if (hilight) {
+				gtk_text_buffer_apply_tag(bfspell->doc->buffer, BRACEFINDER(bfspell->doc->brace_finder)->tag, itstart, itend);
+				return FALSE;
+			}
 			AspellWordList *awl = (AspellWordList *)aspell_speller_suggest(bfspell->spell_checker, tocheck,-1);
 			if (!bfspell->so || !bfspell->eo) {
 				bfspell->so = gtk_text_buffer_create_mark(bfspell->doc->buffer,NULL,itstart,FALSE);
@@ -221,6 +227,18 @@ static gboolean spell_run(Tbfspell *bfspell) {
 	GtkTextIter itstart,itend;
 	gchar *word = doc_get_next_word(bfspell, &itstart,&itend);
 	DEBUG_MSG("spell_run, started, bfspell=%p, word=%s\n",bfspell,word);
+	if (hilight) {
+		while (word) {
+			if (!spell_check_word(bfspell,word,&itstart,&itend)) {
+				/* hilight here */
+				//g_print("spell_run: error=%s\n", word);
+			}
+			g_free(word);
+			word = doc_get_next_word(bfspell,&itstart,&itend);
+		}
+		spell_run_finished(bfspell);
+		return FALSE;
+	}
 	if (!word) {
 		spell_run_finished(bfspell);
 		return FALSE; /* finished */
@@ -230,6 +248,7 @@ static gboolean spell_run(Tbfspell *bfspell) {
 		if (spell_check_word(bfspell,word,&itstart,&itend)) {
 			g_free(word);
 			word = doc_get_next_word(bfspell,&itstart,&itend);
+			/* continue to end here ... */
 			if (!word) {
 				spell_run_finished(bfspell);
 				return FALSE; /* finished */
