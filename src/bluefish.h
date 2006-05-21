@@ -148,6 +148,9 @@ typedef struct {
 	GtkTreeIter *bmark_parent; /* if NULL this document doesn't have bookmarks, if 
 		it does have bookmarks they are children of this GtkTreeIter */
 	gpointer brace_finder;
+#ifdef HAVE_LIBASPELL
+	GtkTextTag *spell_tag;
+#endif /* HAVE_LIBASPELL */
 } Tdocument;
 
 typedef struct {
@@ -316,7 +319,9 @@ typedef struct {
 #endif /* HAVE_VTE_TERMINAL */
 	GtkWidget *ob_notebook; /* notebook of outputboxes */
 	GtkWidget *ob_hbox; /* hbox to save all ob_boxes */
-	gpointer bfspell;
+#ifdef HAVE_LIBASPELL
+	gpointer bfspell; /* TODO: per window or per document ? */
+#endif /* HAVE_SYS_MSG_H */
 	gpointer filebrowser;
 	gpointer snr2;
 	gpointer fref;
