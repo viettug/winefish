@@ -71,7 +71,7 @@ The title of this document means that you cannot use it for
 an older verion of winefish.
 * For further help, visit @(http://winefish.berlios.de/forum/).
 There's also the list for users: @(mailto:winefish-users@lists.berlios.de).
-* I'm sorry about my English :\)\)
+* I'm sorry about my English ;\)
 If you find any mistakes in this document feel free to let me know!
 )
 
@@ -464,56 +464,56 @@ The zero value is equivalent to B(disabled).
 
 2(#(FUNCTION LIST))
 
-B(func_comment) B(func_uncomment)
+B(_comment) B(_uncomment)
 
-B(func_indent) B(func_unindent)
+B(_indent) B(_unindent)
 
-B(func_complete)\\
+B(_complete)\\
 popup the list of latex command which is prefixed by current
 
-B(func_complete_eat)\\
+B(_complete_eat)\\
 add current command to sessin word list \(use for autocompletion\).
 If there isn't selection, the command is taken from current cursor
 backward to the first backslash. If you're selecting some text
 which is prefixed by a backslash, the selection will be taken.
 
-B(func_delete_line)
-B(func_delete_line_left) B(func_delete_line_right)
+B(_delete_line)
+B(_delete_line_left) B(_delete_line_right)
 \\delete the whole line;
 delete to line's start or to line's end
 
-B(func_select_line)
-B(func_select_word)
-B(func_select_all)
+B(_select_line)
+B(_select_word)
+B(_select_all)
 \\
-B(func_select_line_left) B(func_select_line_right)
+B(_select_line_left) B(_select_line_right)
 
-B(func_move_line_up) B(func_move_line_down)\\
-B(func_move_line_start) B(func_move_line_end)\\
+B(_move_line_up) B(_move_line_down)\\
+B(_move_line_start) B(_move_line_end)\\
 move up, down \(try to keep column number unchanged\);
 move to line's start or line's end
 
-B(func_page_up) B(func_page_down)\\
+B(_page_up) B(_page_down)\\
 not implemented yet
 
-B(func_move_char_left) B(func_move_char_right)\\
-B(func_move_word_start) B(func_move_word_end)\\
-B(func_move_sentence_start) B(func_move_sentence_end)
+B(_move_char_left) B(_move_char_right)\\
+B(_move_word_start) B(_move_word_end)\\
+B(_move_sentence_start) B(_move_sentence_end)
 
-B(func_hilight_off) B(func_hilight_on)
+B(_hilight_off) B(_hilight_on)
 
-B(func_grep) B(func_template_list)\\
+B(_grep) B(_template_list)\\
 start grep function \(find in files\); list your templates
 
-B(func_new)
-B(func_open)
+B(_new)
+B(_open)
 
-B(func_about) B(func_help)
+B(_about) B(_help)
 
-B(func_keymap)\\
+B(_keymap)\\
 show the contents of B($HOME/.winefish/keymap)
 
-B(func_zoom_in) B(func_zoom_out)\\
+B(_zoom_in) B(_zoom_out)\\
 increase/decrease the font size of the editor;
 the result will be saved automatically.
 
@@ -523,15 +523,15 @@ The file B(keymap) located in B($HOME/.winefish/) defines
 the key shortcuts for editor functions. Its contents
 are very simimilar to
 PRE(
-map: func_comment:<c>\%:
-map: func_uncomment:<cm>\%:
-map: func_complete:<c> :
-map: func_complete:<cs> :
-map: func_complete_eat:BLUE(\<c\>9)GREEN(\<c\>9):
-map: func_complete_eat:BLUE(\<c\>9)GREEN(9):
-map: func_foobar:<c>S:
-map: func_foobar:<c>s:
-map: func_foobar:<c>\::
+map: _comment:<c>\%:
+map: _uncomment:<cm>\%:
+map: _complete:<c> :
+map: _complete:<cs> :
+map: _complete_eat:BLUE(\<c\>9)GREEN(\<c\>9):
+map: _complete_eat:BLUE(\<c\>9)GREEN(9):
+map: _foobar:<c>S:
+map: _foobar:<c>s:
+map: _foobar:<c>\::
 )
 Each valuable line is of form
 PRE(map: OLIVE(foobar):BLUE(group1)GREEN(group2):)
@@ -578,12 +578,12 @@ B(BROWN(\<shift\>s)) will print B(S) on the screen while pressing
 B(BROWN(\<shift\>4)) will print B($).
 So \<key\> is what you get on the screen, not what you type.
 For the mapping
-PRE(map: func_foobar:<c>S:)
+PRE(map: _foobar:<c>S:)
 on US keyboard, when CAPS LOCK is off you must type
 B(BROWN(\<control\>\<shift\>s))
 but when CAPS LOCK is on you just type
 B(BROWN(\<control\>s))
-to active the function B(func_foobar).
+to active the function B(_foobar).
 
 2(#(ABOUT))
 
