@@ -23,13 +23,14 @@
 
 #ifdef SNOOPER2
 
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 
 #include "bluefish.h"
 #include "snooper2.h"
+#include "gui.h" /* statusbar_message() */
 
 #define KEVENT(var) ( (GdkEventKey*)var )
 
@@ -94,12 +95,18 @@ static gboolean snooper_loopkup_keyseq(GtkWidget *widget, Tbfwin *bfwin, GdkEven
 		if (value_) {
 			if ( FUNC_VALID_TYPE( value_->data, widget ) ) {
 				retval = TRUE;
-				func_complete_hide(bfwin);
+				/* func_complete_hide(bfwin); *//* why must we do this :( */
 				FUNC(value_)->exec(widget, kevent1, bfwin, value_->data );
 			}
 		}
 	}
 	DEBUG_MSG("snooper: lookup '%s' (full=%d), retval = %d\n", tmpstr, kevent2 != NULL, retval);
+	if (retval) {
+		tmpstr = g_strdup_printf("%s : %s", tmpstr, value);
+	}else if (kevent2 != NULL) {
+		tmpstr = g_strdup_printf(_("%s : unknown sequence"), tmpstr);
+	}
+	statusbar_message(bfwin, tmpstr,1500);
 	g_free(tmpstr);
 	return retval;
 }
@@ -199,11 +206,14 @@ static gint main_snooper (GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin)
 
 	/** if completion is hidden **/
 	if (kevent->type == GDK_KEY_PRESS) {
-		if ( ( snooper->stat & ~SNOOPER_ACTIVE )&& ( kevent->keyval == GDK_Escape ) ) {
-			snooper->stat |= SNOOPER_CANCEL_RELEASE_EVENT;
+		if ( ( snooper->stat & ~SNOOPER_ACTIVE ) && ( kevent->keyval == GDK_Escape ) ) {
+			/* press Escape to cancel the key sequence ; */
+			snooper->stat = SNOOPER_ACTIVE | SNOOPER_CANCEL_RELEASE_EVENT;
+			statusbar_message(bfwin , _("sequence cancelled"), 2000);
 			return TRUE;
 		}else if ( ( kevent->length || kevent->keyval == GDK_space) && ( ( snooper->stat & SNOOPER_HALF_SEQ ) || SNOOPER_IS_KEYSEQ(kevent) ) ) {
-			if (snooper->stat & SNOOPER_HALF_SEQ ) {
+			DEBUG_MSG("snooper2: diff(time) = %d\n", kevent->time - ( (GdkEventKey*) snooper -> last_seq ) -> time );
+			if ( snooper->stat & SNOOPER_HALF_SEQ ) {
 				snooper->stat &=  ~SNOOPER_HALF_SEQ;
 				snooper_loopkup_keyseq(widget, bfwin, (GdkEventKey*) snooper -> last_seq, kevent);
 				return TRUE;
