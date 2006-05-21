@@ -1755,6 +1755,8 @@ static gboolean doc_view_key_release_lcb( GtkWidget *widget, GdkEventKey *kevent
 	func_complete_eat( widget, kevent, doc->bfwin, FUNC_FROM_OTHER);
 	func_complete_eat_env( widget, kevent, doc->bfwin, FUNC_FROM_OTHER);
 	brace_finder(doc->buffer,doc->brace_finder,BR_AUTO_FIND, BRACE_FINDER_MAX_LINES);
+	/** SLOW!!!
+	func_spell_check(widget,kevent, doc->bfwin,FUNC_ANY | FUNC_VALUE_0); */
 	/* autoindent */
 	if ( ( kevent->keyval == GDK_Return || kevent->keyval == GDK_KP_Enter ) && !( kevent->state & GDK_SHIFT_MASK || kevent->state & GDK_CONTROL_MASK || kevent->state & GDK_MOD1_MASK ) ) {
 		/* find the \startFOO. TODO: \bFOO */
@@ -3085,7 +3087,12 @@ Tdocument *doc_new( Tbfwin* bfwin, gboolean delay_activate )
 	BRACEFINDER(newdoc->brace_finder)->mark_right = gtk_text_buffer_create_mark(newdoc->buffer,NULL,&iter,FALSE);
 
 	BRACEFINDER(newdoc->brace_finder)->last_status = 0;
-	
+
+#ifdef HAVE_LIBASPELL
+	newdoc->spell_tag = gtk_text_buffer_create_tag (newdoc->buffer, NULL, NULL);
+	g_object_set (G_OBJECT (newdoc->spell_tag), "underline", PANGO_UNDERLINE_SINGLE, NULL);
+#endif /* HAVE_LIBASPELL */
+
 	newdoc->view = gtk_text_view_new_with_buffer( newdoc->buffer );
 	scroll = gtk_scrolled_window_new( NULL, NULL );
 	gtk_scrolled_window_set_policy( GTK_SCROLLED_WINDOW( scroll ),
