@@ -43,3 +43,4 @@ map: _delete_line_end2:<c>De:
 map: _zoom_in:<c>+:
 map: _zoom_out:<c>-:
 map: _spell_check:<c>9c:
+map: _spell_check_line:<c>9l:
