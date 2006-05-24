@@ -109,6 +109,7 @@ void funclist_init() {
 	add_function("_zoom_out", func_zoom, FUNC_ANY | FUNC_VALUE_0);
 #ifdef HAVE_LIBASPELL
 	add_function("_spell_check", func_spell_check, FUNC_ANY);
+	/* add_function("_spell_check_line", func_spell_check, FUNC_ANY | FUNC_VALUE_0 ); */
 #endif /* HAVE_LIBASPELL */
 }
 
