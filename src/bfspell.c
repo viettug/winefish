@@ -607,9 +607,12 @@ gint func_spell_check(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gin
 	if (opt & FUNC_VALUE_0 ) {/* auto start */
 		GtkTextMark *mark;
 		GtkTextIter start, end;
-		gtk_text_buffer_get_start_iter(bfspell->doc->buffer, &start);
-		gtk_text_buffer_get_end_iter(bfspell->doc->buffer, &end);
+		/* SLOW: gtk_text_buffer_get_start_iter(bfspell->doc->buffer, &start);
+		gtk_text_buffer_get_end_iter(bfspell->doc->buffer, &end); */
+		gtk_text_buffer_get_iter_at_mark(bfspell->doc->buffer, &start, bfspell->doc->spell_mark_i);
+		gtk_text_buffer_get_iter_at_mark(bfspell->doc->buffer, &end, bfspell->doc->spell_mark_ii);
 		gtk_text_buffer_remove_tag(bfspell->doc->buffer, bfspell->doc->spell_tag, &start, &end);
+
 		mark = gtk_text_buffer_get_insert(bfspell->doc->buffer);
 		gtk_text_buffer_get_iter_at_mark(bfspell->doc->buffer, &start, mark);
 		/* gtk_text_buffer_get_selection_bounds(bfspell->doc->buffer,&start,&end); */
@@ -619,8 +622,13 @@ gint func_spell_check(GtkWidget *widget, GdkEventKey *kevent, Tbfwin *bfwin, gin
 		/* gtk_text_iter_forward_to_line_end(&end);
 		gtk_text_iter_set_line_offset(&start, 0);
 		*/
-		gtk_text_view_forward_display_line_end(GTK_TEXT_VIEW(bfspell->doc->view), &end);
-		gtk_text_view_backward_display_line_start(GTK_TEXT_VIEW(bfspell->doc->view), &start);
+		/* gtk_text_view_forward_display_line_end(GTK_TEXT_VIEW(bfspell->doc->view), &end); */
+		/* gtk_text_view_backward_display_line_start(GTK_TEXT_VIEW(bfspell->doc->view), &start); */
+		gtk_text_iter_backward_word_start(&start);
+
+		gtk_text_buffer_move_mark(bfspell->doc->buffer,bfspell->doc->spell_mark_i , &start);
+		gtk_text_buffer_move_mark(bfspell->doc->buffer,bfspell->doc->spell_mark_ii , &end);
+
 		bfspell->offset = gtk_text_iter_get_offset(&start);
 		bfspell->stop_position = gtk_text_iter_get_offset(&end);
 	}else{
