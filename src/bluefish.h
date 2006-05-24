@@ -150,6 +150,8 @@ typedef struct {
 	gpointer brace_finder;
 #ifdef HAVE_LIBASPELL
 	GtkTextTag *spell_tag;
+	GtkTextMark *spell_mark_i;
+	GtkTextMark *spell_mark_ii;
 #endif /* HAVE_LIBASPELL */
 } Tdocument;
 
