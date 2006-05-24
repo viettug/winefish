@@ -499,18 +499,28 @@ not implemented yet
 B(_move_char_left) B(_move_char_right)\\
 B(_move_word_start) B(_move_word_end)\\
 B(_move_sentence_start) B(_move_sentence_end)
+\\
+not implemented yet
 
 B(_hilight_off) B(_hilight_on)
+\\
+not implemented yet
 
 B(_grep) B(_template_list)\\
 start grep function \(find in files\); list your templates
 
 B(_new)
 B(_open)
+\\
+not implemented yet
 
 B(_about) B(_help)
+\\
+not implemented yet
 
-B(_keymap)\\
+B(_keymap)
+\\
+not implemented yet.
 show the contents of B($HOME/.winefish/keymap)
 
 B(_zoom_in) B(_zoom_out)\\
@@ -519,9 +529,10 @@ the result will be saved automatically.
 
 2(#(KEYMAP FILE))
 
-The file B(keymap) located in B($HOME/.winefish/) defines
-the key shortcuts for editor functions. Its contents
-are very simimilar to
+The B(keymap) file located in B($HOME/.winefish/) defines
+the key shortcuts for editor functions. There is a sample
+file which located in the B(src/) directory in the tar ball.
+The contents of B(keymap) are very simimilar to
 PRE(
 map: _comment:<c>\%:
 map: _uncomment:<cm>\%:
