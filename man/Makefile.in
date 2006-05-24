@@ -36,4 +36,6 @@ uninstall:
 clean:
 	rm -f winefish.1
 
-distclean: clean
+distclean:
+	rm -f winefish.1
+
