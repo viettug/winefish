@@ -941,8 +941,8 @@ static gboolean dialog_key_press_event_lcb(GtkWidget *widget,GdkEventKey *event,
 	DEBUG_MSG("dialog_key_press_event_lcb, started, widget is %p and dialog is %p\n", widget, dialog);
 	if (event->keyval == GDK_Escape) {
 		DEBUG_MSG("dialog_key_press_event_lcb, emit delete_event on %p\n", dialog);
-		g_signal_emit_by_name(G_OBJECT(dialog), "delete_event");
-		/* gtk_widget_destroy(dialog); */
+		/* g_signal_emit_by_name(G_OBJECT(dialog), "delete_event"); */
+		gtk_widget_destroy(dialog);
 		return TRUE;
 	}
 	return FALSE;
