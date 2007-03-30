@@ -1,188 +1,258 @@
 $Id$
 
-Winefish 1.3.2.6 (Spring Release)
+Winefish 1.4.0.1
 ================
 
-* important changes:
-	- requires  libgtk+-2.0 version >= 2.4
-
-* for users of previous version: (see doc/winefish.html for details)
-	- move ~/.winefish/rcfile_v2 to ~/.winefish/rcfile
-	- reconfigure Winefish
-	- reset the last variable (Save,Show) for tool (Preferences Page/TeXbox)
-
-* fixed
-	- BUG#{5689,5869,5990}
-	- BUG#{3,10,67,69,70,71,72,74,75,77,78,79,80,81,82,83,84,85}
+* fixed:
+- BUG#{108}
 
 * new features:
-	- brace finder (brace matching): control+[, control +]
-	- delete command *directly* from popup menu (autocompletion)
-	- automatically saved:
-		+ 'project mode' (external menu)
-		+ 'line numbers' (document menu)
-	- TeX filter for spell checker
-	- find in files (menu = edit/find, replace/find in files) (requires `find' and `grep')
-	- templates directory support (control+alt+shift+F) (requires `find' and `grep')
-	- outputbox:
-		+ right-click: popup menu, copy message from current line
-		+ single-click to open file
-		+ control+click to clone file
-	- french po (fr.po) added
-	- documentation:
-		+ ./doc/winefish.html
-		+ ./man/winefish.1
+- Emacs key sequence support ($HOME/.winefish/keymap).
 
-* improved:
-	- outputbox's frontend/backend
-	  (backend: require gtk+-2.4; base on bluefish#20060119)
-	- quicklist/table wizard (* print row/column index; * added ding(auto)list *)
-	- menu items reordered (better???)
+* stuff:
+- man page updated
+- optimized and cleaned up
 
-* dropped:
-	- toolbars (i have never used it)
-	- context support (--with-context)
-	- vntex support (--with-vntex)
-	- vietnamese documentation
-	- many images and stock items
-	- many items from `insert' menu
+Winefish 1.3.3
+==============
 
-* stuffs:
-	- added Menu External/Soft Clean
+* fixed
+- patch for gtk+ 2.4 users (src/preferences.c)
 
-Winefish 1.3.2.5 (Summer Release)
+Winefish 1.3.2.8b
+=================
+
+* fixed:
+- BUG#6408
+- BUG#{99,106}
+- BUG#107 (partially;)
+
+* stuff:
+- `column marker' is enabled via `configure' option (--enable-column-marker)
+- {vi,fr}.po updated
+
+Winefish 1.3.2.8a
+=================
+
+* fixed
+- BUG#{102-105}
+
+Winefish 1.3.2-RC2
+==================
+
+* fixed minor bugs
+* new features:
+- 3 customizable column markers
+
+* some changes was reported in Winefish 1.3.2.7
+
+Winefish 1.3.2.7
 ================
 
+* fixed
+- BUG#{76a,90-93,96-98,100-101}
+
+* new features:
+- column markers (at most 3 markers)
+- grep_function: find from files (current file or all opened files)
+- hilight current line
+- column mark (testing)
+
+* improved:
+- outputbox_filter (use PCRE for filter)
+
+* dropped:
+- markup for messages of outputbox
+
+Winefish 1.3.2-RC1
+==================
+
+* Brace Finder improved/reimplemented (automatically)
+* New color scheme (hilight) [ more readable ]
+
+Winefish 1.3.2.6 (Spring Release)
+=================================
+
+* important changes:
+- requires libgtk+-2.0 version >= 2.4
+
+* for users of previous version: (see doc/winefish.html for details)
+- move ~/.winefish/rcfile_v2 to ~/.winefish/rcfile
+- reconfigure Winefish
+- reset the last variable (Save,Show) for tool (Preferences Page/TeXbox)
+
+* fixed
+- BUG#{5689,5869,5990}
+- BUG#{3,10,67,69-72,74,75,77-85}
+
+* new features:
+- brace finder (brace matching): control+[, control +]
+- delete command *directly* from popup menu (autocompletion)
+- automatically saved:
++ 'project mode' (external menu)
++ 'line numbers' (document menu)
+- TeX filter for spell checker
+- find in files (menu = edit/find, replace/find in files) (requires `find' and `grep')
+- templates directory support (control+alt+shift+F) (requires `find' and `grep')
+- outputbox:
++ right-click: popup menu, copy message from current line
++ single-click to open file
++ control+click to clone file
+- french po (fr.po) added
+- documentation:
++ ./doc/winefish.html
++ ./man/winefish.1
+
+* improved:
+- outputbox's frontend/backend
+  (backend: require gtk+-2.4; base on bluefish#20060119)
+- quicklist/table wizard (* print row/column index; * added ding(auto)list *)
+- menu items reordered (better???)
+
+* dropped:
+- toolbars (i have never used it)
+- context support (--with-context)
+- vntex support (--with-vntex)
+- vietnamese documentation
+- many images and stock items
+- many items from `insert' menu
+
+* stuffs:
+- added Menu External/Soft Clean
+
+Winefish 1.3.2.5 (Summer Release)
+=================================
+
 * BUGS fixed:
-	- Major BUG#{57,54,50}
-	- Minor BUG#{62,59,58,56,55,49,48,47,46,44}
+- Major BUG#{57,54,50}
+- Minor BUG#{62,59,58,56,55,49,48,47,46,44}
 
 * (NEW) ConTeXt support:
-	- Beta/testing. Require "--with-context" while "./configure"ing
-	- Filetype, hilight
-	- Autocompletion [ \start...\stop, \begin...\end ]
-	- Table wizard [ natural table only ]
-	  As I do*NOT* know conTeXT, your requests are highly appreciated!
+- Beta/testing. Require "--with-context" while "./configure"ing
+- Filetype, hilight
+- Autocompletion [ \start...\stop, \begin...\end ]
+- Table wizard [ natural table only ]
+  As I do*NOT* know conTeXT, your requests are highly appreciated!
 
 * Autocompletion:
-	- FIXED: BUG#55
-	- (NEW) Collector: new command/environment will be added
-	  automatically to the database [ ~/.winefish/words_s ]
-	  *WARNING* the file is bigger day by day :)
-	  FIXME: Winefish eats also '\\notacommand'
-	  TODO: add to Preferences Page [ A page for session words ]
-	- If the result of completion contains *ONLY* one command:
-		= The popup menu will be hidden automatically
-		  [ if the user's input equals to the result in popup menu ]
-		  It may be activated when you press CTRL + Space :)
-		= You can hide the popdown menu by the (Page)Up/Down keys
-	- Duplicate entries will be ignored when Winefish starts.
-	  TODO: do this *ONLY* once -- as the feature may slow down Winefish.
-	  An option may be added -- bigger Winefish :(
-	- The autocompletion starts (automatically) *ONLY* if at least three
-	  characters are typed (includes the backslash: \xy).
-	  Anytime, press CTRL + Space!
-	- The mininum width of popdown menu was enlarged [ 64 => 100 ]
+- FIXED: BUG#55
+- (NEW) Collector: new command/environment will be added
+  automatically to the database [ ~/.winefish/words_s ]
+  *WARNING* the file is bigger day by day :)
+  FIXME: Winefish eats also '\\notacommand'
+  TODO: add to Preferences Page [ A page for session words ]
+- If the result of completion contains *ONLY* one command:
+= The popup menu will be hidden automatically
+  [ if the user's input equals to the result in popup menu ]
+  It may be activated when you press CTRL + Space :)
+= You can hide the popdown menu by the (Page)Up/Down keys
+- Duplicate entries will be ignored when Winefish starts.
+  TODO: do this *ONLY* once -- as the feature may slow down Winefish.
+  An option may be added -- bigger Winefish :(
+- The autocompletion starts (automatically) *ONLY* if at least three
+  characters are typed (includes the backslash: \xy).
+  Anytime, press CTRL + Space!
+- The mininum width of popdown menu was enlarged [ 64 => 100 ]
 
 * Outputbox:
-	- Behavior changed: If a tool is set 'Show all output', the box will
-	  *NOT* scroll automatically. Why? 'Show all output' may produce too many
-	  lines and scrolling in this case will slow down the fish. 'cat' is an
-	  example. An option may be added in Winefish-1.3.2-7. Within the fix,
-	  'cat' is as fast as you want :)
-	- For maximum space, the header of treeview was hidden.
-	- 'Close' icon was placed on the upper left corner [ more beautiful :) ]
-	- When main GUI is resized, the outputbox is resized too.
-	  FIXME: not correct if window state changes
+- Behavior changed: If a tool is set 'Show all output', the box will
+  *NOT* scroll automatically. Why? 'Show all output' may produce too many
+  lines and scrolling in this case will slow down the fish. 'cat' is an
+  example. An option may be added in Winefish-1.3.2-7. Within the fix,
+  'cat' is as fast as you want :)
+- For maximum space, the header of treeview was hidden.
+- 'Close' icon was placed on the upper left corner [ more beautiful :) ]
+- When main GUI is resized, the outputbox is resized too.
+  FIXME: not correct if window state changes
 
 * Autotext:
-	- Autoindent supported. Winefish will append the 'indent' string
-	  to any '\n' characters of after/before string. I think this is GOOD,
-	  but it may make you tedious ;)
+- Autoindent supported. Winefish will append the 'indent' string
+  to any '\n' characters of after/before string. I think this is GOOD,
+  but it may make you tedious ;)
 
 * Hilight Syntax:
-	- Updated [ almost new syntax|color ]
-	- Fresh color
-	- Bugs fixed
-	- (NEW) conTeXt hilight syntax [ testing ]
+- Updated [ almost new syntax|color ]
+- Fresh color
+- Bugs fixed
+- (NEW) conTeXt hilight syntax [ testing ]
 
 * LaTeX code:
-	- Removed preformat items for: split, cases environment
-	- Table: the '&' character will be vetically aligned
-	  TODO: edit table's items within the wizard
+- Removed preformat items for: split, cases environment
+- Table: the '&' character will be vetically aligned
+  TODO: edit table's items within the wizard
 
 * GUI:
-	- Default mode is "Experience". See below.
-	- Sidebar, Main Toolbar, LaTeX Toolbar, Custom Menu are hidden by default
-	- The values of 'View/*' will be stored as global session variable.
-	  This mean that they are (re)stored per session.
-	- Last change of 'Document/Line numbers' will be stored as session variable.
-	- Menu reordered: '/Edit/{Save Settings, Preferences}' => '/?/*'
-	  FIXME: cannot add '/?/tearoff1'
-	- There are*NOT* any submenus in '/External/'
+- Default mode is "Experience". See below.
+- Sidebar, Main Toolbar, LaTeX Toolbar, Custom Menu are hidden by default
+- The values of 'View/*' will be stored as global session variable.
+  This mean that they are (re)stored per session.
+- Last change of 'Document/Line numbers' will be stored as session variable.
+- Menu reordered: '/Edit/{Save Settings, Preferences}' => '/?/*'
+  FIXME: cannot add '/?/tearoff1'
+- There are*NOT* any submenus in '/External/'
 
 * The fish:
-	- (NEW) splash screen [ Keep It Simple and Stupid ]
-	- The fish is still blue. I need another one.
-	  [ So the fish does*NOT* live in the Splash ]
+- (NEW) splash screen [ Keep It Simple and Stupid ]
+- The fish is still blue. I need another one.
+  [ So the fish does*NOT* live in the Splash ]
 
 * Documentation:
-	- (NEW) Added 'doc/TIPS'
-	- The files 'doc/*.pdf' are removed from source directory --
-	  we may create a new package 'winefish-doc'.
-	  FIXME: The documation is 'out-of-date'.
+- (NEW) Added 'doc/TIPS'
+- The files 'doc/*.pdf' are removed from source directory --
+  we may create a new package 'winefish-doc'.
+  FIXME: The documation is 'out-of-date'.
 
 * Translation:
-	- vi: typo fixed [ Thanks to VnPenguin at http://vnoss.org/ ]
-	- it: updated
+- vi: typo fixed [ Thanks to VnPenguin at http://vnoss.org/ ]
+- it: updated
 
 * Stuff:
-	- Disabled empty QuickBar warning.
-	  This may be considered as a TIPS -- addto documentation.
-	- Code optmized: use (strncmp) instead of (strcmp) some places
-	- (NEW) hilight: CHANGES, TODO, context
-	  I donot why these are needed. May be fun?
-	  At least I can read my CHANGES very very easily :)
-	- Updated: THANKS, TODO, AUTHORS, README, and CHANGES :)
-	- Added ROADMAP
+- Disabled empty QuickBar warning.
+  This may be considered as a TIPS -- addto documentation.
+- Code optmized: use (strncmp) instead of (strcmp) some places
+- (NEW) hilight: CHANGES, TODO, context
+  I donot why these are needed. May be fun?
+  At least I can read my CHANGES very very easily :)
+- Updated: THANKS, TODO, AUTHORS, README, and CHANGES :)
+- Added ROADMAP
 
 Winefish 1.3.2.4
 ================
 
 * Major BUGS (outputbox) fixed:
-	- Winefish still eats so many system's resources
-	  after killing a child process [External/dvips].
+- Winefish still eats so many system's resources
+  after killing a child process [External/dvips].
 
 * Minor BUGS fixed:
-	- I forgot the BUG :( The change of hosting [sf.net/berlios.de]
-	  make me tedious. The CVSRoot at berlios.de was imported
-	  from Winefish 1.2.1 plus. I do*NOT* to make a mark in CVSROOT
-	  ... Winefish is released anytime i like to release :((
+- I forgot the BUG :( The change of hosting [sf.net/berlios.de]
+  make me tedious. The CVSRoot at berlios.de was imported
+  from Winefish 1.2.1 plus. I do*NOT* to make a mark in CVSROOT
+  ... Winefish is released anytime i like to release :((
 
 * (NEW) Menu added:
-	- [/External/Stop] [ to cancel a tool ]
-	- Yeap, you now can send 'SIGKILL' signal to child process
+- [/External/Stop] [ to cancel a tool ]
+- Yeap, you now can send 'SIGKILL' signal to child process
 
 * Autocompletion:
-	- The dropdown menu appears automatically
+- The dropdown menu appears automatically
 
 * Outputbox:
-	- Hilight feature: somelines are italic, somelines are strong
-	- (NEW) recognized linenumber in
-		"... on input line 123"
-		"... on input lines 123 -- 143"
+- Hilight feature: somelines are italic, somelines are strong
+- (NEW) recognized linenumber in
+"... on input line 123"
+"... on input lines 123 -- 143"
 
 * Main menu:
-	- Reordered: [File|Edit|Insert|Document|External|Project|Go|View|Help]
+- Reordered: [File|Edit|Insert|Document|External|Project|Go|View|Help]
 
 * Translation:
-	- vi: completed... but the custom menu
+- vi: completed... but the custom menu
 
 Winefish 1.2.1
 ==============
 
 * BUG fixed:
-	- Minor BUG#{31,32,33,34,35}
+- Minor BUG#{31,32,33,34,35}
 * (NEW) command support (set linenumber, -l option)
 * Added po files (it vi)
 * Useless code removed
@@ -194,9 +264,9 @@ Winefish 1.2.0
 
 * Some minor bugs were fixed. See BUG.
 * (NEW) The contents of latex code (which is inserted from Wizard/Dialog)
-	are indented automatically.
+are indented automatically.
 * VnTeX support is an optional feature. You must specify this feature by
-	./configure --with-vntex
+./configure --with-vntex
 * More log filters
 * (DEV) ChangeLog is moved to CHANGES
 
@@ -204,34 +274,34 @@ Winefish 1.1.1 (beta 2)
 =======================
 
 * BUG fixed:
-	- BUG#{25}
+- BUG#{25}
 
 * Autocompletion:
-	- moving selection by PageUp, PageDown, Up, Down keys
-	
+- moving selection by PageUp, PageDown, Up, Down keys
+
 Winefish 1.1.1 (beta 1)
 =======================
 
 * BUG fixed:
-	- BUG#{21,20,19,4,22,23,24}
+- BUG#{21,20,19,4,22,23,24}
 
 * (NEW) Autocompletion support
-	- latex word list (over 1500 keys)
+- latex word list (over 1500 keys)
 * (NEW) Preference page for "Autotext" added
 
 * Tools:
-	- Expandsion changed [%c => %l]. See 'doc/winefish-*.pdf' for details.
+- Expandsion changed [%c => %l]. See 'doc/winefish-*.pdf' for details.
 * Outputbox:
-	- scroll by line, not by output [slower performace :(]
-	- Show/Hide Enable [Menu View/View Outputbox]
-	- a bug fixed
-	- Resizable
+- scroll by line, not by output [slower performace :(]
+- Show/Hide Enable [Menu View/View Outputbox]
+- a bug fixed
+- Resizable
 * Documentation:
-	- Updated
+- Updated
 * HotKey changed:
-	- Changed for [View / View Sidebar]
-	- Added for [View / View Outputbox]
-	- Added [Control + Space] for autocompletion
+- Changed for [View / View Sidebar]
+- Added for [View / View Outputbox]
+- Added [Control + Space] for autocompletion
 
 Winefish 1.1.0
 ==============
@@ -239,25 +309,25 @@ Winefish 1.1.0
 * (NEW) autotext support
 * Some bugs fixed (see BUG)
 * Outputbox:
-	- performance improved
-	- better handled with 'g_io_channel'
-	- autosize
-	- autoscroll
+- performance improved
+- better handled with 'g_io_channel'
+- autosize
+- autoscroll
 * External menu:
-	- 'View LOG' added
-	- 'DVIPDFM' moved downwards
+- 'View LOG' added
+- 'DVIPDFM' moved downwards
 * Removed:
-	- 'gnome-vfs' support
+- 'gnome-vfs' support
 * New version numbering :)
 * Some HotKeys changed
 * Syntax File updated
 * Function References:
-	- added: symbols, packages, bib
-	- removed: css
+- added: symbols, packages, bib
+- removed: css
 * Perfomance improved: unused code was removed
 * Documentation:
-	- updated vietnamese version (doc/winefish.tex)
-	- added: english version (doc/winefish-en.tex)
+- updated vietnamese version (doc/winefish.tex)
+- added: english version (doc/winefish-en.tex)
 * Removed the button 'View in Browser' from  toolbar.
 
 Winefish 1.0-beta-1
