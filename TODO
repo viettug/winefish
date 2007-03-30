@@ -1,34 +1,49 @@
 $Id$
 
-* redesign the hastable for autotext ( the value should be an array)
-* handle the way of executing a function from snooper (use thread_pool?)
-* use (g_hash_table_replace) instead (g_hash_table_insert) (autox.c)
-* support match (, )
-* customizable completion regular patterns
 * Glib 2.6: use g_stat() instead of stat(), g_unlink() instead of unlink()
 * Move template_rescan_cb() from func_grep.c to menu.c (make it static)
 * Optimize usage of GET_BIT
 * implement message box (not statusbar_message);
 * windows/close all others
+	/done/* add option: save file before run tool (outputbox)
 * gtk2.4: gtk_combo_* => gtk_combo_box_*
+	/done/kyanh/200507/19/* add '~', '\~'
+	/done/* add line number in lines of table
+	/done/kyanh/200601xx/* Document: HTML version (tex4ht: bad!)
 * Optimized document.c::(gap_command)
+	/none/* Use VTE to emulate the console
 * capture: \usepackage{foobar}
+	/done/kyanh/200507xx/* Move 'project_mode' from main_v to project's properties
 * increase the length of command recognized by collector
+	/done/* add vertical rule [ col 79 ] [ ~ EditPlus, column marker ]
+	/done/kyanh/2005071x/* reformat: table, split, array,...
 * (Outputbox) scroll the output as option.
 For 'cat', scrolling will slow down Winefish.
 * Join list: pcre, glib, gtk+
 * common/exported syntax hilight
 * optmized the use of GtkTextIter
+	/none/kyanh/20050718/* show Sidebar as default
 * Backspace doesnot start autocompletion
+	/done/* smooth the Fish (splash, logo)
 * project: various main files support
 * update chars: should add 'backspace'
+	/done/kyanh/20050714/* tex hilight: add special chars: \;, \,, \!, etc.
 * autocompletion: customizable 'start/stop' regular expresion
+	/done/* option to turn autocompletion on/off
 * code folding
+	/done/* outputbox: popup menu
+	/done/kyanh/20050703/* colorize the outputbox [ the 3rd column ]
 * bookmarks by name/groups
+	/done/* brace recognize
 * import/export hilight configuration
+	/none/* merge user/system configuration: words, autotext,
 * bookmarks moveup/do
+	/none/* natural table for context
+	/done/* outputbox: use g_spawn_async_with_pipes() to start command
 * dropdown autotext list
 * dropdown menu should have the background color customizeable.
+	/done/* hilight current line
+	/done/* new document from template
 * color scheme
 * TOOLS
 	- latex
@@ -43,43 +58,157 @@ For 'cat', scrolling will slow down Winefish.
 * METAFONT support
 * indent the contents for \(sub){0,2}section*, \chapter*, etc
 * set READNONLY for files with '-r' permission
+	/done/kyanh/20050706/* line number recognizer <== for outputbox
+	... on input line 117
+	... at lines 302 -- 303
+	/done/kyanh/20050614/* vntex support as an optional [configure]
+	/done/* template support
 * date format support
+	/done/kyanh/20050613/* indent latex code
 * creating a new project should create the new files too. Currently,
 we cannot enter the new basefile for the new project
 * start folder sometime failed
 * Completion word, not only latex command [like KILE, KDevelop]
+	/none/kyanh/20050613/* press 'Enter' to start 'environment' completion [Kile's Style]
 * Add more reconigzer for LaTeX Error
 !File ended while scanning use of \eqref
+	/done/kyanh/20050501/* Modified layout of "Split" environment
+	/done/kyanh/200506xx/* Version numbering needs change
+	/done/kyanh/20050606/* Re-setup the Home page
 * METAPOST support
+	/none/* Autoclose the OutputBox (require timeout)
+	/unknown/* Upgrade to winefish-1.0.1 (filebrowsers, func-ref).
+	Then modify the func-ref [for package commands, for example]
+	/done/kyanh/20050323/* Completion Window: Down Key should not move to top of popup window
+	/done/kyanh/20050323/* PageUp/PageDown in completion popup window
 * Add autotext to completion [see KDevelop]
 * READONLY files couldnot be changed ?
 * Use <xml> to describe system of menus [as recommendation of GTK doc.]
 * test: autotext <:(> autocompletion
 * closing Winefish if the last file of project is removed.
 ... i don't like it... stupid sometimes
+	/done/kyanh/unknown/* moving names: autocompletion => completion
+	/none/kyanh/20050323/* the title of winefish [user's selection]
 * plugins support ? [see gedit :)] See Bluefish Mailing List
 * add grep tools (see kdevelop)
 * add IDLE to collect users input macros [ or *cache* support ]
 * win32 port [but i hate win32]
 * Hyperref support for *label* and *ref*
 * Image for preference page of `autox'
+	/none/* Added timeout/autoclose the outputbox
+	/done/kyanh/20050317/* Preferences/Autotext: sort, lookup
+	/done/* Get position of cursors [not the mouse]
 * File Types: dtx, cls, context (+detection)
+	/done/kyanh/20050317/* Autotext Lookup (in preferences page)
+	/none/* ./configure: check for xdvi, xpdf, latex, /bin/sh
+	/done/kyanh/20050315/22:54/* Added preferences for Autotext
+	/done/kyanh/20050313/* Remove C++ comment style (//) [GTK recommended]
+	/none/kyanh/20050614/* Implement "Ctrl+K" as Emacs does [delete to the end of line]
+	I wonder if i could implement an Emacs keyboard layout?
+	/none/* ConTeXT support
+	/done/kyanh/20050314/* add about.c::THANKS
+	/done/kyanh/20050302/* Using g_io_channel() NOT gdk_input_* for outputbox.c
+	/done/kyanh/20050316/* Add Cleanning-Tools
+	/none/kyanh/20050316/* Add comment support for resource files
+	/done/kyanh/20050302/* Remove VnTeX support from NewDocument Wizard. Vietnamese... others?
+	/done/kyanh/20050302/* Move DVIPDFM downward
 * Join C++ Forum
+	/done/kyanh/20050314/* English version of 'doc/winefish.tex' (documentation)
+	/done/kyanh/20050301/* scroll outputbox to the end of message box
+	/done/kyanh/20050228/* StatusBar: Project Mode
+	/50%/done/kyanh/20050302/* autocompletion [version 1.1]
+	/80%/done/kyanh/20050310/
+		sick, 'autocompletion' is different from 'autotext'
+		/done/TODO: using 'g_hashes' for looking up (key,value)
+	/90%/done/kyanh/20050311/
+		/done/TODO: free variables after use.
+	/100%/done/kyanh/20050313/
+
+	/done/kyanh/20050223/* tex syntax
 * xml version of latex,ams packges [DOCUMENTATION]
+	/none/* filetype: log
+	/none/* filetype: aux,bl, etc
 * add support for bib.
 * tools: bibtex, makeindex
+	/done/bluefish/* project: cd [basedir]
+	/done/kyanh/20050220/* command parsing [%F, %D, %d, %f, %b, %c]
+	/done/kyanh/20050222/* expandsion: %c [HOWTO get the current line?]
+	/none/kyanh/20050309/* expandsion: add %e OR NOT? [file extension, useless in many case]
+	/done/kyanh/200507xx/* open file at a specified line
+	Do this in Winefish 1.2.1 :)
+	/none/* add toolbars
 * intelligent syntax highlight for latex [special design]
+	/done/kyanh/200503xx/* documentation
+	/done/kyanh/20050228/* setup home page
+	/done/kyanh/200506xx/* setup cvs server [home page at source forge net]
+	Project page was moved to Berlios.de. Thanks for a great host!
+	/done/kyanh/20050225/* setup sf.net account
+	/done/kyanh/20050228/* setup lists for users
+	/done/kyanh/20050220/* logos
+	/none/* images, 15x15 toolbar images
+	/done/kyanh/20050226/* THANKS Bluefish's AUTHORS
+	/none/* debian, slackware, redhat support
+	/done/kyanh/200507xx/* VI- translation. Download kabael
+	/failed/kyanh/20050222/* fixbug:
+		Insert/New Document [compare two version of doc_insert_two_strings]
+		two versions are the same; don't know why Insert/New Document cannot
+		work correctly with SELECTION
+	/done/kyanh/20050222/* intelligent HOTKEYS selection
+		hope the... this selection fits you
 * fixbug: UNDO/REDO for autoclosingtag()
 * latex/custom menus
+	/done/kyanh/20050223/* copyright notices (for ./src/*.{c,h})
+	/unknown/* multiple/single instance of winefish
+	/unknown/* icons
+	/done/kyanh/20050228/NOT_A_BUG/* fixbug: autoclosingtag still works although we turn it off
 * syntax: for sty, for tex (differs?)
+	/done/kyanh/20050223/* xdvi: source browsers: [xdvi -sourceposition <line>filename ]
+	/done/kyanh/20050223/* latex: -src-specials
+	/done/kyanh/20050303/* remove: html_form2.*
+	/done/kyanh/20050303/* remove: html_form.*
+	/done/kyanh/20050303/* remove: cap.c and cap.h (completely unused)
+	/done/kyanh/20050222/* expandsion: %c: currentline
+	/failed/kyanh/20050223/* use <mkstemp> instead of <tempnam> in <bf_lib.c>
+	/done/* add "STOP TOOLS" (require IOChannel; study code from SciTE)
+	/done/kyanh/20050221/* add <ToggleItem>: Project/Single File MODE
+	/done/kyanh/20050220/THANKS SciTE/* HOWTO stop LaTeX? Sometimes LaTeX needs to be feed...
+	/done/kyanh/20050223/* remove unusefull g_print() :)
+	/done/kyanh/20050221/* SHIFTLEFT the <version>0.1 in the logo 
+	/done/kyanh/200503xx/* remove <stringlist.c> estrl_dialog ()
+	/done/kyanh/20050321/* glib: utils: autocompletion
+	/done/kyanh/20050223/* move <Winefish> LOGO (Winefish Layer) to right (slightly :)
+	/done/kyanh/200507xx/* hightline the OUTPUT BOX (see SciTE :)
+	/done/kyanh/20050222/* [Bluefish1.0:] it saves settings only at the end of session
+		[
+			This means that, if we customize Bluefish1.0, do somethings,
+			then make the program crashed, then we lost everythings.
+			I had tried to add and test syntax hightlighting for LaTeX
+			and finally got a ZERO :((
+		]
+		Add "rcfile_save_all();" to "preferences.c::preferences_apply_clicked_lcb()"
+	/done/kyanh/20050316/* add HOTKEYS/MENU to SHOW/HIDE the OUTPUT BOX
+		We should Show/Hide, NOT Show/Destroy [like winefish 1.1.0]
 * optimize expandsion (pre-calculate the basedir, basename)
+functions: view_in_browsers(menu.c), (...)outputbox.c
 * MenuGO: goto the main document (basedir/basefile) of project
+	/done/kyanh/20050222/* changedir (outputbox, view_in_browser): change to project folder :)
 * split the job (output commands); sometimes we needs the output before
+starting xdvi. DONOT use [latex && xdvi] in Viewers... ref.: Scite/ExcuteNext()
+	/done/kyanh/20050223/* LOGO: change \author{VietTUG} to \author{KyAnh\and...}
+	/done/kyanh/20050222/* External Commands: Hotkeys
+	/none/* Outputbox: shouldNOT be show if running tools was canceled.
+	/none/* Show TOOL progress (easy, but lower performance)
 * add: set file in READONLY MODE
 * syntax problem: [currently NOT implement this feature]
 if we define "group-single"="{[^{}]+}"
 then (unfortunately), the percent in \foo{asdf %}
 willNOT be treated a comment starter.
+	/done/kyanh/2005022/* fixbug: menu Insert/.../Verbatim/
+	/none/kyanh/20050316/* dialog for inserting an environment
+	/done/kyanh/200502xx/* HOTKEYS: Ctrl+Space "Update Highlighting" +... AutoclosingTAG!!!
+	I removed GDK_space for document.c::<code for autoclosing tag>
+	/done/kyanh/20050222/* fix MIME types for Winefish
+	/done/kyanh/200503xx/* remove Bluefish' VFS Implementations [for performance]
 * the source specials ARENOT ALWAYS of the form %c%b.tex
 Sometime, it should be: %c<foodir>%b.tex
 Determination of <foodir> is hard problem?
@@ -90,6 +219,13 @@ this feature is not very important but necessary.
 should implement this in some minor version
 * some behaviour from Abiword: image previous IN FILE CHOOSER (very good)
 * add drop-down list in the toolbar [See Abiword]
+	/done/kyanh/20050301/* problem: syntax highilight: VERBATIM cannot be nested
+		Verbatim Environment cannot be nested. OF COURSE.
+		So i did NOTHING :) for latex syntax file.
+	/none/kyanh/20050316/* Study LyX and/or Tk-LaTeX Editor (freshmeat.net)
+	/done/kyanh/200506xx/* Study ConTeXt
+	/done/kyanh/200507xx/* Check for running instances
+	/done/kyanh/20050227* Capture the ExitStatus, ExitSignal of External Command
 * hotkey to to5Aggle Bookmark
 
 ============================================================== [EOF]
