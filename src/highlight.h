@@ -1,4 +1,4 @@
-/* $Id: highlight.h,v 1.1.1.1 2005/06/29 11:03:26 kyanh Exp $ */
+/* $Id$ */
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * highlight.h - highlighting in gtk2 text widget
  *

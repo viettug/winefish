@@ -1,4 +1,4 @@
-/* $Id: highlight.c,v 1.3 2005/07/25 03:16:58 kyanh Exp $ */
+/* $Id$ */
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * highlight2.c - the syntax highlighting with perl compatible regular expressions
  *

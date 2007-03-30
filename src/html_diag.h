@@ -1,4 +1,4 @@
-/* $Id: html_diag.h,v 1.2 2005/07/21 08:59:47 kyanh Exp $ */
+/* $Id$ */
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * html_diag.h - general functions to create HTML dialogs
  *

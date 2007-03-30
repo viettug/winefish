@@ -1,4 +1,4 @@
-/* $Id: char_table.h,v 1.1.1.1 2005/06/29 11:03:17 kyanh Exp $ */
+/* $Id$ */
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * char_table.h - character convertion functions and data structures
  *
