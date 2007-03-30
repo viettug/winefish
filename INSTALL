@@ -6,20 +6,19 @@ To install Winefish from source
  	* glib-2.0 (version >= 2.2.2)
 	* libgtk2 (version >= 2.4.0)
 	* libpcre
-	* [ aspell ] (pptional; for spell checking)
-	* [ grep, find, [ sed, xargs ]] (optional; for `advance open' functions)
+	* [ aspell ] (optional; for spell checking)
+	* [ grep, find, [ sed, xargs ]] (optional; for grep function)
 
 2) details about `configure'
 
 	$ sh configure --help
 
-   if you wanna use
+   if you use
 	--prefix=/home/myhome/apps/
-   (or something like that) please take care of following options which
-   relate to mime type, desktop icons, etc.
+   please take care of options related to mime type, desktop icons, etc.
 
    Vietnamese TeX Users:
-   	you may use `--with-unikey-gtk' ---
+   	you may use `--enable-fix-unikey-gtk' ---
    	if you get troubles with Winefish + Unikey GTK.
 
 3) for the development release (winefish-x.x.x.y),
@@ -31,7 +30,7 @@ To install Winefish from source
 
 5) configure and compile
 
-	$ sh ./configure [you-options]
+	$ sh ./configure [your-options]
 	$ make
 
 6) reduce filesize
