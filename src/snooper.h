@@ -21,9 +21,17 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  */
- 
+
 #ifndef __SNOOPER_H_
 #define __SNOOPER_H_
+
+#include "config.h"
+
+#ifdef SNOOPER2
+
+#include "snooper2.h"
+
+#else /* SNOOPER2 */
 
 enum {
 	COMPLETION_WINDOW_INIT = 1 << 0, /* require `intitalize' the window */
@@ -40,4 +48,7 @@ enum {
 };
 
 void snooper_install(void);
-#endif
+
+#endif /* SNOOPER2 */
+
+#endif /* __SNOOPER_H_ */
