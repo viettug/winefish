@@ -112,8 +112,18 @@ void all_documents_apply_settings(void);
 
 void doc_convert_asciichars_in_selection(Tbfwin *bfwin,guint callback_action,GtkWidget *widget);
 void word_count_cb (Tbfwin *bfwin,guint callback_action,GtkWidget *widget);
+void doc_indent_selection(Tdocument *doc, gboolean unindent);
+void menu_indent_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
 GList * list_relative_document_filenames(Tdocument *curdoc);
 void file_floatingview_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
+
+/* kyanh */
+void doc_comment_selection(Tdocument *doc, gboolean uncomment);
+void menu_comment_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
+void doc_shift_selection(Tdocument *doc, gboolean uncomment);
+void menu_shift_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
+void menu_del_line_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
+void doc_del_line(Tdocument *doc, gboolean vers);
 
 gboolean doc_file_to_textbox( Tdocument * doc, gchar * filename, gboolean enable_undo, gboolean delay );
 
