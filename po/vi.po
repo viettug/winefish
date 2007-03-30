@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-04-23 08:49+0700\n"
+"POT-Creation-Date: 2006-03-27 22:28+0700\n"
 "PO-Revision-Date: 2006-02-18 14:49+0700\n"
 "Last-Translator: kyanh <kyanh@o2.pl>\n"
 "Language-Team:  <en@li.org>\n"
@@ -232,7 +232,7 @@ msgid "Delete all"
 msgstr "Xóa tất cả"
 
 #: ../src/bookmark.c:1275 ../src/bookmark.c:1292 ../src/bookmark.c:1330
-#: ../src/document.c:2572
+#: ../src/document.c:2759
 msgid "Add bookmark"
 msgstr "Thêm đánh dấu"
 
@@ -260,15 +260,15 @@ msgstr "Cỡ tập tin đã thay đổi\n"
 msgid "Bookmarks positions could be incorrect. Delete bookmarks?"
 msgstr "Các đánh dấu có thể bị sai. Xóa các đánh dấu?"
 
-#: ../src/document.c:321 ../src/document.c:3624
+#: ../src/document.c:322 ../src/document.c:3811
 msgid "/Document/Highlight Syntax"
 msgstr "/Tài liệu/Tô màu"
 
-#: ../src/document.c:781
+#: ../src/document.c:782
 msgid "name: "
 msgstr "tên: "
 
-#: ../src/document.c:782
+#: ../src/document.c:783
 msgid ""
 "\n"
 "type: "
@@ -276,7 +276,7 @@ msgstr ""
 "\n"
 "kiểu: "
 
-#: ../src/document.c:783
+#: ../src/document.c:784
 msgid ""
 "\n"
 "encoding: "
@@ -284,7 +284,7 @@ msgstr ""
 "\n"
 "bảng mã: "
 
-#: ../src/document.c:786
+#: ../src/document.c:787
 msgid ""
 "\n"
 "size (on disk): "
@@ -292,11 +292,11 @@ msgstr ""
 "\n"
 "cỡ (trên đĩa): "
 
-#: ../src/document.c:786
+#: ../src/document.c:787
 msgid " bytes"
 msgstr "bytes"
 
-#: ../src/document.c:792
+#: ../src/document.c:793
 msgid ""
 "\n"
 "permissions: "
@@ -304,7 +304,7 @@ msgstr ""
 "\n"
 "quyền: "
 
-#: ../src/document.c:799
+#: ../src/document.c:800
 msgid ""
 "\n"
 "last modified: "
@@ -312,68 +312,68 @@ msgstr ""
 "\n"
 "thay đổi cuối: "
 
-#: ../src/document.c:825
+#: ../src/document.c:826
 #, c-format
 msgid "Untitled %d"
 msgstr "Không tên %d"
 
-#: ../src/document.c:1491
+#: ../src/document.c:1492
 msgid "Could not read file:\n"
 msgstr "Không thể đọc tập tin:\n"
 
-#: ../src/document.c:1522
+#: ../src/document.c:1523
 msgid "Opening file "
 msgstr "Đang mở tập tin"
 
-#: ../src/document.c:1593
+#: ../src/document.c:1594
 msgid "Cannot display file, unknown characters found."
 msgstr "Không thể mở tập tin, có các ký tự lạ."
 
-#: ../src/document.c:1896
+#: ../src/document.c:2079
 #, c-format
 msgid "deleted '%s'"
 msgstr "xóa '%s'"
 
-#: ../src/document.c:2554 ../src/snr2.c:1340
+#: ../src/document.c:2741 ../src/snr2.c:1340
 msgid "Replace"
 msgstr "Thay thế"
 
-#: ../src/document.c:2559 ../src/snr2.c:1343
+#: ../src/document.c:2746 ../src/snr2.c:1343
 msgid "Find"
 msgstr "Tìm kiếm"
 
-#: ../src/document.c:2568
+#: ../src/document.c:2755
 msgid "Delete bookmark"
 msgstr "Xóa đánh dấu"
 
-#: ../src/document.c:2713
+#: ../src/document.c:2900
 msgid "saving file"
 msgstr "đang lưu tập tin"
 
-#: ../src/document.c:2737 ../src/document.c:2761
+#: ../src/document.c:2924 ../src/document.c:2948
 msgid "_Abort save"
 msgstr "Dừng việc lưu tập tin"
 
-#: ../src/document.c:2737
+#: ../src/document.c:2924
 msgid "_Continue save"
 msgstr "_Tiếp tục lưu"
 
-#: ../src/document.c:2739
+#: ../src/document.c:2926
 #, c-format
 msgid ""
 "A backupfile for %s could not be created. If you continue, this file will be "
 "overwritten."
 msgstr "Bản sao lưu %s không thể tạo ra. Nếu tiếp tục, tập tin sẽ bị ghi đè."
 
-#: ../src/document.c:2740
+#: ../src/document.c:2927
 msgid "File backup failure"
 msgstr "Sao lưu không thành công"
 
-#: ../src/document.c:2761
+#: ../src/document.c:2948
 msgid "_Continue save in UTF-8"
 msgstr "_Tiếp tục lưu ở dạng UTF-8"
 
-#: ../src/document.c:2772
+#: ../src/document.c:2959
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -385,57 +385,57 @@ msgstr ""
 "s' ở dòng %d cột %d\n"
 "Tiếp tục lưu với bảng mã UTF-8?"
 
-#: ../src/document.c:2773
+#: ../src/document.c:2960
 msgid "File encoding conversion failure"
 msgstr "Thất bại khi chuyển bảng mã"
 
-#: ../src/document.c:2928
+#: ../src/document.c:3115
 msgid "Previously: "
 msgstr "Trước: "
 
-#: ../src/document.c:2961
+#: ../src/document.c:3148
 #, c-format
 msgid "Move/rename %s to"
 msgstr "Đổi tên %s thành"
 
-#: ../src/document.c:2961
+#: ../src/document.c:3148
 #, c-format
 msgid "Save %s as"
 msgstr "Lưu %s với tên khác là"
 
-#: ../src/document.c:3025 ../src/document.c:3040 ../src/document.c:3148
-#: ../src/document.c:4200 ../src/project.c:194
+#: ../src/document.c:3212 ../src/document.c:3227 ../src/document.c:3335
+#: ../src/document.c:4387 ../src/project.c:194
 msgid "_Cancel"
 msgstr "_Bỏ qua"
 
-#: ../src/document.c:3025 ../src/document.c:3040 ../src/document.c:3148
+#: ../src/document.c:3212 ../src/document.c:3227 ../src/document.c:3335
 #: ../src/project.c:194
 msgid "_Overwrite"
 msgstr "_Ghi đè"
 
-#: ../src/document.c:3026
+#: ../src/document.c:3213
 #, c-format
 msgid "File %s exists and is opened, overwrite?"
 msgstr "Tập tin %s đã có và đang được mở. Ghi đè lên?"
 
-#: ../src/document.c:3027
+#: ../src/document.c:3214
 msgid "The file you have selected is being edited in Winefish."
 msgstr "Tập tin bạn vừa chọn đang được mở trong Winefish."
 
-#: ../src/document.c:3041 ../src/project.c:195
+#: ../src/document.c:3228 ../src/project.c:195
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr "Tập tin với tên \"%s\" đã tồn tại."
 
-#: ../src/document.c:3043 ../src/project.c:197
+#: ../src/document.c:3230 ../src/project.c:197
 msgid "Do you want to replace the existing file?"
 msgstr "Bạn có muốn thay thế tập tin đã tồn tại không?"
 
-#: ../src/document.c:3111
+#: ../src/document.c:3298
 msgid "save as..."
 msgstr "lưu với tên khác..."
 
-#: ../src/document.c:3152
+#: ../src/document.c:3339
 #, c-format
 msgid ""
 "File: %s\n"
@@ -448,16 +448,16 @@ msgstr ""
 "Giờ thay đổi mới: %s\n"
 "Giời thay đổi cũ: %s"
 
-#: ../src/document.c:3153
+#: ../src/document.c:3340
 msgid "File has been modified by another process."
 msgstr "Tập tin vừa được thay đổi bởi tiến trình nào đó."
 
-#: ../src/document.c:3166
+#: ../src/document.c:3353
 #, c-format
 msgid "Saving %s"
 msgstr "Đang lưu %s"
 
-#: ../src/document.c:3182
+#: ../src/document.c:3369
 msgid ""
 "Could not backup file:\n"
 "\""
@@ -465,11 +465,11 @@ msgstr ""
 "Không thể sao lưu tập tin:\n"
 "\""
 
-#: ../src/document.c:3183
+#: ../src/document.c:3370
 msgid "File save aborted.\n"
 msgstr "Việc lưu tập tin bị ngắt giữa chừng.\n"
 
-#: ../src/document.c:3188
+#: ../src/document.c:3375
 msgid ""
 "Could not write file:\n"
 "\""
@@ -477,40 +477,40 @@ msgstr ""
 "Không thể ghi vào tập tin:\n"
 "\""
 
-#: ../src/document.c:3189
+#: ../src/document.c:3376
 msgid "File save error"
 msgstr "Việc lưu tập tin bị lỗi"
 
-#: ../src/document.c:3248
+#: ../src/document.c:3435
 #, c-format
 msgid "Save changes to \"%s\" before closing?."
 msgstr "Lưu tập tin vào \"%s\" trước khi thoát?."
 
-#: ../src/document.c:3255 ../src/project.c:362
+#: ../src/document.c:3442 ../src/project.c:362
 msgid "Do_n't save"
 msgstr "Không lưu"
 
-#: ../src/document.c:3257 ../src/document.c:4202 ../src/project.c:371
+#: ../src/document.c:3444 ../src/document.c:4389 ../src/project.c:371
 msgid "If you don't save your changes they will be lost."
 msgstr "Nếu bạn không lưu, những thay đổi với tập tin sẽ bị mất."
 
-#: ../src/document.c:3627
+#: ../src/document.c:3814
 msgid "/Document/Line Numbers"
 msgstr "/Tài liệu/Số chỉ dòng"
 
-#: ../src/document.c:3630
+#: ../src/document.c:3817
 msgid "/Document/AutoCompletion"
 msgstr "/Tài liệu/Hoàn thành lệnh"
 
-#: ../src/document.c:3666
+#: ../src/document.c:3853
 msgid "No filename"
 msgstr "Chưa có tên"
 
-#: ../src/document.c:3814
+#: ../src/document.c:4001
 msgid "Loading files..."
 msgstr "Đang nạp tận tin..."
 
-#: ../src/document.c:3841
+#: ../src/document.c:4028
 msgid ""
 "These files could not opened:\n"
 "\n"
@@ -518,23 +518,23 @@ msgstr ""
 "Các tập tin sau không thể mở:\n"
 "\n"
 
-#: ../src/document.c:3843 ../src/msg_queue.c:245
+#: ../src/document.c:4030 ../src/msg_queue.c:245
 msgid "Unable to open file(s)\n"
 msgstr "Không thể mở các tập tin sau\n"
 
-#: ../src/document.c:3890
+#: ../src/document.c:4077
 msgid "unable to open file"
 msgstr "không thể mở tập tin"
 
-#: ../src/document.c:3946
+#: ../src/document.c:4133
 msgid "_Reload"
 msgstr "Đọc lại nội dung tập tin trên đĩa"
 
-#: ../src/document.c:3946
+#: ../src/document.c:4133
 msgid "_Ignore"
 msgstr "_Bỏ qua"
 
-#: ../src/document.c:3950
+#: ../src/document.c:4137
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -547,44 +547,44 @@ msgstr ""
 "Giờ thay đổi mới: %s\n"
 "Giời thay đổi cũ: %s"
 
-#: ../src/document.c:3951
+#: ../src/document.c:4138
 msgid "File has been modified by another process\n"
 msgstr "Tập tin vừa được thay đổi bởi tiến trình nào đó\n"
 
-#: ../src/document.c:4085 ../src/gtk_easy.c:1629
+#: ../src/document.c:4272 ../src/gtk_easy.c:1629
 msgid "Select files"
 msgstr "Chọn tập tin"
 
-#: ../src/document.c:4103
+#: ../src/document.c:4290
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "Đang nạp %d tập tin..."
 
-#: ../src/document.c:4130 ../src/document.c:4138
+#: ../src/document.c:4317 ../src/document.c:4325
 msgid "Select file to insert"
 msgstr "Chọn tập tin để chèn"
 
-#: ../src/document.c:4142
+#: ../src/document.c:4329
 msgid "no file to insert"
 msgstr "không có tập tin nào"
 
-#: ../src/document.c:4200
+#: ../src/document.c:4387
 msgid "_Save All"
 msgstr "Lưu tất cả"
 
-#: ../src/document.c:4200
+#: ../src/document.c:4387
 msgid "Close _All"
 msgstr "Đóng tất cả"
 
-#: ../src/document.c:4200
+#: ../src/document.c:4387
 msgid "Choose per _File"
 msgstr "Hỏi từng tập tin"
 
-#: ../src/document.c:4201
+#: ../src/document.c:4388
 msgid "Multiple open files have been changed."
 msgstr "Nhiều tập tin đang mở đã thay đổi nội dung."
 
-#: ../src/document.c:4480
+#: ../src/document.c:4667
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "Thống kê: %d dòng, %d từ, %d ký tự"
@@ -764,14 +764,6 @@ msgstr "hộp thoại"
 msgid "search"
 msgstr "tìm kiếm"
 
-#: ../src/func_grep.c:154 ../src/func_grep.c:461
-msgid "current file"
-msgstr "tập tin đang mở"
-
-#: ../src/func_grep.c:156 ../src/func_grep.c:462 ../src/func_grep.c:472
-msgid "all opened files"
-msgstr "mọi tập tin đang mở"
-
 #: ../src/func_grep.c:270
 msgid "searching files..."
 msgstr "đang tìm kiếm tập tin..."
@@ -819,6 +811,14 @@ msgstr "thư _mục chính:"
 #: ../src/func_grep.c:458 ../src/gtk_easy.c:1342
 msgid "_Browse..."
 msgstr "_Thư mục..."
+
+#: ../src/func_grep.c:461
+msgid "<0: current file>"
+msgstr "<0: tập tin đang mở>"
+
+#: ../src/func_grep.c:462 ../src/func_grep.c:472
+msgid "<1: all opened files>"
+msgstr "<1: mọi tập tin đang mở>"
 
 #: ../src/func_grep.c:474
 msgid "_File:"
@@ -894,40 +894,40 @@ msgstr "hàm"
 msgid "marks"
 msgstr "đánh dấu"
 
-#: ../src/gui.c:621
+#: ../src/gui.c:617
 msgid "New Winefish Window"
 msgstr "Cửa sổ mới"
 
-#: ../src/gui.c:689
+#: ../src/gui.c:681
 msgid "Stand by..."
 msgstr "Đang treo..."
 
-#: ../src/gui.c:885
+#: ../src/gui.c:877
 msgid "Goto line"
 msgstr "Đi đến dòng"
 
-#: ../src/gui.c:893
+#: ../src/gui.c:885
 msgid "_Line number:"
 msgstr "Số _dòng:"
 
-#: ../src/gui.c:899
+#: ../src/gui.c:891
 msgid "From _selection"
 msgstr "Từ phần đang chọn"
 
-#: ../src/gui.c:902
+#: ../src/gui.c:894
 msgid "Keep _dialog"
 msgstr "Giữ hộp thoại này"
 
-#: ../src/gui.c:968
+#: ../src/gui.c:960
 msgid "starting winefish"
 msgstr "bắt đầu chạy Winefish"
 
-#: ../src/gui.c:1067 ../src/gui.c:1076 ../src/outputbox.c:127
+#: ../src/gui.c:1059 ../src/gui.c:1068 ../src/outputbox.c:127
 #: ../src/outputbox.c:353 ../src/outputbox.c:470
 msgid "/View/View Outputbox"
 msgstr "/Xem/Kết quả xuất"
 
-#: ../src/gui.c:1081 ../src/gui.c:1087
+#: ../src/gui.c:1073 ../src/gui.c:1079
 msgid "/View/View Terminal"
 msgstr "/Xem/Xem Terminal"
 
@@ -980,1082 +980,1082 @@ msgstr "Nhãn:"
 msgid "Caption:"
 msgstr "Chú thích:"
 
-#: ../src/menu.c:224
+#: ../src/menu.c:225
 msgid "project mode: ON"
 msgstr "chế độ dự án: mở"
 
-#: ../src/menu.c:226
+#: ../src/menu.c:227
 msgid "project mode: OFF"
 msgstr "chế độ dự án: tắt"
 
-#: ../src/menu.c:254
+#: ../src/menu.c:255
 msgid "brace_finder: matching not found"
 msgstr "brace_finder: không tìm thấy dấu ngoặc đi cùng"
 
-#: ../src/menu.c:256
+#: ../src/menu.c:257
 msgid "brace_finder: inside a commented line"
 msgstr "brace_finder: đang trong dòng chú thích"
 
-#: ../src/menu.c:258
+#: ../src/menu.c:259
 msgid "brace_finder: inside the selection"
 msgstr "brace_finder: đang trong chế độ chọn"
 
-#: ../src/menu.c:271
+#: ../src/menu.c:272
 msgid "/_File"
 msgstr "/_Tập tin"
 
-#: ../src/menu.c:272
+#: ../src/menu.c:273
 msgid "/File/tearoff1"
 msgstr "/Tập tin/tearoff1"
 
-#: ../src/menu.c:273
+#: ../src/menu.c:274
 msgid "/File/_New"
 msgstr "/Tập tin/_Mới"
 
-#: ../src/menu.c:274
+#: ../src/menu.c:275
 msgid "/File/New _Window"
 msgstr "/Tập tin/_Cửa sổ mới"
 
-#: ../src/menu.c:275
+#: ../src/menu.c:276
 msgid "/File/_Open..."
 msgstr "/Tập tin/Mở..."
 
-#: ../src/menu.c:276
+#: ../src/menu.c:277
 msgid "/File/Open Recen_t"
 msgstr "/Tập tin/_Vừa mở"
 
-#: ../src/menu.c:277
+#: ../src/menu.c:278
 msgid "/File/Open Recent/tearoff1"
 msgstr "/Tập tin/Vừa mở/tearoff1"
 
-#: ../src/menu.c:280
+#: ../src/menu.c:281
 msgid "/File/Open Ad_vanced..."
 msgstr "/Tập tin/Mở nâng cao..."
 
-#: ../src/menu.c:283
+#: ../src/menu.c:284
 msgid "/File/Open _from selection"
 msgstr "/Tập tin/Mở từ phần được chọn"
 
-#: ../src/menu.c:284
+#: ../src/menu.c:285
 msgid "/File/sep1"
 msgstr "/Tập tin/sep1"
 
-#: ../src/menu.c:285
+#: ../src/menu.c:286
 msgid "/File/_Save"
 msgstr "/Tập tin/_Lưu"
 
-#: ../src/menu.c:286
+#: ../src/menu.c:287
 msgid "/File/Save _As..."
 msgstr "/Tập tin/Lưu với tên khác..."
 
-#: ../src/menu.c:287
+#: ../src/menu.c:288
 msgid "/File/Sav_e All"
 msgstr "/Tập tin/Lưu tất cả"
 
-#: ../src/menu.c:288
+#: ../src/menu.c:289
 msgid "/File/_Revert to Saved"
 msgstr "/Tập tin/_Revert to Saved"
 
-#: ../src/menu.c:289
+#: ../src/menu.c:290
 msgid "/File/sep2"
 msgstr "/Tập tin/sep1"
 
-#: ../src/menu.c:290
+#: ../src/menu.c:291
 msgid "/File/_Insert..."
 msgstr "/Tập tin/Chè_n..."
 
-#: ../src/menu.c:291
+#: ../src/menu.c:292
 msgid "/File/Rena_me..."
 msgstr "/Tập tin/Đổi tên..."
 
-#: ../src/menu.c:292
+#: ../src/menu.c:293
 msgid "/File/sep3"
 msgstr "/Tập tin/sep3"
 
-#: ../src/menu.c:293
+#: ../src/menu.c:294
 msgid "/File/_Close"
 msgstr "/Tập tin/Đóng"
 
-#: ../src/menu.c:294
+#: ../src/menu.c:295
 msgid "/File/Close A_ll"
 msgstr "/Tập tin/Đóng tất cả"
 
-#: ../src/menu.c:295
+#: ../src/menu.c:296
 msgid "/File/Close Win_dow"
 msgstr "/Tập tin/Đóng cửa sổ"
 
-#: ../src/menu.c:296
+#: ../src/menu.c:297
 msgid "/File/sep4"
 msgstr "/Tập tin/sep4"
 
-#: ../src/menu.c:298
+#: ../src/menu.c:299
 msgid "/File/_Quit"
 msgstr "/Tập tin/Thoát"
 
-#: ../src/menu.c:300
+#: ../src/menu.c:301
 msgid "/_Edit"
 msgstr "/_Soạn thảo"
 
-#: ../src/menu.c:301
+#: ../src/menu.c:302
 msgid "/Edit/Tearoff1"
 msgstr "/Soạn thảo/Tearoff1"
 
-#: ../src/menu.c:302
+#: ../src/menu.c:303
 msgid "/Edit/_Undo"
 msgstr "/Soạn thảo/_Undo"
 
-#: ../src/menu.c:303
+#: ../src/menu.c:304
 msgid "/Edit/_Redo"
 msgstr "/Soạn thảo/_Redo"
 
-#: ../src/menu.c:304
+#: ../src/menu.c:305
 msgid "/Edit/Undo All"
 msgstr "/Soạn thảo/Undo tất cả"
 
-#: ../src/menu.c:305
+#: ../src/menu.c:306
 msgid "/Edit/Redo All"
 msgstr "/Soạn thảo/Redo tất cả"
 
-#: ../src/menu.c:306
+#: ../src/menu.c:307
 msgid "/Edit/sep1"
 msgstr "/Soạn thảo/sep1"
 
-#: ../src/menu.c:307
+#: ../src/menu.c:308
 msgid "/Edit/Selection"
 msgstr "/Soạn thảo/Phần đang chọn"
 
-#: ../src/menu.c:308
+#: ../src/menu.c:309
 msgid "/Edit/Selection/Tearoff1"
 msgstr "/Soạn thảo/Phần đang chọn/Tearoff1"
 
-#: ../src/menu.c:309
+#: ../src/menu.c:310
 msgid "/Edit/Selection/Cu_t"
 msgstr "/Soạn thảo/Phần đang chọn/Cắt"
 
-#: ../src/menu.c:310
+#: ../src/menu.c:311
 msgid "/Edit/Selection/_Copy"
 msgstr "/Soạn thảo/Phần đang chọn/Sao chép"
 
-#: ../src/menu.c:311
+#: ../src/menu.c:312
 msgid "/Edit/Selection/_Paste"
 msgstr "/Soạn thảo/Phần đang chọn/Dán"
 
-#: ../src/menu.c:312
+#: ../src/menu.c:313
 msgid "/Edit/Selection/sep2"
 msgstr "/Soạn thảo/Phần đang chọn/sep2"
 
-#: ../src/menu.c:313
+#: ../src/menu.c:314
 msgid "/Edit/Selection/Select _All"
 msgstr "/Soạn thảo/Phần đang chọn/Chọn tất cả"
 
-#: ../src/menu.c:314
+#: ../src/menu.c:315
 msgid "/Edit/Find, Replace"
 msgstr "/Soạn thảo/Tìm, Thay thế"
 
-#: ../src/menu.c:315
+#: ../src/menu.c:316
 msgid "/Edit/Find, Replace/Tearoff1"
 msgstr "/Soạn thảo/Tìm, Thay thế/tearoff1"
 
-#: ../src/menu.c:316
+#: ../src/menu.c:317
 msgid "/Edit/Find, Replace/Brace Finder (Forward)"
 msgstr "/Soạn thảo/Tìm, Thay thế/Tìm dấu ngoặc (về phía trước)"
 
-#: ../src/menu.c:317
+#: ../src/menu.c:318
 msgid "/Edit/Find, Replace/Brace Finder (Backward)"
 msgstr "/Soạn thảo/Tìm, Thay thế/Tìm dấu ngoặc (về phía sau)"
 
-#: ../src/menu.c:318
+#: ../src/menu.c:319
 msgid "/Edit/Find, Replace/sep0"
 msgstr "/Soạn thảo/Tìm, Thay thế/sep0"
 
-#: ../src/menu.c:319
+#: ../src/menu.c:320
 msgid "/Edit/Find, Replace/_Find..."
 msgstr "/Soạn thảo/Tìm, Thay thế/_Thay thế..."
 
-#: ../src/menu.c:320
+#: ../src/menu.c:321
 msgid "/Edit/Find, Replace/Find A_gain"
 msgstr "/Soạn thảo/Tìm, Thay thế/Thay thế lần nữa"
 
-#: ../src/menu.c:321
+#: ../src/menu.c:322
 msgid "/Edit/Find, Replace/Find from selection"
 msgstr "/Soạn thảo/Tìm, Thay thế/Trong phần đang chọn"
 
-#: ../src/menu.c:324
+#: ../src/menu.c:325
 msgid "/Edit/Find, Replace/Find from Files"
 msgstr "/Soạn thảo/Tìm, Thay thế/Tìm trong tập tin"
 
-#: ../src/menu.c:325
+#: ../src/menu.c:326
 msgid "/Edit/Find, Replace/Templates"
 msgstr "/Soạn thảo/Tìm, Thay thế/Liệt kê các mẫu"
 
-#: ../src/menu.c:328
+#: ../src/menu.c:329
 msgid "/Edit/Find, Replace/sep1"
 msgstr "/Soạn thảo/Tìm, Thay thế/sep1"
 
-#: ../src/menu.c:329
+#: ../src/menu.c:330
 msgid "/Edit/Find, Replace/R_eplace..."
 msgstr "/Soạn thảo/Tìm, Thay thế/_Thay thế..."
 
-#: ../src/menu.c:330
+#: ../src/menu.c:331
 msgid "/Edit/Find, Replace/Replace Agai_n"
 msgstr "/Soạn thảo/Tìm, Thay thế/Thay thế lần nữa"
 
-#: ../src/menu.c:331
+#: ../src/menu.c:332
 msgid "/Edit/Find, Replace/sep2"
 msgstr "/Soạn thảo/Tìm, Thay thế/sep2"
 
-#: ../src/menu.c:333
+#: ../src/menu.c:334
 msgid "/Edit/Find, Replace/To _Uppercase"
 msgstr "/Soạn thảo/Tìm, Thay thế/Thành chữ _hoa"
 
-#: ../src/menu.c:334
+#: ../src/menu.c:335
 msgid "/Edit/Find, Replace/To _Lowercase"
 msgstr "/Soạn thảo/Tìm, Thay thế/Thành chữ _thường"
 
-#: ../src/menu.c:335
+#: ../src/menu.c:336
 msgid "/Edit/Find, Replace/sep3"
 msgstr "/Soạn thảo/Tìm, Thay thế/sep3"
 
-#: ../src/menu.c:336
+#: ../src/menu.c:337
 msgid "/Edit/Find, Replace/ASCII to HTML entities"
 msgstr "/Soạn thảo/Tìm, Thay thế/ASCII thành HTML"
 
-#: ../src/menu.c:337
+#: ../src/menu.c:338
 msgid "/Edit/Find, Replace/ISO8859 to HTML entities"
 msgstr "Soạn thảo/Tìm, Thay thế/ISO8859 thành HTML"
 
-#: ../src/menu.c:338
+#: ../src/menu.c:339
 msgid "/Edit/Find, Replace/ASCII & ISO8859 to HTML entities"
 msgstr "/ESoạn thảo/Tìm, Thay thế/ASCII, ISO8859 thành HTML"
 
-#: ../src/menu.c:340
+#: ../src/menu.c:341
 msgid "/Edit/sep4"
 msgstr "/Soạn thảo/sep4"
 
-#: ../src/menu.c:341
+#: ../src/menu.c:342
 msgid "/Edit/Sh_ift Right"
 msgstr "/Soạn thảo/Dịch qua phải"
 
-#: ../src/menu.c:342
+#: ../src/menu.c:343
 msgid "/Edit/S_hift Left"
 msgstr "/Soạn thảo/Dịch qua trái"
 
-#: ../src/menu.c:343
+#: ../src/menu.c:344
 msgid "/Edit/_Comment"
 msgstr "/Soạn thảo/_Chú thích"
 
-#: ../src/menu.c:344
+#: ../src/menu.c:345
 msgid "/Edit/_UnComment"
 msgstr "/Soạn thảo/Bỏ chú thích"
 
-#: ../src/menu.c:345
+#: ../src/menu.c:346
 msgid "/Edit/_Hard Shift Left"
 msgstr "/Soạn thảo/Xóa-dịch trái"
 
-#: ../src/menu.c:346
+#: ../src/menu.c:347
 msgid "/Edit/Delete Current Line"
 msgstr "/Soạn thảo/Xóa dòng hiện tại"
 
-#: ../src/menu.c:347
+#: ../src/menu.c:348
 msgid "/Edit/sep5"
 msgstr "/Soạn thảo/sep5"
 
-#: ../src/menu.c:348
+#: ../src/menu.c:349
 msgid "/Edit/Add _Bookmark"
 msgstr "/Soạn thảo/Đánh _dấu"
 
-#: ../src/menu.c:349
+#: ../src/menu.c:350
 msgid "/_Insert"
 msgstr "/_Chèn"
 
-#: ../src/menu.c:350
+#: ../src/menu.c:351
 msgid "/Insert/Tearoff1"
 msgstr "/Chèn/Tearoff1"
 
-#: ../src/menu.c:352
+#: ../src/menu.c:353
 msgid "/Insert/T_ools"
 msgstr "/Chèn/_Công cụ"
 
-#: ../src/menu.c:353
+#: ../src/menu.c:354
 msgid "/Insert/Tools/Tearoff1"
 msgstr "/Chèn/Công cụ/Tearoff1"
 
-#: ../src/menu.c:354
+#: ../src/menu.c:355
 msgid "/Insert/Tools/Simple document (code)"
 msgstr "/Chèn/Công cụ/Mã tài liện đơn giản"
 
-#: ../src/menu.c:355
+#: ../src/menu.c:356
 msgid "/Insert/Tools/Figure"
 msgstr "/Chèn/Công cụ/_Hình ảnh"
 
-#: ../src/menu.c:356
+#: ../src/menu.c:357
 msgid "/Insert/Tools/Time, Date"
 msgstr "/Chèn/Công cụ/Ngày tháng"
 
-#: ../src/menu.c:357
+#: ../src/menu.c:358
 msgid "/Insert/Tools/Source Separator"
 msgstr "/Chèn/Công cụ/Phân cách mã nguồn"
 
-#: ../src/menu.c:359
+#: ../src/menu.c:360
 msgid "/Insert/_Table, List"
 msgstr "/Chèn/Bảng, Danh sách"
 
-#: ../src/menu.c:360
+#: ../src/menu.c:361
 msgid "/Insert/Table, List/Tearoff1"
 msgstr "/Chèn/Bảng, Danh sách/tearoff1"
 
-#: ../src/menu.c:361
+#: ../src/menu.c:362
 msgid "/Insert/Table, List/_List"
 msgstr "/Chèn/Bảng, Danh sách/_Danh sách"
 
-#: ../src/menu.c:362
+#: ../src/menu.c:363
 msgid "/Insert/Table, List/_Table, Array"
 msgstr "/Chèn/Bảng, Danh sách/Bảng, Mảng"
 
-#: ../src/menu.c:364
+#: ../src/menu.c:365
 msgid "/Insert/_Headings"
 msgstr "/Chèn/Mục"
 
-#: ../src/menu.c:365
+#: ../src/menu.c:366
 msgid "/Insert/Headings/Tearoff1"
 msgstr "/Chèn/Mục/Tearoff1"
 
-#: ../src/menu.c:366
+#: ../src/menu.c:367
 msgid "/Insert/Headings/_part"
 msgstr "/Chèn/Mục/phần (part)"
 
-#: ../src/menu.c:367
+#: ../src/menu.c:368
 msgid "/Insert/Headings/_chapter"
 msgstr "/Chèn/Mục/chương (chapter)"
 
-#: ../src/menu.c:368
+#: ../src/menu.c:369
 msgid "/Insert/Headings/_section"
 msgstr "/Chèn/Mục/mục"
 
-#: ../src/menu.c:369
+#: ../src/menu.c:370
 msgid "/Insert/Headings/s_ubsection"
 msgstr "/Chèn/Mục/mục con (subsection)"
 
-#: ../src/menu.c:370
+#: ../src/menu.c:371
 msgid "/Insert/Headings/su_bsubsection"
 msgstr "/Chèn/Mục/mục con nữa (subsubsection)"
 
-#: ../src/menu.c:371
+#: ../src/menu.c:372
 msgid "/Insert/Headings/sep1"
 msgstr "/Chèn/Mục/sep1"
 
-#: ../src/menu.c:372
+#: ../src/menu.c:373
 msgid "/Insert/Headings/parag_raph"
 msgstr "/Chèn/Mục/đoạn văn (paragraph)"
 
-#: ../src/menu.c:373
+#: ../src/menu.c:374
 msgid "/Insert/Headings/subparag_raph"
 msgstr "/Chèn/Mục/đoạn văn con (subparagraph)"
 
-#: ../src/menu.c:374
+#: ../src/menu.c:375
 msgid "/Insert/Headings/sep2"
 msgstr "/Chèn/Mục/sep2"
 
-#: ../src/menu.c:375
+#: ../src/menu.c:376
 msgid "/Insert/Headings/_part*"
 msgstr "/Chèn/Mục/phần (part) *"
 
-#: ../src/menu.c:376
+#: ../src/menu.c:377
 msgid "/Insert/Headings/_chapter*"
 msgstr "/Chèn/Mục/chương (chapter) *"
 
-#: ../src/menu.c:377
+#: ../src/menu.c:378
 msgid "/Insert/Headings/_section*"
 msgstr "/Chèn/Mục/mục (section) *"
 
-#: ../src/menu.c:378
+#: ../src/menu.c:379
 msgid "/Insert/Headings/s_ubsection*"
 msgstr "/Chèn/Mục/mục con (subsection) *"
 
-#: ../src/menu.c:379
+#: ../src/menu.c:380
 msgid "/Insert/Headings/su_bsubsection*"
 msgstr "/Chèn/Mục/su_bsubsection*"
 
-#: ../src/menu.c:381
+#: ../src/menu.c:382
 msgid "/Insert/_Environments"
 msgstr "/Chèn/_Môi trường"
 
-#: ../src/menu.c:382
+#: ../src/menu.c:383
 msgid "/Insert/Environments/tearoff1"
 msgstr "/Chèn/Môi trường/tearoff1"
 
-#: ../src/menu.c:384
+#: ../src/menu.c:385
 msgid "/Insert/Environments/flush_left"
 msgstr "/Chèn/Môi trường/canh trái (flush_left)"
 
-#: ../src/menu.c:385
+#: ../src/menu.c:386
 msgid "/Insert/Environments/flush_right"
 msgstr "/Chèn/Môi trường/canh phải (flush_right)"
 
-#: ../src/menu.c:386
+#: ../src/menu.c:387
 msgid "/Insert/Environments/_centering"
 msgstr "/Chèn/Môi trường/canh giữa (_centering)"
 
-#: ../src/menu.c:387
+#: ../src/menu.c:388
 msgid "/Insert/Environments/sep2"
 msgstr "/Chèn/Môi trường/sep2"
 
-#: ../src/menu.c:388
+#: ../src/menu.c:389
 msgid "/Insert/Environments/_verbatim"
 msgstr "/Chèn/Môi trường/_verbatim"
 
-#: ../src/menu.c:389
+#: ../src/menu.c:390
 msgid "/Insert/Environments/verbati_m*"
 msgstr "/Chèn/Môi trường/verbati_m*"
 
-#: ../src/menu.c:390
+#: ../src/menu.c:391
 msgid "/Insert/Environments/ver_se"
 msgstr "/Chèn/Môi trường/thơ (ver_se)"
 
-#: ../src/menu.c:391
+#: ../src/menu.c:392
 msgid "/Insert/Environments/_quotation"
 msgstr "/Chèn/Môi trường/trích dẫn (_quotation)"
 
-#: ../src/menu.c:394
+#: ../src/menu.c:395
 msgid "/Insert/AMS equations"
 msgstr "/Chèn/Gói _AMS"
 
-#: ../src/menu.c:395
+#: ../src/menu.c:396
 msgid "/Insert/AMS equations/tearoff1"
 msgstr "/Chèn/Gói AMS/tearoff1"
 
-#: ../src/menu.c:396
+#: ../src/menu.c:397
 msgid "/Insert/AMS equations/split"
 msgstr "/Chèn/Gói AMS/split"
 
-#: ../src/menu.c:397
+#: ../src/menu.c:398
 msgid "/Insert/AMS equations/cases"
 msgstr "/Chèn/Gói AMS/trường hợp (cases)"
 
-#: ../src/menu.c:398
+#: ../src/menu.c:399
 msgid "/Insert/AMS equations/sep1"
 msgstr "/Chèn/Gói AMS/sep1"
 
-#: ../src/menu.c:400
+#: ../src/menu.c:401
 msgid "/Insert/AMS equations/aligned"
 msgstr "/Chèn/Gói AMS/aligned"
 
-#: ../src/menu.c:401
+#: ../src/menu.c:402
 msgid "/Insert/AMS equations/gathered"
 msgstr "/Chèn/Gói AMS/gathered"
 
-#: ../src/menu.c:402
+#: ../src/menu.c:403
 msgid "/Insert/AMS equations/sep2"
 msgstr "/Chèn/Gói AMS/sep2"
 
-#: ../src/menu.c:404
+#: ../src/menu.c:405
 msgid "/Insert/AMS equations/equation"
 msgstr "/Chèn/Gói AMS/phương trình (equation)"
 
-#: ../src/menu.c:405
+#: ../src/menu.c:406
 msgid "/Insert/AMS equations/align"
 msgstr "/Chèn/Gói AMS/align"
 
-#: ../src/menu.c:406
+#: ../src/menu.c:407
 msgid "/Insert/AMS equations/subequations"
 msgstr "/Chèn/Gói AMS/phương trình con (subequations)"
 
-#: ../src/menu.c:407
+#: ../src/menu.c:408
 msgid "/Insert/AMS equations/gather"
 msgstr "/Chèn/Gói AMS/gather"
 
-#: ../src/menu.c:408
+#: ../src/menu.c:409
 msgid "/Insert/AMS equations/multline"
 msgstr "/Chèn/Gói AMS/nhiều dòng (multline)"
 
-#: ../src/menu.c:410
+#: ../src/menu.c:411
 msgid "/Insert/AMS equations/alignat"
 msgstr "/Chèn/Gói AMS/alignat"
 
-#: ../src/menu.c:411
+#: ../src/menu.c:412
 msgid "/Insert/AMS equations/sep3"
 msgstr "/Chèn/Gói AMS/sep3"
 
-#: ../src/menu.c:413
+#: ../src/menu.c:414
 msgid "/Insert/AMS equations/equation*"
 msgstr "/Chèn/Gói AMS/equation*"
 
-#: ../src/menu.c:414
+#: ../src/menu.c:415
 msgid "/Insert/AMS equations/align*"
 msgstr "/Chèn/Gói AMS/align"
 
-#: ../src/menu.c:415
+#: ../src/menu.c:416
 msgid "/Insert/AMS equations/gather*"
 msgstr "/Chèn/Gói AMS/gather*"
 
-#: ../src/menu.c:416
+#: ../src/menu.c:417
 msgid "/Insert/AMS equations/multline*"
 msgstr "/Chèn/Gói AMS/multline*"
 
-#: ../src/menu.c:418
+#: ../src/menu.c:419
 msgid "/Insert/AMS equations/alignat*"
 msgstr "/Chèn/Gói AMS/alignat*"
 
-#: ../src/menu.c:420
+#: ../src/menu.c:421
 msgid "/Insert/_Font style"
 msgstr "/Chèn/_Phông chữ"
 
-#: ../src/menu.c:423
+#: ../src/menu.c:424
 msgid "/Insert/Font/Sizes"
 msgstr "/Chèn/cỡ _phông (si)"
 
-#: ../src/menu.c:424
+#: ../src/menu.c:425
 msgid "/Insert/Font/Sizes/tearoff1"
 msgstr "/Chèn/Phông chữ/Cỡ/tearoff1"
 
-#: ../src/menu.c:425
+#: ../src/menu.c:426
 msgid "/Insert/Font/Sizes/{\\\\tiny }"
 msgstr "/Chèn/Phông chữ/Toán/{\\\\tiny }"
 
-#: ../src/menu.c:426
+#: ../src/menu.c:427
 msgid "/Insert/Font/Sizes/{\\\\scriptsize }"
 msgstr "/Chèn/Phông chữ/Toán/{\\\\scriptsize }"
 
-#: ../src/menu.c:427
+#: ../src/menu.c:428
 msgid "/Insert/Font/Sizes/{\\\\footnotesize }"
 msgstr "/Chèn/Phông chữ/Toán/{\\\\footnote}"
 
-#: ../src/menu.c:428
+#: ../src/menu.c:429
 msgid "/Insert/Font/Sizes/{\\\\small }"
 msgstr "/Chèn/Phông chữ/Toán/{\\\\small }"
 
-#: ../src/menu.c:429
+#: ../src/menu.c:430
 msgid "/Insert/Font/Sizes/{\\\\normalsize }"
 msgstr "/Chèn/Phông chữ/Toán/{\\\\normalsize}"
 
-#: ../src/menu.c:430
+#: ../src/menu.c:431
 msgid "/Insert/Font/Sizes/{\\\\large }"
 msgstr "/Chèn/Phông chữ/Toán/{\\\\large}"
 
-#: ../src/menu.c:431
+#: ../src/menu.c:432
 msgid "/Insert/Font/Sizes/{\\\\Large }"
 msgstr "/Chèn/Phông chữ/Toán/{\\\\Large}"
 
-#: ../src/menu.c:432
+#: ../src/menu.c:433
 msgid "/Insert/Font/Sizes/{\\\\huge }"
 msgstr "/Chèn/Phông chữ/Toán/{\\\\huge }"
 
-#: ../src/menu.c:433
+#: ../src/menu.c:434
 msgid "/Insert/Font/Sizes/{\\\\Huge }"
 msgstr "/Chèn/Phông chữ/Toán/{\\\\Huge }"
 
-#: ../src/menu.c:437
+#: ../src/menu.c:438
 msgid "/Insert/Font style/tearoff1"
 msgstr "/Chèn/Phông chữ/tearoff1"
 
-#: ../src/menu.c:438
+#: ../src/menu.c:439
 msgid "/Insert/Font style/\\\\emph - _emphasized"
 msgstr "/Chèn/Phông chữ/\\\\_emph - nhấn mạnh"
 
-#: ../src/menu.c:439
+#: ../src/menu.c:440
 msgid "/Insert/Font style/\\\\underline - _underlined"
 msgstr "/Chèn/Phông chữ/\\\\_underline - gạch chân"
 
-#: ../src/menu.c:440
+#: ../src/menu.c:441
 msgid "/Insert/Font style/\\\\textit - _italic"
 msgstr "/Chèn/Phông chữ/\\\\textit - nghiêng"
 
-#: ../src/menu.c:441
+#: ../src/menu.c:442
 msgid "/Insert/Font style/\\\\textsl - _slanted"
 msgstr "/Chèn/Phông chữ/\\\\texttt - slanted"
 
-#: ../src/menu.c:442
+#: ../src/menu.c:443
 msgid "/Insert/Font style/\\\\textbf - _boldface"
 msgstr "/Chèn/Phông chữ/\\\\text_bf - đậm"
 
-#: ../src/menu.c:443
+#: ../src/menu.c:444
 msgid "/Insert/Font style/\\\\texttt - _typewriter"
 msgstr "/Chèn/Phông chữ/\\\\_texttt - kiểu đánh máy"
 
-#: ../src/menu.c:444
+#: ../src/menu.c:445
 msgid "/Insert/Font style/\\\\textsc - small_caps"
 msgstr "/Chèn/Phông chữ/\\\\texts_c - chữ hoa nhỏ"
 
-#: ../src/menu.c:447
+#: ../src/menu.c:448
 msgid "/Insert/Font/Maths"
 msgstr "/Chèn/Phông _chữ/Toán"
 
-#: ../src/menu.c:448
+#: ../src/menu.c:449
 msgid "/Insert/Font/Maths/tearoff1"
 msgstr "/Chèn/Phông chữ/Toán/tearoff1"
 
-#: ../src/menu.c:449
+#: ../src/menu.c:450
 msgid "/Insert/Font/Maths/\\\\mathrm - Roman"
 msgstr "/Chèn/Phông chữ/Toán/\\\\mathrm - roman"
 
-#: ../src/menu.c:450
+#: ../src/menu.c:451
 msgid "/Insert/Font/Maths/\\\\mathit - Italic"
 msgstr "/Chèn/Phông toán/Toán/\\\\mathit - nghiêng"
 
-#: ../src/menu.c:451
+#: ../src/menu.c:452
 msgid "/Insert/Font/Maths/\\\\mathbf - Boldface"
 msgstr "/Chèn/Phông chữ/Toán/\\\\mathbf - đậm"
 
-#: ../src/menu.c:452
+#: ../src/menu.c:453
 msgid "/Insert/Font/Maths/\\\\mathsf - Sans serif"
 msgstr "/Chèn/Phông chữ/Toán/\\\\mathsf - Không chân"
 
-#: ../src/menu.c:453
+#: ../src/menu.c:454
 msgid "/Insert/Font/Maths/\\\\mathtt - Typewriter"
 msgstr "/Chèn/Phông chữ/Toán/\\\\mathtt - Kiểu đánh máy"
 
-#: ../src/menu.c:454
+#: ../src/menu.c:455
 msgid "/Insert/Font/Maths/sep1"
 msgstr "/Chèn/Phông chữ/Toán//sep1"
 
-#: ../src/menu.c:455
+#: ../src/menu.c:456
 msgid "/Insert/Font/Maths/\\\\mathcal - Caligraphic"
 msgstr "/Chèn/Phông chữ/Toán/\\\\mathcal - caligraphic"
 
-#: ../src/menu.c:456
+#: ../src/menu.c:457
 msgid "/Insert/Font/Maths/\\\\mathbb - Blackboard"
 msgstr "/Chèn/Phông chữ/Toán/\\\\mathbb - Blackboard"
 
-#: ../src/menu.c:457
+#: ../src/menu.c:458
 msgid "/Insert/Font/Maths/\\\\mathfrak - Fraktur"
 msgstr "/Chèn/Phông chữ/Toán/\\\\mathfrak - Fraktur"
 
-#: ../src/menu.c:499
+#: ../src/menu.c:500
 msgid "/_Document"
 msgstr "/Tài liệ_u"
 
-#: ../src/menu.c:500
+#: ../src/menu.c:501
 msgid "/Document/tearoff1"
 msgstr "/Tài liệu/tearoff1"
 
-#: ../src/menu.c:501
+#: ../src/menu.c:502
 msgid "/Document/_Increase Tabsize"
 msgstr "/Tài liệu/_Tăng cỡ tab"
 
-#: ../src/menu.c:502
+#: ../src/menu.c:503
 msgid "/Document/_Decrease Tabsize"
 msgstr "/Tài liệu/_Giảm cỡ tab"
 
-#: ../src/menu.c:503
+#: ../src/menu.c:504
 msgid "/Document/_Auto Indent"
 msgstr "/Tài liệu/Tự động _canh dòng"
 
-#: ../src/menu.c:504
+#: ../src/menu.c:505
 msgid "/Document/sep1"
 msgstr "/Tài liệu/sep1"
 
-#: ../src/menu.c:505
+#: ../src/menu.c:506
 msgid "/Document/Auto_Completion"
 msgstr "/Tài liệu/Hoàn thành lệnh"
 
-#: ../src/menu.c:506
+#: ../src/menu.c:507
 msgid "/Document/_Wrap"
 msgstr "/Tài liệu/Ngắt dòng"
 
-#: ../src/menu.c:507
+#: ../src/menu.c:508
 msgid "/Document/_Line Numbers"
 msgstr "/Tài liệu/Số chỉ dòng"
 
-#: ../src/menu.c:508
+#: ../src/menu.c:509
 msgid "/Document/sep2"
 msgstr "/Tài liệu/sep2"
 
-#: ../src/menu.c:509
+#: ../src/menu.c:510
 msgid "/Document/_Highlight Syntax"
 msgstr "/Tài liệu/Tô _màu"
 
-#: ../src/menu.c:510
+#: ../src/menu.c:511
 msgid "/Document/_Update Highlighting"
 msgstr "/Tài liệu/Cập nhật tô màu"
 
-#: ../src/menu.c:511
+#: ../src/menu.c:512
 msgid "/Document/sep3"
 msgstr "/Tài liệu/sep3"
 
-#: ../src/menu.c:512
+#: ../src/menu.c:513
 msgid "/Document/Document Ty_pe"
 msgstr "/Tài liệu/_Kiểu tài liệu"
 
-#: ../src/menu.c:513
+#: ../src/menu.c:514
 msgid "/Document/Document Type/tearoff1"
 msgstr "/Tài liệu/Kiểu tài liệu/tearoff1"
 
-#: ../src/menu.c:514
+#: ../src/menu.c:515
 msgid "/Document/Character _Encoding"
 msgstr "/Tài liệu/Bảng _mã"
 
-#: ../src/menu.c:515
+#: ../src/menu.c:516
 msgid "/Document/Character Encoding/tearoff1"
 msgstr "/Tài liệu/Bảng mã/tearoff1"
 
-#: ../src/menu.c:516
+#: ../src/menu.c:517
 msgid "/Document/sep4"
 msgstr "/Tài liệu/sep4"
 
-#: ../src/menu.c:518
+#: ../src/menu.c:519
 msgid "/Document/Check _Spelling..."
 msgstr "/Tài liệu/Kiểm tranh _chính tả..."
 
-#: ../src/menu.c:520
+#: ../src/menu.c:521
 msgid "/Document/_Floating window"
 msgstr "/Tài liệu/Cửa sổ động"
 
-#: ../src/menu.c:521
+#: ../src/menu.c:522
 msgid "/Document/Word _Count"
 msgstr "/Tài liệu/_Số từ"
 
-#: ../src/menu.c:525
+#: ../src/menu.c:526
 msgid "/E_xternal"
 msgstr "/Côn_g cụ"
 
-#: ../src/menu.c:526
+#: ../src/menu.c:527
 msgid "/External/tearoff1"
 msgstr "/Công cụ/tearoff1"
 
-#: ../src/menu.c:527 ../src/menu.c:771 ../src/outputbox.c:627
+#: ../src/menu.c:528 ../src/menu.c:768 ../src/outputbox.c:627
 #: ../src/outputbox.c:630
 msgid "/External/Stop..."
 msgstr "/Công cụ/Dừng..."
 
-#: ../src/menu.c:528
+#: ../src/menu.c:529
 msgid "/External/_Project mode"
 msgstr "/Công cụ/_Chế độ dự án"
 
-#: ../src/menu.c:530
+#: ../src/menu.c:531
 msgid "/_Project"
 msgstr "/_Dự án"
 
-#: ../src/menu.c:531
+#: ../src/menu.c:532
 msgid "/Project/tearoff1"
 msgstr "/Dự án/tearoff1"
 
-#: ../src/menu.c:532
+#: ../src/menu.c:533
 msgid "/Project/_New"
 msgstr "/Dự án/_Tạo mới"
 
-#: ../src/menu.c:533
+#: ../src/menu.c:534
 msgid "/Project/_Open"
 msgstr "/Dự án/_Mở"
 
-#: ../src/menu.c:534
+#: ../src/menu.c:535
 msgid "/Project/Open R_ecent"
 msgstr "/Dự án/_Hiện tại"
 
-#: ../src/menu.c:535
+#: ../src/menu.c:536
 msgid "/Project/Open Recent/tearoff1"
 msgstr "/Dự án/Hiện tại/tearoff1"
 
-#: ../src/menu.c:536
+#: ../src/menu.c:537
 msgid "/Project/sep1"
 msgstr "/Dự án/sep1"
 
-#: ../src/menu.c:537
+#: ../src/menu.c:538
 msgid "/Project/_Save"
 msgstr "/Dự án/_Lưu"
 
-#: ../src/menu.c:538
+#: ../src/menu.c:539
 msgid "/Project/Save _as..."
 msgstr "/Dự án/Lưu với tên _khác..."
 
-#: ../src/menu.c:539
+#: ../src/menu.c:540
 msgid "/Project/Save & _close"
 msgstr "/Dự án/Lưu _và đóng dự án"
 
-#: ../src/menu.c:540
+#: ../src/menu.c:541
 msgid "/Project/sep2"
 msgstr "/Dự án/sep2"
 
-#: ../src/menu.c:541 ../src/project.c:227
+#: ../src/menu.c:542 ../src/project.c:227
 msgid "/Project/Project options..."
 msgstr "/Dự án/Cấu hình"
 
-#: ../src/menu.c:543
+#: ../src/menu.c:544
 msgid "/_Go"
 msgstr "/Di chuyể_n"
 
-#: ../src/menu.c:544
+#: ../src/menu.c:545
 msgid "/Go/tearoff1"
 msgstr "/Di chuyển/tearoff1"
 
-#: ../src/menu.c:545
+#: ../src/menu.c:546
 msgid "/Go/_Previous document"
 msgstr "/Di chuyển/Tài liệu _trước"
 
-#: ../src/menu.c:546
+#: ../src/menu.c:547
 msgid "/Go/_Next document"
 msgstr "/Di chuyển/Tài liệu _sau"
 
-#: ../src/menu.c:547 ../src/menu.c:550
+#: ../src/menu.c:548 ../src/menu.c:551
 msgid "/Go/sep1"
 msgstr "/Di chuyển/sep1"
 
-#: ../src/menu.c:548
+#: ../src/menu.c:549
 msgid "/Go/_First document"
 msgstr "/Di chuyển/Tài liệu đầu tiê_n"
 
-#: ../src/menu.c:549
+#: ../src/menu.c:550
 msgid "/Go/L_ast document"
 msgstr "/Di chuyển/Tài liệu _cuối cùng"
 
-#: ../src/menu.c:551
+#: ../src/menu.c:552
 msgid "/Go/Goto _Line"
 msgstr "/Di chuyển/Đến _dòng"
 
-#: ../src/menu.c:552
+#: ../src/menu.c:553
 msgid "/Go/Goto _Selection"
 msgstr "/Di chuyển/Vị trí con trỏ"
 
-#: ../src/menu.c:554
+#: ../src/menu.c:555
 msgid "/_View"
 msgstr "/_Xem"
 
-#: ../src/menu.c:555
+#: ../src/menu.c:556
 msgid "/View/tearoff1"
 msgstr "/Xem/tearoff1"
 
-#: ../src/menu.c:557
+#: ../src/menu.c:558
 msgid "/View/View _Custom Menu"
 msgstr "/Xem/Menu độ_ng"
 
-#: ../src/menu.c:558
+#: ../src/menu.c:559
 msgid "/View/View _Sidebar"
 msgstr "/Xem/Sidebar"
 
-#: ../src/menu.c:559
+#: ../src/menu.c:560
 msgid "/View/View _Outputbox"
 msgstr "/Xem/Kết quả _xuất"
 
-#: ../src/menu.c:561
+#: ../src/menu.c:562
 msgid "/View/View _Terminal"
 msgstr "/Xem/Xem _Terminal"
 
-#: ../src/menu.c:563
+#: ../src/menu.c:564
 msgid "/_?"
 msgstr ""
 
-#: ../src/menu.c:564
+#: ../src/menu.c:565
 msgid "/?/_About..."
 msgstr "/?/_Giới thiệu..."
 
-#: ../src/menu.c:565
+#: ../src/menu.c:566
 msgid "/?/sep1"
 msgstr ""
 
-#: ../src/menu.c:566
+#: ../src/menu.c:567
 msgid "/?/_Save Settings"
 msgstr "/?/Lưu cấu hình"
 
-#: ../src/menu.c:567
+#: ../src/menu.c:568
 msgid "/?/Save Shortcut _Keys"
 msgstr "/?/Lưu phím nóng"
 
-#: ../src/menu.c:568
+#: ../src/menu.c:569
 msgid "/?/_Preferences"
 msgstr "/?/Cấu hình"
 
-#: ../src/menu.c:705
+#: ../src/menu.c:706
 msgid "/Document/Document Type"
 msgstr "/Tài liệu/Kiểu tài liệu"
 
-#: ../src/menu.c:765
+#: ../src/menu.c:762
 msgid "/View/View Custom Menu"
 msgstr "/Xem/Menu động"
 
-#: ../src/menu.c:766
+#: ../src/menu.c:763
 msgid "/View/View Sidebar"
 msgstr "/Xem/Sidebar"
 
-#: ../src/menu.c:767
+#: ../src/menu.c:764
 msgid "/Document/Auto Indent"
 msgstr "/Tài liệu/Tự động canh dòng"
 
-#: ../src/menu.c:768 ../src/project.c:229 ../src/project.c:231
+#: ../src/menu.c:765 ../src/project.c:229 ../src/project.c:231
 #: ../src/project.c:233
 msgid "/External/Project mode"
 msgstr "/Công cụ/Chế độ dự án"
 
-#: ../src/menu.c:799
+#: ../src/menu.c:796
 msgid "output"
 msgstr "xuất"
 
-#: ../src/menu.c:847
+#: ../src/menu.c:844
 msgid "loading file(s)..."
 msgstr "đang tải tập tin..."
 
-#: ../src/menu.c:851
+#: ../src/menu.c:848
 msgid "The filename was:\n"
 msgstr "Tên tập tin là:\n"
 
-#: ../src/menu.c:852
+#: ../src/menu.c:849
 msgid "Could not open file\n"
 msgstr "Không thể mở tập tin\n"
 
-#: ../src/menu.c:875
+#: ../src/menu.c:872
 msgid "/Project/Open Recent"
 msgstr "/Dự án/Vừa mở"
 
-#: ../src/menu.c:879
+#: ../src/menu.c:876
 msgid "/File/Open Recent"
 msgstr "/Tập tin/Vừa mở"
 
-#: ../src/menu.c:1006
+#: ../src/menu.c:1003
 msgid "/Windows"
 msgstr "/Cửa sổ"
 
-#: ../src/menu.c:1056
+#: ../src/menu.c:1053
 msgid "Could not view file in browser, the file does not yet have a name\n"
 msgstr "Không thể xem: không có tập tin nào có tên như vậy\n"
 
-#: ../src/menu.c:1219 ../src/menu.c:1239 ../src/menu.c:1257 ../src/menu.c:1271
-#: ../src/menu.c:1295 ../src/menu.c:1309
+#: ../src/menu.c:1216 ../src/menu.c:1236 ../src/menu.c:1254 ../src/menu.c:1268
+#: ../src/menu.c:1292 ../src/menu.c:1306
 msgid "/External"
 msgstr "/Công cụ"
 
-#: ../src/menu.c:1354
+#: ../src/menu.c:1351
 msgid "/Document/Character Encoding"
 msgstr "/Tài liệu/Bản mã"
 
-#: ../src/menu.c:1620
+#: ../src/menu.c:1617
 msgid "This custom search and replace requires a selection"
 msgstr "Cần chọn trước phần tài liệu nào đó"
 
-#: ../src/menu.c:1718
+#: ../src/menu.c:1715
 msgid "/_Custom menu"
 msgstr "/Menu độ_ng"
 
-#: ../src/menu.c:1719
+#: ../src/menu.c:1716
 msgid "/Custom menu/sep"
 msgstr "/Menu động/sep"
 
-#: ../src/menu.c:1720
+#: ../src/menu.c:1717
 msgid "/Custom menu/Edit custom menu..."
 msgstr "/Menu động/Thay đổi..."
 
-#: ../src/menu.c:1721
+#: ../src/menu.c:1718
 msgid "/Custom menu/Reset"
 msgstr "/Menu động/Cập nhật"
 
-#: ../src/menu.c:1722
+#: ../src/menu.c:1719
 msgid "/Custom menu/Load new"
 msgstr "/Menu động/Tải mới"
 
-#: ../src/menu.c:1938
+#: ../src/menu.c:1935
 msgid "Search Pattern"
 msgstr "Mẫu tìm kiếm"
 
-#: ../src/menu.c:1939
+#: ../src/menu.c:1936
 msgid "Replace String"
 msgstr "Chuỗi thay thế"
 
-#: ../src/menu.c:1942
+#: ../src/menu.c:1939
 msgid "Formatstring Before"
 msgstr "Chuỗi định dạng (trước)"
 
-#: ../src/menu.c:1943
+#: ../src/menu.c:1940
 msgid "Formatstring After"
 msgstr "Chuỗi định dạng (sau)"
 
-#: ../src/menu.c:1990
+#: ../src/menu.c:1987
 msgid "The menupath you want to update does not exist yet"
 msgstr "Đường dẫn menu để cập nhật không tồn tại"
 
-#: ../src/menu.c:1990
+#: ../src/menu.c:1987
 msgid "Try 'add' instead."
 msgstr "Hãy thử 'thêm' (add)."
 
-#: ../src/menu.c:1992
+#: ../src/menu.c:1989
 msgid "The menupath you want to add already exists."
 msgstr "Đường dẫn menu đã tồn tại."
 
-#: ../src/menu.c:1997
+#: ../src/menu.c:1994
 msgid "The menupath should start with a / character"
 msgstr "Đường dẫn menu phải bắt đầu bằng dấu /"
 
-#: ../src/menu.c:2159
+#: ../src/menu.c:2156
 msgid "Custom Menu Editor"
 msgstr "Chỉnh sửa menu động"
 
-#: ../src/menu.c:2170
+#: ../src/menu.c:2167
 msgid "Add New Menu Entry"
 msgstr "Thêm phần tử Menu mới"
 
-#: ../src/menu.c:2172
+#: ../src/menu.c:2169
 msgid "Apply Changes"
 msgstr "Cập nhật thay đổi"
 
-#: ../src/menu.c:2174
+#: ../src/menu.c:2171
 msgid "Delete Menu Entry"
 msgstr "Xóa phần tử của menu"
 
-#: ../src/menu.c:2177
+#: ../src/menu.c:2174
 msgid "Close Discards Changes"
 msgstr "Đóng bỏ qua các thay đổi"
 
-#: ../src/menu.c:2179
+#: ../src/menu.c:2176
 msgid "Save Changes and Exit"
 msgstr "Lưu và thoát"
 
-#: ../src/menu.c:2189
+#: ../src/menu.c:2186
 msgid "_Menu Path:"
 msgstr "Đường _dẫn menu:"
 
-#: ../src/menu.c:2210
+#: ../src/menu.c:2207
 msgid "Menu path"
 msgstr "Đường dẫn menu"
 
-#: ../src/menu.c:2230
+#: ../src/menu.c:2227
 msgid "Number of _Variables:"
 msgstr "_Số biến số:"
 
-#: ../src/menu.c:2238
+#: ../src/menu.c:2235
 msgid "Variables"
 msgstr "Biến số"
 
-#: ../src/menu.c:2257
+#: ../src/menu.c:2254
 msgid "Custom Dialo_g"
 msgstr "Hộp thoại"
 
-#: ../src/menu.c:2259
+#: ../src/menu.c:2256
 msgid "Custom Replace"
 msgstr "Thay thế"
 
-#: ../src/menu.c:2271
+#: ../src/menu.c:2268
 msgid "_Replace:"
 msgstr "_Thay thế:"
 
-#: ../src/menu.c:2274
+#: ../src/menu.c:2271
 msgid "in current document"
 msgstr "trong tài liệu đang soạn"
 
-#: ../src/menu.c:2274
+#: ../src/menu.c:2271
 msgid "from cursor"
 msgstr "từ vị trí con trỏ"
 
-#: ../src/menu.c:2274
+#: ../src/menu.c:2271
 msgid "in selection"
 msgstr "trong phần được chọn"
 
-#: ../src/menu.c:2274
+#: ../src/menu.c:2271
 msgid "in all open documents"
 msgstr "trong mọi tài liệu đang mở"
 
-#: ../src/menu.c:2282
+#: ../src/menu.c:2279
 msgid "Matc_hing:"
 msgstr "So _khớp:"
 
-#: ../src/menu.c:2285
+#: ../src/menu.c:2282
 msgid "normal"
 msgstr "bình thường"
 
-#: ../src/menu.c:2285
+#: ../src/menu.c:2282
 msgid "posix regular expresions"
 msgstr "biểu thức POSIX"
 
-#: ../src/menu.c:2285
+#: ../src/menu.c:2282
 msgid "perl regular expresions"
 msgstr "biểu thức PERL"
 
-#: ../src/menu.c:2291
+#: ../src/menu.c:2288
 msgid "Case Se_nsitive"
 msgstr "Phân biệt hoa thường"
 
@@ -2177,137 +2177,137 @@ msgstr "lỗi: không thể tạo PIPE."
 msgid "error: cannot create temporarily file."
 msgstr "lỗi: không thể tạo tập tin tạm."
 
-#: ../src/preferences.c:278
+#: ../src/preferences.c:271
 msgid "Untitled"
 msgstr "Không tên"
 
-#: ../src/preferences.c:378
+#: ../src/preferences.c:371
 msgid "Select font"
 msgstr "Chọn phông"
 
-#: ../src/preferences.c:504 ../src/preferences.c:592 ../src/preferences.c:1077
-#: ../src/preferences.c:1414
+#: ../src/preferences.c:497 ../src/preferences.c:585 ../src/preferences.c:1070
+#: ../src/preferences.c:1407
 msgid "Label"
 msgstr "Nhãn"
 
-#: ../src/preferences.c:505
+#: ../src/preferences.c:498
 msgid "Extensions"
 msgstr "Mở rộng"
 
-#: ../src/preferences.c:506
+#: ../src/preferences.c:499
 msgid "Update chars"
 msgstr "Ký tự cập nhật"
 
-#: ../src/preferences.c:507
+#: ../src/preferences.c:500
 msgid "Icon"
 msgstr "Biểu tượng"
 
-#: ../src/preferences.c:508
+#: ../src/preferences.c:501
 msgid "Editable"
 msgstr "Soạn thảo được"
 
-#: ../src/preferences.c:509
+#: ../src/preferences.c:502
 msgid "Content regex"
 msgstr "Biểu thức nhận dạng"
 
-#: ../src/preferences.c:510
+#: ../src/preferences.c:503
 msgid "AutoCompletion"
 msgstr "Hoàn thành lệnh"
 
-#: ../src/preferences.c:593
+#: ../src/preferences.c:586
 msgid "Inverse filter"
 msgstr "Lọc ngược"
 
-#: ../src/preferences.c:594
+#: ../src/preferences.c:587
 msgid "Filetypes in filter"
 msgstr "Kiểu tập tin trong lọc"
 
-#: ../src/preferences.c:948
+#: ../src/preferences.c:941
 msgid "filetype"
 msgstr "kiểu tập tin"
 
-#: ../src/preferences.c:953
+#: ../src/preferences.c:946
 msgid "Reset"
 msgstr ""
 
-#: ../src/preferences.c:959
+#: ../src/preferences.c:952
 msgid "Pattern name"
 msgstr "Tên mẫu"
 
-#: ../src/preferences.c:977 ../src/preferences.c:1504
+#: ../src/preferences.c:970 ../src/preferences.c:1497
 msgid "Pattern"
 msgstr "Mẫu"
 
-#: ../src/preferences.c:1000
+#: ../src/preferences.c:993
 msgid "Start pattern and end pattern"
 msgstr "Mẫu bắt đầu và kết thúc"
 
-#: ../src/preferences.c:1002
+#: ../src/preferences.c:995
 msgid "Only start pattern"
 msgstr "Chỉ có mẫu bắt đầu"
 
-#: ../src/preferences.c:1004
+#: ../src/preferences.c:997
 msgid "Subpattern from parent"
 msgstr "Con của mẫu mẹ"
 
-#: ../src/preferences.c:1010
+#: ../src/preferences.c:1003
 msgid "Start pattern"
 msgstr "Mẫu bắt đầu"
 
-#: ../src/preferences.c:1011
+#: ../src/preferences.c:1004
 msgid "End pattern"
 msgstr "Mẫu kết thúc"
 
-#: ../src/preferences.c:1012
+#: ../src/preferences.c:1005
 msgid "Case sensitive matching"
 msgstr "Phân biệt hoa thường"
 
-#: ../src/preferences.c:1013
+#: ../src/preferences.c:1006
 msgid "Parentmatch"
 msgstr "So khớp mẹ"
 
-#: ../src/preferences.c:1014
+#: ../src/preferences.c:1007
 msgid "Foreground color"
 msgstr "Màu chữ"
 
-#: ../src/preferences.c:1015
+#: ../src/preferences.c:1008
 msgid "Background color"
 msgstr "Màu nền"
 
-#: ../src/preferences.c:1023
+#: ../src/preferences.c:1016
 msgid "don't change weight"
 msgstr "không thay đổi (tô đậm)"
 
-#: ../src/preferences.c:1025
+#: ../src/preferences.c:1018
 msgid "force non-bold weight"
 msgstr "luôn không tô đậm"
 
-#: ../src/preferences.c:1027
+#: ../src/preferences.c:1020
 msgid "force bold weight"
 msgstr "luôn tô đậm"
 
-#: ../src/preferences.c:1033
+#: ../src/preferences.c:1026
 msgid "don't change style"
 msgstr "không thay đổi (in nghiêng)"
 
-#: ../src/preferences.c:1035
+#: ../src/preferences.c:1028
 msgid "force non-italic style"
 msgstr "không luôn in nghiêng"
 
-#: ../src/preferences.c:1037
+#: ../src/preferences.c:1030
 msgid "force italic style"
 msgstr "luôn in nghiêng"
 
-#: ../src/preferences.c:1078 ../src/preferences.c:1334
-#: ../src/preferences.c:1415 ../src/preferences.c:1508
+#: ../src/preferences.c:1071 ../src/preferences.c:1327
+#: ../src/preferences.c:1408 ../src/preferences.c:1501
 msgid "Command"
 msgstr "Lệnh"
 
-#: ../src/preferences.c:1182 ../src/preferences.c:1212
+#: ../src/preferences.c:1175 ../src/preferences.c:1205
 msgid "Warning:"
 msgstr "Chú ý:"
 
-#: ../src/preferences.c:1182
+#: ../src/preferences.c:1175
 msgid ""
 "Please refresh the list before adding any item!\n"
 "\n"
@@ -2321,7 +2321,7 @@ msgstr ""
 "có thể làm điều này bằng cách click chuột vào nút 'Cập nhật' ngay bây giờ. "
 "Chú ý rằng, việc cập nhật có thể tốn nhiều thời gian."
 
-#: ../src/preferences.c:1212
+#: ../src/preferences.c:1205
 msgid ""
 "Please refresh the list before adding any item!\n"
 "\n"
@@ -2335,19 +2335,19 @@ msgstr ""
 "có thể làm điều này bằng cách click chuột vào nút 'Cập nhật' ngay bây giờ. "
 "Chú ý rằng, việc cập nhật có thể tốn nhiều thời gian."
 
-#: ../src/preferences.c:1281
+#: ../src/preferences.c:1274
 msgid "Definition"
 msgstr "Định nghĩa"
 
-#: ../src/preferences.c:1282
+#: ../src/preferences.c:1275
 msgid "Before"
 msgstr "Trước"
 
-#: ../src/preferences.c:1283
+#: ../src/preferences.c:1276
 msgid "After"
 msgstr "Sau"
 
-#: ../src/preferences.c:1321
+#: ../src/preferences.c:1314
 msgid ""
 "Add new autotext definition.\n"
 "Start finding the old one by pressing CTRL+F."
@@ -2355,7 +2355,7 @@ msgstr ""
 "Thêm định nghĩa mới.\n"
 "Nhấn CTRL+F để tìm kiếm."
 
-#: ../src/preferences.c:1373
+#: ../src/preferences.c:1366
 msgid ""
 "Add new word which should be started by '\\'.\n"
 "Start finding the old one by pressing CTRL+F."
@@ -2363,27 +2363,27 @@ msgstr ""
 "Thêm lệnh mới (bắt đầu bằng'\\') .\n"
 "Nhấn CTRL+F để tìm kiếm."
 
-#: ../src/preferences.c:1503
+#: ../src/preferences.c:1496
 msgid "Name"
 msgstr "Tên"
 
-#: ../src/preferences.c:1505
+#: ../src/preferences.c:1498
 msgid "File #"
 msgstr "Tập tin #"
 
-#: ../src/preferences.c:1506
+#: ../src/preferences.c:1499
 msgid "Line #"
 msgstr "Dòng #"
 
-#: ../src/preferences.c:1507
+#: ../src/preferences.c:1500
 msgid "Output #"
 msgstr "Kết xuất #"
 
-#: ../src/preferences.c:1509
+#: ../src/preferences.c:1502
 msgid "Save,Show"
 msgstr "Lưu,Xem"
 
-#: ../src/preferences.c:1548
+#: ../src/preferences.c:1541
 msgid ""
 "%D: basedir of project\n"
 "%B: basefile (without extension) of project\n"
@@ -2418,275 +2418,275 @@ msgstr ""
 "\tcả hai: 1+2 =3\n"
 "\tkhông cả hai: 0"
 
-#: ../src/preferences.c:1863 ../src/preferences.c:1864
+#: ../src/preferences.c:1856 ../src/preferences.c:1857
 msgid "left"
 msgstr "trái"
 
-#: ../src/preferences.c:1863 ../src/preferences.c:1864
+#: ../src/preferences.c:1856 ../src/preferences.c:1857
 msgid "right"
 msgstr "phải"
 
-#: ../src/preferences.c:1863
+#: ../src/preferences.c:1856
 msgid "top"
 msgstr "trên"
 
-#: ../src/preferences.c:1863
+#: ../src/preferences.c:1856
 msgid "bottom"
 msgstr "dưới"
 
-#: ../src/preferences.c:1865
+#: ../src/preferences.c:1858
 msgid "no check"
 msgstr "không kiểm tra"
 
-#: ../src/preferences.c:1865
+#: ../src/preferences.c:1858
 msgid "check mtime and size"
 msgstr "kiểm tra thời gian và cỡ"
 
-#: ../src/preferences.c:1865
+#: ../src/preferences.c:1858
 msgid "check mtime"
 msgstr "kiểm tra thời gian"
 
-#: ../src/preferences.c:1865
+#: ../src/preferences.c:1858
 msgid "check size"
 msgstr "kiểm tra cỡ"
 
-#: ../src/preferences.c:1868
+#: ../src/preferences.c:1861
 msgid "Edit preferences"
 msgstr "Thay đổi cấu hình Winefish"
 
-#: ../src/preferences.c:1880
+#: ../src/preferences.c:1873
 msgid "Editor"
 msgstr "Soạn thảo"
 
-#: ../src/preferences.c:1882
+#: ../src/preferences.c:1875
 msgid "Editor options"
 msgstr "Tùy chọn soạn thảo"
 
-#: ../src/preferences.c:1887
+#: ../src/preferences.c:1880
 msgid "Font"
 msgstr "Phông"
 
-#: ../src/preferences.c:1888
+#: ../src/preferences.c:1881
 msgid "Tab width"
 msgstr "Cỡ tab"
 
-#: ../src/preferences.c:1889
+#: ../src/preferences.c:1882
 msgid "Use spaces to indent, not tabs"
 msgstr "Thay thế tab bởi khoảng trắng"
 
-#: ../src/preferences.c:1890
+#: ../src/preferences.c:1883
 msgid "Word wrap default"
 msgstr "Mặc định ngắt dòng"
 
-#: ../src/preferences.c:1892
+#: ../src/preferences.c:1885
 msgid "Highlight syntax by default"
 msgstr "Mặc định tô màu"
 
-#: ../src/preferences.c:1893
+#: ../src/preferences.c:1886
 msgid "Highlight # lines"
 msgstr "Tô  màu # dòng"
 
-#: ../src/preferences.c:1895
+#: ../src/preferences.c:1888
 msgid "Undo"
 msgstr ""
 
-#: ../src/preferences.c:1900
+#: ../src/preferences.c:1893
 msgid "Undo history size"
 msgstr "Cỡ bộ đệm lịch sử"
 
-#: ../src/preferences.c:1901
+#: ../src/preferences.c:1894
 msgid "Clear undo history on save"
 msgstr "Xó bỏ bộ đệm lịch sử khi lưu"
 
-#: ../src/preferences.c:1903
+#: ../src/preferences.c:1896
 msgid "Bookmark options"
 msgstr "Tùy chọn đánh dấu"
 
-#: ../src/preferences.c:1908
+#: ../src/preferences.c:1901
 msgid "Make permanent by default"
 msgstr ""
 
-#: ../src/preferences.c:1910
+#: ../src/preferences.c:1903
 msgid "full path"
 msgstr "đường dẫn đầy đủ"
 
-#: ../src/preferences.c:1910
+#: ../src/preferences.c:1903
 msgid "path from basedir"
 msgstr "đường dẫn từ thư mục chính"
 
-#: ../src/preferences.c:1910
+#: ../src/preferences.c:1903
 msgid "filename"
 msgstr "tập tin"
 
-#: ../src/preferences.c:1911
+#: ../src/preferences.c:1904
 msgid "Bookmarks filename display"
 msgstr "Hiển thị tập tin chứa đánh dấu"
 
-#: ../src/preferences.c:1916
+#: ../src/preferences.c:1909
 msgid "Files"
 msgstr "Tập tin"
 
-#: ../src/preferences.c:1918
+#: ../src/preferences.c:1911
 msgid "Encoding"
 msgstr "Bảng mã"
 
-#: ../src/preferences.c:1930
+#: ../src/preferences.c:1923
 msgid "Default character set"
 msgstr "Bảng mã mặc định"
 
-#: ../src/preferences.c:1936
+#: ../src/preferences.c:1929
 msgid "Backup"
 msgstr "Sao lưu"
 
-#: ../src/preferences.c:1940
+#: ../src/preferences.c:1933
 msgid "Create backup on save"
 msgstr "Sao lưu mỗi khi lưu tài liệu"
 
-#: ../src/preferences.c:1941
+#: ../src/preferences.c:1934
 msgid "Backup file suffix"
 msgstr "Hậu tố sao lưu"
 
-#: ../src/preferences.c:1943
+#: ../src/preferences.c:1936
 msgid "save"
 msgstr "lưu"
 
-#: ../src/preferences.c:1943
+#: ../src/preferences.c:1936
 msgid "abort"
 msgstr "thoát"
 
-#: ../src/preferences.c:1943
+#: ../src/preferences.c:1936
 msgid "ask"
 msgstr "hỏi"
 
-#: ../src/preferences.c:1944
+#: ../src/preferences.c:1937
 msgid "Action on backup failure"
 msgstr "Nếu sao lưu thất bại"
 
-#: ../src/preferences.c:1946
+#: ../src/preferences.c:1939
 msgid "Remove backupfile on close"
 msgstr "Xóa tập tin sao lưu khi thoát"
 
-#: ../src/preferences.c:1950
+#: ../src/preferences.c:1943
 msgid "Misc"
 msgstr "Linh tinh"
 
-#: ../src/preferences.c:1955
+#: ../src/preferences.c:1948
 msgid "Allow multi instances of a file"
 msgstr "Mở cùng một tài liệu ở nhiều cửa sổ"
 
-#: ../src/preferences.c:1957
+#: ../src/preferences.c:1950
 msgid "Open files in already running winefish window"
 msgstr "Mở tài liệu trong cửa sổ Winefish đã mở"
 
-#: ../src/preferences.c:1959
+#: ../src/preferences.c:1952
 msgid "File modified on disk check "
 msgstr "Kiểm tra sự thay đổi tập tin trên đĩa"
 
-#: ../src/preferences.c:1960
+#: ../src/preferences.c:1953
 msgid "Number of files in 'Open recent'"
 msgstr "Số tập tin lưu vào lịch sử Winefish"
 
-#: ../src/preferences.c:1962
+#: ../src/preferences.c:1955
 msgid "File browser"
 msgstr "Cây thư mục"
 
-#: ../src/preferences.c:1966
+#: ../src/preferences.c:1959
 msgid "Default basedir"
 msgstr "Thư mục chính mặc định"
 
-#: ../src/preferences.c:1967
+#: ../src/preferences.c:1960
 msgid "Use separate file and directory view"
 msgstr "Tách riêng tập tin và thư mục"
 
-#: ../src/preferences.c:1968
+#: ../src/preferences.c:1961
 msgid "Unknown icon"
 msgstr "Biểu tượng 'không biết'"
 
-#: ../src/preferences.c:1969
+#: ../src/preferences.c:1962
 msgid "Directory icon"
 msgstr "Biểu tượng thư mục"
 
-#: ../src/preferences.c:1973
+#: ../src/preferences.c:1966
 msgid "User interface"
 msgstr "Giao diện"
 
-#: ../src/preferences.c:1975
+#: ../src/preferences.c:1968
 msgid "Dimensions"
 msgstr "Kích thước"
 
-#: ../src/preferences.c:1979
+#: ../src/preferences.c:1972
 msgid "Restore last used dimensions"
 msgstr "Khôi phục kích thước cũ"
 
-#: ../src/preferences.c:1980
+#: ../src/preferences.c:1973
 msgid "Initial sidebar width"
 msgstr "Chiều rộng sidebar (khởi tạo)"
 
-#: ../src/preferences.c:1981
+#: ../src/preferences.c:1974
 msgid "Initial window height"
 msgstr "Chiều cao cửa sổ (khởi tạo)"
 
-#: ../src/preferences.c:1982
+#: ../src/preferences.c:1975
 msgid "Initial window width"
 msgstr "Chiều rộng cửa sổ (khởi tạo)"
 
-#: ../src/preferences.c:1986
+#: ../src/preferences.c:1979
 msgid "General"
 msgstr "Tổng quát"
 
-#: ../src/preferences.c:1991
+#: ../src/preferences.c:1984
 msgid "Make LaTeX dialogs transient"
 msgstr ""
 
-#: ../src/preferences.c:1993
+#: ../src/preferences.c:1986
 msgid "Notebook tab font (leave empty for gtk default)"
 msgstr "Phông cho notebook (để trống để dùng mặc định)"
 
-#: ../src/preferences.c:1995
+#: ../src/preferences.c:1988
 msgid "Document notebook tab position"
 msgstr "Vị trí của notebook tài liệu"
 
-#: ../src/preferences.c:1996
+#: ../src/preferences.c:1989
 msgid "Sidebar notebook tab position"
 msgstr "Vị trí của notebook sidebar"
 
-#: ../src/preferences.c:1997
+#: ../src/preferences.c:1990
 msgid "Sidebar location"
 msgstr "Ví trí của sidebar"
 
-#: ../src/preferences.c:2001 ../src/preferences.c:2003
+#: ../src/preferences.c:1994 ../src/preferences.c:1996
 msgid "Filetypes"
 msgstr "Kiểu tập tin"
 
-#: ../src/preferences.c:2010
+#: ../src/preferences.c:2003
 msgid "Filefilters"
 msgstr "Lọc tập tin"
 
-#: ../src/preferences.c:2019
+#: ../src/preferences.c:2012
 msgid "Highlighting"
 msgstr "Tô màu"
 
-#: ../src/preferences.c:2021
+#: ../src/preferences.c:2014
 msgid "Patterns"
 msgstr "Biểu thức"
 
-#: ../src/preferences.c:2030
+#: ../src/preferences.c:2023
 msgid "Viewers, Filters"
 msgstr "Trình xem, Lọc"
 
-#: ../src/preferences.c:2032
+#: ../src/preferences.c:2025
 msgid "Viewers"
 msgstr "Trình xem"
 
-#: ../src/preferences.c:2039
+#: ../src/preferences.c:2032
 msgid "Utilities and Filters"
 msgstr "Công cụ, Lọc"
 
-#: ../src/preferences.c:2046 ../src/preferences.c:2069
+#: ../src/preferences.c:2039 ../src/preferences.c:2062
 msgid "Information"
 msgstr "Thông tin"
 
-#: ../src/preferences.c:2051
+#: ../src/preferences.c:2044
 #, c-format
 msgid ""
 "%f: current filename\n"
@@ -2699,43 +2699,43 @@ msgstr ""
 "%o: chỉ tập tin ra (lọc)\n"
 "%%: dấu phần trăm"
 
-#: ../src/preferences.c:2059 ../src/preferences.c:2061
+#: ../src/preferences.c:2052 ../src/preferences.c:2054
 msgid "TeXbox"
 msgstr ""
 
-#: ../src/preferences.c:2078
+#: ../src/preferences.c:2071
 msgid "AutoX"
 msgstr "Thay thế"
 
-#: ../src/preferences.c:2080
+#: ../src/preferences.c:2073
 msgid "Autotext"
 msgstr "Chuỗi thay thế"
 
-#: ../src/preferences.c:2087
+#: ../src/preferences.c:2080
 msgid "Word List (for Autocompletion)"
 msgstr "Chuỗi hoàn thành"
 
-#: ../src/preferences.c:2096
+#: ../src/preferences.c:2089
 msgid "Miscellaneous"
 msgstr "Linh tinh"
 
-#: ../src/preferences.c:2100
+#: ../src/preferences.c:2093
 msgid "Templates Directory"
 msgstr "Thư mục chứa các mẫu"
 
-#: ../src/preferences.c:2109
+#: ../src/preferences.c:2102
 msgid "Column Markers"
 msgstr "Đánh dấu cột"
 
-#: ../src/preferences.c:2114
+#: ../src/preferences.c:2107
 msgid "Marker 1"
 msgstr "Cột 1"
 
-#: ../src/preferences.c:2115
+#: ../src/preferences.c:2108
 msgid "Marker 2"
 msgstr "Cột 2"
 
-#: ../src/preferences.c:2116
+#: ../src/preferences.c:2109
 msgid "Marker 3"
 msgstr "Cột 3"
 
@@ -2975,7 +2975,7 @@ msgstr "Thay thế đúng một lần"
 msgid "Bookmark results"
 msgstr "Đánh dấu kết quả"
 
-#: ../src/winefish.c:109
+#: ../src/winefish.c:106
 #, c-format
 msgid ""
 "\n"
@@ -2984,7 +2984,7 @@ msgstr ""
 "\n"
 "Sử dụng: %s [tùy chọn] [tập tin...]\n"
 
-#: ../src/winefish.c:110
+#: ../src/winefish.c:107
 msgid ""
 "\n"
 "Currently accepted options are:\n"
@@ -2992,60 +2992,56 @@ msgstr ""
 "\n"
 "Các tùy chọn được chấp nhận:\n"
 
-#: ../src/winefish.c:111
+#: ../src/winefish.c:108
 msgid "-s           skip root check\n"
 msgstr "-s           bỏ qua kiểm tra root\n"
 
-#: ../src/winefish.c:112
+#: ../src/winefish.c:109
 msgid "-v           current version\n"
 msgstr "-v           phiên bản hiện tại\n"
 
-#: ../src/winefish.c:113
+#: ../src/winefish.c:110
 msgid "-n 0|1       open new window (1) or not (0)\n"
 msgstr "-n 0|1       tạo cửa sổ mới (1) hoặc không (0)\n"
 
-#: ../src/winefish.c:114
+#: ../src/winefish.c:111
 msgid "-p filename  open project\n"
 msgstr "-p filename  mở dự án\n"
 
-#: ../src/winefish.c:115
+#: ../src/winefish.c:112
 msgid "-l number    set line<number>. Negative value takes no effect.\n"
 msgstr ""
 "-l number    đặt con trỏ vào dòng '<number>'. Số âm không có tác dụng.\n"
 
-#: ../src/winefish.c:116
+#: ../src/winefish.c:113
 msgid "-h           this help screen\n"
 msgstr "-h           thông tin này\n"
 
-#: ../src/winefish.c:193
+#: ../src/winefish.c:190
 msgid "parsing highlighting file..."
 msgstr "đọc cấu hình tô màu..."
 
-#: ../src/winefish.c:204
+#: ../src/winefish.c:201
 msgid "compiling highlighting patterns..."
 msgstr "biên dịch các biểu thứ chính quy tô màu..."
 
-#: ../src/winefish.c:208
+#: ../src/winefish.c:205
 msgid "initialize some other things..."
 msgstr "khởi động vài thứ khác..."
 
-#: ../src/winefish.c:214
+#: ../src/winefish.c:211
 msgid "parsing autotext and words file..."
 msgstr "đọc thông tin về autox..."
 
-#: ../src/winefish.c:219
+#: ../src/winefish.c:216
 msgid "parsing custom menu file..."
 msgstr "đọc thông tin về hệ thống menu..."
 
-#: ../src/winefish.c:225
-msgid "parsing keymap and initializing function list..."
-msgstr ""
-
-#: ../src/winefish.c:242
+#: ../src/winefish.c:230
 msgid "creating main gui..."
 msgstr "tạo giao diện chính..."
 
-#: ../src/winefish.c:253
+#: ../src/winefish.c:241
 msgid "showing main gui..."
 msgstr "hiển thị giao diện chính..."
 
