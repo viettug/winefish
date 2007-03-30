@@ -34,6 +34,8 @@ uninstall:
 	rm -f $(DESTDIR)$(mandir)/man1/winefish.1
 
 clean:
-	rm -f Makefile
+	rm -f winefish.1
 
-distclean: clean
+distclean:
+	rm -f winefish.1
+
