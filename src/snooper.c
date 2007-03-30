@@ -22,17 +22,13 @@
  *
  */
 
-#include "config.h"
-
-#ifndef SNOOPER2
-
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 
 #include "bluefish.h"
 #include "snooper.h"
 
-/* #define SHOW_SNOOPER */
+#define SHOW_SNOOPER
 
 /* UniKey stuff:
  this function will be call twice, once when key is pressed, once when key is released;
@@ -156,5 +152,3 @@ void snooper_install() {
 	main_v->snooper = gtk_key_snooper_install( (GtkKeySnoopFunc) completion_snooper, NULL);
 	main_v->last_kevent = gdk_event_new(GDK_KEY_PRESS);/* requires GLIB 2.2*/
 }
-
-#endif /* SNOOPER2 */
