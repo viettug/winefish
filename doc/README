@@ -1,0 +1,17 @@
+File Description:
+
+* keymap: (testing)
+	since 1.4.0.1 winefish haves another way to store key shortcuts.
+	this keymap is just an example. Copied it to your $HOME/.winefish/
+	and then customize it. For list of functions see `keymap.c'
+
+* winefish.html:
+	this is the generated documentation. Use it or Ignore it!
+	The documentation should be completely rewritten.
+
+* winefish.txt:
+	the source file used to generate winefish.html
+
+* test_brace_finder.tex:
+	almost randomize file to test the brace finder
+

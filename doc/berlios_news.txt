@@ -1,0 +1,455 @@
+------------------------------------------------------------------------
+Posted By: kyanh
+Date: 2006-Oct-10 11:32
+Summary: winefish-1.3.3: debian sarge package
+
+winefish 1.3.3 Debian Sarge package , contributed by ntdt at Vietnamse
+Open Source Software Community (http://vnoss.org/). Download at:
+https://developer.berlios.de/project/showfiles.php?group_id=4105&release_id=9667
+
+Special thanks to ntdt!
+------------------------------------------------------------------------
+Posted By: kyanh
+Date: 2006-May-03 13:58
+Summary: soc2006: summer of code
+
+summer of code and winefish... read here: http://metakyanh.sarovar.org/?cat=soc2006
+------------------------------------------------------------------------
+Posted By: kyanh
+Date: 2006-Apr-10 12:43
+Summary: winefish-1.3.3: RPM for Fedora Core 5
+
+Download here:
+
+http://rpm.vnoss.net/fc5/i386/winefish-1.3.3-1.FC5.i386.rpm
+(old http://people.vnoss.org/~vnpenguin/pub/rpm/FC5/winefish/ )
+
+Special THANKS to vnpenguin ( @http://vnoss.org/ ) for creating theses RPM files.
+------------------------------------------------------------------------
+Posted By: kyanh
+Date: 2006-Apr-05 10:13
+Summary: winefish-1.3.3
+
+this is exactly 1.3.2 + the patch for gtk+2.4 users. The 1.3.3 also fixes
+troubles with some package managements. download:
+http://download.berlios.de/winefish/winefish-1.3.3.tgz
+http://download2.berlios.de/winefish/winefish-1.3.3.tgz
+md5sum:
+http://download.berlios.de/winefish/winefish-1.3.3.tgz.md5sum
+http://download2.berlios.de/winefish/winefish-1.3.3.tgz.md5sum
+
+------------------------------------------------------------------------
+Posted By: kyanh
+Date: 2006-Apr-02 04:43
+Summary: gentoo support for winefish
+
+Michel wrote:
+
+> For all the gentoo user winefish is now in the official portage.
+
+> It is in the unstable branch.
+> To install it just
+
+> 1. emerge --sync
+> 2. echo "app-text/winefish" >> /etc/portage/package.keywords
+> 3. emerge winefish
+
+> If you already use the unstable branch just skip the 2. point.
+
+/end
+
+old message:
+
+> Hi... You can add gentoo to the supported
+> operative system ..
+
+> Just write on the site that there
+> is an ebuild on bugzilla at
+> http://bugs.gentoo.org/show_bug.cgi?id=106164
+
+> to install it just follows the guide
+> http://gentoo-wiki.com/HOWTO_Installing_3rd_Party_Ebuilds
+
+Enjoy!
+------------------------------------------------------------------------
+Posted By: kyanh
+Date: 2006-Apr-01 02:27
+Summary: patch_for_gtk+_24_users
+
+Users of gtk+ version <2.6 cannot compile winefish-1.3.2. The patch fixes this.
+download: http://prdownload.berlios.de/winefish/patch_for_gtk+_24_users.tgz So sorry:(
+------------------------------------------------------------------------
+Posted By: kyanh
+Date: 2006-Mar-28 03:51
+Summary: winefish-1.3.2 (stable)
+
+1.3.2 vs 1.2.1
+* brace finder
+* grep function (file in files)
+* improved outputbox with clone operation
+* template support
+* TeX filter for spell checker
+* column marker (--enable-column-marker when `configure'ing)
+
+* delete latex command directly from popup menu
+* resource file: <homedir>/.winefish/rcfile (former: rcfile2)
+
+* hilight current line
+* new color scheme for syntax hilighting
+* HTML version of documentation (doc/winefish.html)
+* translation: (English,) French, Italian, Vietnamese
+
+* menu reordered
+* toolbars dropped
+* many bugs fixed
+
+* ROADMAP changed
+------------------------------------------------------------------------
+Posted By: kyanh
+Date: 2006-Mar-20 10:52
+Summary: winefish-1.3.2.8a
+
+changes since 1.3.2-RC2:
+* fix BUG#{102-105}
+* outputbox: use 'blue' if exitcode=0 and 'red' if exitcode=1
+------------------------------------------------------------------------
+Posted By: kyanh
+Date: 2006-Mar-12 01:55
+Summary: winefish-1.3.2-RC2
+
+* The outputbox filter was improved so it is a bit faster
+* The three column markers is now customizeable
+* Highlight current line
+* grep_function with "find from files" and "from opened files"
+* Some bugs were fixed
+------------------------------------------------------------------------
+Posted By: kyanh
+Date: 2006-Feb-22 10:29
+Summary: winefish-1.3.2.7c
+
+* hilight currentline
+* column marker (testing)
+* grep_function: find in current file and all opened files
+download:
+http://download.berlios.de/winefish/winefish-1.3.2.7c.tgz
+http://download.berlios.de/winefish/winefish-1.3.2.7c.tgz.md5sum
+------------------------------------------------------------------------
+Posted By: kyanh
+Date: 2006-Feb-17 03:52
+Summary: winefish-1.3.2.7b
+
+* fixed the serious BUG#97
+* others bugs fixed: BUG#{76a,90-93,96-97}
+* download:
+http://download.berlios.de/winefish/winefish-1.3.2.7b.tgz
+http://download.berlios.de/winefish/winefish-1.3.2.7b.tgz.md5sum
+
+enjoy!
+------------------------------------------------------------------------
+Posted By: kyanh
+Date: 2006-Feb-14 03:43
+Summary: Winefish-1.3.2-RC1
+
+Brace Finder was improved since Winefish-1.3.2.6.
+Download: https://developer.berlios.de/project/showfiles.php?group_id=4105&release_id=9022
+------------------------------------------------------------------------
+Posted By: kyanh
+Date: 2006-Feb-11 04:11
+Summary: Winefish-1.3.2.6 released
+
+* Spring/Development release
+* BUGs fixed
+* Template Manager Support
+* Full Feature Brace Finder
+* Documetation Updated
+* Local Support: French, Italian, Vietnamese
+* Outputbox with clone-operation
+* TeX filter for spell checker
+* Improvement...
+------------------------------------------------------------------------
+Posted By: kyanh
+Date: 2006-Jan-31 11:11
+Summary: Forum is up
+
+Using Vanilla... Visit http://winefish.berlios.de/forum/
+------------------------------------------------------------------------
+Posted By: kyanh
+Date: 2006-Jan-31 06:43
+Summary: Winefish 1.3.2.6f released
+
+Winefish 1.3.2.6f has been released.
+
+Features need testing:
+* Advance Find In Files,
+* Templates Support,
+* Paren Matching (Brace Finder)
+( Read `doc/winefish.html' for details )
+
+I meet my holiday's end so this is the
+last step to freeze Winefish 1.3.2.6 :)
+
+Download:
+http://developer.berlios.de/project/filelist.php?group_id=4105
+
+Feel free to try and comment!
+
+Thank you very much for making Winefish live ;)
+------------------------------------------------------------------------
+Posted By: kyanh
+Date: 2006-Jan-30 02:25
+Summary: Brace Finder has been added...
+
+Brace Finder (Matching) has been added (1.3.2.6e)
+
+HotKeys:
+Control ] (forward),
+Control [ (backward)
+
+Below its behavior:
+( L|R: left char, C: current char, |: cursor)
+( a brace: one of []{}() )
+
+- escaped char. will be ignored.
+- char. in a comment line will be ignored.
+- if the char. at cursor is `$': you can
+find the matching forward and backward.
+- if the char. (C) at cursor is a brace, finding
+in two directions are quite different:
+* forward: yes, start finding matched brace
+* backward: first check for the left char (L);
+if it is a brace, start finding matched brace
+from L. If not, start from (C)
+- if the char. (C) is not a brace,
+try for the left char (L).
+
+- the code: `brace_finder.c' uses the `while' loop.
+The search may take a long time. (when the document
+is so long) Could you give alternative?
+
+My english is not very well to express...
+So feel free to test and comment ;)
+
+Download:
+https://developer.berlios.de/project/filelist.php?group_id=4105
+------------------------------------------------------------------------
+Posted By: kyanh
+Date: 2006-Jan-26 15:23
+Summary: Winefish-1.3.2.6(b) released
+
+Fix BUG related to outputbox. Dynamic popup menu for outputbox. Support new option: Save file before running tools.
+
+Read more: CHANGES
+
+Download: http://developer.berlios.de/project/showfiles.php?group_id=4105&release_id=8823
+------------------------------------------------------------------------
+Posted By: kyanh
+Date: 2006-Jan-25 15:05
+Summary: winefish-1.3.2.6(a) released
+
+download: http://download.berlios.de/winefish/winefish-1.3.2.6a.tgz
+
+changes:
+* requires libgtk+-2.0 version >= 2.4
+* fixed BUG#{10,69,70,5689,5869,5990}
+* new features:
+- delete command *directly* from popup menu (autocompletion)
+- 'project mode' (external menu) value is saved automatically
+- added popup menu for outputbox (copy message from current line)
+- TeX filter for spell checker
+- find in files (menu = edit/find, replace/find in files) (requires `find', `grep')
+- documentation: ./doc/winefish.{html,txt}
+
+* improved:
+- reimplemented outputbox's frontend/backend
+(backend: require gtk+-2.4; base on bluefish#20060119)
+- quicklist/table wizard (* print row/column index; * added ding(auto)list *)
+- menu items reordered (better???)
+------------------------------------------------------------------------
+Posted By: kyanh
+Date: 2005-Aug-09 09:51
+Summary: Stop using CVS...
+
+Winefish is going to move from CVS repository to SVN repository. It's better for development.
+
+I will stop committing to CVS repository.
+------------------------------------------------------------------------
+Posted By: kyanh
+Date: 2005-Jul-20 05:13
+Summary: Winefish-1.3.2-5 released
+
+Dowload:
+https://developer.berlios.de/project/showfiles.php?group_id=4105&release_id=6574
+
+Winefish 1.3.2-5
+================
+
+* BUGS fixed:
+- Major BUGS#{57,54,50}
+- Minor BUGS#{62,59,58,56,55,49,48,47,46,44}
+
+* (NEW) ConTeXT support:
+- Beta/testing. Require "--with-context" while "./configure"ing
+- Filetype, hilight
+- Autocompletion [ \start...\stop, \begin...\end ]
+- Table wizard [ natural table only ]
+As I do*NOT* know conTeXT, your requests are highly appreciated!
+
+* Autocompletion:
+- FIXED: BUGS#55
+- (NEW) Collector: new command/environment will be added
+automatically to the database [ ~/.winefish/words_s ]
+*WARNING* the file is bigger day by day :)
+FIXME: Winefish eats also '\\notacommand'
+TODO: add to Preferences Page [ A page for session words ]
+- If the result of completion contains *ONLY* one command:
+= The popup menu will be hidden automatically
+[ if the user's input equals to the result in popup menu ]
+It may be activated when you press CTRL + Space :)
+= You can hide the popdown menu by the (Page)Up/Down keys
+- Duplicate entries will be ignored when Winefish starts.
+TODO: do this *ONLY* once -- as the feature may slow down Winefish.
+An option may be added -- bigger Winefish :(
+- The autocompletion starts (automatically) *ONLY* if at least three
+characters are typed (includes the backslash: \xy).
+Anytime, press CTRL + Space!
+- The mininum width of popdown menu was enlarged [ 64 => 100 ]
+
+* Outputbox:
+- Behavior changed: If a tool is set 'Show all output', the box will
+*NOT* scroll automatically. Why? 'Show all output' may produce to many
+lines and scrolling in this case will slow down the fish. 'cat' is a
+example. An option may be added in Winefish-1.3.2-7. Within the fix,
+'cat' is as fast as you want :)
+- For maximum space, the header of treeview was hidden.
+- 'Close' icon was placed on the upper left corner [ more beautiful :) ]
+- When main GUI is resized, the outputbox is resized too.
+FIXME: not correct if window state changes
+
+* Autotext:
+- Autoindent supported. Winefish will append the 'indent' string
+to any '\n' characters of after/before string. I think this is GOOD,
+but it may make you tedious ;)
+
+* Hilight Syntax:
+- Updated [ almost new syntax|color ]
+- Fresh color
+- Bugs fixed
+- (NEW) conTeXt hilight syntax [ testing ]
+
+* LaTeX code:
+- Removed preformat items for: split, cases environment
+- Table: the '&' character will be vetically aligned
+TODO: edit table's items within the wizard
+
+* GUI:
+- Default mode is "Experience". See below.
+- Sidebar, Main Toolbar, LaTeX Toolbar, Custom Menu are hidden by default
+- The values of 'View/*' will be stored as global session variable.
+This mean that they are (re)stored per session.
+- Last change of 'Document/Line numbers' will be stored as session variable.
+- Menu reordered: '/Edit/{Save Settings, Preferences}' => '/?/*'
+FIXME: cannot add '/?/tearoff1'
+- There are*NOT* any submenus in '/External/'
+
+* The fish:
+- (NEW) splash screen [ Keep It Simple and Stupid ]
+- The fish is still blue. I need another one.
+[ So the fish does*NOT* live in the Splash ]
+
+* Documentation:
+- (NEW) Added 'doc/TIPS'
+- The files 'doc/*.pdf' are removed from source directory --
+we may create a new package 'winefish-doc'.
+FIXME: The documation is 'out-of-date'.
+
+* Translation:
+- vi: typo fixed [ Thanks to VnPenguin at http://vnoss.org/ ]
+- it: updated
+
+* Stuff:
+- Disabled empty QuickBar warning.
+This may be considered as a TIPS -- addto documentation.
+- Code optmized: use (strncmp) instead of (strcmp) some places
+- (NEW) hilight: CHANGES, TODO, context
+I donot why these are needed. May be fun?
+At least I can read my CHANGES very very easily :)
+- Updated: THANKS, TODO, AUTHORS, README, and CHANGES :)
+- Added ROADMAP
+------------------------------------------------------------------------
+Posted By: kyanh
+Date: 2005-Jul-08 05:39
+Summary: Winefish-1.3.2-4 released
+
+This is a development release.
+
+Download:
+* ftp://ftp.berlios.de/pub/winefish/
+* ftp://ftp.berlios.de/pub/winefish/winefish-1.3.2-4.tar.gz
+* ftp://ftp.berlios.de/pub/winefish/winefish-1.3.2-4.tar.gz.md5sum
+
+
+CHANGES:
+* Major BUGS (outputbox) fixed
+* Minor BUGS fixed
+* Menu added: /External/Stop [ to cancel a tool ]
+* Autocompletion improved
+* Hilight the outputbox
+* Main menu: reordered
+* Translation completed: Vietnamese
+
+Feel free to test and feedback!
+------------------------------------------------------------------------
+Posted By: kyanh
+Date: 2005-Jul-08 04:50
+Summary: Vacation
+
+From July 11 until July 20 I will be on vacation and may be unavailable to answer any winefish's stuff.
+
+If you have trouble with Winefish 1.2.1, feel free to get the latest
+development version -- some bugs may be fixed. Visit the home page for more details.
+
+Sorry and thank you!
+------------------------------------------------------------------------
+Posted By: kyanh
+Date: 2005-Jul-06 05:30
+Summary: Winefish-1.3.2-3 released
+
+This is a development release.
+
+Download:
+* ftp://ftp.berlios.de/pub/winefish/
+* ftp://ftp.berlios.de/pub/winefish/winefish-1.3.2-3.tar.gz
+
+CHANGES:
+* Major BUGS (outputbox) fixed
+* Minor BUGS fixed
+* Menu added: /External/Stop [ to cancel a tool ]
+* Autocompletion improved
+* Hilight the outputbox
+* Main menu: reordered
+* Translation completed: Vietnamese
+------------------------------------------------------------------------
+Posted By: kyanh
+Date: 2005-Jul-01 05:21
+Summary: Home page updated!
+
+The home page was updated.
+
+The forum was added. Try http://winefish.berlios.de/forum/
+
+Thanks to http://minibb.net/ for a cool bb.
+------------------------------------------------------------------------
+Posted By: kyanh
+Date: 2005-Jun-30 08:55
+Summary: Anonymous FTP Space
+
+The homepage has been updated. The FTP space is availabe. You can download
+hear the dev version of Winefish. The package "winefish-devel" is hidden.
+
+ftp://ftp.berlios.de/pub/winefish/
+------------------------------------------------------------------------
+Posted By: kyanh
+Date: 2005-Jun-29 05:15
+Summary: Project is now hosted by Berlios.de
+
+Thanks to Berlios.de -- who provides a fast and powerful service for OSS project.
