@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: outputbox_bf.h 37 2006-01-26 08:44:08Z kyanh $ */
 
 /* Winefish LaTeX Editor (based on Bluefish)
  * external_commands.c - backend for external commands, filters and the outputbox

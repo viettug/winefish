@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: snooper2.h 527 2006-04-29 12:00:41Z kyanh $ */
 
 #ifndef __SNOOPER2_H__
 #define __SNOOPER2_H__

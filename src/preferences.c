@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: preferences.c 401 2006-03-31 14:50:34Z kyanh $ */
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * preferences.c the preferences code
  *

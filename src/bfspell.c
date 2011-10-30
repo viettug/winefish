@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: bfspell.c 619 2006-05-24 03:33:50Z kyanh $ */
 
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * bfspell.c - aspell spell checker

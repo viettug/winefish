@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: wizards.c 139 2006-02-08 07:55:35Z kyanh $ */
 
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * wizards.c - much magic is contained within

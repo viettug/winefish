@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: outputbox_bf.c 399 2006-03-28 12:35:05Z kyanh $ */
 
 /* Winefish LaTeX Editor (based on Bluefish)
  * external_commands.c - backend for external commands, filters and the outputbox
@@ -79,7 +79,7 @@ static void externalp_unref(Texternalp *ep) {
 			unlink(ep->inplace);
 			g_free(ep->inplace);
 		}
-		
+
 		if (ep->buffer_out) g_free(ep->buffer_out);
 		if (ep->securedir) {
 			rmdir(ep->securedir);
@@ -192,7 +192,7 @@ static void start_command_backend(Texternalp *ep) {
 				NULL,&error);
 	ep->refcount++;
 	g_child_watch_add(ep->child_pid,child_watch_lcb,ep);
-	
+
 	if (error) {
 		DEBUG_MSG("start_command, there is an error!!\n");
 	}
@@ -226,7 +226,7 @@ static void start_command_backend(Texternalp *ep) {
 		g_io_add_watch(ep->channel_out, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP,ep->channel_out_lcb,ep->channel_out_data);
 		OUTPUTBOX(ep->ob)->OB_FETCHING = OB_GO_FETCHING;
 	}
-	
+
 }
 
 static void start_command(Texternalp *ep) {
@@ -311,7 +311,7 @@ static gboolean outputbox_io_watch_lcb(GIOChannel *channel,GIOCondition conditio
 	}
 	if (ob->OB_FETCHING == OB_IS_FETCHING) {
 		ob->OB_FETCHING = OB_GO_FETCHING;
-	}	
+	}
 	return TRUE;
 }
 
@@ -335,7 +335,7 @@ void run_command(Toutputbox *ob) {
 			chdir( tmpstring );
 			g_free( tmpstring );
 		}
-		
+
 		Texternalp *ep;
 		/* menuitem_set_sensitive(ob->bfwin->menubar, N_("/External/Stop..."), TRUE); */
 		outputbox_set_status(ob, TRUE, FALSE);
@@ -364,7 +364,7 @@ void run_command(Toutputbox *ob) {
 		ep->ob = ob;
 
 		start_command(ep);
-		/*	
+		/*
 	} else {
 		ob->OB_FETCHING = OB_IS_READY;
 		outputbox_message( ob, _("tool canceled."), "b" );

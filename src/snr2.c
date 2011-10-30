@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: snr2.c 68 2006-01-27 17:33:08Z kyanh $ */
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * snr2.c - rewrite of search 'n replace functions
  *

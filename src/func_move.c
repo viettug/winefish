@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: func_move.c 594 2006-05-02 13:47:00Z kyanh $ */
 
 /* Winefish LaTeX Editor (based on Bluefish)
  *

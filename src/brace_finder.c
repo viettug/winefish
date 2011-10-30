@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: brace_finder.c 480 2006-04-28 04:55:44Z kyanh $ */
 
 /* Winefish LaTeX Editor
  *

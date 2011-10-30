@@ -1,4 +1,4 @@
-/* $Id$
+/* $Id: snooper2.c 610 2006-05-21 08:50:10Z kyanh $
  *
  * lykey, demo gtk-program with emacs-key style
  *

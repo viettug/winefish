@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: winefish.c 666 2007-04-03 00:22:17Z kyanh $ */
 
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  *
@@ -190,7 +190,7 @@ int main(int argc, char *argv[])
 #ifndef NOSPLASH
 	/* start splash screen somewhere here */
 	splash_window = start_splash_screen();
-	splash_screen_set_label(_("parsing highlighting file..."));
+	splash_screen_set_label(_("winefish: parsing highlighting file..."));
 #endif /* #ifndef NOSPLASH */
 
 	{
@@ -201,28 +201,28 @@ int main(int argc, char *argv[])
 	rcfile_parse_global_session();
 	rcfile_parse_highlighting();
 #ifndef NOSPLASH
-	splash_screen_set_label(_("compiling highlighting patterns..."));
+	splash_screen_set_label(_("winefish: compiling highlighting patterns..."));
 #endif /* #ifndef NOSPLASH */
 	hl_init();
 #ifndef NOSPLASH
-	splash_screen_set_label(_("initialize some other things..."));
+	splash_screen_set_label(_("winefish: initializing some other things..."));
 #endif /* #ifndef NOSPLASH */
 	filebrowserconfig_init();
 	filebrowser_filters_rebuild();
 	autoclosing_init();
 #ifndef NOSPLASH
-	splash_screen_set_label(_("parsing autotext and words file..."));
+	splash_screen_set_label(_("winefish: parsing autotext and words file..."));
 #endif /* #ifndef NOSPLASH */
 	autotext_init();
 	completion_init();
 #ifndef NOSPLASH
-	splash_screen_set_label(_("parsing custom menu file..."));
+	splash_screen_set_label(_("winefish: parsing custom menu file..."));
 #endif /* #ifndef NOSPLASH */
 	rcfile_parse_custom_menu(FALSE,FALSE);
 
 #ifdef SNOOPER2
 #ifndef NOSPLASH
-	splash_screen_set_label(_("parsing keymap and initializing function list..."));
+	splash_screen_set_label(_("winefish: parsing keymap and initializing function list..."));
 #endif /* #ifndef NOSPLASH */
 	funclist_init();
 	keymap_init();
@@ -239,7 +239,7 @@ int main(int argc, char *argv[])
 	}
 #endif /* WITH_MSG_QUEUE */
 #ifndef NOSPLASH
-	splash_screen_set_label(_("creating main gui..."));
+	splash_screen_set_label(_("winefish: creating main gui..."));
 #endif /* #ifndef NOSPLASH */
 
 	/* create the first window */
@@ -250,7 +250,7 @@ int main(int argc, char *argv[])
 	gui_create_main(firstbfwin, filenames, linenumber);
 	bmark_reload(firstbfwin);
 #ifndef NOSPLASH
-	splash_screen_set_label(_("showing main gui..."));
+	splash_screen_set_label(_("winefish: showing main gui..."));
 #endif /* #ifndef NOSPLASH */
 
 	/* set GTK settings, must be AFTER the menu is created */

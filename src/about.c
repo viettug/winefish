@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: about.c 668 2007-04-03 01:36:08Z kyanh $ */
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * about.c
  *
@@ -31,9 +31,11 @@
 #include "about.h"
 #include "gtk_easy.h"
 
+/*
 #ifndef FUNC_GREP_RECURSIVE_MAX_DEPTH
 #define FUNC_GREP_RECURSIVE_MAX_DEPTH "none"
 #endif
+*/
 
 static GtkWidget *info;
 
@@ -58,34 +60,30 @@ void about_dialog_create(gpointer * data, guint * callback_action, GtkWidget * w
 	/* GdkColor color; */
 	
 	gchar *INFO =g_strdup_printf( _(\
-"Winefish LaTeX Editor (based on Bluefish)\n\
-\n\
-* home: http://winefish.berlios.de/\n\
-* open source development project\n\
-* released under the GPL license\n\
-\n\
+"\
+* full name:  Winefish LaTeX Editor\n\
+* based on Bluefish HTML Editor\n\
+* home page: http://winefish.berlios.de/\n\
+* license: GPL\n\
 * version: %s\n\
-* maximum length\n    latex command: %d\n    autotext command: %d\n\
-* recursive grep: %s\n\
-* delimiters:\n    %s\n\
-* configured:\n    $%s\n"),
-	VERSION,
-	COMMAND_MAX_LENGTH, AUTOTEXT_MAX_LENGTH,
-	FUNC_GREP_RECURSIVE_MAX_DEPTH,
-	DELIMITERS,
-	CONFIGURE_OPTIONS);
-gchar *AUTHORS = _(\
-"developers:\n\
+* configured: %s\n"),
+		VERSION,
+		CONFIGURE_OPTIONS);
+
+	gchar *AUTHORS = _(\
+"\
 * kyanh <kyanh@viettug.org>\n\
-\n\
-translators:\n\
+* Michele Mattioni <mattions@gmail.com>\n\
+");
+
+	gchar *TRANSLATOR = _(\
+"\
 * French: Michèle Garoche <michele.garoche@easyconnect.fr>\n\
 * Italian: Daniele Medri <daniele@medri.org>\n\
 * Vietnamese: kyanh <kyanh@viettug.org>\n\
-\n\
-THANKS to all who helped making this software available.\n\
 ");
-	info = window_full2(_("About Winefish"), GTK_WIN_POS_CENTER, 6
+
+	info = window_full2(_("About..."), GTK_WIN_POS_CENTER, 6
 			,G_CALLBACK(about_dialog_close_lcb),NULL, TRUE, NULL);
 	gtk_window_set_resizable(GTK_WINDOW(info), FALSE);
 	gtk_widget_set_size_request(GTK_WIDGET(info), 345, -1);
@@ -97,6 +95,8 @@ THANKS to all who helped making this software available.\n\
 	*/
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(info), vbox2);
+
+	/*
 	{
 		GError *error=NULL;
 		GtkWidget *image;
@@ -109,22 +109,23 @@ THANKS to all who helped making this software available.\n\
 			gtk_box_pack_start(GTK_BOX(vbox2), image, FALSE, FALSE, 0);
 			g_object_unref(pixbuf);
 		}
-	}
+	}*/
 
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox2), vbox, TRUE, TRUE, 0);
 
 	/* the notebook */
 	notebook = gtk_notebook_new();
-	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(notebook), GTK_POS_BOTTOM);
+	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(notebook), GTK_POS_TOP);
 
 	/* add pages */
 	/* I1 = g_strconcat(INFO, CONFIGURE_OPTIONS, NULL); */
-	add_page(GTK_NOTEBOOK(notebook), _("info"), INFO, TRUE);
+	add_page(GTK_NOTEBOOK(notebook), _("winefish"), INFO, TRUE);
 	/* g_free(I1); */
 	g_free(INFO);
 
 	add_page(GTK_NOTEBOOK(notebook), _("authors"), AUTHORS, TRUE);
+	add_page(GTK_NOTEBOOK(notebook), _("translators"), TRANSLATOR, TRUE);
 	
 	gtk_box_pack_start(GTK_BOX(vbox), notebook, TRUE, TRUE, 0);
 
@@ -136,6 +137,7 @@ THANKS to all who helped making this software available.\n\
 	info_ok_button = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
 	GTK_WIDGET_SET_FLAGS(info_ok_button, GTK_CAN_DEFAULT);
 	}*/
+
 	info_ok_button = bf_allbuttons_backend(_("oops..."), FALSE, 0, G_CALLBACK(about_dialog_close_lcb), info);
 	gtk_box_pack_start(GTK_BOX(hbox), info_ok_button, FALSE, FALSE, 0);
 	GTK_WIDGET_SET_FLAGS(info_ok_button, GTK_CAN_DEFAULT);

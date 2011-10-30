@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: fref.c 140 2006-02-08 07:56:03Z kyanh $ */
 /* 
  * fref.c - function reference file
  * Modified for Winefish (C) 2005 Ky Anh <kyanh@o2.pl>

@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: bookmark.c 631 2007-03-30 17:14:06Z kyanh $ */
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor) - bookmarks
  *
  * Copyright (C) 2003 Oskar Swida

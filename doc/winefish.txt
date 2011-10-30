@@ -1,6 +1,6 @@
 <HTML>
 <!--
-$Id$
+$Id: winefish.txt 620 2006-05-24 03:35:02Z kyanh $
 Winefish Documentation
 Format: KTML
 Convert: k2h winefish.txt > winefish.html
@@ -611,6 +611,6 @@ This HTML file was generated from B(winefish.txt) by B(k2h) program.
 I may say B(I love \TeX) but I wrote this document in KTML format ;\)
 
 <BR>
-<p class="svnid">GRAY($Id$)</p>
+<p class="svnid">GRAY($Id: winefish.txt 620 2006-05-24 03:35:02Z kyanh $)</p>
 </BODY>
 </HEAD>

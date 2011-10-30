@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: html.c 440 2006-04-22 11:46:42Z kyanh $ */
 
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * html.c - menu/toolbar callbacks, inserting functions, and other cool stuff 

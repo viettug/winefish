@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: bfspell.h 608 2006-05-21 06:36:01Z kyanh $ */
 /*
  * Modified for Winefish (C) 2005 Ky Anh <kyanh@o2.pl>
  */

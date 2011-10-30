@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: func_zoom.c 599 2006-05-02 16:12:09Z kyanh $ */
 
 /* Winefish LaTeX Editor (based on Bluefish)
  *

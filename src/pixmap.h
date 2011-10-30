@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: pixmap.h 631 2007-03-30 17:14:06Z kyanh $ */
 /*
  * Modified for Winefish (C) Ky Anh <kyanh@o2.pl>
  */

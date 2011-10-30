@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: func_grep.h 628 2007-03-30 17:10:04Z kyanh $ */
 
 #ifndef __FUNC_GREP_H_
 #define __FUNC_GREP_H_

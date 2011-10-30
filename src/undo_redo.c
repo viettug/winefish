@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: undo_redo.c 631 2007-03-30 17:14:06Z kyanh $ */
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  *
  * undo_redo.c - imrpoved undo/redo functionality

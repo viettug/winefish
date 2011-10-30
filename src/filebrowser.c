@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: filebrowser.c 399 2006-03-28 12:35:05Z kyanh $ */
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * filebrowser.c the filebrowser
  *

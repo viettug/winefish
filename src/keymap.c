@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: keymap.c 618 2006-05-24 03:33:22Z kyanh $ */
 
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * outputbox.c the output box

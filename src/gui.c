@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: gui.c 654 2007-04-02 00:41:38Z kyanh $ */
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * gui.c - the main GUI
  *
@@ -945,7 +945,7 @@ void splash_screen_set_label(gchar *label) {
 
 GtkWidget *start_splash_screen() {
 	static struct timespec const req = { 0, 100000000};
-	GtkWidget *image, *vbox;
+	GtkWidget /* *image, */ *vbox;
 	GdkColor color;
 
 	splashscreen.window = window_with_title(CURRENT_VERSION_NAME, GTK_WIN_POS_CENTER_ALWAYS, 0);
@@ -965,6 +965,7 @@ GtkWidget *start_splash_screen() {
 	splashscreen.label = gtk_label_new(_("starting winefish"));
 	gtk_box_pack_end(GTK_BOX(vbox),splashscreen.label , FALSE, FALSE, 0);
 	gtk_widget_show(splashscreen.label);
+	/*
 	{
 		GError *error=NULL;
 		GdkPixbuf* pixbuf= gdk_pixbuf_new_from_file(WINEFISH_SPLASH_FILENAME,&error);
@@ -978,7 +979,7 @@ GtkWidget *start_splash_screen() {
 			gtk_widget_show(image);
 		}
 	}
-
+	*/
 	gtk_widget_show(splashscreen.window);
 	flush_queue();
 	DEBUG_MSG("start_splash_screen, should be visible\n");

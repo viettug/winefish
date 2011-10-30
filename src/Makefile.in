@@ -72,12 +72,10 @@ msg_queue.c \
 outputbox.c \
 outputbox_bf.c \
 outputbox_filter.c \
-outputbox_ka.c \
 pixmap.c \
 preferences.c \
 project.c \
 rcfile.c \
-snooper.c \
 snooper2.c \
 snr2.c \
 stringlist.c \

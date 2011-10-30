@@ -87,7 +87,7 @@ install-nls:
 install: src/winefish ${INSTALLMAIN}
 	pkgdatadir=@pkgdatadir@
 	$(INSTALL_DIR) $(DESTDIR)$(pkgdatadir)
-	$(INSTALL_DATA) images/winefish_splash.png $(DESTDIR)$(pkgdatadir)
+#	$(INSTALL_DATA) images/winefish_splash.png $(DESTDIR)$(pkgdatadir)
 	$(INSTALL_DIR) $(DESTDIR)$(docdir)
 	$(INSTALL_DATA) doc/winefish.html $(DESTDIR)$(docdir)
 #	$(INSTALL_DATA) doc/winefish.txt $(DESTDIR)$(docdir)
@@ -102,9 +102,9 @@ uninstall:
 	@cd po/ && $(MAKE) uninstall
 	@cd data/ && $(MAKE) uninstall
 	@cd man/ && $(MAKE) uninstall
-	rm -f $(pkgdatadir)/winefish_splash.png
-	rm -f $(pkgdatadir)/winefish_splash.png
-	rm -f $(pkgdatadir)/winefish_splash.png
+#	rm -f $(pkgdatadir)/winefish_splash.png
+#	rm -f $(pkgdatadir)/winefish_splash.png
+#	rm -f $(pkgdatadir)/winefish_splash.png
 	rm -f $(iconpath)/winefish-icon.png
 	rm -f $(docdir)/winefish.html
 #	rm -f $(docdir)/winefish.txt

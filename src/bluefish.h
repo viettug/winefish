@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: bluefish.h 617 2006-05-24 03:32:58Z kyanh $ */
 
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * bluefish.h - global prototypes

@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: func_grep.c 544 2006-04-29 14:12:50Z kyanh $ */
 
 /* Winefish LaTeX Editor (based on Bluefish)
  *

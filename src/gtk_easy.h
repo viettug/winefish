@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: gtk_easy.h 80 2006-01-28 09:59:34Z kyanh $ */
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  *
  * Copyright (C) 1999-2004 Olivier Sessink

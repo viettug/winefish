@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: outputbox_filter.c 399 2006-03-28 12:35:05Z kyanh $ */
 
 /* Winefish LaTeX Editor
  *

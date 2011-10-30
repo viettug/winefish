@@ -23,12 +23,12 @@ AC_CONFIG_SRCDIR(src/winefish.c)
 AC_CONFIG_HEADER(src/config.h)
 
 PACKAGE=winefish
-VERSION=1.4.0.1
+VERSION=1.4.0-svn
 AC_SUBST(PACKAGE)
 AC_SUBST(VERSION)
 AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
 AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
-AC_DEFINE_UNQUOTED(CURRENT_VERSION_NAME, "$PACKAGE $VERSION LaTeX editor")
+AC_DEFINE_UNQUOTED(CURRENT_VERSION_NAME, "$PACKAGE $VERSION")
 AC_DEFINE_UNQUOTED(CONFIGURE_OPTIONS, "$0 $*")
 
 # these are the languages that will be installed, so these should be finished
@@ -593,18 +593,18 @@ AC_ARG_ENABLE(column-marker,
 	AC_DEFINE(ENABLE_COLUMN_MARKER)
 	],)
 
-#AC_ARG_WITH(vte-terminal,
-#	AC_HELP_STRING([--with-vte-terminal],[enable VTE terminal]),[
-#		echo -n "checking for vte... "
-#		if pkg-config --exists vte; then
-#			LIBS="$LIBS `pkg-config --libs vte`"
-#			CFLAGS="$CFLAGS `pkg-config --cflags vte`"
-#			AC_DEFINE(HAVE_VTE_TERMINAL)
-#			echo "yes"
-#		else
-#			echo "no"
-#		fi
-#	],)
+AC_ARG_WITH(vte-terminal,
+	AC_HELP_STRING([--with-vte-terminal],[enable VTE terminal]),[
+		echo -n "checking for vte... "
+		if pkg-config --exists vte; then
+			LIBS="$LIBS `pkg-config --libs vte`"
+			CFLAGS="$CFLAGS `pkg-config --cflags vte`"
+			AC_DEFINE(HAVE_VTE_TERMINAL)
+			echo "yes"
+		else
+			echo "no"
+		fi
+	],)
 
 # kyanh ################################
 

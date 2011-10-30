@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: document.h 630 2007-03-30 17:12:58Z kyanh $ */
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * document.h - global function for document handling
  *

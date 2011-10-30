@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: document.c 671 2010-01-10 10:52:48Z kyanh $ */
 
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
 * document.c - the document
@@ -3407,12 +3407,7 @@ void docs_new_from_files( Tbfwin *bfwin, GList * file_list, gboolean move_to_thi
 		tmplist = g_list_next( tmplist );
 	}
 	if ( errorlist ) {
-		gchar * message, *tmp;
-		tmp = stringlist_to_string( errorlist, "\n" );
-		message = g_strconcat( _( "These files could not opened:\n\n" ), tmp, NULL );
-		g_free( tmp );
-		warning_dialog( bfwin->main_window, _( "Unable to open file(s)\n" ), message );
-		g_free( message );
+		statusbar_message(bfwin, _( "Unable to open file(s)" ), 2000);
 	}
 	free_stringlist( errorlist );
 	

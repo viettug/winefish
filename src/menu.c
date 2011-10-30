@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: menu.c 564 2006-04-30 01:09:30Z kyanh $ */
 
 /* Copyright (C) 1998-2000 Olivier Sessink, Chris Mazuc and Roland Steinbach
  * Copyright (C) 2000-2002 Olivier Sessink and Roland Steinbach

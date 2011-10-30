@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: snooper.h 627 2007-03-30 17:09:14Z kyanh $ */
 
 /* Winefish LaTeX Editor
  * 

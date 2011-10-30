@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: outputbox_filter.h 37 2006-01-26 08:44:08Z kyanh $ */
 
 /* Winefish LaTeX Editor (based on Bluefish)
  * Copyright (C) 2006 kyanh <kyanh@o2.pl>

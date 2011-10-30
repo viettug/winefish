@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: func_delline.c 566 2006-04-30 01:13:01Z kyanh $ */
 
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  *

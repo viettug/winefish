@@ -41,11 +41,11 @@ FUNCREFFILES = funcref_symbols.xml funcref_packages.xml funcref_bib.xml
 all: $(DEFAULTFILES)
 	sed -e 's!ICONDIR!$(ICONPATH)!' < winefish.desktop.in > winefish.desktop
 	sed -e 's!ICONDIR!$(ICONPATH)!' < winefish-project.desktop.in > winefish-project.desktop
-	if test "x${HAVE_GNOME_VFS}" = "x1" ; then \
-		sed -e 's!EXPECT_URIS!true!' -e 's!SUPPORTED_URI_SCHEMES!file,http,ftp,sftp,smb!' < winefish.applications.in > winefish.applications ;\
-	else \
+#	if test "x${HAVE_GNOME_VFS}" = "x1" ; then \
+#		sed -e 's!EXPECT_URIS!true!' -e 's!SUPPORTED_URI_SCHEMES!file,http,ftp,sftp,smb!' < winefish.applications.in > winefish.applications ;\
+#	else \
 		sed -e 's!EXPECT_URIS!false!' -e 's!SUPPORTED_URI_SCHEMES!!' < winefish.applications.in > winefish.applications ;\
-	fi
+#	fi
 
 install-gnome1-menu:
 	$(INSTALL_DIR) $(DESTDIR)$(GNOME1MENU)

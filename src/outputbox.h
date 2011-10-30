@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: outputbox.h 399 2006-03-28 12:35:05Z kyanh $ */
 
 /* void outputbox_init(Tbfwin *bfwin,GtkWidget *vbox); */
 

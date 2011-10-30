@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: func_comment.c 532 2006-04-29 12:22:13Z kyanh $ */
 
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  *

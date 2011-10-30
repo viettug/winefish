@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: bf_lib.h 631 2007-03-30 17:14:06Z kyanh $ */
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  * bf_lib.h - non-GUI general functions
  *

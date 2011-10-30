@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: func_complete.c 586 2006-05-01 04:40:49Z kyanh $ */
 
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  *

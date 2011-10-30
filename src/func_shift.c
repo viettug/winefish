@@ -1,4 +1,4 @@
-/* $Id$ */
+/* $Id: func_shift.c 439 2006-04-22 11:41:48Z kyanh $ */
 
 /* Winefish LaTeX Editor (based on Bluefish HTML Editor)
  *
