@@ -1,14 +1,14 @@
-# translation of fr.po to 
-# French locale definition for Winefish.
+# translation of de.po to 
+# German locale definition for Winefish.
 # Copyright (C) 2003, 2006 Free Software Foundation, Inc.
-# Michèle Garoche <michele.garoche@easyconnect.fr>, 2006.
+# Chris Neuner <cneuner@yahoo.de>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: winefish-1.3.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-04-23 08:49+0700\n"
-"PO-Revision-Date: 2011-12-23 22:15+0100\n"
+"PO-Revision-Date: 2011-12-23 22:18+0100\n"
 "Last-Translator: Chris Neuner <cneuner@yahoo.de>\n"
 "Language-Team: deutsch\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: German\n"
 "X-Poedit-Country: GERMANY\n"
-"X-Poedit-Bookmarks: 328,421,-1,-1,-1,-1,-1,-1,-1,-1\n"
 
 #: ../src/about.c:60
 #, c-format
