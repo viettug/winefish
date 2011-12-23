@@ -1,4 +1,4 @@
-# German translation of Winefish
+# German translation of Winefish.
 # German locale definition for Winefish.
 # Copyright (C) 2003, 2006 Free Software Foundation, Inc.
 # Chris Neuner <cneuner@yahoo.de>, 2011.
