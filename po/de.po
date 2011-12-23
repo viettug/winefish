@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: winefish-1.3.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-04-23 08:49+0700\n"
-"PO-Revision-Date: 2011-12-22 22:58+0100\n"
+"PO-Revision-Date: 2011-12-23 22:15+0100\n"
 "Last-Translator: Chris Neuner <cneuner@yahoo.de>\n"
 "Language-Team: deutsch\n"
 "MIME-Version: 1.0\n"
@@ -111,7 +111,7 @@ msgstr "Überprüfe"
 
 #: ../src/bfspell.c:441
 msgid "_Misspelled word:"
-msgstr "_Misspelled word:"
+msgstr "_falsch geschriebenes Wort:"
 
 #: ../src/bfspell.c:445
 msgid "Change _to:"
@@ -512,7 +512,7 @@ msgstr "Nicht speicher_n"
 #: ../src/document.c:4202
 #: ../src/project.c:371
 msgid "If you don't save your changes they will be lost."
-msgstr "Alle ungespeicherten Änderungen gehen verloren."
+msgstr "Alle ungespeicherten Änderungen werden verworfen."
 
 #: ../src/document.c:3627
 msgid "/Document/Line Numbers"
@@ -1908,7 +1908,7 @@ msgstr "/Hilfe/_Einstellungen"
 
 #: ../src/menu.c:705
 msgid "/Document/Document Type"
-msgstr "/Document/Type de document"
+msgstr "/Dokument/Dokumenttyp"
 
 #: ../src/menu.c:765
 msgid "/View/View Custom Menu"
@@ -1916,18 +1916,18 @@ msgstr "/Ansicht/Zeige benutzerdefiniertes Menü"
 
 #: ../src/menu.c:766
 msgid "/View/View Sidebar"
-msgstr "/Affichage/Afficher le panneau latéral"
+msgstr "/Ansicht/Zeige Seitenleiste"
 
 #: ../src/menu.c:767
 msgid "/Document/Auto Indent"
-msgstr "/Document/Indentation automatique"
+msgstr "/Dokument/Automatisches Einrücken"
 
 #: ../src/menu.c:768
 #: ../src/project.c:229
 #: ../src/project.c:231
 #: ../src/project.c:233
 msgid "/External/Project mode"
-msgstr "/Externe/Mode Projet"
+msgstr "/Extern/Projektmodus"
 
 #: ../src/menu.c:799
 msgid "output"
@@ -1935,31 +1935,31 @@ msgstr "Ausgabe"
 
 #: ../src/menu.c:847
 msgid "loading file(s)..."
-msgstr "Chargement des fichiers..."
+msgstr "lade Datei(en)..."
 
 #: ../src/menu.c:851
 msgid "The filename was:\n"
-msgstr "Le nom du fichier était :\n"
+msgstr "Der Dateiname war:\n"
 
 #: ../src/menu.c:852
 msgid "Could not open file\n"
-msgstr "Impossible d'ouvrir le fichier\n"
+msgstr "Konnte Datei nicht öffnen\n"
 
 #: ../src/menu.c:875
 msgid "/Project/Open Recent"
-msgstr "/Projet/Récemment ouvert"
+msgstr "/Projekt/_Zuletzt geöffnet"
 
 #: ../src/menu.c:879
 msgid "/File/Open Recent"
-msgstr "/Fichier/Récemment ouvert"
+msgstr "/Datei/Zuletzt geöffnet"
 
 #: ../src/menu.c:1006
 msgid "/Windows"
-msgstr "/Fenêtres"
+msgstr "/Fenster"
 
 #: ../src/menu.c:1056
 msgid "Could not view file in browser, the file does not yet have a name\n"
-msgstr "Impossible de visualiser le fichier dans le navigateur, le fichier n'a pas encore de nom\n"
+msgstr "Konnte Datei nicht in Dateibrowser anzeigen, die Datei hat noch keinen Namen\n"
 
 #: ../src/menu.c:1219
 #: ../src/menu.c:1239
@@ -1968,75 +1968,75 @@ msgstr "Impossible de visualiser le fichier dans le navigateur, le fichier n'a p
 #: ../src/menu.c:1295
 #: ../src/menu.c:1309
 msgid "/External"
-msgstr "/Externe"
+msgstr "/Extern"
 
 #: ../src/menu.c:1354
 msgid "/Document/Character Encoding"
-msgstr "/Document/Encodage"
+msgstr "/Dokument/Encoding"
 
 #: ../src/menu.c:1620
 msgid "This custom search and replace requires a selection"
-msgstr "Cette recherche et remplacement personnalisé requiert une sélection"
+msgstr "Dieses benutzerdefinierte Suchen und Ersetzen benötigt eine Auswahl"
 
 #: ../src/menu.c:1718
 msgid "/_Custom menu"
-msgstr "/_Menu personnalisé"
+msgstr "/Benutzerdefiniertes _Menü"
 
 #: ../src/menu.c:1719
 msgid "/Custom menu/sep"
-msgstr "/Menu personnalisé/sep"
+msgstr "/Benutzerdefiniertes Menü/sep"
 
 #: ../src/menu.c:1720
 msgid "/Custom menu/Edit custom menu..."
-msgstr "/Menu personnalisé/Éditer menu personnalisé..."
+msgstr "/Benutzerdefiniertes Menü/Benutzerdefiniertes Menü bearbeiten..."
 
 #: ../src/menu.c:1721
 msgid "/Custom menu/Reset"
-msgstr "Menu personnalisé/Revenir aux valeurs par défaut"
+msgstr "/Benutzerdefiniertes Menü/Zurücksetzen"
 
 #: ../src/menu.c:1722
 msgid "/Custom menu/Load new"
-msgstr "Menu personnalisé/Charger le nouveau menu"
+msgstr "/Benutzerdefiniertes Menü/Neu laden"
 
 #: ../src/menu.c:1938
 msgid "Search Pattern"
-msgstr "Rechercher un modèle"
+msgstr "Pattern suchen"
 
 #: ../src/menu.c:1939
 msgid "Replace String"
-msgstr "Remplacer la chaîne"
+msgstr "Zeichenkette ersetzen"
 
 #: ../src/menu.c:1942
 msgid "Formatstring Before"
-msgstr "Préfixe de formatage"
+msgstr "Formatstring vorher"
 
 #: ../src/menu.c:1943
 msgid "Formatstring After"
-msgstr "Suffixe de formatage"
+msgstr "Formatstring nachher"
 
 #: ../src/menu.c:1990
 msgid "The menupath you want to update does not exist yet"
-msgstr "Le chemin du menu que vous voulez mettre à jour n'existe pas encore"
+msgstr "Der Menüpfad, den Sie aktualisieren wollen existiert noch nicht"
 
 #: ../src/menu.c:1990
 msgid "Try 'add' instead."
-msgstr "Essayez plutôt 'Ajouter'."
+msgstr "Versuchen Sie stattdessen 'Hinzufügen'."
 
 #: ../src/menu.c:1992
 msgid "The menupath you want to add already exists."
-msgstr "Le chemin du menu que vous voulez ajouter existe déjà."
+msgstr "Der Menüpfad, den Sie hinzufügen wollen existiert bereits."
 
 #: ../src/menu.c:1997
 msgid "The menupath should start with a / character"
-msgstr "Le chemin du menu doit commencer par le caractère /"
+msgstr "Der Menüpfad sollte mit einem /-Zeichen beginnen"
 
 #: ../src/menu.c:2159
 msgid "Custom Menu Editor"
-msgstr "Éditeur de menu personnalisé"
+msgstr "Editor für benutzerdefinierte Menüs"
 
 #: ../src/menu.c:2170
 msgid "Add New Menu Entry"
-msgstr "Ajouter une nouvelle entrée au Menu"
+msgstr "Neuen Menü-Eintrag hinzufügen"
 
 #: ../src/menu.c:2172
 msgid "Apply Changes"
@@ -2044,27 +2044,27 @@ msgstr "Änderungen anwenden"
 
 #: ../src/menu.c:2174
 msgid "Delete Menu Entry"
-msgstr "Supprimer l'entrée du Menu"
+msgstr "Menü-Eintrag löschen"
 
 #: ../src/menu.c:2177
 msgid "Close Discards Changes"
-msgstr "Abandonner et Fermer"
+msgstr "Beim Schließen werden alle ungespeicherten Änderungen verworfen"
 
 #: ../src/menu.c:2179
 msgid "Save Changes and Exit"
-msgstr "Enregistrer les changements et quitter"
+msgstr "Änderungen speichern und Beenden"
 
 #: ../src/menu.c:2189
 msgid "_Menu Path:"
-msgstr "Chemin du _menu :"
+msgstr "_Menüpfad:"
 
 #: ../src/menu.c:2210
 msgid "Menu path"
-msgstr "Chemin du menu :"
+msgstr "Menüpfad"
 
 #: ../src/menu.c:2230
 msgid "Number of _Variables:"
-msgstr "Nombre de _variables :"
+msgstr "Anzahl der _Variablen :"
 
 #: ../src/menu.c:2238
 msgid "Variables"
@@ -2072,11 +2072,11 @@ msgstr "Variablen"
 
 #: ../src/menu.c:2257
 msgid "Custom Dialo_g"
-msgstr "Dialo_gue personnalisé"
+msgstr "Benutzerdefinierter Dialo_g"
 
 #: ../src/menu.c:2259
 msgid "Custom Replace"
-msgstr "Remplacement personnalisé"
+msgstr "Benutzerdefiniertes Ersetzen"
 
 #: ../src/menu.c:2271
 msgid "_Replace:"
@@ -2084,23 +2084,23 @@ msgstr "E_rsetzen:"
 
 #: ../src/menu.c:2274
 msgid "in current document"
-msgstr "dans le document actif"
+msgstr "im geöffneten Dokument"
 
 #: ../src/menu.c:2274
 msgid "from cursor"
-msgstr "à partir du curseur"
+msgstr "von Zeigerposition an"
 
 #: ../src/menu.c:2274
 msgid "in selection"
-msgstr "à l'intérieur de la sélection"
+msgstr "in Auswahl"
 
 #: ../src/menu.c:2274
 msgid "in all open documents"
-msgstr "dans tous les documents ouverts"
+msgstr "in allen geöffneten Dokumenten"
 
 #: ../src/menu.c:2282
 msgid "Matc_hing:"
-msgstr "Correspondance :"
+msgstr "Übereinstimmung:"
 
 #: ../src/menu.c:2285
 msgid "normal"
@@ -2108,19 +2108,19 @@ msgstr "normal"
 
 #: ../src/menu.c:2285
 msgid "posix regular expresions"
-msgstr "expression régulière posix"
+msgstr "reguläre POSIX-Ausdrücke"
 
 #: ../src/menu.c:2285
 msgid "perl regular expresions"
-msgstr "expression régulière perl"
+msgstr "reguläre Perl-Ausdrücke"
 
 #: ../src/menu.c:2291
 msgid "Case Se_nsitive"
-msgstr "Se_nsible à la casse"
+msgstr "Groß-/Kleinschreibung _beachten"
 
 #: ../src/msg_queue.c:243
 msgid "These files were not opened:\n"
-msgstr "Ces fichiers n'ont pas été ouverts :\n"
+msgstr "Diese Dateien wurden nicht geöffnet:\n"
 
 #: ../src/outputbox.c:166
 msgid "hide this box"
@@ -2133,17 +2133,17 @@ msgstr "Zeile kopieren"
 #: ../src/outputbox.c:192
 #, c-format
 msgid "goto line %s, file = %s"
-msgstr "Aller à la ligne %s du fichier %s"
+msgstr "Gehe zu Zeile %s in Datei %s"
 
 #: ../src/outputbox.c:194
 #, c-format
 msgid "goto file = %s"
-msgstr "Aller dans le fichier %s"
+msgstr "Gehe zu Datei %s"
 
 #: ../src/outputbox.c:198
 #, c-format
 msgid "goto line %s, current file"
-msgstr "Aller à la ligne %s du fichier actif"
+msgstr "Gehe zu Zeile %s des geöffneten Dokuments"
 
 #: ../src/outputbox.c:203
 #, c-format
@@ -2156,64 +2156,64 @@ msgstr "Néant"
 
 #: ../src/outputbox.c:385
 msgid "term"
-msgstr "Élément"
+msgstr "Ausdruck"
 
 #: ../src/outputbox.c:482
 msgid "tool is running. press Escape to stop it first."
-msgstr "La commande est en cours d'exécution. Appuyez d'abord sur la touche Escape pour arrêter son exécution."
+msgstr "Tool wird ausgeführt. Zuerst Escape drücken um es zu beenden."
 
 #: ../src/outputbox.c:492
 msgid "empty command"
-msgstr "Rafraîchir la ligne de commande"
+msgstr "Leere Anweisung"
 
 #: ../src/outputbox.c:498
 #, c-format
 msgid "%s # project mode: ON"
-msgstr "%s # mode projet: ACTIF"
+msgstr "%s # Projekt-Modus: EIN"
 
 #: ../src/outputbox.c:500
 #, c-format
 msgid "%s # project mode: OFF"
-msgstr "%s # mode projet: INACTIF"
+msgstr "%s # Projekt-Modus: AUS"
 
 #: ../src/outputbox.c:509
 msgid "file wasnot saved. tool canceled"
-msgstr "Le fichier n'a pas été enregistré. La commande a été annulée."
+msgstr "Datei wurde nicht gespeichert. Tool abgebrochen."
 
 #: ../src/outputbox.c:533
 #, c-format
 msgid "failed to compile pattern %s"
-msgstr "Échec de la compilation du modèle %s"
+msgstr "Kompilierung des Patterns fehlgeschlagen %s"
 
 #: ../src/outputbox.c:586
 msgid "stop request. stopping tool..."
-msgstr "Demande d'arrêt d'exécution. Commande en cours d'arrêt..."
+msgstr "Stop-Anweisung. Beende Tool..."
 
 #: ../src/outputbox_bf.c:169
 #: ../src/outputbox_bf.c:178
 #, c-format
 msgid "some error happened creating fifo %s"
-msgstr "Une erreur s'est produite lors de la création du fifo %s"
+msgstr "Ein Fehler trat bei der fifo-Erstellung auf %s"
 
 #: ../src/outputbox_bf.c:391
 #, c-format
 msgid "exit code: %d"
-msgstr "Abbruchcode: %d"
+msgstr "Exit-Code: %d"
 
 #: ../src/outputbox_bf.c:399
 #: ../src/outputbox_ka.c:97
 msgid "the child process exited abnormally"
-msgstr "Le processus enfant s'est terminé anormalement"
+msgstr "Der Kind-Prozess wurde abnormal beendet"
 
 #: ../src/outputbox_ka.c:93
 #, c-format
 msgid "Exit code: %d"
-msgstr "Abbruchcode: %d"
+msgstr "Exit-Code: %d"
 
 #: ../src/outputbox_ka.c:151
 #, c-format
 msgid "IOChannel Error: %s"
-msgstr "Erreur sur les canaux E/S : %s"
+msgstr "IOChannel-Fehler: %s"
 
 #: ../src/outputbox_ka.c:294
 #, c-format
@@ -2222,34 +2222,34 @@ msgstr "Fehler: %s"
 
 #: ../src/outputbox_ka.c:297
 msgid "hint: you may call the tool again"
-msgstr "Astuce : vous pouvez relancer la commande"
+msgstr "Hinweis: Sie können das Tool erneut aufrufen"
 
 #: ../src/outputbox_ka.c:300
 msgid "tool finished."
-msgstr "Exécution de la commande terminée."
+msgstr "Ausführung des Tools beendet."
 
 #: ../src/outputbox_ka.c:306
 msgid "error: cannot create PIPE file."
-msgstr "Erreur : impossible de créer le fichier tube."
+msgstr "Fehler: Konnte PIPE-Datei nicht erstellen."
 
 #: ../src/outputbox_ka.c:311
 msgid "error: cannot create temporarily file."
-msgstr "Erreur : impossible de créer le fichier temporaire."
+msgstr "Fehler: Konnte temporäre Datei nicht erstellen."
 
 #: ../src/preferences.c:278
 msgid "Untitled"
-msgstr "Sans titre"
+msgstr "Unbenannt"
 
 #: ../src/preferences.c:378
 msgid "Select font"
-msgstr "Sélection de police"
+msgstr "Schriftart auswählen"
 
 #: ../src/preferences.c:504
 #: ../src/preferences.c:592
 #: ../src/preferences.c:1077
 #: ../src/preferences.c:1414
 msgid "Label"
-msgstr "Étiquette"
+msgstr "Label"
 
 #: ../src/preferences.c:505
 msgid "Extensions"
@@ -2257,7 +2257,7 @@ msgstr "Erweiterungen"
 
 #: ../src/preferences.c:506
 msgid "Update chars"
-msgstr "Mise à jour des caractères"
+msgstr "Zeichen aktualisieren"
 
 #: ../src/preferences.c:507
 msgid "Icon"
@@ -2265,27 +2265,27 @@ msgstr "Symbol"
 
 #: ../src/preferences.c:508
 msgid "Editable"
-msgstr "Änderbar"
+msgstr "editierbar"
 
 #: ../src/preferences.c:509
 msgid "Content regex"
-msgstr "Contenu de l'expression régulière"
+msgstr "Regex-Inhalt"
 
 #: ../src/preferences.c:510
 msgid "AutoCompletion"
-msgstr "Terminaison automatique"
+msgstr "Automatische Vervollständigung"
 
 #: ../src/preferences.c:593
 msgid "Inverse filter"
-msgstr "Inverser le filtre"
+msgstr "inverser Filter"
 
 #: ../src/preferences.c:594
 msgid "Filetypes in filter"
-msgstr "Types de fichier dans le filtre"
+msgstr "Dateitypen des Filters"
 
 #: ../src/preferences.c:948
 msgid "filetype"
-msgstr "Type de fichier"
+msgstr "Dateityp"
 
 #: ../src/preferences.c:953
 msgid "Reset"
@@ -2302,63 +2302,63 @@ msgstr "Pattern"
 
 #: ../src/preferences.c:1000
 msgid "Start pattern and end pattern"
-msgstr "Le modèle comporte un début et une fin"
+msgstr "Start-Pattern und End-Pattern"
 
 #: ../src/preferences.c:1002
 msgid "Only start pattern"
-msgstr "Le modèle ne comporte pas de fin"
+msgstr "Nur Start-Pattern"
 
 #: ../src/preferences.c:1004
 msgid "Subpattern from parent"
-msgstr "Modèle enfant"
+msgstr "Sub-Pattern vom übergeordneten"
 
 #: ../src/preferences.c:1010
 msgid "Start pattern"
-msgstr "Début du modèle"
+msgstr "Start-Pattern"
 
 #: ../src/preferences.c:1011
 msgid "End pattern"
-msgstr "Fin du modèle"
+msgstr "End-Pattern"
 
 #: ../src/preferences.c:1012
 msgid "Case sensitive matching"
-msgstr "Respecter la casse"
+msgstr "Groß-/Kleinschreibung berücksichtigen"
 
 #: ../src/preferences.c:1013
 msgid "Parentmatch"
-msgstr "Modèle parent"
+msgstr "Übereinstimmung mit übergeordnetem"
 
 #: ../src/preferences.c:1014
 msgid "Foreground color"
-msgstr "Couleur du premier plan"
+msgstr "Vordergrund-Farbe"
 
 #: ../src/preferences.c:1015
 msgid "Background color"
-msgstr "Couleur d'arrière-plan"
+msgstr "Hintergrund-Farbe"
 
 #: ../src/preferences.c:1023
 msgid "don't change weight"
-msgstr "Ne pas changer la graisse"
+msgstr "Gewichtung nicht ändern"
 
 #: ../src/preferences.c:1025
 msgid "force non-bold weight"
-msgstr "Non-gras"
+msgstr "nicht-fett erzwingen"
 
 #: ../src/preferences.c:1027
 msgid "force bold weight"
-msgstr "Gras"
+msgstr "fett erzwingen"
 
 #: ../src/preferences.c:1033
 msgid "don't change style"
-msgstr "Ne pas changer le style"
+msgstr "Stil nicht ändern"
 
 #: ../src/preferences.c:1035
 msgid "force non-italic style"
-msgstr "Non-italique"
+msgstr "nicht-kursiv erzwingen"
 
 #: ../src/preferences.c:1037
 msgid "force italic style"
-msgstr "Italique"
+msgstr "kursiv erzwingen"
 
 #: ../src/preferences.c:1078
 #: ../src/preferences.c:1334
@@ -2378,9 +2378,9 @@ msgid ""
 "\n"
 "Because of peformance reason, Winefish doesnot load your autotext file automatically. You may do it manually by choosing 'Refresh' now. *Note* that this may take a quite long time."
 msgstr ""
-"Veuillez mettre à jour la liste avant d'ajouter un élément.\n"
+"Bitte die Liste vor dem Hinzufügen von Einträgen aktualisieren.\n"
 "\n"
-"Pour des raisons de performance, Winefish ne charge pas automatiquement le texte automatique. Vous pouvez le faire manuellement en cliquant sur 'Mettre à jour maintenant'. *Notez* que cela peut prendre un certain temps."
+"Aus Performancegründen lädt Winefish Ihre autotext-Datei nicht automatisch. Sie können das manuell über 'Aktualisiern' tun. *Beachten* Sie, dass dies eine relativ lange Zeit dauern kann."
 
 #: ../src/preferences.c:1212
 msgid ""
@@ -2388,9 +2388,9 @@ msgid ""
 "\n"
 "Because of peformance reason, Winefish doesnot load your 'word-list' file automatically. You may do it manually by choosing 'Refresh' now. *Note* that this may take a quite long time."
 msgstr ""
-"Veuillez mettre à jour la liste avant d'ajouter un élément.\n"
+"Bitte die Liste vor dem Hinzufügen von Einträgen aktualisieren.\n"
 "\n"
-"Pour des raisons de performance, Winefish ne charge pas automatiquement le fichier 'liste de mots'. Vous pouvez le faire manuellement en cliquant sur 'Mettre à jour maintenant'. *Notez* que cela peut prendre un certain temps."
+"Aus Performancegründen lädt Winefish Ihre Wörterliste-Datei nicht automatisch. Sie können das manuell über 'Aktualisiern' tun. *Beachten* Sie, dass dies eine relativ lange Zeit dauern kann."
 
 #: ../src/preferences.c:1281
 msgid "Definition"
@@ -2409,16 +2409,16 @@ msgid ""
 "Add new autotext definition.\n"
 "Start finding the old one by pressing CTRL+F."
 msgstr ""
-"Ajoute une nouvelle définition de texte automatique.\n"
-"Commencez par rechercher l'ancienne en appuyant sur CTRL+F."
+"Fügen Sie eine neue autotext-Definition hinzu.\n"
+"Suchen Sie die vorherige mit STRG+F."
 
 #: ../src/preferences.c:1373
 msgid ""
 "Add new word which should be started by '\\'.\n"
 "Start finding the old one by pressing CTRL+F."
 msgstr ""
-"Ajoute un nouveau mot - il doit commencer par '\\'.\n"
-"Commencez par rechercher l'ancien en appuyant sur CTRL+F."
+"Fügen Sie ein neues Wort hinzu, das mit '\\' anfangen sollte.\n"
+"Suchen Sie das vorherige mit STRG+F."
 
 #: ../src/preferences.c:1503
 msgid "Name"
@@ -2438,7 +2438,7 @@ msgstr "Ausgabe #"
 
 #: ../src/preferences.c:1509
 msgid "Save,Show"
-msgstr "Enregistrement, Affichage"
+msgstr "Speichern, Anzeigen"
 
 #: ../src/preferences.c:1548
 msgid ""
@@ -2459,22 +2459,22 @@ msgid ""
 "\tboth of them: 1+2 =3\n"
 "\tnone of them: 0"
 msgstr ""
-"%D : répertoire de base du projet\n"
-"%B : fichier de base du projet (sans extension)\n"
-"%d : répertoire courant\n"
-"%b : nom de base du fichier actif (sans extension)\n"
-"%f : nom du fichier actif (chemin complet)\n"
-"%l : ligne active\n"
-"%% : signe pourcentage\n"
+"%D : Basisverzeichnis des Projekts\n"
+"%B : Basisdatei des Projekts (ohne Erweiterung)\n"
+"%d : aktuelles Verzeichnis\n"
+"%b : Basisname der aktuellen Datei (ohne Erweiterung)\n"
+"%f : aktuelle Datei (vollständiger Pfad)\n"
+"%l : aktuelle Zeile\n"
+"%% : Prozentzeichen\n"
 "\n"
-"Si aucun projet n'est ouvert ou si le mode projet est inactif, on a :\n"
+"Gibt es kein Projekt oder ist der Projektmodus aus haben wir :\n"
 "\t%D = %d et %B = %b\n"
 "\n"
-"Enregistrement, Affichage :\n"
-"\tEnregistrer le fichier : 1\n"
-"\tAfficher tous les résultats : 2\n"
-"\tLes deux : 1+2 =3\n"
-"\tAucun des deux: 0"
+"Speichern, Anzeigen:\n"
+"\tDatei speichern: 1\n"
+"\tGesamte Ausgabe zeigen: 2\n"
+"\tBeides: 1+2 =3\n"
+"\tKeins von beiden: 0"
 
 #: ../src/preferences.c:1863
 #: ../src/preferences.c:1864
@@ -2496,19 +2496,19 @@ msgstr "unten"
 
 #: ../src/preferences.c:1865
 msgid "no check"
-msgstr "Aucune vérification"
+msgstr "Keine Überprüfung"
 
 #: ../src/preferences.c:1865
 msgid "check mtime and size"
-msgstr "Vérifier la date de modification et la taille du fichier"
+msgstr "Änderungszeitpunkt und Größe überprüfen"
 
 #: ../src/preferences.c:1865
 msgid "check mtime"
-msgstr "Vérifier la date de modification"
+msgstr "Änderungszeitpunkt überprüfen"
 
 #: ../src/preferences.c:1865
 msgid "check size"
-msgstr "Vérifier la taille"
+msgstr "Größe überprüfen"
 
 #: ../src/preferences.c:1868
 msgid "Edit preferences"
@@ -2520,7 +2520,7 @@ msgstr "Editor"
 
 #: ../src/preferences.c:1882
 msgid "Editor options"
-msgstr "Options de l'éditeur"
+msgstr "Einstellungen des Editors"
 
 #: ../src/preferences.c:1887
 msgid "Font"
@@ -2532,19 +2532,19 @@ msgstr "Tabulatorweite"
 
 #: ../src/preferences.c:1889
 msgid "Use spaces to indent, not tabs"
-msgstr "Utiliser des espaces pour indenter plutôt que des tabulations"
+msgstr "Leerzeichen statt Tabulatoren zum Einrücken verwenden"
 
 #: ../src/preferences.c:1890
 msgid "Word wrap default"
-msgstr "Césure par défaut"
+msgstr "Zeilen standardmäßig umbrechen"
 
 #: ../src/preferences.c:1892
 msgid "Highlight syntax by default"
-msgstr "Coloration syntaxique par défaut"
+msgstr "Syntax standardmäßig hervorheben"
 
 #: ../src/preferences.c:1893
 msgid "Highlight # lines"
-msgstr "Coloration nombre de lignes"
+msgstr "Anzahl hervorgehobene Zeilen"
 
 #: ../src/preferences.c:1895
 msgid "Undo"
@@ -2560,11 +2560,11 @@ msgstr "Undo-"
 
 #: ../src/preferences.c:1903
 msgid "Bookmark options"
-msgstr "Options des signets"
+msgstr "Lesezeichen-Einstellungen"
 
 #: ../src/preferences.c:1908
 msgid "Make permanent by default"
-msgstr "Rendre permanent par défaut"
+msgstr "Dauerhaft anzeigen"
 
 #: ../src/preferences.c:1910
 msgid "full path"
@@ -2572,7 +2572,7 @@ msgstr "Vollständiger Pfad"
 
 #: ../src/preferences.c:1910
 msgid "path from basedir"
-msgstr "Chemin à partir du répertoire de travail"
+msgstr "Pfad vom Basisverzeichnis aus"
 
 #: ../src/preferences.c:1910
 msgid "filename"
@@ -2580,7 +2580,7 @@ msgstr "Dateiname"
 
 #: ../src/preferences.c:1911
 msgid "Bookmarks filename display"
-msgstr "Affichage du nom de fichier du signet"
+msgstr "Anzeige des Lesezeichen-Dateinamen"
 
 #: ../src/preferences.c:1916
 msgid "Files"
@@ -2592,7 +2592,7 @@ msgstr "Encoding"
 
 #: ../src/preferences.c:1930
 msgid "Default character set"
-msgstr "Jeu de caractères par défaut"
+msgstr "Standard-Zeichensatz"
 
 #: ../src/preferences.c:1936
 msgid "Backup"
@@ -2600,11 +2600,11 @@ msgstr "Backup"
 
 #: ../src/preferences.c:1940
 msgid "Create backup on save"
-msgstr "Créer une sauvegarde à l'enregistrement"
+msgstr "Beim Speichern Backup-Datei erstellen"
 
 #: ../src/preferences.c:1941
 msgid "Backup file suffix"
-msgstr "Extension du fichier de sauvegarde"
+msgstr "Suffix der Backup-Datei"
 
 #: ../src/preferences.c:1943
 msgid "save"
@@ -2624,7 +2624,7 @@ msgstr "Falls das Backup fehlschlägt"
 
 #: ../src/preferences.c:1946
 msgid "Remove backupfile on close"
-msgstr "Supprimer la sauvegarde à la fermeture"
+msgstr "Beim Schließen Backupdatei entfernen"
 
 #: ../src/preferences.c:1950
 msgid "Misc"
@@ -2632,19 +2632,19 @@ msgstr "Diverses"
 
 #: ../src/preferences.c:1955
 msgid "Allow multi instances of a file"
-msgstr "Autoriser plusieurs instances d'un même fichier"
+msgstr "Mehrere Instanzen einer Datei erlauben"
 
 #: ../src/preferences.c:1957
 msgid "Open files in already running winefish window"
-msgstr "Ouvrir les fichiers dans la fenêtre active de Winefish"
+msgstr "Dateien im aktiven Winefish-Fenster öffnen"
 
 #: ../src/preferences.c:1959
 msgid "File modified on disk check "
-msgstr "Fichier modifié sur le disque"
+msgstr "Überprüfung ob Datei auf Festplatte geändert wurde"
 
 #: ../src/preferences.c:1960
 msgid "Number of files in 'Open recent'"
-msgstr "Nombre de fichiers dans 'Récemment ouvert'"
+msgstr "Anzahl der Dateien in 'Zuletzt geöffnet'"
 
 #: ../src/preferences.c:1962
 msgid "File browser"
@@ -2656,7 +2656,7 @@ msgstr "Standard-Basisverzeichnis"
 
 #: ../src/preferences.c:1967
 msgid "Use separate file and directory view"
-msgstr "Utiliser une vue scindée répertoires/fichiers"
+msgstr "Seperate Datei- und Verzeichnisansicht verwenden"
 
 #: ../src/preferences.c:1968
 msgid "Unknown icon"
@@ -2680,7 +2680,7 @@ msgstr "Letzte benutzte Größe wiederherstellen"
 
 #: ../src/preferences.c:1980
 msgid "Initial sidebar width"
-msgstr "Sidebar Anfangsbreite"
+msgstr "Anfangsbreite der Seitenleiste"
 
 #: ../src/preferences.c:1981
 msgid "Initial window height"
@@ -2704,15 +2704,15 @@ msgstr "Schriftart für Karteikartenreiter (leer für Standard)"
 
 #: ../src/preferences.c:1995
 msgid "Document notebook tab position"
-msgstr "Position de l'onglet"
+msgstr "Position des Tabs"
 
 #: ../src/preferences.c:1996
 msgid "Sidebar notebook tab position"
-msgstr "Position de l'onglet du panneau latéral"
+msgstr "Position des Tabs in der Seitenleiste"
 
 #: ../src/preferences.c:1997
 msgid "Sidebar location"
-msgstr "Anordnung Sidebar"
+msgstr "Anordnung Seitenleiste"
 
 #: ../src/preferences.c:2001
 #: ../src/preferences.c:2003
@@ -2721,7 +2721,7 @@ msgstr "Dateitypen"
 
 #: ../src/preferences.c:2010
 msgid "Filefilters"
-msgstr "Filtres de fichiers"
+msgstr "Dateifilter"
 
 #: ../src/preferences.c:2019
 msgid "Highlighting"
@@ -2729,7 +2729,7 @@ msgstr "Hervorhebung"
 
 #: ../src/preferences.c:2021
 msgid "Patterns"
-msgstr "Muster"
+msgstr "Pattern"
 
 #: ../src/preferences.c:2030
 msgid "Viewers, Filters"
@@ -2741,7 +2741,7 @@ msgstr "Betrachter"
 
 #: ../src/preferences.c:2039
 msgid "Utilities and Filters"
-msgstr "Utilitaires et Filtres"
+msgstr "Werkzeuge und Filter"
 
 #: ../src/preferences.c:2046
 #: ../src/preferences.c:2069
@@ -2757,9 +2757,9 @@ msgid ""
 "%%: percent sign"
 msgstr ""
 "%f : Name der geöffneten Datei\n"
-"%i : nom du fichier d'entrée (filtres)\n"
-"%o : nom du fichier de sortie (filtres)\n"
-"%%: signe pourcentage"
+"%i : Input (Filter)\n"
+"%o : Output-Dateiname (Filter)\n"
+"%%: Prozentzeichen"
 
 #: ../src/preferences.c:2059
 #: ../src/preferences.c:2061
@@ -2792,15 +2792,15 @@ msgstr "Spalten-Markierungen"
 
 #: ../src/preferences.c:2114
 msgid "Marker 1"
-msgstr "Marqueur 1"
+msgstr "Marker 1"
 
 #: ../src/preferences.c:2115
 msgid "Marker 2"
-msgstr "Marqueur 2"
+msgstr "Marker 2"
 
 #: ../src/preferences.c:2116
 msgid "Marker 3"
-msgstr "Marqueur 3"
+msgstr "Marker 3"
 
 #: ../src/project.c:89
 msgid "New project"
@@ -2809,7 +2809,7 @@ msgstr "Neues Projekt"
 #: ../src/project.c:176
 #: ../src/project.c:183
 msgid "Enter Winefish project filename"
-msgstr "Saisir le nom du projet Winefish"
+msgstr "Name des Winefish-Projekts eingeben"
 
 #: ../src/project.c:224
 msgid "/Project/Save"
@@ -2875,7 +2875,7 @@ msgstr "_Template:"
 
 #: ../src/project.c:585
 msgid "_Word wrap by default"
-msgstr "_Césure par défaut"
+msgstr "standardmäßiger Zeilenumbruch"
 
 #: ../src/project.c:597
 msgid "Create _Project"
@@ -2923,7 +2923,7 @@ msgstr "Unbenanntes Projekt"
 
 #: ../src/snr2.c:193
 msgid "Regular expression error: "
-msgstr "Erreur d'expression régulière : "
+msgstr "Fehler bei regulären Ausdruck: "
 
 #: ../src/snr2.c:194
 #: ../src/snr2.c:239
@@ -2933,7 +2933,7 @@ msgstr "Suche fehlgeschlagen"
 #: ../src/snr2.c:238
 #, c-format
 msgid "Regular expression error: %s at offset %d"
-msgstr "Erreur d'expression régulière : %s à la position %d"
+msgstr "Fehler bei regulären Ausdruck: %s an Position %d"
 
 #: ../src/snr2.c:864
 msgid "Confirm replace"
@@ -2941,48 +2941,48 @@ msgstr "Ersetzung bestätigen"
 
 #: ../src/snr2.c:876
 msgid "Replace selected text?"
-msgstr "Remplacer le texte sélectionné ?"
+msgstr "Ausgewählten Text ersetzen?"
 
 #: ../src/snr2.c:889
 msgid "_Skip"
-msgstr "_Ignorer"
+msgstr "_Überspringen"
 
 #: ../src/snr2.c:891
 msgid "Replace _all"
-msgstr "Tout rempl_acer"
+msgstr "_Alle ersetzen"
 
 #: ../src/snr2.c:1136
 #: ../src/snr2.c:1143
 msgid "Search: no match found"
-msgstr "Recherche : aucun résultat trouvé"
+msgstr "Suche: Kein Resultat"
 
 #: ../src/snr2.c:1369
 msgid "_Search for: "
-msgstr "_Rechercher : "
+msgstr "_Suchen nach: "
 
 #: ../src/snr2.c:1395
 msgid "_Replace with: "
-msgstr "Remplacer _par : "
+msgstr "E_rsetzen mit: "
 
 #: ../src/snr2.c:1405
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
-msgstr "\\0 se réfère au premier sous-modèle, \\1 au deuxième, etc."
+msgstr "\\0 entspricht dem ersten Sub-Suchpattern, \\1 dem zweiten, etc."
 
 #: ../src/snr2.c:1420
 msgid "Beginning of document till end"
-msgstr "Du début à la fin du document"
+msgstr "Anfang des Dokuments bis Ende"
 
 #: ../src/snr2.c:1420
 msgid "Current position till end"
-msgstr "De la position du curseur jusqu'à la fin"
+msgstr "Aktuelle Position bis Ende"
 
 #: ../src/snr2.c:1420
 msgid "Beginning of selection till end of selection"
-msgstr "Du début à la fin de la sélection"
+msgstr "Anfang der Auswahl bis Ende der Auswahl"
 
 #: ../src/snr2.c:1420
 msgid "All opened files begin till end"
-msgstr "Du début à la fin de tous les fichiers ouverts"
+msgstr "Anfang aller geöffneten Dateien bis Ende"
 
 #: ../src/snr2.c:1421
 msgid "Disabled"
@@ -2990,19 +2990,19 @@ msgstr "Deaktiviert"
 
 #: ../src/snr2.c:1421
 msgid "POSIX type"
-msgstr "De type POSIX"
+msgstr "POSIX"
 
 #: ../src/snr2.c:1421
 msgid "PERL type"
-msgstr "De type PERL"
+msgstr "PERL"
 
 #: ../src/snr2.c:1422
 msgid "Starts at:"
-msgstr "Beginnt bei : "
+msgstr "Beginnt bei: "
 
 #: ../src/snr2.c:1434
 msgid "Regular expression:"
-msgstr "Expression régulière : "
+msgstr "regulärer Ausdruck: "
 
 #: ../src/snr2.c:1448
 msgid "Normal"
@@ -3010,43 +3010,43 @@ msgstr "Normal"
 
 #: ../src/snr2.c:1448
 msgid "Uppercase"
-msgstr "Mettre en majuscules"
+msgstr "Großschreibung"
 
 #: ../src/snr2.c:1448
 msgid "Lowercase"
-msgstr "Mettre en minuscules"
+msgstr "Kleinschreibung"
 
 #: ../src/snr2.c:1449
 msgid "Replace type:"
-msgstr "Type de remplacement :"
+msgstr "Ersetzungstyp:"
 
 #: ../src/snr2.c:1462
 msgid ""
 "_Patterns contain backslash escape sequences (\\n"
 ", \\t)"
 msgstr ""
-"Les _modèles contiennent des séquences d'échappement (\\n"
+"Pattern enthält Backslash-Escape-Sequenzen(\\n"
 ", \\t)"
 
 #: ../src/snr2.c:1463
 msgid "_Match case"
-msgstr "Respecter la ca_sse"
+msgstr "_Groß-/Kleinschreibung beachten"
 
 #: ../src/snr2.c:1464
 msgid "O_verlap searches"
-msgstr "Recherches ré_cursives"
+msgstr "Suchen überlappen"
 
 #: ../src/snr2.c:1466
 msgid "Prompt _before replace"
-msgstr "_Demander avant de remplacer"
+msgstr "_Vor Ersetzen fragen"
 
 #: ../src/snr2.c:1467
 msgid "Replace o_nce"
-msgstr "Remplacer _une seule fois"
+msgstr "Ei_nmal ersetzen"
 
 #: ../src/snr2.c:1469
 msgid "Bookmark results"
-msgstr "Créer des signets"
+msgstr "Lesezeichen-Ergebnisse"
 
 #: ../src/winefish.c:109
 #, c-format
@@ -3055,7 +3055,7 @@ msgid ""
 "Usage: %s [options] [filenames ...]\n"
 msgstr ""
 "\n"
-"Utilisation : %s [options] [nomdefichier ...]\n"
+"Benutzung: %s [Optionen] [Dateinamen ...]\n"
 
 #: ../src/winefish.c:110
 msgid ""
@@ -3063,11 +3063,11 @@ msgid ""
 "Currently accepted options are:\n"
 msgstr ""
 "\n"
-"Les options actuellement acceptées sont :\n"
+"Momentan akzeptierte Optionen sind:\n"
 
 #: ../src/winefish.c:111
 msgid "-s           skip root check\n"
-msgstr "-s          Omettre la vérification root\n"
+msgstr "-s          Wurzel-Überprüfung überspringen\n"
 
 #: ../src/winefish.c:112
 msgid "-v           current version\n"
@@ -3075,11 +3075,11 @@ msgstr "-v          Aktuelle Version\n"
 
 #: ../src/winefish.c:113
 msgid "-n 0|1       open new window (1) or not (0)\n"
-msgstr "-n 0|1       ouvrir une nouvelle fenêtre (1) ou non (0)\n"
+msgstr "-n 0|1      neues Fenster öffnen (1) oder nicht (0)\n"
 
 #: ../src/winefish.c:114
 msgid "-p filename  open project\n"
-msgstr "-p Dateiname  Öffnet das Projekt\n"
+msgstr "-p Dateiname  Projekt öffnen\n"
 
 #: ../src/winefish.c:115
 msgid "-l number    set line<number>. Negative value takes no effect.\n"
@@ -3091,27 +3091,27 @@ msgstr "-h          Zeigt diesen Hilfetext\n"
 
 #: ../src/winefish.c:193
 msgid "parsing highlighting file..."
-msgstr "Traitement de la coloration syntaxique du fichier..."
+msgstr "Lesen Beschreibung der Syntax-Hervorhebung ein..."
 
 #: ../src/winefish.c:204
 msgid "compiling highlighting patterns..."
-msgstr "Compilation des modèles de coloration syntaxique..."
+msgstr "Kompiliere Hervorhebungsmuster..."
 
 #: ../src/winefish.c:208
 msgid "initialize some other things..."
-msgstr "Initialisation diverses..."
+msgstr "Initialisiere einige andere Dinge..."
 
 #: ../src/winefish.c:214
 msgid "parsing autotext and words file..."
-msgstr "Analyse du texte automatique et du fichier de mots..."
+msgstr "Lese autotext und Wörter-Datei ein..."
 
 #: ../src/winefish.c:219
 msgid "parsing custom menu file..."
-msgstr "Traitement du fichier de menu personnalisé..."
+msgstr "Lese Datei für benutzerdefinierte Menüs ein..."
 
 #: ../src/winefish.c:225
 msgid "parsing keymap and initializing function list..."
-msgstr "Parse Tastenbelegung und initialisiere Funktionsliste..."
+msgstr "Lese Tastenbelegung ein und initialisiere Funktionsliste..."
 
 #: ../src/winefish.c:242
 msgid "creating main gui..."
@@ -3124,12 +3124,12 @@ msgstr "Anzeigen der graphischen Benutzeroberfläche..."
 #: ../src/wizards.c:139
 #, c-format
 msgid "row %d col"
-msgstr "ligne % colonne"
+msgstr "Zeile % Spalte"
 
 #: ../src/wizards.c:157
 #, c-format
 msgid "%%%% row %d\n"
-msgstr "%%%% ligne %d\n"
+msgstr "%%%% Zeile %d\n"
 
 #: ../src/wizards.c:251
 msgid "Table Wizard"
@@ -3137,19 +3137,19 @@ msgstr "Tabellen-Assistent"
 
 #: ../src/wizards.c:259
 msgid "Number of _rows:"
-msgstr "Nombre de _lignes :"
+msgstr "Anzahl der _Zeilen :"
 
 #: ../src/wizards.c:263
 msgid "Number of colu_mns:"
-msgstr "No_mbre de colonnes :"
+msgstr "_Anzahl der Spalten:"
 
 #: ../src/wizards.c:267
 msgid "Add Horizontal Rules:"
-msgstr "Ajouter des traits horizontaux :"
+msgstr "Hinzufügen von horizontalen Regeln:"
 
 #: ../src/wizards.c:287
 msgid "Type (Environment):"
-msgstr "Type (environnement) :"
+msgstr "Typ (Environment) :"
 
 #: ../src/wizards.c:297
 msgid "Columns Alignmen:"
@@ -3157,7 +3157,7 @@ msgstr "Spalten-Ausrichtung"
 
 #: ../src/wizards.c:311
 msgid "Vertical Rules:"
-msgstr "Traits Verticaux :"
+msgstr "Vertikale Regeln:"
 
 #: ../src/wizards.c:408
 msgid "Insert Time"
@@ -3208,20 +3208,20 @@ msgstr "  _Datum (%i/%i/%i)"
 #: ../src/wizards.c:453
 #, c-format
 msgid "  _Unix Time (%i)"
-msgstr "  Heure au format _Unix (%i)"
+msgstr "  Zeit im _Unix-Format (%i)"
 
 #: ../src/wizards.c:456
 #, c-format
 msgid "  Unix Date _String (%s"
-msgstr "  Date au _format Unix (%s"
+msgstr " Datum in Unix-_Format (%s"
 
 #: ../src/wizards.c:518
 msgid "Quick Start"
-msgstr "Démarrage rapide"
+msgstr "Schnellstart"
 
 #: ../src/wizards.c:533
 msgid "Document _Class:"
-msgstr "_Classe du document :"
+msgstr "_Dokumentklasse"
 
 #: ../src/wizards.c:551
 msgid "_VnTeX Support:"
@@ -3235,7 +3235,7 @@ msgstr "Eintrag"
 
 #: ../src/wizards.c:628
 msgid "Quick List"
-msgstr "Liste rapide"
+msgstr "Schnellliste"
 
 #: ../src/wizards.c:635
 msgid "_Rows:"
@@ -3243,5 +3243,5 @@ msgstr "_Zeilen :"
 
 #: ../src/wizards.c:646
 msgid "Type (_Environment):"
-msgstr "Type (_Environnement) :"
+msgstr "Typ (_Environment) :"
 
