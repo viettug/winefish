@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: winefish-1.3.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-04-23 08:49+0700\n"
-"PO-Revision-Date: 2011-12-23 22:18+0100\n"
+"PO-Revision-Date: 2011-12-27 19:16+0100\n"
 "Last-Translator: Chris Neuner <cneuner@yahoo.de>\n"
 "Language-Team: deutsch\n"
 "MIME-Version: 1.0\n"
@@ -96,9 +96,7 @@ msgstr "Hoppla..."
 #: ../src/bf_lib.c:54
 #: ../src/bf_lib.c:68
 msgid "Winefish has trouble reading the filenames. Try to set the environment variable G_BROKEN_FILENAMES=1\n"
-msgstr ""
-"Winefish hat Probleme die Dateinamen zu erkennen. Versuchen Sie die Umgebungsvariable G_BROKEN_FILENAMES=1\n"
-" zu setzen."
+msgstr "Winefish hat Probleme die Dateinamen zu erkennen. Versuchen Sie die Umgebungsvariable G_BROKEN_FILENAMES=1 zu setzen.\n"
 
 #: ../src/bfspell.c:428
 msgid "Check Spelling"
@@ -540,7 +538,7 @@ msgstr ""
 #: ../src/document.c:3843
 #: ../src/msg_queue.c:245
 msgid "Unable to open file(s)\n"
-msgstr "Datei(en) konnte(n) nicht geöffnet werden"
+msgstr "Datei(en) konnte(n) nicht geöffnet werden\n"
 
 #: ../src/document.c:3890
 msgid "unable to open file"
@@ -3123,7 +3121,7 @@ msgstr "Anzeigen der graphischen Benutzeroberfläche..."
 #: ../src/wizards.c:139
 #, c-format
 msgid "row %d col"
-msgstr "Zeile % Spalte"
+msgstr "Zeile %d Spalte"
 
 #: ../src/wizards.c:157
 #, c-format
